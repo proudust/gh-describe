@@ -6337,8 +6337,11 @@ async function run() {
     try {
         const token = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("token");
         const [owner, repo] = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("repo").split("/");
+        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.debug)(`input repo: ${owner}/${repo}`);
         const baseSha = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("sha");
+        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.debug)(`input sha: ${baseSha}`);
         const defaultDescribe = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("default");
+        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.debug)(`input default: ${defaultDescribe}`);
         const octokit = (0,_actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit)(token);
         const [tags, commits] = await Promise.all([
             fetchTagsMap(octokit, owner, repo),

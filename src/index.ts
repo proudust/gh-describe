@@ -1,4 +1,4 @@
-import { getInput, info, setFailed, setOutput } from "@actions/core";
+import { debug, getInput, info, setFailed, setOutput } from "@actions/core";
 import { getOctokit } from "@actions/github";
 
 type Octokit = ReturnType<typeof getOctokit>;
@@ -7,8 +7,11 @@ async function run(): Promise<void> {
   try {
     const token = getInput("token");
     const [owner, repo] = getInput("repo").split("/");
+    debug(`input repo: ${owner}/${repo}`);
     const baseSha = getInput("sha");
+    debug(`input sha: ${baseSha}`);
     const defaultDescribe = getInput("default");
+    debug(`input default: ${defaultDescribe}`);
     const octokit = getOctokit(token);
 
     const [tags, commits] = await Promise.all([
