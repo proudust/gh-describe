@@ -1,0 +1,28 @@
+name: gh-describe
+description: "`git describe --tags` in shallow clones on GitHub Actions."
+author: Proudust
+
+inputs:
+  token:
+    required: true
+    default: ${{ github.token }}
+  repo:
+    required: true
+    default: ${{ github.github.repository }}
+  sha:
+    required: true
+    default: ${{ github.ref }}
+  default:
+    required: false
+
+output:
+  describe:
+    description: "`git describe --tags` result"
+
+runs:
+  using: node12
+  main: dist/index.js
+
+branding:
+  icon: git-pull-request
+  color: gray-dark
