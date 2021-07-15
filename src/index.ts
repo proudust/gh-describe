@@ -1,31 +1,35 @@
-import { getInput, info, setOutput } from "@actions/core";
+import { getInput, info, setFailed, setOutput } from "@actions/core";
 import { getOctokit } from "@actions/github";
 
 type Octokit = ReturnType<typeof getOctokit>;
 
 async function run(): Promise<void> {
-  const token = getInput("token");
-  const [owner, repo] = getInput("repo").split("/");
-  const baseSha = getInput("sha");
-  const defaultDescribe = getInput("default");
-  const octokit = getOctokit(token);
+  try {
+    const token = getInput("token");
+    const [owner, repo] = getInput("repo").split("/");
+    const baseSha = getInput("sha");
+    const defaultDescribe = getInput("default");
+    const octokit = getOctokit(token);
 
-  const [tags, commits] = await Promise.all([
-    fetchTagsMap(octokit, owner, repo),
-    octokit.rest.repos.listCommits({ owner, repo, sha: baseSha }),
-  ]);
+    const [tags, commits] = await Promise.all([
+      fetchTagsMap(octokit, owner, repo),
+      octokit.rest.repos.listCommits({ owner, repo, sha: baseSha }),
+    ]);
 
-  let describe = defaultDescribe;
-  for (let i = 0; i < commits.data.length; i++) {
-    const sha = commits.data[i].sha;
-    const tag = tags.get(sha);
-    if (tag) {
-      describe = getDescribe(tag, i, sha);
-      break;
+    let describe = defaultDescribe;
+    for (let i = 0; i < commits.data.length; i++) {
+      const sha = commits.data[i].sha;
+      const tag = tags.get(sha);
+      if (tag) {
+        describe = getDescribe(tag, i, sha);
+        break;
+      }
     }
+    info(describe);
+    setOutput("describe", describe);
+  } catch (e) {
+    setFailed(e);
   }
-  info(describe);
-  setOutput("describe", describe);
 }
 
 async function fetchTagsMap(
