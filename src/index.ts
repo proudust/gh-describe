@@ -28,7 +28,7 @@ async function run(): Promise<void> {
     info(describe);
     setOutput("describe", describe);
   } catch (e) {
-    setFailed(e);
+    setFailed(e?.stack || e);
   }
 }
 
