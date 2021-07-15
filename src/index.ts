@@ -37,8 +37,12 @@ async function fetchTagsMap(
   owner: string,
   repo: string
 ): Promise<ReadonlyMap<string, string>> {
-  const tags = await octokit.rest.repos.listTags({ owner, repo });
-  return new Map(tags.data.map((t) => [t.commit.sha, t.name]));
+  try {
+    const { data } = await octokit.rest.repos.listTags({ owner, repo });
+    return new Map(data.map((t) => [t.commit.sha, t.name]));
+  } catch {
+    return new Map();
+  }
 }
 
 function getDescribe(tag: string, distance: number, sha: string) {

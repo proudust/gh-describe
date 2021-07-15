@@ -6361,8 +6361,13 @@ async function run() {
     }
 }
 async function fetchTagsMap(octokit, owner, repo) {
-    const tags = await octokit.rest.repos.listTags({ owner, repo });
-    return new Map(tags.data.map((t) => [t.commit.sha, t.name]));
+    try {
+        const { data } = await octokit.rest.repos.listTags({ owner, repo });
+        return new Map(data.map((t) => [t.commit.sha, t.name]));
+    }
+    catch {
+        return new Map();
+    }
 }
 function getDescribe(tag, distance, sha) {
     if (distance === 0) {
