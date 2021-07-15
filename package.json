@@ -5,7 +5,6 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "ncc build --source-map --license licenses.txt",
-    "build:tsc": "tsc",
     "fix": "run-s fix:prettier fix:eslint fix:tsc",
     "fix:eslint": "npm run lint:eslint -- --fix",
     "fix:prettier": "npm run lint:prettier -- --write",
@@ -15,7 +14,8 @@
     "lint:prettier": "prettier --check .",
     "lint:tsc": "tsc src/**.ts --noEmit",
     "test": "run-p -l -c --aggregate-output lint:* unit",
-    "unit": "jest"
+    "unit": "jest",
+    "watch": "npm run build -- -w"
   },
   "repository": {
     "type": "git",
