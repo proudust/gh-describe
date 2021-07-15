@@ -6351,7 +6351,7 @@ async function run() {
         for (let i = 0; i < commits.data.length; i++) {
             const tag = tags.get(commits.data[i].sha);
             if (tag) {
-                describe = getDescribe(tag, i, sha);
+                describe = getDescribe(tag, i, commits.data[0].sha);
                 break;
             }
         }
