@@ -8,21 +8,20 @@ async function run(): Promise<void> {
     const token = getInput("token");
     const [owner, repo] = getInput("repo").split("/");
     debug(`input repo: ${owner}/${repo}`);
-    const baseSha = getInput("sha");
-    debug(`input sha: ${baseSha}`);
+    const sha = getInput("sha");
+    debug(`input sha: ${sha}`);
     const defaultDescribe = getInput("default");
     debug(`input default: ${defaultDescribe}`);
     const octokit = getOctokit(token);
 
     const [tags, commits] = await Promise.all([
       fetchTagsMap(octokit, owner, repo),
-      octokit.rest.repos.listCommits({ owner, repo, sha: baseSha }),
+      octokit.rest.repos.listCommits({ owner, repo, sha }),
     ]);
 
     let describe = defaultDescribe;
     for (let i = 0; i < commits.data.length; i++) {
-      const sha = commits.data[i].sha;
-      const tag = tags.get(sha);
+      const tag = tags.get(commits.data[i].sha);
       if (tag) {
         describe = getDescribe(tag, i, sha);
         break;

@@ -6338,19 +6338,18 @@ async function run() {
         const token = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("token");
         const [owner, repo] = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("repo").split("/");
         (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.debug)(`input repo: ${owner}/${repo}`);
-        const baseSha = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("sha");
-        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.debug)(`input sha: ${baseSha}`);
+        const sha = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("sha");
+        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.debug)(`input sha: ${sha}`);
         const defaultDescribe = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("default");
         (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.debug)(`input default: ${defaultDescribe}`);
         const octokit = (0,_actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit)(token);
         const [tags, commits] = await Promise.all([
             fetchTagsMap(octokit, owner, repo),
-            octokit.rest.repos.listCommits({ owner, repo, sha: baseSha }),
+            octokit.rest.repos.listCommits({ owner, repo, sha }),
         ]);
         let describe = defaultDescribe;
         for (let i = 0; i < commits.data.length; i++) {
-            const sha = commits.data[i].sha;
-            const tag = tags.get(sha);
+            const tag = tags.get(commits.data[i].sha);
             if (tag) {
                 describe = getDescribe(tag, i, sha);
                 break;
