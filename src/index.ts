@@ -1,34 +1,71 @@
-import { debug, getInput, info, setFailed, setOutput } from "@actions/core";
+import { debug, getInput, setFailed, setOutput } from "@actions/core";
 import { getOctokit } from "@actions/github";
 
 type Octokit = ReturnType<typeof getOctokit>;
 
+interface Inputs {
+  token: string;
+  owner: string;
+  repo: string;
+  commitish: string;
+  defaultValue: string;
+}
+
+function getInputs(): Inputs {
+  const token = getInput("token");
+
+  function get(name: string): string {
+    const value = getInput(name);
+    debug(`input ${name}: ${value}`);
+    return value;
+  }
+
+  const [owner, repo] = get("repo").split("/");
+  const commitish = get("commit-ish");
+  const defaultValue = get("default");
+  return { token, owner, repo, commitish, defaultValue };
+}
+
 async function run(): Promise<void> {
   try {
-    const token = getInput("token");
-    const [owner, repo] = getInput("repo").split("/");
-    debug(`input repo: ${owner}/${repo}`);
-    const sha = getInput("sha");
-    debug(`input sha: ${sha}`);
-    const defaultDescribe = getInput("default");
-    debug(`input default: ${defaultDescribe}`);
-    const octokit = getOctokit(token);
+    const inputs = getInputs();
+    const octokit = getOctokit(inputs.token);
 
     const [tags, commits] = await Promise.all([
-      fetchTagsMap(octokit, owner, repo),
-      octokit.rest.repos.listCommits({ owner, repo, sha }),
+      fetchTagsMap(octokit, inputs.owner, inputs.repo),
+      octokit.rest.repos.listCommits({
+        owner: inputs.owner,
+        repo: inputs.repo,
+        sha: inputs.commitish,
+      }),
     ]);
 
-    let describe = defaultDescribe;
     for (let i = 0; i < commits.data.length; i++) {
       const tag = tags.get(commits.data[i].sha);
       if (tag) {
-        describe = getDescribe(tag, i, commits.data[0].sha);
-        break;
+        setOutput("describe", getDescribe(tag, i, commits.data[0].sha));
+        setOutput("tag", tag);
+        setOutput("distance", i);
+        setOutput("sha", commits.data[0].sha);
+        return;
       }
     }
-    info(describe);
-    setOutput("describe", describe);
+
+    if (!inputs.defaultValue) {
+      setFailed("A tag cannot be found in the commit history.");
+    } else {
+      setOutput(
+        "describe",
+        getDescribe(
+          inputs.defaultValue,
+          commits.data.length,
+          commits.data[0].sha
+        )
+      );
+      setOutput("tag", inputs.defaultValue);
+      setOutput("distance", commits.data.length);
+      setOutput("sha", commits.data[0].sha);
+    }
   } catch (e) {
     setFailed(e?.stack || e);
   }

@@ -4,20 +4,39 @@ author: Proudust
 
 inputs:
   token:
-    required: true
+    description: Personal Access Token (PAT)
     default: ${{ github.token }}
   repo:
-    required: true
+    description: Target repository
     default: ${{ github.repository }}
-  sha:
-    required: true
+  commit-ish:
+    description: >
+      Commit-ish object names to describe.
+      The branch or tag ref that triggered the workflow run.
     default: ${{ github.ref }}
   default:
-    required: false
+    description: >
+      It is output instead when it action fails.
+      If empty, this step will fail.
+    default:
 
 output:
   describe:
-    description: "`git describe --tags` result"
+    description: >
+      `git describe --tags` like describe.
+      ex) v1.0.4-14-g2414721
+  tag:
+    description: >
+      Most recent tag.
+      ex) v1.0.4
+  distance:
+    description: >
+      The number of additional commits from most recent tag. ex)
+      ex) 14
+  sha:
+    description: >
+      Object name for the commit itself. ex)
+      ex) 2414721
 
 runs:
   using: node12

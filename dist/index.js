@@ -6333,30 +6333,49 @@ __nccwpck_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(_actions_github__WEBPACK_IMPORTED_MODULE_1__);
 
 
+function getInputs() {
+    const token = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("token");
+    function get(name) {
+        const value = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)(name);
+        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.debug)(`input ${name}: ${value}`);
+        return value;
+    }
+    const [owner, repo] = get("repo").split("/");
+    const commitish = get("commit-ish");
+    const defaultValue = get("default");
+    return { token, owner, repo, commitish, defaultValue };
+}
 async function run() {
     try {
-        const token = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("token");
-        const [owner, repo] = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("repo").split("/");
-        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.debug)(`input repo: ${owner}/${repo}`);
-        const sha = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("sha");
-        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.debug)(`input sha: ${sha}`);
-        const defaultDescribe = (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)("default");
-        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.debug)(`input default: ${defaultDescribe}`);
-        const octokit = (0,_actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit)(token);
+        const inputs = getInputs();
+        const octokit = (0,_actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit)(inputs.token);
         const [tags, commits] = await Promise.all([
-            fetchTagsMap(octokit, owner, repo),
-            octokit.rest.repos.listCommits({ owner, repo, sha }),
+            fetchTagsMap(octokit, inputs.owner, inputs.repo),
+            octokit.rest.repos.listCommits({
+                owner: inputs.owner,
+                repo: inputs.repo,
+                sha: inputs.commitish,
+            }),
         ]);
-        let describe = defaultDescribe;
         for (let i = 0; i < commits.data.length; i++) {
             const tag = tags.get(commits.data[i].sha);
             if (tag) {
-                describe = getDescribe(tag, i, commits.data[0].sha);
-                break;
+                (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("describe", getDescribe(tag, i, commits.data[0].sha));
+                (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("tag", tag);
+                (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("distance", i);
+                (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("sha", commits.data[0].sha);
+                return;
             }
         }
-        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.info)(describe);
-        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("describe", describe);
+        if (!inputs.defaultValue) {
+            (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed)("A tag cannot be found in the commit history.");
+        }
+        else {
+            (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("describe", getDescribe(inputs.defaultValue, commits.data.length, commits.data[0].sha));
+            (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("tag", inputs.defaultValue);
+            (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("distance", commits.data.length);
+            (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("sha", commits.data[0].sha);
+        }
     }
     catch (e) {
         (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed)((e === null || e === void 0 ? void 0 : e.stack) || e);
