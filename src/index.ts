@@ -1,4 +1,4 @@
-import { debug, getInput, setFailed, setOutput } from "@actions/core";
+import { debug, getInput, info, setFailed, setOutput } from "@actions/core";
 import { getOctokit } from "@actions/github";
 
 type Octokit = ReturnType<typeof getOctokit>;
@@ -43,7 +43,9 @@ async function run(): Promise<void> {
     for (let i = 0; i < commits.data.length; i++) {
       const tag = tags.get(commits.data[i].sha);
       if (tag) {
-        setOutput("describe", getDescribe(tag, i, commits.data[0].sha));
+        const describe = getDescribe(tag, i, commits.data[0].sha);
+        info(describe);
+        setOutput("describe", describe);
         setOutput("tag", tag);
         setOutput("distance", i);
         setOutput("sha", commits.data[0].sha);
@@ -54,14 +56,13 @@ async function run(): Promise<void> {
     if (!inputs.defaultValue) {
       setFailed("A tag cannot be found in the commit history.");
     } else {
-      setOutput(
-        "describe",
-        getDescribe(
-          inputs.defaultValue,
-          commits.data.length,
-          commits.data[0].sha
-        )
+      const describe = getDescribe(
+        inputs.defaultValue,
+        commits.data.length,
+        commits.data[0].sha
       );
+      info(describe);
+      setOutput("describe", describe);
       setOutput("tag", inputs.defaultValue);
       setOutput("distance", commits.data.length);
       setOutput("sha", commits.data[0].sha);

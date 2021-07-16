@@ -6360,7 +6360,9 @@ async function run() {
         for (let i = 0; i < commits.data.length; i++) {
             const tag = tags.get(commits.data[i].sha);
             if (tag) {
-                (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("describe", getDescribe(tag, i, commits.data[0].sha));
+                const describe = getDescribe(tag, i, commits.data[0].sha);
+                (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.info)(describe);
+                (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("describe", describe);
                 (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("tag", tag);
                 (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("distance", i);
                 (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("sha", commits.data[0].sha);
@@ -6371,7 +6373,9 @@ async function run() {
             (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed)("A tag cannot be found in the commit history.");
         }
         else {
-            (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("describe", getDescribe(inputs.defaultValue, commits.data.length, commits.data[0].sha));
+            const describe = getDescribe(inputs.defaultValue, commits.data.length, commits.data[0].sha);
+            (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.info)(describe);
+            (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("describe", describe);
             (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("tag", inputs.defaultValue);
             (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("distance", commits.data.length);
             (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("sha", commits.data[0].sha);
