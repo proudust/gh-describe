@@ -32,6 +32,17 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify No Unstaged Changes
+        run: |
+          if [[ "$(git status --porcelain)" != "" ]]; then
+            echo git status
+            git status
+            echo git diff
+            git diff
+            echo "::error::Unstaged changes detected."
+            exit 1
+          fi
+
   test:
     runs-on: ubuntu-latest
     if: >
