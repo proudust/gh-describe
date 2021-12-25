@@ -6357,28 +6357,34 @@ async function run() {
                 sha: inputs.commitish,
             }),
         ]);
-        for (let i = 0; i < commits.data.length; i++) {
-            const tag = tags.get(commits.data[i].sha);
-            if (tag) {
-                const describe = getDescribe(tag, i, commits.data[0].sha);
-                (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.info)(describe);
-                (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("describe", describe);
-                (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("tag", tag);
-                (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("distance", i);
-                (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("sha", commits.data[0].sha);
-                return;
+        const { sha } = commits.data[0];
+        if (0 < tags.size) {
+            for (let i = 0; i < commits.data.length; i++) {
+                const tag = tags.get(commits.data[i].sha);
+                if (tag) {
+                    const describe = getDescribe(tag, i, sha);
+                    (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.info)(describe);
+                    (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("describe", describe);
+                    (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("tag", tag);
+                    (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("distance", i);
+                    (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("sha", sha);
+                    return;
+                }
             }
         }
         if (!inputs.defaultValue) {
             (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed)("A tag cannot be found in the commit history.");
+            return;
         }
         else {
-            const describe = getDescribe(inputs.defaultValue, commits.data.length, commits.data[0].sha);
+            const totalCount = await fetchHistoryTotalCount(octokit, inputs.owner, inputs.repo, sha);
+            const describe = getDescribe(inputs.defaultValue, totalCount, sha);
             (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.info)(describe);
             (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("describe", describe);
             (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("tag", inputs.defaultValue);
-            (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("distance", commits.data.length);
-            (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("sha", commits.data[0].sha);
+            (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("distance", totalCount);
+            (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput)("sha", sha);
+            return;
         }
     }
     catch (e) {
@@ -6394,6 +6400,22 @@ async function fetchTagsMap(octokit, owner, repo) {
     catch {
         return new Map();
     }
+}
+async function fetchHistoryTotalCount(octokit, owner, repo, sha) {
+    const { repository } = await octokit.graphql(`
+    {
+      repository(owner: "${owner}", name: "${repo}") {
+        object(expression: "${sha}") {
+          ... on Commit {
+            history(first: 0) {
+              totalCount
+            }
+          }
+        }
+      }
+    }
+  `);
+    return repository.object.history.totalCount;
 }
 function getDescribe(tag, distance, sha) {
     if (distance === 0) {

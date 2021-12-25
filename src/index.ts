@@ -39,33 +39,41 @@ async function run(): Promise<void> {
         sha: inputs.commitish,
       }),
     ]);
+    const { sha } = commits.data[0];
 
-    for (let i = 0; i < commits.data.length; i++) {
-      const tag = tags.get(commits.data[i].sha);
-      if (tag) {
-        const describe = getDescribe(tag, i, commits.data[0].sha);
-        info(describe);
-        setOutput("describe", describe);
-        setOutput("tag", tag);
-        setOutput("distance", i);
-        setOutput("sha", commits.data[0].sha);
-        return;
+    if (0 < tags.size) {
+      for (let i = 0; i < commits.data.length; i++) {
+        const tag = tags.get(commits.data[i].sha);
+        if (tag) {
+          const describe = getDescribe(tag, i, sha);
+          info(describe);
+          setOutput("describe", describe);
+          setOutput("tag", tag);
+          setOutput("distance", i);
+          setOutput("sha", sha);
+          return;
+        }
       }
     }
 
     if (!inputs.defaultValue) {
       setFailed("A tag cannot be found in the commit history.");
+      return;
     } else {
-      const describe = getDescribe(
-        inputs.defaultValue,
-        commits.data.length,
-        commits.data[0].sha
+      const totalCount = await fetchHistoryTotalCount(
+        octokit,
+        inputs.owner,
+        inputs.repo,
+        sha
       );
+
+      const describe = getDescribe(inputs.defaultValue, totalCount, sha);
       info(describe);
       setOutput("describe", describe);
       setOutput("tag", inputs.defaultValue);
-      setOutput("distance", commits.data.length);
-      setOutput("sha", commits.data[0].sha);
+      setOutput("distance", totalCount);
+      setOutput("sha", sha);
+      return;
     }
   } catch (e) {
     const message = (e instanceof Error && e.stack) || String(e);
@@ -84,6 +92,38 @@ async function fetchTagsMap(
   } catch {
     return new Map();
   }
+}
+
+interface FetchHistoryTotalCountResult {
+  repository: {
+    object: {
+      history: {
+        totalCount: number;
+      };
+    };
+  };
+}
+
+async function fetchHistoryTotalCount(
+  octokit: Octokit,
+  owner: string,
+  repo: string,
+  sha: string
+) {
+  const { repository } = await octokit.graphql<FetchHistoryTotalCountResult>(`
+    {
+      repository(owner: "${owner}", name: "${repo}") {
+        object(expression: "${sha}") {
+          ... on Commit {
+            history(first: 0) {
+              totalCount
+            }
+          }
+        }
+      }
+    }
+  `);
+  return repository.object.history.totalCount;
 }
 
 function getDescribe(tag: string, distance: number, sha: string) {
