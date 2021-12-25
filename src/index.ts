@@ -68,7 +68,8 @@ async function run(): Promise<void> {
       setOutput("sha", commits.data[0].sha);
     }
   } catch (e) {
-    setFailed(e?.stack || e);
+    const message = (e instanceof Error && e.stack) || String(e);
+    setFailed(message);
   }
 }
 

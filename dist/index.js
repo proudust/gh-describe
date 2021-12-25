@@ -6382,7 +6382,8 @@ async function run() {
         }
     }
     catch (e) {
-        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed)((e === null || e === void 0 ? void 0 : e.stack) || e);
+        const message = (e instanceof Error && e.stack) || String(e);
+        (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed)(message);
     }
 }
 async function fetchTagsMap(octokit, owner, repo) {
