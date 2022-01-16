@@ -11,9 +11,9 @@
     "lint": "run-p -l -c --aggregate-output lint:*",
     "lint:deno-lint": "deno lint --config deno.jsonc",
     "lint:deno-fmt": "deno fmt --check --config deno.jsonc",
+    "start": "deno run --allow-run src/cli.ts",
     "test": "run-p -l -c --aggregate-output lint:* unit",
-    "unit": "deno test src",
-    "watch": "npm run build -- -w"
+    "unit": "deno test src"
   },
   "repository": {
     "type": "git",
