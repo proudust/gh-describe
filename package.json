@@ -12,7 +12,7 @@
     "lint:deno-lint": "deno lint --config deno.jsonc",
     "lint:deno-fmt": "deno fmt --check --config deno.jsonc",
     "test": "run-p -l -c --aggregate-output lint:* unit",
-    "unit": "jest",
+    "unit": "deno test src",
     "watch": "npm run build -- -w"
   },
   "repository": {
@@ -29,9 +29,6 @@
   },
   "homepage": "https://github.com/proudust/gh-describe#readme",
   "devDependencies": {
-    "@types/jest": "^27.4.0",
-    "jest": "^27.4.7",
-    "npm-run-all": "^4.1.5",
-    "ts-jest": "^27.1.2"
+    "npm-run-all": "^4.1.5"
   }
 }
