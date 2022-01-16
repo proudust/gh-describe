@@ -27,7 +27,4 @@ await esbuild({
   target: "es2021",
 });
 
-console.log("$ rm -rf ./dist/dnt");
-await Deno.remove("./dist/dnt", { recursive: true });
-
 Deno.exit();
