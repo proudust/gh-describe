@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+set -e
+
+SCRIPT_DIR="$(
+    cd "$(dirname -- "$0")"
+    pwd
+)"
+
+if type deno >/dev/null; then
+    deno run -q --allow-run --no-check "${SCRIPT_DIR}"/src/cli.ts "$@"
+else
+    echo "Error: deno is required to run gh-describe." >&2
+    exit 1
+fi
