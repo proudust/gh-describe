@@ -65,6 +65,25 @@ async function getOriginRepo() {
   return `${owner}/${name.endsWith(".git") ? name.substring(0, name.length - 4) : name}`;
 }
 
+async function getHeadSha() {
+  await Deno.permissions.request({ name: "run", command: "git" });
+  const process = Deno.run({
+    cmd: ["git", "rev-parse", "HEAD"],
+    stdout: "piped",
+    stderr: "piped",
+  });
+  const [status, stdout, stderr] = await Promise.all([
+    process.status(),
+    process.output(),
+    process.stderrOutput(),
+  ]);
+  if (status.code === 0) {
+    return (new TextDecoder().decode(stdout)).trim();
+  } else {
+    throw new Error((new TextDecoder().decode(stderr)).trim());
+  }
+}
+
 type CommandOptions = { repo?: string; default?: string };
 type CommandArguments = [commitIsh: string | undefined];
 
@@ -81,7 +100,7 @@ await new Command<CommandOptions, CommandArguments>()
       return await getOriginRepo();
     })();
     const defaultValue = options.default;
-    commitish ||= "master";
+    commitish ||= await getHeadSha();
 
     try {
       await Deno.permissions.request({ name: "run", command: "gh" });
