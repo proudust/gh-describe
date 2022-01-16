@@ -1,7 +1,10 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
-  "editor.formatOnType": true,
-  "editor.codeActionsOnSave": ["source.organizeImports", "source.fixAll.eslint"]
+  "deno.enable": false,
+  "deno.lint": true,
+  "deno.unstable": true,
+  "deno.config": "./deno.jsonc",
+  "editor.defaultFormatter": "denoland.vscode-deno",
+  "deno.suggest.imports.hosts": {
+    "https://deno.land": true
+  }
 }

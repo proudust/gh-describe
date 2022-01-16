@@ -2,10 +2,10 @@
 
 `git describe --tags` in shallow clones on GitHub Actions.
 
-`git describe` command is useful for versioning a development build.
-However, this command requires a history of all tags and branches,
-which is difficult to use in workflows where you often shallow clone.
-This action gets the history from the GitHub API instead of locally and reproduces its behavior.
+`git describe` command is useful for versioning a development build. However, this command requires
+a history of all tags and branches, which is difficult to use in workflows where you often shallow
+clone. This action gets the history from the GitHub API instead of locally and reproduces its
+behavior.
 
 ## Usage
 
@@ -24,7 +24,7 @@ All inputs are optional. If not set, sensible defaults will be used.
 | token      | Personal Access Token (PAT)                                               | `GITHUB_TOKEN`                                            |
 | repo       | Target repository                                                         | The owner and repository that triggered the workflow run. |
 | commit-ish | Commit-ish object names to describe.                                      | The branch or tag ref that triggered the workflow run.    |
-| default    | It is output instead when it action fails. If empty, this step will fail. | ``                                                        |
+| default    | It is output instead when it action fails. If empty, this step will fail. | `​`                                                       |
 
 ### Action outputs
 
@@ -37,7 +37,7 @@ The following outputs can be used by subsequent workflow steps.
 | distance | The number of additional commits from most recent tag. | `14`                 |
 | sha      | Object name for the commit itself.                     | `2414721`            |
 
-Step outputs can be accessed as in the following example.
+Step outputs can be accessed as in the following example.\
 Note that in order to read the step outputs the action step must have an id.
 
 ```yml

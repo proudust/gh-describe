@@ -1,8 +1,0 @@
-extends:
-  - eslint:recommended
-  - plugin:@typescript-eslint/recommended
-  - plugin:github/recommended
-  - plugin:jest/recommended
-
-rules:
-  filenames/match-regex: off

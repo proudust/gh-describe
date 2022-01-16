@@ -23,6 +23,11 @@ jobs:
           node-version: 16
           cache: npm
 
+      - name: Use Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
       - name: Restore Dependencies
         run: npm ci
 

@@ -64,7 +64,7 @@ async function run(): Promise<void> {
         octokit,
         inputs.owner,
         inputs.repo,
-        sha
+        sha,
       );
 
       const describe = getDescribe(inputs.defaultValue, totalCount, sha);
@@ -84,7 +84,7 @@ async function run(): Promise<void> {
 async function fetchTagsMap(
   octokit: Octokit,
   owner: string,
-  repo: string
+  repo: string,
 ): Promise<ReadonlyMap<string, string>> {
   try {
     const { data } = await octokit.rest.repos.listTags({ owner, repo });
@@ -108,7 +108,7 @@ async function fetchHistoryTotalCount(
   octokit: Octokit,
   owner: string,
   repo: string,
-  sha: string
+  sha: string,
 ) {
   const { repository } = await octokit.graphql<FetchHistoryTotalCountResult>(`
     {
