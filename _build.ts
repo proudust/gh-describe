@@ -47,6 +47,7 @@ await Promise.all([
     target: "es2021",
     define: {
       "globalThis.version": "undefined",
+      "import.meta.url": "undefined",
     },
   }),
   await esbuild({

@@ -85,6 +85,9 @@ export async function getHeadSha(): Promise<string> {
   return (await exec(["git", "rev-parse", "HEAD"]));
 }
 
-export async function gitDescribe() {
-  return (await exec(["git", "describe", "--tags"]));
+export async function gitDescribe({ cwd }: { cwd: string }) {
+  const cmd = ["git"];
+  if (cwd) cmd.push("-C", cwd);
+  cmd.push("describe", "--tags");
+  return await exec(cmd);
 }
