@@ -1,3 +1,5 @@
+import { graphql, listCommits, listRepositoryTags } from "./gh.ts";
+
 export default ghDescribe;
 
 interface GhDescribeOutput {
@@ -8,15 +10,16 @@ interface GhDescribeOutput {
 }
 
 export async function ghDescribe(
+  owner: string,
   repo: string,
   commitish: string,
   defaultValue?: string,
 ): Promise<GhDescribeOutput> {
-  const [tags, sha] = await Promise.all([fetchTags(repo), fetchSha(repo, commitish)]);
+  const [tags, sha] = await Promise.all([fetchTags(owner, repo), fetchSha(owner, repo, commitish)]);
 
   if (0 < tags.size) {
     let distance = 0;
-    for await (const commit of fetchHistory(repo, sha)) {
+    for await (const commit of fetchHistory(owner, repo, sha)) {
       const tag = tags.get(commit);
       if (tag) {
         const describe = genDescribe(tag, distance, sha);
@@ -36,142 +39,67 @@ export async function ghDescribe(
   return { describe, tag: defaultValue, distance: totalCommit, sha };
 }
 
-export async function fetchTags(repo: string): Promise<Map<string, string>> {
+export async function fetchTags(owner: string, repo: string): Promise<Map<string, string>> {
   const tags: [sha: string, name: string][] = [];
   const perPage = 100;
+  const jq = ".[] | [.commit.sha, .name]";
   let page = 0;
   let count: number;
   do {
     page++;
-    const process = Deno.run({
-      cmd: [
-        "gh",
-        "api",
-        `repos/${repo}/tags?per_page=${perPage}&page=${page}`,
-        "--jq",
-        ".[] | [.commit.sha, .name]",
-      ],
-      stdout: "piped",
-      stderr: "piped",
-    });
-    const [status, stdout, stderr] = await Promise.all([
-      process.status(),
-      process.output(),
-      process.stderrOutput(),
-    ]);
-    if (status.code === 0) {
-      count = tags.push(
-        ...(new TextDecoder().decode(stdout))
-          .trim()
-          .split("\n")
-          .map((x) => JSON.parse(x)),
-      );
-    } else {
-      throw new Error((new TextDecoder().decode(stderr)).trim());
-    }
+    const stdout = await listRepositoryTags(owner, repo, { perPage, page, jq });
+    count = tags.push(
+      ...stdout
+        .split("\n")
+        .map((x) => JSON.parse(x)),
+    );
   } while (count === perPage);
   return new Map(tags);
 }
 
-export async function fetchSha(repo: string, sha: string): Promise<string> {
+export async function fetchSha(owner: string, repo: string, sha: string): Promise<string> {
   const perPage = 1;
-  const page = 1;
-  const process = Deno.run({
-    cmd: [
-      "gh",
-      "api",
-      `repos/${repo}/commits?per_page=${perPage}&page=${page}&sha=${sha}`,
-      "--jq",
-      ".[].sha",
-    ],
-    stdout: "piped",
-    stderr: "piped",
-  });
-  const [status, stdout, stderr] = await Promise.all([
-    process.status(),
-    process.output(),
-    process.stderrOutput(),
-  ]);
-  if (status.code === 0) {
-    return (new TextDecoder().decode(stdout)).trim();
-  } else {
-    throw new Error((new TextDecoder().decode(stderr)).trim());
-  }
+  const jq = ".[].sha";
+  return await listCommits(owner, repo, { sha, perPage, jq });
 }
 
 export async function* fetchHistory(
+  owner: string,
   repo: string,
   sha: string,
 ): AsyncGenerator<string, void, void> {
   const perPage = 100;
+  const jq = ".[].sha";
   let page = 0;
   let count: number;
   do {
     page++;
-    const process = Deno.run({
-      cmd: [
-        "gh",
-        "api",
-        `repos/${repo}/commits?per_page=${perPage}&page=${page}&sha=${sha}`,
-        "--jq",
-        ".[].sha",
-      ],
-      stdout: "piped",
-      stderr: "piped",
-    });
-    const [status, stdout, stderr] = await Promise.all([
-      process.status(),
-      process.output(),
-      process.stderrOutput(),
-    ]);
-    if (status.code === 0) {
-      const historySpan = (new TextDecoder().decode(stdout))
-        .trim()
-        .split("\n");
-      count = historySpan.length;
-      for (const commitSha of historySpan) {
-        yield commitSha;
-      }
-    } else {
-      throw new Error((new TextDecoder().decode(stderr)).trim());
+    const stdout = await listCommits(owner, repo, { sha, perPage, page, jq });
+    const historySpan = stdout
+      .trim()
+      .split("\n");
+    count = historySpan.length;
+    for (const commitSha of historySpan) {
+      yield commitSha;
     }
   } while (count === perPage);
 }
 
-export async function fetchTotalCommit(repo: string, sha: string) {
-  const [owner, name] = repo.split("/");
-  const process = Deno.run({
-    cmd: [
-      "gh",
-      "api",
-      `graphql`,
-      "-F",
-      `query={
-        repository(owner: "${owner}", name: "${name}") {
-          object(expression: "${sha}") {
-            ... on Commit {
-              history(first: 0) {
-                totalCount
-              }
-            }
+export async function fetchTotalCommit(owner: string, repo: string, sha: string) {
+  const stdout = await graphql`
+  {
+    repository(owner: "${owner}", name: "${repo}") {
+      object(expression: "${sha}") {
+        ... on Commit {
+          history(first: 0) {
+            totalCount
           }
         }
-      }`,
-    ],
-    stdout: "piped",
-    stderr: "piped",
-  });
-  const [status, stdout, stderr] = await Promise.all([
-    process.status(),
-    process.output(),
-    process.stderrOutput(),
-  ]);
-  if (status.code === 0) {
-    const repository = JSON.parse((new TextDecoder().decode(stdout)).trim());
-    return repository.object.history.totalCount;
-  } else {
-    throw new Error((new TextDecoder().decode(stderr)).trim());
-  }
+      }
+    }
+  }`;
+  const repository = JSON.parse(stdout);
+  return repository.object.history.totalCount;
 }
 
 export function genDescribe(tag: string, distance: number, sha: string) {

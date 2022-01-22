@@ -95,19 +95,15 @@ await new Command<CommandOptions, CommandArguments>()
   .option("--default", "It is output instead when it action fails. If empty, this step will fail.")
   .arguments("[commit-ish]")
   .action(async (options, commitish) => {
-    const repo = options.repo || await (async () => {
+    const [owner, repo] = (options.repo || await (async () => {
       await Deno.permissions.request({ name: "run", command: "git" });
       return await getOriginRepo();
-    })();
+    })()).split("/");
     const defaultValue = options.default;
     commitish ||= await getHeadSha();
 
-    try {
-      await Deno.permissions.request({ name: "run", command: "gh" });
-      const { describe } = await ghDescribe(repo, commitish, defaultValue);
-      console.log(describe);
-    } catch (e: unknown) {
-      console.error(e instanceof Error && e.message || String(e));
-    }
+    await Deno.permissions.request({ name: "run", command: "gh" });
+    const { describe } = await ghDescribe(owner, repo, commitish, defaultValue);
+    console.log(describe);
   })
   .parse(Deno.args);
