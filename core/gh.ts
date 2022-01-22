@@ -29,10 +29,12 @@ class ExecError extends Error {
     public readonly cmd: readonly string[],
     public readonly code: number,
     public readonly stderr: string,
-    init?: ErrorInit,
   ) {
-    const command = cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ");
-    super(`\`${command}\` exit code is not zero, ExitCode: ${code}\n${stderr}`, init);
+    super(
+      `\`${
+        cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")
+      }\` exit code is not zero, ExitCode: ${code}\n${stderr}`,
+    );
   }
 }
 

@@ -1,5 +1,5 @@
 import { Command } from "https://deno.land/x/cliffy@v0.20.1/command/mod.ts";
-import { ghDescribe } from "./mod.ts";
+import { ghDescribe } from "../core/mod.ts";
 
 interface Remote {
   name: string;

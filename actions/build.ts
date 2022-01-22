@@ -4,8 +4,8 @@ import Package from "../package.json" assert { type: "json" };
 
 console.log("$ dnt");
 await dnt({
-  entryPoints: ["./src/actions.ts"],
-  outDir: "./dist/dnt",
+  entryPoints: ["./actions/main.ts"],
+  outDir: "./actions/dist",
   shims: {
     deno: true,
   },
@@ -21,8 +21,8 @@ await dnt({
 console.log("$ esbuild");
 await esbuild({
   bundle: true,
-  entryPoints: ["dist/dnt/esm/actions.js"],
-  outfile: "./dist/index.js",
+  entryPoints: ["./actions/dist/esm/actions/main.js"],
+  outfile: "./actions/dist/index.js",
   platform: "node",
   target: "es2021",
 });

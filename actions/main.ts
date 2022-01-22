@@ -1,5 +1,5 @@
 import { debug, getInput, info, setFailed, setOutput } from "https://esm.sh/@actions/core@1.6.0";
-import { ghDescribe } from "./mod.ts";
+import { ghDescribe } from "../core/mod.ts";
 
 async function run() {
   const token = getInput("token", { required: true });

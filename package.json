@@ -4,16 +4,16 @@
   "description": "`git describe --tags` in shallow clones on GitHub Actions.",
   "main": "src/index.ts",
   "scripts": {
-    "build": "deno run --allow-env --allow-net --allow-read --allow-run --allow-write src/actions_build.ts",
+    "build": "deno run --allow-env --allow-net --allow-read --allow-run --allow-write actions/build.ts",
     "fix": "run-s fix:*",
     "fix:deno-lint": "deno lint --config deno.jsonc",
     "fix:deno-fmt": "deno fmt --config deno.jsonc",
     "lint": "run-p -l -c --aggregate-output lint:*",
     "lint:deno-lint": "deno lint --config deno.jsonc",
     "lint:deno-fmt": "deno fmt --check --config deno.jsonc",
-    "start": "deno run --allow-run src/cli.ts",
+    "start": "deno run --allow-run cli/main.ts",
     "test": "run-p -l -c --aggregate-output lint:* unit",
-    "unit": "deno test src"
+    "unit": "deno test core"
   },
   "repository": {
     "type": "git",
