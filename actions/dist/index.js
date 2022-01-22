@@ -5769,7 +5769,7 @@ async function listCommits(owner, repo, { sha, perPage, page, jq } = {}) {
   if (perPage)
     param.set("per_page", String(perPage));
   if (page)
-    param.set("pag", String(page));
+    param.set("page", String(page));
   const cmd = ["gh", "api", `repos/${owner}/${repo}/commits?${param}`];
   if (jq)
     cmd.push("-q", jq);
@@ -5780,7 +5780,7 @@ async function listRepositoryTags(owner, repo, { perPage, page, jq } = {}) {
   if (perPage)
     param.set("per_page", String(perPage));
   if (page)
-    param.set("pag", String(page));
+    param.set("page", String(page));
   const cmd = ["gh", "api", `repos/${owner}/${repo}/tags?${param}`];
   if (jq)
     cmd.push("-q", jq);
@@ -5853,15 +5853,15 @@ function genDescribe(tag, distance, sha) {
 // actions/dist/esm/actions/main.js
 async function run() {
   const token = (0, import_core.getInput)("token", { required: true });
-  const repo = (0, import_core.getInput)("repo", { required: true });
-  (0, import_core.debug)(`input repo: ${repo}`);
+  const [owner, repo] = (0, import_core.getInput)("repo", { required: true }).split("/");
+  (0, import_core.debug)(`input repo: ${owner}/${repo}`);
   const commitish = (0, import_core.getInput)("commit-ish", { required: true });
   (0, import_core.debug)(`input commit-ish: ${commitish}`);
   const defaultValue = (0, import_core.getInput)("default");
   (0, import_core.debug)(`input default: ${defaultValue}`);
   try {
     import_shim_deno2.Deno.env.set("GITHUB_TOKEN", token);
-    const { describe, tag, distance, sha } = await ghDescribe(repo, commitish, defaultValue);
+    const { describe, tag, distance, sha } = await ghDescribe(owner, repo, commitish, defaultValue);
     (0, import_core.info)(describe);
     (0, import_core.setOutput)("describe", describe);
     (0, import_core.setOutput)("tag", tag);

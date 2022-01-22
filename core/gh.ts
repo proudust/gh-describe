@@ -62,7 +62,7 @@ export async function listCommits(
   const param = new URLSearchParams();
   if (sha) param.set("sha", sha);
   if (perPage) param.set("per_page", String(perPage));
-  if (page) param.set("pag", String(page));
+  if (page) param.set("page", String(page));
 
   const cmd = ["gh", "api", `repos/${owner}/${repo}/commits?${param}`];
   if (jq) cmd.push("-q", jq);
@@ -88,7 +88,7 @@ export async function listRepositoryTags(
 ): Promise<string> {
   const param = new URLSearchParams();
   if (perPage) param.set("per_page", String(perPage));
-  if (page) param.set("pag", String(page));
+  if (page) param.set("page", String(page));
 
   const cmd = ["gh", "api", `repos/${owner}/${repo}/tags?${param}`];
   if (jq) cmd.push("-q", jq);
