@@ -24,7 +24,7 @@ export async function exec(cmd: string[]): Promise<string> {
   }
 }
 
-class ExecError extends Error {
+export class ExecError extends Error {
   constructor(
     public readonly cmd: readonly string[],
     public readonly code: number,

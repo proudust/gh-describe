@@ -1,4 +1,4 @@
-import { graphql, listCommits, listRepositoryTags } from "./gh.ts";
+import { ExecError, graphql, listCommits, listRepositoryTags } from "./gh.ts";
 import { parse } from "./ghrepo.ts";
 
 export default ghDescribe;
@@ -77,25 +77,31 @@ export async function fetchSha({ owner, name, host }: Repo, sha: string): Promis
   }
 }
 
-export async function* fetchHistory(
-  { owner, name, host }: Repo,
-  sha: string,
-): AsyncGenerator<string, void, void> {
-  const perPage = 100;
-  const jq = ".[].sha";
-  let page = 0;
-  let count: number;
-  do {
-    page++;
-    const stdout = await listCommits(owner, name, { sha, perPage, page, host, jq });
-    const historySpan = stdout
-      .trim()
-      .split("\n");
-    count = historySpan.length;
-    for (const commitSha of historySpan) {
-      yield commitSha;
+export async function* fetchHistory(repo: Repo, sha: string): AsyncGenerator<string, void, void> {
+  try {
+    const { owner, name, host } = repo;
+    const perPage = 100;
+    const jq = ".[].sha";
+    let page = 0;
+    let count: number;
+    do {
+      page++;
+      const stdout = await listCommits(owner, name, { sha, perPage, page, host, jq });
+      const historySpan = stdout
+        .trim()
+        .split("\n");
+      count = historySpan.length;
+      for (const commitSha of historySpan) {
+        yield commitSha;
+      }
+    } while (count === perPage);
+  } catch (e: unknown) {
+    if (e instanceof ExecError && e.stderr === "gh: Not Found (HTTP 404)") {
+      const msg = `ambiguous argument '${sha}': unknown revision or path not in the ${repo} tree.`;
+      throw new GhDescribeError(msg);
     }
-  } while (count === perPage);
+    throw e;
+  }
 }
 
 export async function fetchTotalCommit({ owner, name, host }: Repo, sha: string) {
