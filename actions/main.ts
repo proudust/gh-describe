@@ -1,5 +1,5 @@
 import { debug, getInput, info, setFailed, setOutput } from "https://esm.sh/@actions/core@1.6.0";
-import { ghDescribe } from "../core/mod.ts";
+import { ghDescribe, GhDescribeError } from "../core/mod.ts";
 
 async function run() {
   const token = getInput("token", { required: true });
@@ -20,8 +20,12 @@ async function run() {
     setOutput("distance", distance);
     setOutput("sha", sha);
   } catch (e: unknown) {
-    const message = (e instanceof Error && e.stack) || String(e);
-    setFailed(message);
+    if (e instanceof GhDescribeError) {
+      setFailed(`fatal: ${e.message}`);
+    } else {
+      const message = (e instanceof Error && e.stack) || String(e);
+      setFailed(message);
+    }
   }
 }
 

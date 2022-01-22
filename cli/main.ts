@@ -1,5 +1,6 @@
+import { colors } from "https://deno.land/x/cliffy@v0.20.1/ansi/mod.ts";
 import { Command, EnumType } from "https://deno.land/x/cliffy@v0.20.1/command/mod.ts";
-import { ghDescribe } from "../core/mod.ts";
+import { ghDescribe, GhDescribeError } from "../core/mod.ts";
 
 interface Remote {
   name: string;
@@ -107,9 +108,18 @@ const cli = new Command<CommandOptions, CommandArguments>()
     const defaultValue = options.default;
     commitish ||= await getHeadSha();
 
-    await Deno.permissions.request({ name: "run", command: "gh" });
-    const { describe } = await ghDescribe(repo, commitish, defaultValue);
-    console.log(describe);
+    try {
+      await Deno.permissions.request({ name: "run", command: "gh" });
+      const { describe } = await ghDescribe(repo, commitish, defaultValue);
+      console.log(describe);
+    } catch (e: unknown) {
+      if (e instanceof GhDescribeError) {
+        console.error(`${colors.bold.red("fatal:")} ${e.message}`);
+        Deno.exit(1);
+      } else {
+        throw e;
+      }
+    }
   })
   .parse(Deno.args);
 

@@ -55,6 +55,7 @@ for (
     "compile",
     "-q",
     "--allow-run",
+    "--unstable",
     "--no-check",
     "-o",
     join("dist", target, "gh-describe"),

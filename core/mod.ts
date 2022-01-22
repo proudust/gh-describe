@@ -10,6 +10,8 @@ interface GhDescribeOutput {
   sha: string;
 }
 
+export class GhDescribeError extends Error {}
+
 export async function ghDescribe(
   repoString: string,
   commitish: string,
@@ -32,7 +34,7 @@ export async function ghDescribe(
   }
 
   if (!defaultValue) {
-    throw new Error("A tag cannot be found in the commit history.");
+    throw new GhDescribeError("No names found, cannot describe anything.");
   }
 
   const totalCommit = 0;
@@ -58,6 +60,7 @@ export async function fetchTags({ owner, name, host }: Repo): Promise<Map<string
     count = tags.push(
       ...stdout
         .split("\n")
+        .filter((x) => !!x)
         .map((x) => JSON.parse(x)),
     );
   } while (count === perPage);
@@ -65,9 +68,13 @@ export async function fetchTags({ owner, name, host }: Repo): Promise<Map<string
 }
 
 export async function fetchSha({ owner, name, host }: Repo, sha: string): Promise<string> {
-  const perPage = 1;
-  const jq = ".[].sha";
-  return await listCommits(owner, name, { sha, perPage, host, jq });
+  try {
+    const perPage = 1;
+    const jq = ".[].sha";
+    return await listCommits(owner, name, { sha, perPage, host, jq });
+  } catch {
+    return sha;
+  }
 }
 
 export async function* fetchHistory(

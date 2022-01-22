@@ -11,7 +11,7 @@
     "lint": "run-p -l -c --aggregate-output lint:*",
     "lint:deno-lint": "deno lint --config deno.jsonc",
     "lint:deno-fmt": "deno fmt --check --config deno.jsonc",
-    "start": "deno run --allow-run cli/main.ts",
+    "start": "deno run --allow-run --unstable cli/main.ts",
     "test": "run-p -l -c --aggregate-output lint:* unit",
     "unit": "deno test core"
   },
