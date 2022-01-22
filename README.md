@@ -1,13 +1,73 @@
 # gh-describe
 
-`git describe --tags` in shallow clones on GitHub Actions.
+`git describe --tags` in shallow clones.
 
 `git describe` command is useful for versioning a development build. However, this command requires
 a history of all tags and branches, which is difficult to use in workflows where you often shallow
 clone. This action gets the history from the GitHub API instead of locally and reproduces its
 behavior.
 
-## Usage
+## Usage by Terminal
+
+### Install
+
+#### GitHub CLI Extensions
+
+Require [GitHub CLI](https://github.com/cli/cli#installation) and JavaScript Runtime
+([Deno](https://deno.land/#installation) or [Node.js](https://nodejs.org/))
+
+```sh
+# Install
+gh extensions install proudust/gh-describe
+
+# Usage
+gh describe
+```
+
+#### Deno Install
+
+Require [GitHub CLI](https://github.com/cli/cli#installation) and
+[Deno](https://deno.land/#installation).
+
+```sh
+# Install
+deno install -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.0/cli/main.ts
+
+# Usage
+gh-describe
+```
+
+#### Deno Compile
+
+Require [GitHub CLI](https://github.com/cli/cli#installation). Download from
+[Release page](https://github.com/proudust/gh-describe/releases/latest).
+
+```sh
+# Usage
+gh-describe-x86_64-unknown-linux-gnu
+```
+
+### Usage
+
+```sh
+$ gh describe --help
+  Usage:   gh-describe [commit-ish]
+  Version: v1.4.0
+
+  Description:
+
+    Emulate `git describe --tags` in shallow clone repository.
+
+  Options:
+
+    -h, --help                - Show this help.
+    -V, --version             - Show the version number for this program.
+    -R, --repo     <repo>     - Target repository. Format: OWNER/REPO
+    --default      <tag>      - Use this value if the name is not found.
+    --runtime      <runtime>  - If installed by `gh extension install`, can specify the execution runtime.  (Values: "deno", "node")
+```
+
+## Usage by GitHub Actions
 
 ```yml
 - name: Git describe
