@@ -20,9 +20,9 @@ var __toESM = (module2, isNodeMode) => {
   return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", !isNodeMode && module2 && module2.__esModule ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
 };
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/stat.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/stat.js
 var require_stat = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/stat.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/stat.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.stat = exports.denoifyFileInfo = void 0;
@@ -53,9 +53,9 @@ var require_stat = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstat.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstat.js
 var require_fstat = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstat.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstat.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -98,9 +98,9 @@ var require_fstat = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstatSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstatSync.js
 var require_fstatSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstatSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstatSync.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.fstatSync = void 0;
@@ -113,9 +113,9 @@ var require_fstatSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncate.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncate.js
 var require_ftruncate = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncate.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncate.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ftruncate = void 0;
@@ -126,9 +126,9 @@ var require_ftruncate = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncateSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncateSync.js
 var require_ftruncateSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncateSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncateSync.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ftruncateSync = void 0;
@@ -137,9 +137,9 @@ var require_ftruncateSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/read.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/read.js
 var require_read = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/read.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/read.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.read = void 0;
@@ -154,9 +154,9 @@ var require_read = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readSync.js
 var require_readSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -197,9 +197,9 @@ var require_readSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/write.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/write.js
 var require_write = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/write.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/write.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -242,9 +242,9 @@ var require_write = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeSync.js
 var require_writeSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -281,9 +281,9 @@ var require_writeSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/classes/File.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/File.js
 var require_File = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/classes/File.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/File.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -366,9 +366,9 @@ var require_File = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/classes/PermissionStatus.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/PermissionStatus.js
 var require_PermissionStatus = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/classes/PermissionStatus.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/PermissionStatus.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.PermissionStatus = void 0;
@@ -383,9 +383,9 @@ var require_PermissionStatus = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/classes/Permissions.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/Permissions.js
 var require_Permissions = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/classes/Permissions.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/Permissions.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.Permissions = void 0;
@@ -405,9 +405,9 @@ var require_Permissions = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/classes.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes.js
 var require_classes = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/classes.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.PermissionStatus = exports.Permissions = exports.File = void 0;
@@ -426,9 +426,9 @@ var require_classes = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/enums/SeekMode.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/enums/SeekMode.js
 var require_SeekMode = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/enums/SeekMode.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/enums/SeekMode.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.SeekMode = void 0;
@@ -441,9 +441,9 @@ var require_SeekMode = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/enums.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/enums.js
 var require_enums = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/enums.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/enums.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.SeekMode = void 0;
@@ -454,9 +454,9 @@ var require_enums = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/errors.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/errors.js
 var require_errors = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/errors.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/errors.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.WriteZero = exports.UnexpectedEof = exports.TimedOut = exports.PermissionDenied = exports.NotFound = exports.NotConnected = exports.InvalidData = exports.Interrupted = exports.Http = exports.ConnectionReset = exports.ConnectionRefused = exports.ConnectionAborted = exports.Busy = exports.BrokenPipe = exports.BadResource = exports.AlreadyExists = exports.AddrNotAvailable = exports.AddrInUse = void 0;
@@ -517,9 +517,9 @@ var require_errors = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/errorMap.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/errorMap.js
 var require_errorMap = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/errorMap.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/errorMap.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -571,9 +571,9 @@ var require_errorMap = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/build.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/build.js
 var require_build = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/build.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/build.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -615,9 +615,9 @@ var require_build = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/customInspect.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/customInspect.js
 var require_customInspect = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/customInspect.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/customInspect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.customInspect = void 0;
@@ -625,9 +625,9 @@ var require_customInspect = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/env.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/env.js
 var require_env = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/env.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/env.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.env = void 0;
@@ -648,9 +648,9 @@ var require_env = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/mainModule.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/mainModule.js
 var require_mainModule = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/mainModule.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/mainModule.js"(exports) {
     "use strict";
     var _a;
     var _b;
@@ -662,9 +662,9 @@ var require_mainModule = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/metrics.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/metrics.js
 var require_metrics = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/metrics.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/metrics.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.metrics = void 0;
@@ -692,9 +692,9 @@ var require_metrics = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/noColor.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/noColor.js
 var require_noColor = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/noColor.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/noColor.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.noColor = void 0;
@@ -702,9 +702,9 @@ var require_noColor = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/permissions.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/permissions.js
 var require_permissions = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/permissions.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/permissions.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.permissions = void 0;
@@ -713,9 +713,9 @@ var require_permissions = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/pid.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/pid.js
 var require_pid = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/pid.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/pid.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.pid = void 0;
@@ -723,9 +723,9 @@ var require_pid = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/ppid.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/ppid.js
 var require_ppid = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/ppid.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/ppid.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ppid = void 0;
@@ -733,9 +733,9 @@ var require_ppid = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/resources.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/resources.js
 var require_resources = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/resources.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/resources.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.resources = void 0;
@@ -750,9 +750,9 @@ var require_resources = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/std.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/std.js
 var require_std = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/std.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/std.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.stderr = exports.stdout = exports.stdin = void 0;
@@ -763,9 +763,9 @@ var require_std = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/version.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/version.js
 var require_version = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/version.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/version.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.typescript = exports.deno = void 0;
@@ -774,9 +774,9 @@ var require_version = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/version.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/version.js
 var require_version2 = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/version.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/version.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.version = void 0;
@@ -789,9 +789,9 @@ var require_version2 = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables.js
 var require_variables = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -877,9 +877,9 @@ var require_variables = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/chdir.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chdir.js
 var require_chdir = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/chdir.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chdir.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -903,9 +903,9 @@ var require_chdir = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmod.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmod.js
 var require_chmod = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmod.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmod.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -942,9 +942,9 @@ var require_chmod = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmodSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmodSync.js
 var require_chmodSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmodSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmodSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -981,9 +981,9 @@ var require_chmodSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/chown.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chown.js
 var require_chown = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/chown.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chown.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -1021,9 +1021,9 @@ var require_chown = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/chownSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chownSync.js
 var require_chownSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/chownSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chownSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -1061,9 +1061,9 @@ var require_chownSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/close.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/close.js
 var require_close = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/close.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/close.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -1100,9 +1100,9 @@ var require_close = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/Conn.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/Conn.js
 var require_Conn = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/Conn.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/Conn.js"(exports) {
     "use strict";
     var __classPrivateFieldSet = exports && exports.__classPrivateFieldSet || function(receiver, state, value, kind, f) {
       if (kind === "m")
@@ -1152,9 +1152,9 @@ var require_Conn = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/connect.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/connect.js
 var require_connect = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/connect.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/connect.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.connect = void 0;
@@ -1194,9 +1194,9 @@ var require_connect = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFile.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFile.js
 var require_readTextFile = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFile.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFile.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -1216,9 +1216,9 @@ var require_readTextFile = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/connectTls.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/connectTls.js
 var require_connectTls = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/connectTls.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/connectTls.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.connectTls = void 0;
@@ -1249,9 +1249,9 @@ var require_connectTls = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/consts.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/consts.js
 var require_consts = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/consts.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/consts.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.DEFAULT_BUFFER_SIZE = void 0;
@@ -1259,9 +1259,9 @@ var require_consts = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/copy.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copy.js
 var require_copy = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/copy.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copy.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.copy = void 0;
@@ -1290,9 +1290,9 @@ var require_copy = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFile.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFile.js
 var require_copyFile = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFile.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFile.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -1344,9 +1344,9 @@ var require_copyFile = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFileSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFileSync.js
 var require_copyFileSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFileSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFileSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -1398,9 +1398,9 @@ var require_copyFileSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/fs_flags.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/fs_flags.js
 var require_fs_flags = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/fs_flags.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/fs_flags.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -1493,9 +1493,9 @@ var require_fs_flags = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/open.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/open.js
 var require_open = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/open.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/open.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.open = void 0;
@@ -1522,9 +1522,9 @@ var require_open = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/create.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/create.js
 var require_create = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/create.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/create.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.create = void 0;
@@ -1536,9 +1536,9 @@ var require_create = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/openSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/openSync.js
 var require_openSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/openSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/openSync.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.openSync = void 0;
@@ -1563,9 +1563,9 @@ var require_openSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/createSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/createSync.js
 var require_createSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/createSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/createSync.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.createSync = void 0;
@@ -1577,9 +1577,9 @@ var require_createSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/cwd.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/cwd.js
 var require_cwd = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/cwd.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/cwd.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.cwd = void 0;
@@ -1587,9 +1587,9 @@ var require_cwd = __commonJS({
   }
 });
 
-// cli/dist/node_modules/isexe/windows.js
+// dist/dnt/node_modules/isexe/windows.js
 var require_windows = __commonJS({
-  "cli/dist/node_modules/isexe/windows.js"(exports, module2) {
+  "dist/dnt/node_modules/isexe/windows.js"(exports, module2) {
     module2.exports = isexe;
     isexe.sync = sync;
     var fs = require("fs");
@@ -1627,9 +1627,9 @@ var require_windows = __commonJS({
   }
 });
 
-// cli/dist/node_modules/isexe/mode.js
+// dist/dnt/node_modules/isexe/mode.js
 var require_mode = __commonJS({
-  "cli/dist/node_modules/isexe/mode.js"(exports, module2) {
+  "dist/dnt/node_modules/isexe/mode.js"(exports, module2) {
     module2.exports = isexe;
     isexe.sync = sync;
     var fs = require("fs");
@@ -1660,9 +1660,9 @@ var require_mode = __commonJS({
   }
 });
 
-// cli/dist/node_modules/isexe/index.js
+// dist/dnt/node_modules/isexe/index.js
 var require_isexe = __commonJS({
-  "cli/dist/node_modules/isexe/index.js"(exports, module2) {
+  "dist/dnt/node_modules/isexe/index.js"(exports, module2) {
     var fs = require("fs");
     var core;
     if (process.platform === "win32" || global.TESTING_WINDOWS) {
@@ -1715,9 +1715,9 @@ var require_isexe = __commonJS({
   }
 });
 
-// cli/dist/node_modules/which/which.js
+// dist/dnt/node_modules/which/which.js
 var require_which = __commonJS({
-  "cli/dist/node_modules/which/which.js"(exports, module2) {
+  "dist/dnt/node_modules/which/which.js"(exports, module2) {
     var isWindows = process.platform === "win32" || process.env.OSTYPE === "cygwin" || process.env.OSTYPE === "msys";
     var path = require("path");
     var COLON = isWindows ? ";" : ":";
@@ -1809,9 +1809,9 @@ var require_which = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/execPath.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/execPath.js
 var require_execPath = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/execPath.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/execPath.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -1824,22 +1824,22 @@ var require_execPath = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/exit.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/exit.js
 var require_exit = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/exit.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/exit.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.exit = void 0;
-    var exit = function exit2(code2) {
-      return process.exit(code2);
+    var exit = function exit2(code) {
+      return process.exit(code);
     };
     exports.exit = exit;
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasync.js
 var require_fdatasync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasync.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.fdatasync = void 0;
@@ -1850,9 +1850,9 @@ var require_fdatasync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasyncSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasyncSync.js
 var require_fdatasyncSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasyncSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasyncSync.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.fdatasyncSync = void 0;
@@ -1861,9 +1861,9 @@ var require_fdatasyncSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsync.js
 var require_fsync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsync.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.fsync = void 0;
@@ -1876,9 +1876,9 @@ var require_fsync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsyncSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsyncSync.js
 var require_fsyncSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsyncSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsyncSync.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.fsyncSync = void 0;
@@ -1890,9 +1890,9 @@ var require_fsyncSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/inspect.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/inspect.js
 var require_inspect = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/inspect.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/inspect.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -1925,14 +1925,14 @@ var require_inspect = __commonJS({
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.inspect = void 0;
     var util = __importStar(require("util"));
-    var inspect2 = (value, options = {}) => util.inspect(value, options);
-    exports.inspect = inspect2;
+    var inspect = (value, options = {}) => util.inspect(value, options);
+    exports.inspect = inspect;
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/kill.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/kill.js
 var require_kill = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/kill.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/kill.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -1951,9 +1951,9 @@ var require_kill = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/link.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/link.js
 var require_link = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/link.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/link.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -1990,9 +1990,9 @@ var require_link = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/linkSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/linkSync.js
 var require_linkSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/linkSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/linkSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -2029,9 +2029,9 @@ var require_linkSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/Listener.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/Listener.js
 var require_Listener = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/Listener.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/Listener.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -2126,9 +2126,9 @@ var require_Listener = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/listen.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/listen.js
 var require_listen = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/listen.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/listen.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.listen = void 0;
@@ -2179,9 +2179,9 @@ var require_listen = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFileSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFileSync.js
 var require_readTextFileSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFileSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFileSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -2229,9 +2229,9 @@ var require_readTextFileSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/listenTls.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/listenTls.js
 var require_listenTls = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/listenTls.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/listenTls.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.listenTls = void 0;
@@ -2277,9 +2277,9 @@ var require_listenTls = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstat.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstat.js
 var require_lstat = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstat.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstat.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -2318,9 +2318,9 @@ var require_lstat = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstatSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstatSync.js
 var require_lstatSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstatSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstatSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -2359,9 +2359,9 @@ var require_lstatSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDir.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDir.js
 var require_makeTempDir = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDir.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDir.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.makeTempDir = void 0;
@@ -2375,9 +2375,9 @@ var require_makeTempDir = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDirSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDirSync.js
 var require_makeTempDirSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDirSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDirSync.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.makeTempDirSync = void 0;
@@ -2391,9 +2391,9 @@ var require_makeTempDirSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/random_id.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/random_id.js
 var require_random_id = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/random_id.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/random_id.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.randomId = void 0;
@@ -2405,9 +2405,9 @@ var require_random_id = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFile.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFile.js
 var require_writeTextFile = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFile.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFile.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -2460,9 +2460,9 @@ var require_writeTextFile = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFile.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFile.js
 var require_makeTempFile = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFile.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFile.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.makeTempFile = void 0;
@@ -2479,9 +2479,9 @@ var require_makeTempFile = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFileSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFileSync.js
 var require_writeTextFileSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFileSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFileSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -2532,9 +2532,9 @@ var require_writeTextFileSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFileSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFileSync.js
 var require_makeTempFileSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFileSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFileSync.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.makeTempFileSync = void 0;
@@ -2551,9 +2551,9 @@ var require_makeTempFileSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/memoryUsage.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/memoryUsage.js
 var require_memoryUsage = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/memoryUsage.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/memoryUsage.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.memoryUsage = void 0;
@@ -2561,9 +2561,9 @@ var require_memoryUsage = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdir.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdir.js
 var require_mkdir = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdir.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdir.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -2587,9 +2587,9 @@ var require_mkdir = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdirSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdirSync.js
 var require_mkdirSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdirSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdirSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -2641,9 +2641,9 @@ var require_mkdirSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDir.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDir.js
 var require_readDir = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDir.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDir.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -2671,9 +2671,9 @@ var require_readDir = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDirSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDirSync.js
 var require_readDirSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDirSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDirSync.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -2701,9 +2701,9 @@ var require_readDirSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFile.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFile.js
 var require_readFile = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFile.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFile.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -2724,9 +2724,9 @@ var require_readFile = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFileSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFileSync.js
 var require_readFileSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFileSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFileSync.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -2747,9 +2747,9 @@ var require_readFileSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLink.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLink.js
 var require_readLink = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLink.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLink.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -2786,9 +2786,9 @@ var require_readLink = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLinkSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLinkSync.js
 var require_readLinkSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLinkSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLinkSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -2825,9 +2825,9 @@ var require_readLinkSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPath.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPath.js
 var require_realPath = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPath.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPath.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -2864,9 +2864,9 @@ var require_realPath = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPathSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPathSync.js
 var require_realPathSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPathSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPathSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -2903,9 +2903,9 @@ var require_realPathSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/remove.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/remove.js
 var require_remove = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/remove.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/remove.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.remove = void 0;
@@ -2917,9 +2917,9 @@ var require_remove = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/removeSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/removeSync.js
 var require_removeSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/removeSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/removeSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -2957,9 +2957,9 @@ var require_removeSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/rename.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/rename.js
 var require_rename = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/rename.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/rename.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.rename = void 0;
@@ -2971,9 +2971,9 @@ var require_rename = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/renameSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/renameSync.js
 var require_renameSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/renameSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/renameSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -3010,9 +3010,9 @@ var require_renameSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/streams.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/streams.js
 var require_streams = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/streams.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/streams.js"(exports) {
     "use strict";
     var __classPrivateFieldSet = exports && exports.__classPrivateFieldSet || function(receiver, state, value, kind, f) {
       if (kind === "m")
@@ -3141,9 +3141,9 @@ var require_streams = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/run.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/run.js
 var require_run = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/run.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/run.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -3319,10 +3319,10 @@ var require_run = __commonJS({
       async status() {
         const [receivedCode, signalName] = await __classPrivateFieldGet(this, _Process_status, "f");
         const signal = signalName ? os_1.default.constants.signals[signalName] : receivedCode > 128 ? receivedCode - 128 : void 0;
-        const code2 = receivedCode != null ? receivedCode : signal != null ? 128 + signal : void 0;
-        const success = code2 === 0;
+        const code = receivedCode != null ? receivedCode : signal != null ? 128 + signal : void 0;
+        const success = code === 0;
         __classPrivateFieldSet(this, _Process_receivedStatus, true, "f");
-        return { code: code2, signal, success };
+        return { code, signal, success };
       }
       async output() {
         if (!__classPrivateFieldGet(this, _Process_stdout, "f")) {
@@ -3411,9 +3411,9 @@ var require_run = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/shutdown.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/shutdown.js
 var require_shutdown = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/shutdown.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/shutdown.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.shutdown = void 0;
@@ -3425,9 +3425,9 @@ var require_shutdown = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/statSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/statSync.js
 var require_statSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/statSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/statSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -3466,9 +3466,9 @@ var require_statSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlink.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlink.js
 var require_symlink = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlink.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlink.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -3506,9 +3506,9 @@ var require_symlink = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlinkSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlinkSync.js
 var require_symlinkSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlinkSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlinkSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -3546,9 +3546,9 @@ var require_symlinkSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/test.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/test.js
 var require_test = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/test.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/test.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.testDefinitions = void 0;
@@ -3556,9 +3556,9 @@ var require_test = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/test.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/test.js
 var require_test2 = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/test.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/test.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.test = void 0;
@@ -3624,9 +3624,9 @@ var require_test2 = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncate.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncate.js
 var require_truncate = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncate.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncate.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -3678,9 +3678,9 @@ var require_truncate = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncateSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncateSync.js
 var require_truncateSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncateSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncateSync.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -3732,9 +3732,9 @@ var require_truncateSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/iterutil.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/iterutil.js
 var require_iterutil = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/internal/iterutil.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/iterutil.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.merge = exports.mapAsync = exports.map = void 0;
@@ -3766,9 +3766,9 @@ var require_iterutil = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/watchFs.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/watchFs.js
 var require_watchFs = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/watchFs.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/watchFs.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.watchFs = void 0;
@@ -3780,9 +3780,9 @@ var require_watchFs = __commonJS({
       const ac = new AbortController();
       const { signal } = ac;
       const rid = -1;
-      const masterWatcher = (0, iterutil_js_1.merge)(paths.map((path) => (0, iterutil_js_1.mapAsync)((0, promises_1.watch)(path, { recursive: options === null || options === void 0 ? void 0 : options.recursive, signal }), (info) => ({
+      const masterWatcher = (0, iterutil_js_1.merge)(paths.map((path) => (0, iterutil_js_1.mapAsync)((0, promises_1.watch)(path, { recursive: options === null || options === void 0 ? void 0 : options.recursive, signal }), (info2) => ({
         kind: "modify",
-        paths: [(0, path_1.resolve)(path, info.filename)]
+        paths: [(0, path_1.resolve)(path, info2.filename)]
       }))));
       function close() {
         ac.abort();
@@ -3793,9 +3793,9 @@ var require_watchFs = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFile.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFile.js
 var require_writeFile = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFile.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFile.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -3848,9 +3848,9 @@ var require_writeFile = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFileSync.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFileSync.js
 var require_writeFileSync = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFileSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFileSync.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -3888,9 +3888,9 @@ var require_writeFileSync = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/args.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/args.js
 var require_args = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/variables/args.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/args.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.args = void 0;
@@ -3898,9 +3898,9 @@ var require_args = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions.js
 var require_functions = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/functions.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.readSync = exports.readLinkSync = exports.readLink = exports.readFileSync = exports.readFile = exports.readDirSync = exports.readDir = exports.read = exports.openSync = exports.open = exports.mkdirSync = exports.mkdir = exports.memoryUsage = exports.makeTempFileSync = exports.makeTempFile = exports.makeTempDirSync = exports.makeTempDir = exports.lstatSync = exports.lstat = exports.listenTls = exports.listen = exports.linkSync = exports.link = exports.kill = exports.inspect = exports.ftruncateSync = exports.ftruncate = exports.fsyncSync = exports.fsync = exports.fstatSync = exports.fstat = exports.fdatasyncSync = exports.fdatasync = exports.exit = exports.execPath = exports.cwd = exports.createSync = exports.create = exports.copyFileSync = exports.copyFile = exports.copy = exports.connectTls = exports.connect = exports.close = exports.chownSync = exports.chown = exports.chmodSync = exports.chmod = exports.chdir = exports.isatty = void 0;
@@ -4211,17 +4211,17 @@ var require_functions = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/types.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/types.js
 var require_types = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/types.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/types.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/main.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/main.js
 var require_main = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/stable/main.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/main.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -4248,9 +4248,9 @@ var require_main = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno/unstable/main.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/unstable/main.js
 var require_main2 = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno/unstable/main.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/unstable/main.js"(exports) {
     "use strict";
     var __importDefault = exports && exports.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
@@ -4313,9 +4313,9 @@ var require_main2 = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/deno.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno.js
 var require_deno = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/deno.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -4339,9 +4339,9 @@ var require_deno = __commonJS({
   }
 });
 
-// cli/dist/node_modules/@deno/shim-deno/dist/index.js
+// dist/dnt/node_modules/@deno/shim-deno/dist/index.js
 var require_dist = __commonJS({
-  "cli/dist/node_modules/@deno/shim-deno/dist/index.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/index.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
@@ -4377,7 +4377,1282 @@ var require_dist = __commonJS({
   }
 });
 
-// cli/dist/esm/_dnt.shims.js
+// dist/dnt/node_modules/@actions/core/lib/utils.js
+var require_utils = __commonJS({
+  "dist/dnt/node_modules/@actions/core/lib/utils.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.toCommandProperties = exports.toCommandValue = void 0;
+    function toCommandValue(input) {
+      if (input === null || input === void 0) {
+        return "";
+      } else if (typeof input === "string" || input instanceof String) {
+        return input;
+      }
+      return JSON.stringify(input);
+    }
+    exports.toCommandValue = toCommandValue;
+    function toCommandProperties(annotationProperties) {
+      if (!Object.keys(annotationProperties).length) {
+        return {};
+      }
+      return {
+        title: annotationProperties.title,
+        file: annotationProperties.file,
+        line: annotationProperties.startLine,
+        endLine: annotationProperties.endLine,
+        col: annotationProperties.startColumn,
+        endColumn: annotationProperties.endColumn
+      };
+    }
+    exports.toCommandProperties = toCommandProperties;
+  }
+});
+
+// dist/dnt/node_modules/@actions/core/lib/command.js
+var require_command = __commonJS({
+  "dist/dnt/node_modules/@actions/core/lib/command.js"(exports) {
+    "use strict";
+    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      Object.defineProperty(o, k2, { enumerable: true, get: function() {
+        return m[k];
+      } });
+    } : function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      o[k2] = m[k];
+    });
+    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+      Object.defineProperty(o, "default", { enumerable: true, value: v });
+    } : function(o, v) {
+      o["default"] = v;
+    });
+    var __importStar = exports && exports.__importStar || function(mod) {
+      if (mod && mod.__esModule)
+        return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k in mod)
+          if (k !== "default" && Object.hasOwnProperty.call(mod, k))
+            __createBinding(result, mod, k);
+      }
+      __setModuleDefault(result, mod);
+      return result;
+    };
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.issue = exports.issueCommand = void 0;
+    var os = __importStar(require("os"));
+    var utils_1 = require_utils();
+    function issueCommand(command, properties, message) {
+      const cmd = new Command(command, properties, message);
+      process.stdout.write(cmd.toString() + os.EOL);
+    }
+    exports.issueCommand = issueCommand;
+    function issue(name, message = "") {
+      issueCommand(name, {}, message);
+    }
+    exports.issue = issue;
+    var CMD_STRING = "::";
+    var Command = class {
+      constructor(command, properties, message) {
+        if (!command) {
+          command = "missing.command";
+        }
+        this.command = command;
+        this.properties = properties;
+        this.message = message;
+      }
+      toString() {
+        let cmdStr = CMD_STRING + this.command;
+        if (this.properties && Object.keys(this.properties).length > 0) {
+          cmdStr += " ";
+          let first = true;
+          for (const key in this.properties) {
+            if (this.properties.hasOwnProperty(key)) {
+              const val = this.properties[key];
+              if (val) {
+                if (first) {
+                  first = false;
+                } else {
+                  cmdStr += ",";
+                }
+                cmdStr += `${key}=${escapeProperty(val)}`;
+              }
+            }
+          }
+        }
+        cmdStr += `${CMD_STRING}${escapeData(this.message)}`;
+        return cmdStr;
+      }
+    };
+    function escapeData(s) {
+      return utils_1.toCommandValue(s).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
+    }
+    function escapeProperty(s) {
+      return utils_1.toCommandValue(s).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A").replace(/:/g, "%3A").replace(/,/g, "%2C");
+    }
+  }
+});
+
+// dist/dnt/node_modules/@actions/core/lib/file-command.js
+var require_file_command = __commonJS({
+  "dist/dnt/node_modules/@actions/core/lib/file-command.js"(exports) {
+    "use strict";
+    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      Object.defineProperty(o, k2, { enumerable: true, get: function() {
+        return m[k];
+      } });
+    } : function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      o[k2] = m[k];
+    });
+    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+      Object.defineProperty(o, "default", { enumerable: true, value: v });
+    } : function(o, v) {
+      o["default"] = v;
+    });
+    var __importStar = exports && exports.__importStar || function(mod) {
+      if (mod && mod.__esModule)
+        return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k in mod)
+          if (k !== "default" && Object.hasOwnProperty.call(mod, k))
+            __createBinding(result, mod, k);
+      }
+      __setModuleDefault(result, mod);
+      return result;
+    };
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.issueCommand = void 0;
+    var fs = __importStar(require("fs"));
+    var os = __importStar(require("os"));
+    var utils_1 = require_utils();
+    function issueCommand(command, message) {
+      const filePath = process.env[`GITHUB_${command}`];
+      if (!filePath) {
+        throw new Error(`Unable to find environment variable for file command ${command}`);
+      }
+      if (!fs.existsSync(filePath)) {
+        throw new Error(`Missing file at path: ${filePath}`);
+      }
+      fs.appendFileSync(filePath, `${utils_1.toCommandValue(message)}${os.EOL}`, {
+        encoding: "utf8"
+      });
+    }
+    exports.issueCommand = issueCommand;
+  }
+});
+
+// dist/dnt/node_modules/@actions/http-client/proxy.js
+var require_proxy = __commonJS({
+  "dist/dnt/node_modules/@actions/http-client/proxy.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    function getProxyUrl(reqUrl) {
+      let usingSsl = reqUrl.protocol === "https:";
+      let proxyUrl;
+      if (checkBypass(reqUrl)) {
+        return proxyUrl;
+      }
+      let proxyVar;
+      if (usingSsl) {
+        proxyVar = process.env["https_proxy"] || process.env["HTTPS_PROXY"];
+      } else {
+        proxyVar = process.env["http_proxy"] || process.env["HTTP_PROXY"];
+      }
+      if (proxyVar) {
+        proxyUrl = new URL(proxyVar);
+      }
+      return proxyUrl;
+    }
+    exports.getProxyUrl = getProxyUrl;
+    function checkBypass(reqUrl) {
+      if (!reqUrl.hostname) {
+        return false;
+      }
+      let noProxy = process.env["no_proxy"] || process.env["NO_PROXY"] || "";
+      if (!noProxy) {
+        return false;
+      }
+      let reqPort;
+      if (reqUrl.port) {
+        reqPort = Number(reqUrl.port);
+      } else if (reqUrl.protocol === "http:") {
+        reqPort = 80;
+      } else if (reqUrl.protocol === "https:") {
+        reqPort = 443;
+      }
+      let upperReqHosts = [reqUrl.hostname.toUpperCase()];
+      if (typeof reqPort === "number") {
+        upperReqHosts.push(`${upperReqHosts[0]}:${reqPort}`);
+      }
+      for (let upperNoProxyItem of noProxy.split(",").map((x) => x.trim().toUpperCase()).filter((x) => x)) {
+        if (upperReqHosts.some((x) => x === upperNoProxyItem)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    exports.checkBypass = checkBypass;
+  }
+});
+
+// dist/dnt/node_modules/tunnel/lib/tunnel.js
+var require_tunnel = __commonJS({
+  "dist/dnt/node_modules/tunnel/lib/tunnel.js"(exports) {
+    "use strict";
+    var net = require("net");
+    var tls = require("tls");
+    var http = require("http");
+    var https = require("https");
+    var events = require("events");
+    var assert = require("assert");
+    var util = require("util");
+    exports.httpOverHttp = httpOverHttp;
+    exports.httpsOverHttp = httpsOverHttp;
+    exports.httpOverHttps = httpOverHttps;
+    exports.httpsOverHttps = httpsOverHttps;
+    function httpOverHttp(options) {
+      var agent = new TunnelingAgent(options);
+      agent.request = http.request;
+      return agent;
+    }
+    function httpsOverHttp(options) {
+      var agent = new TunnelingAgent(options);
+      agent.request = http.request;
+      agent.createSocket = createSecureSocket;
+      agent.defaultPort = 443;
+      return agent;
+    }
+    function httpOverHttps(options) {
+      var agent = new TunnelingAgent(options);
+      agent.request = https.request;
+      return agent;
+    }
+    function httpsOverHttps(options) {
+      var agent = new TunnelingAgent(options);
+      agent.request = https.request;
+      agent.createSocket = createSecureSocket;
+      agent.defaultPort = 443;
+      return agent;
+    }
+    function TunnelingAgent(options) {
+      var self = this;
+      self.options = options || {};
+      self.proxyOptions = self.options.proxy || {};
+      self.maxSockets = self.options.maxSockets || http.Agent.defaultMaxSockets;
+      self.requests = [];
+      self.sockets = [];
+      self.on("free", function onFree(socket, host, port, localAddress) {
+        var options2 = toOptions(host, port, localAddress);
+        for (var i = 0, len = self.requests.length; i < len; ++i) {
+          var pending = self.requests[i];
+          if (pending.host === options2.host && pending.port === options2.port) {
+            self.requests.splice(i, 1);
+            pending.request.onSocket(socket);
+            return;
+          }
+        }
+        socket.destroy();
+        self.removeSocket(socket);
+      });
+    }
+    util.inherits(TunnelingAgent, events.EventEmitter);
+    TunnelingAgent.prototype.addRequest = function addRequest(req, host, port, localAddress) {
+      var self = this;
+      var options = mergeOptions({ request: req }, self.options, toOptions(host, port, localAddress));
+      if (self.sockets.length >= this.maxSockets) {
+        self.requests.push(options);
+        return;
+      }
+      self.createSocket(options, function(socket) {
+        socket.on("free", onFree);
+        socket.on("close", onCloseOrRemove);
+        socket.on("agentRemove", onCloseOrRemove);
+        req.onSocket(socket);
+        function onFree() {
+          self.emit("free", socket, options);
+        }
+        function onCloseOrRemove(err) {
+          self.removeSocket(socket);
+          socket.removeListener("free", onFree);
+          socket.removeListener("close", onCloseOrRemove);
+          socket.removeListener("agentRemove", onCloseOrRemove);
+        }
+      });
+    };
+    TunnelingAgent.prototype.createSocket = function createSocket(options, cb) {
+      var self = this;
+      var placeholder = {};
+      self.sockets.push(placeholder);
+      var connectOptions = mergeOptions({}, self.proxyOptions, {
+        method: "CONNECT",
+        path: options.host + ":" + options.port,
+        agent: false,
+        headers: {
+          host: options.host + ":" + options.port
+        }
+      });
+      if (options.localAddress) {
+        connectOptions.localAddress = options.localAddress;
+      }
+      if (connectOptions.proxyAuth) {
+        connectOptions.headers = connectOptions.headers || {};
+        connectOptions.headers["Proxy-Authorization"] = "Basic " + new Buffer(connectOptions.proxyAuth).toString("base64");
+      }
+      debug2("making CONNECT request");
+      var connectReq = self.request(connectOptions);
+      connectReq.useChunkedEncodingByDefault = false;
+      connectReq.once("response", onResponse);
+      connectReq.once("upgrade", onUpgrade);
+      connectReq.once("connect", onConnect);
+      connectReq.once("error", onError);
+      connectReq.end();
+      function onResponse(res) {
+        res.upgrade = true;
+      }
+      function onUpgrade(res, socket, head) {
+        process.nextTick(function() {
+          onConnect(res, socket, head);
+        });
+      }
+      function onConnect(res, socket, head) {
+        connectReq.removeAllListeners();
+        socket.removeAllListeners();
+        if (res.statusCode !== 200) {
+          debug2("tunneling socket could not be established, statusCode=%d", res.statusCode);
+          socket.destroy();
+          var error = new Error("tunneling socket could not be established, statusCode=" + res.statusCode);
+          error.code = "ECONNRESET";
+          options.request.emit("error", error);
+          self.removeSocket(placeholder);
+          return;
+        }
+        if (head.length > 0) {
+          debug2("got illegal response body from proxy");
+          socket.destroy();
+          var error = new Error("got illegal response body from proxy");
+          error.code = "ECONNRESET";
+          options.request.emit("error", error);
+          self.removeSocket(placeholder);
+          return;
+        }
+        debug2("tunneling connection has established");
+        self.sockets[self.sockets.indexOf(placeholder)] = socket;
+        return cb(socket);
+      }
+      function onError(cause) {
+        connectReq.removeAllListeners();
+        debug2("tunneling socket could not be established, cause=%s\n", cause.message, cause.stack);
+        var error = new Error("tunneling socket could not be established, cause=" + cause.message);
+        error.code = "ECONNRESET";
+        options.request.emit("error", error);
+        self.removeSocket(placeholder);
+      }
+    };
+    TunnelingAgent.prototype.removeSocket = function removeSocket(socket) {
+      var pos = this.sockets.indexOf(socket);
+      if (pos === -1) {
+        return;
+      }
+      this.sockets.splice(pos, 1);
+      var pending = this.requests.shift();
+      if (pending) {
+        this.createSocket(pending, function(socket2) {
+          pending.request.onSocket(socket2);
+        });
+      }
+    };
+    function createSecureSocket(options, cb) {
+      var self = this;
+      TunnelingAgent.prototype.createSocket.call(self, options, function(socket) {
+        var hostHeader = options.request.getHeader("host");
+        var tlsOptions = mergeOptions({}, self.options, {
+          socket,
+          servername: hostHeader ? hostHeader.replace(/:.*$/, "") : options.host
+        });
+        var secureSocket = tls.connect(0, tlsOptions);
+        self.sockets[self.sockets.indexOf(socket)] = secureSocket;
+        cb(secureSocket);
+      });
+    }
+    function toOptions(host, port, localAddress) {
+      if (typeof host === "string") {
+        return {
+          host,
+          port,
+          localAddress
+        };
+      }
+      return host;
+    }
+    function mergeOptions(target) {
+      for (var i = 1, len = arguments.length; i < len; ++i) {
+        var overrides = arguments[i];
+        if (typeof overrides === "object") {
+          var keys = Object.keys(overrides);
+          for (var j = 0, keyLen = keys.length; j < keyLen; ++j) {
+            var k = keys[j];
+            if (overrides[k] !== void 0) {
+              target[k] = overrides[k];
+            }
+          }
+        }
+      }
+      return target;
+    }
+    var debug2;
+    if (process.env.NODE_DEBUG && /\btunnel\b/.test(process.env.NODE_DEBUG)) {
+      debug2 = function() {
+        var args = Array.prototype.slice.call(arguments);
+        if (typeof args[0] === "string") {
+          args[0] = "TUNNEL: " + args[0];
+        } else {
+          args.unshift("TUNNEL:");
+        }
+        console.error.apply(console, args);
+      };
+    } else {
+      debug2 = function() {
+      };
+    }
+    exports.debug = debug2;
+  }
+});
+
+// dist/dnt/node_modules/tunnel/index.js
+var require_tunnel2 = __commonJS({
+  "dist/dnt/node_modules/tunnel/index.js"(exports, module2) {
+    module2.exports = require_tunnel();
+  }
+});
+
+// dist/dnt/node_modules/@actions/http-client/index.js
+var require_http_client = __commonJS({
+  "dist/dnt/node_modules/@actions/http-client/index.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var http = require("http");
+    var https = require("https");
+    var pm = require_proxy();
+    var tunnel;
+    var HttpCodes;
+    (function(HttpCodes2) {
+      HttpCodes2[HttpCodes2["OK"] = 200] = "OK";
+      HttpCodes2[HttpCodes2["MultipleChoices"] = 300] = "MultipleChoices";
+      HttpCodes2[HttpCodes2["MovedPermanently"] = 301] = "MovedPermanently";
+      HttpCodes2[HttpCodes2["ResourceMoved"] = 302] = "ResourceMoved";
+      HttpCodes2[HttpCodes2["SeeOther"] = 303] = "SeeOther";
+      HttpCodes2[HttpCodes2["NotModified"] = 304] = "NotModified";
+      HttpCodes2[HttpCodes2["UseProxy"] = 305] = "UseProxy";
+      HttpCodes2[HttpCodes2["SwitchProxy"] = 306] = "SwitchProxy";
+      HttpCodes2[HttpCodes2["TemporaryRedirect"] = 307] = "TemporaryRedirect";
+      HttpCodes2[HttpCodes2["PermanentRedirect"] = 308] = "PermanentRedirect";
+      HttpCodes2[HttpCodes2["BadRequest"] = 400] = "BadRequest";
+      HttpCodes2[HttpCodes2["Unauthorized"] = 401] = "Unauthorized";
+      HttpCodes2[HttpCodes2["PaymentRequired"] = 402] = "PaymentRequired";
+      HttpCodes2[HttpCodes2["Forbidden"] = 403] = "Forbidden";
+      HttpCodes2[HttpCodes2["NotFound"] = 404] = "NotFound";
+      HttpCodes2[HttpCodes2["MethodNotAllowed"] = 405] = "MethodNotAllowed";
+      HttpCodes2[HttpCodes2["NotAcceptable"] = 406] = "NotAcceptable";
+      HttpCodes2[HttpCodes2["ProxyAuthenticationRequired"] = 407] = "ProxyAuthenticationRequired";
+      HttpCodes2[HttpCodes2["RequestTimeout"] = 408] = "RequestTimeout";
+      HttpCodes2[HttpCodes2["Conflict"] = 409] = "Conflict";
+      HttpCodes2[HttpCodes2["Gone"] = 410] = "Gone";
+      HttpCodes2[HttpCodes2["TooManyRequests"] = 429] = "TooManyRequests";
+      HttpCodes2[HttpCodes2["InternalServerError"] = 500] = "InternalServerError";
+      HttpCodes2[HttpCodes2["NotImplemented"] = 501] = "NotImplemented";
+      HttpCodes2[HttpCodes2["BadGateway"] = 502] = "BadGateway";
+      HttpCodes2[HttpCodes2["ServiceUnavailable"] = 503] = "ServiceUnavailable";
+      HttpCodes2[HttpCodes2["GatewayTimeout"] = 504] = "GatewayTimeout";
+    })(HttpCodes = exports.HttpCodes || (exports.HttpCodes = {}));
+    var Headers;
+    (function(Headers2) {
+      Headers2["Accept"] = "accept";
+      Headers2["ContentType"] = "content-type";
+    })(Headers = exports.Headers || (exports.Headers = {}));
+    var MediaTypes;
+    (function(MediaTypes2) {
+      MediaTypes2["ApplicationJson"] = "application/json";
+    })(MediaTypes = exports.MediaTypes || (exports.MediaTypes = {}));
+    function getProxyUrl(serverUrl) {
+      let proxyUrl = pm.getProxyUrl(new URL(serverUrl));
+      return proxyUrl ? proxyUrl.href : "";
+    }
+    exports.getProxyUrl = getProxyUrl;
+    var HttpRedirectCodes = [
+      HttpCodes.MovedPermanently,
+      HttpCodes.ResourceMoved,
+      HttpCodes.SeeOther,
+      HttpCodes.TemporaryRedirect,
+      HttpCodes.PermanentRedirect
+    ];
+    var HttpResponseRetryCodes = [
+      HttpCodes.BadGateway,
+      HttpCodes.ServiceUnavailable,
+      HttpCodes.GatewayTimeout
+    ];
+    var RetryableHttpVerbs = ["OPTIONS", "GET", "DELETE", "HEAD"];
+    var ExponentialBackoffCeiling = 10;
+    var ExponentialBackoffTimeSlice = 5;
+    var HttpClientError = class extends Error {
+      constructor(message, statusCode) {
+        super(message);
+        this.name = "HttpClientError";
+        this.statusCode = statusCode;
+        Object.setPrototypeOf(this, HttpClientError.prototype);
+      }
+    };
+    exports.HttpClientError = HttpClientError;
+    var HttpClientResponse = class {
+      constructor(message) {
+        this.message = message;
+      }
+      readBody() {
+        return new Promise(async (resolve, reject) => {
+          let output = Buffer.alloc(0);
+          this.message.on("data", (chunk) => {
+            output = Buffer.concat([output, chunk]);
+          });
+          this.message.on("end", () => {
+            resolve(output.toString());
+          });
+        });
+      }
+    };
+    exports.HttpClientResponse = HttpClientResponse;
+    function isHttps(requestUrl) {
+      let parsedUrl = new URL(requestUrl);
+      return parsedUrl.protocol === "https:";
+    }
+    exports.isHttps = isHttps;
+    var HttpClient = class {
+      constructor(userAgent, handlers, requestOptions) {
+        this._ignoreSslError = false;
+        this._allowRedirects = true;
+        this._allowRedirectDowngrade = false;
+        this._maxRedirects = 50;
+        this._allowRetries = false;
+        this._maxRetries = 1;
+        this._keepAlive = false;
+        this._disposed = false;
+        this.userAgent = userAgent;
+        this.handlers = handlers || [];
+        this.requestOptions = requestOptions;
+        if (requestOptions) {
+          if (requestOptions.ignoreSslError != null) {
+            this._ignoreSslError = requestOptions.ignoreSslError;
+          }
+          this._socketTimeout = requestOptions.socketTimeout;
+          if (requestOptions.allowRedirects != null) {
+            this._allowRedirects = requestOptions.allowRedirects;
+          }
+          if (requestOptions.allowRedirectDowngrade != null) {
+            this._allowRedirectDowngrade = requestOptions.allowRedirectDowngrade;
+          }
+          if (requestOptions.maxRedirects != null) {
+            this._maxRedirects = Math.max(requestOptions.maxRedirects, 0);
+          }
+          if (requestOptions.keepAlive != null) {
+            this._keepAlive = requestOptions.keepAlive;
+          }
+          if (requestOptions.allowRetries != null) {
+            this._allowRetries = requestOptions.allowRetries;
+          }
+          if (requestOptions.maxRetries != null) {
+            this._maxRetries = requestOptions.maxRetries;
+          }
+        }
+      }
+      options(requestUrl, additionalHeaders) {
+        return this.request("OPTIONS", requestUrl, null, additionalHeaders || {});
+      }
+      get(requestUrl, additionalHeaders) {
+        return this.request("GET", requestUrl, null, additionalHeaders || {});
+      }
+      del(requestUrl, additionalHeaders) {
+        return this.request("DELETE", requestUrl, null, additionalHeaders || {});
+      }
+      post(requestUrl, data, additionalHeaders) {
+        return this.request("POST", requestUrl, data, additionalHeaders || {});
+      }
+      patch(requestUrl, data, additionalHeaders) {
+        return this.request("PATCH", requestUrl, data, additionalHeaders || {});
+      }
+      put(requestUrl, data, additionalHeaders) {
+        return this.request("PUT", requestUrl, data, additionalHeaders || {});
+      }
+      head(requestUrl, additionalHeaders) {
+        return this.request("HEAD", requestUrl, null, additionalHeaders || {});
+      }
+      sendStream(verb, requestUrl, stream, additionalHeaders) {
+        return this.request(verb, requestUrl, stream, additionalHeaders);
+      }
+      async getJson(requestUrl, additionalHeaders = {}) {
+        additionalHeaders[Headers.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.Accept, MediaTypes.ApplicationJson);
+        let res = await this.get(requestUrl, additionalHeaders);
+        return this._processResponse(res, this.requestOptions);
+      }
+      async postJson(requestUrl, obj, additionalHeaders = {}) {
+        let data = JSON.stringify(obj, null, 2);
+        additionalHeaders[Headers.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.Accept, MediaTypes.ApplicationJson);
+        additionalHeaders[Headers.ContentType] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.ContentType, MediaTypes.ApplicationJson);
+        let res = await this.post(requestUrl, data, additionalHeaders);
+        return this._processResponse(res, this.requestOptions);
+      }
+      async putJson(requestUrl, obj, additionalHeaders = {}) {
+        let data = JSON.stringify(obj, null, 2);
+        additionalHeaders[Headers.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.Accept, MediaTypes.ApplicationJson);
+        additionalHeaders[Headers.ContentType] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.ContentType, MediaTypes.ApplicationJson);
+        let res = await this.put(requestUrl, data, additionalHeaders);
+        return this._processResponse(res, this.requestOptions);
+      }
+      async patchJson(requestUrl, obj, additionalHeaders = {}) {
+        let data = JSON.stringify(obj, null, 2);
+        additionalHeaders[Headers.Accept] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.Accept, MediaTypes.ApplicationJson);
+        additionalHeaders[Headers.ContentType] = this._getExistingOrDefaultHeader(additionalHeaders, Headers.ContentType, MediaTypes.ApplicationJson);
+        let res = await this.patch(requestUrl, data, additionalHeaders);
+        return this._processResponse(res, this.requestOptions);
+      }
+      async request(verb, requestUrl, data, headers) {
+        if (this._disposed) {
+          throw new Error("Client has already been disposed.");
+        }
+        let parsedUrl = new URL(requestUrl);
+        let info2 = this._prepareRequest(verb, parsedUrl, headers);
+        let maxTries = this._allowRetries && RetryableHttpVerbs.indexOf(verb) != -1 ? this._maxRetries + 1 : 1;
+        let numTries = 0;
+        let response;
+        while (numTries < maxTries) {
+          response = await this.requestRaw(info2, data);
+          if (response && response.message && response.message.statusCode === HttpCodes.Unauthorized) {
+            let authenticationHandler;
+            for (let i = 0; i < this.handlers.length; i++) {
+              if (this.handlers[i].canHandleAuthentication(response)) {
+                authenticationHandler = this.handlers[i];
+                break;
+              }
+            }
+            if (authenticationHandler) {
+              return authenticationHandler.handleAuthentication(this, info2, data);
+            } else {
+              return response;
+            }
+          }
+          let redirectsRemaining = this._maxRedirects;
+          while (HttpRedirectCodes.indexOf(response.message.statusCode) != -1 && this._allowRedirects && redirectsRemaining > 0) {
+            const redirectUrl = response.message.headers["location"];
+            if (!redirectUrl) {
+              break;
+            }
+            let parsedRedirectUrl = new URL(redirectUrl);
+            if (parsedUrl.protocol == "https:" && parsedUrl.protocol != parsedRedirectUrl.protocol && !this._allowRedirectDowngrade) {
+              throw new Error("Redirect from HTTPS to HTTP protocol. This downgrade is not allowed for security reasons. If you want to allow this behavior, set the allowRedirectDowngrade option to true.");
+            }
+            await response.readBody();
+            if (parsedRedirectUrl.hostname !== parsedUrl.hostname) {
+              for (let header in headers) {
+                if (header.toLowerCase() === "authorization") {
+                  delete headers[header];
+                }
+              }
+            }
+            info2 = this._prepareRequest(verb, parsedRedirectUrl, headers);
+            response = await this.requestRaw(info2, data);
+            redirectsRemaining--;
+          }
+          if (HttpResponseRetryCodes.indexOf(response.message.statusCode) == -1) {
+            return response;
+          }
+          numTries += 1;
+          if (numTries < maxTries) {
+            await response.readBody();
+            await this._performExponentialBackoff(numTries);
+          }
+        }
+        return response;
+      }
+      dispose() {
+        if (this._agent) {
+          this._agent.destroy();
+        }
+        this._disposed = true;
+      }
+      requestRaw(info2, data) {
+        return new Promise((resolve, reject) => {
+          let callbackForResult = function(err, res) {
+            if (err) {
+              reject(err);
+            }
+            resolve(res);
+          };
+          this.requestRawWithCallback(info2, data, callbackForResult);
+        });
+      }
+      requestRawWithCallback(info2, data, onResult) {
+        let socket;
+        if (typeof data === "string") {
+          info2.options.headers["Content-Length"] = Buffer.byteLength(data, "utf8");
+        }
+        let callbackCalled = false;
+        let handleResult = (err, res) => {
+          if (!callbackCalled) {
+            callbackCalled = true;
+            onResult(err, res);
+          }
+        };
+        let req = info2.httpModule.request(info2.options, (msg) => {
+          let res = new HttpClientResponse(msg);
+          handleResult(null, res);
+        });
+        req.on("socket", (sock) => {
+          socket = sock;
+        });
+        req.setTimeout(this._socketTimeout || 3 * 6e4, () => {
+          if (socket) {
+            socket.end();
+          }
+          handleResult(new Error("Request timeout: " + info2.options.path), null);
+        });
+        req.on("error", function(err) {
+          handleResult(err, null);
+        });
+        if (data && typeof data === "string") {
+          req.write(data, "utf8");
+        }
+        if (data && typeof data !== "string") {
+          data.on("close", function() {
+            req.end();
+          });
+          data.pipe(req);
+        } else {
+          req.end();
+        }
+      }
+      getAgent(serverUrl) {
+        let parsedUrl = new URL(serverUrl);
+        return this._getAgent(parsedUrl);
+      }
+      _prepareRequest(method, requestUrl, headers) {
+        const info2 = {};
+        info2.parsedUrl = requestUrl;
+        const usingSsl = info2.parsedUrl.protocol === "https:";
+        info2.httpModule = usingSsl ? https : http;
+        const defaultPort = usingSsl ? 443 : 80;
+        info2.options = {};
+        info2.options.host = info2.parsedUrl.hostname;
+        info2.options.port = info2.parsedUrl.port ? parseInt(info2.parsedUrl.port) : defaultPort;
+        info2.options.path = (info2.parsedUrl.pathname || "") + (info2.parsedUrl.search || "");
+        info2.options.method = method;
+        info2.options.headers = this._mergeHeaders(headers);
+        if (this.userAgent != null) {
+          info2.options.headers["user-agent"] = this.userAgent;
+        }
+        info2.options.agent = this._getAgent(info2.parsedUrl);
+        if (this.handlers) {
+          this.handlers.forEach((handler) => {
+            handler.prepareRequest(info2.options);
+          });
+        }
+        return info2;
+      }
+      _mergeHeaders(headers) {
+        const lowercaseKeys = (obj) => Object.keys(obj).reduce((c, k) => (c[k.toLowerCase()] = obj[k], c), {});
+        if (this.requestOptions && this.requestOptions.headers) {
+          return Object.assign({}, lowercaseKeys(this.requestOptions.headers), lowercaseKeys(headers));
+        }
+        return lowercaseKeys(headers || {});
+      }
+      _getExistingOrDefaultHeader(additionalHeaders, header, _default) {
+        const lowercaseKeys = (obj) => Object.keys(obj).reduce((c, k) => (c[k.toLowerCase()] = obj[k], c), {});
+        let clientHeader;
+        if (this.requestOptions && this.requestOptions.headers) {
+          clientHeader = lowercaseKeys(this.requestOptions.headers)[header];
+        }
+        return additionalHeaders[header] || clientHeader || _default;
+      }
+      _getAgent(parsedUrl) {
+        let agent;
+        let proxyUrl = pm.getProxyUrl(parsedUrl);
+        let useProxy = proxyUrl && proxyUrl.hostname;
+        if (this._keepAlive && useProxy) {
+          agent = this._proxyAgent;
+        }
+        if (this._keepAlive && !useProxy) {
+          agent = this._agent;
+        }
+        if (!!agent) {
+          return agent;
+        }
+        const usingSsl = parsedUrl.protocol === "https:";
+        let maxSockets = 100;
+        if (!!this.requestOptions) {
+          maxSockets = this.requestOptions.maxSockets || http.globalAgent.maxSockets;
+        }
+        if (useProxy) {
+          if (!tunnel) {
+            tunnel = require_tunnel2();
+          }
+          const agentOptions = {
+            maxSockets,
+            keepAlive: this._keepAlive,
+            proxy: {
+              ...(proxyUrl.username || proxyUrl.password) && {
+                proxyAuth: `${proxyUrl.username}:${proxyUrl.password}`
+              },
+              host: proxyUrl.hostname,
+              port: proxyUrl.port
+            }
+          };
+          let tunnelAgent;
+          const overHttps = proxyUrl.protocol === "https:";
+          if (usingSsl) {
+            tunnelAgent = overHttps ? tunnel.httpsOverHttps : tunnel.httpsOverHttp;
+          } else {
+            tunnelAgent = overHttps ? tunnel.httpOverHttps : tunnel.httpOverHttp;
+          }
+          agent = tunnelAgent(agentOptions);
+          this._proxyAgent = agent;
+        }
+        if (this._keepAlive && !agent) {
+          const options = { keepAlive: this._keepAlive, maxSockets };
+          agent = usingSsl ? new https.Agent(options) : new http.Agent(options);
+          this._agent = agent;
+        }
+        if (!agent) {
+          agent = usingSsl ? https.globalAgent : http.globalAgent;
+        }
+        if (usingSsl && this._ignoreSslError) {
+          agent.options = Object.assign(agent.options || {}, {
+            rejectUnauthorized: false
+          });
+        }
+        return agent;
+      }
+      _performExponentialBackoff(retryNumber) {
+        retryNumber = Math.min(ExponentialBackoffCeiling, retryNumber);
+        const ms = ExponentialBackoffTimeSlice * Math.pow(2, retryNumber);
+        return new Promise((resolve) => setTimeout(() => resolve(), ms));
+      }
+      static dateTimeDeserializer(key, value) {
+        if (typeof value === "string") {
+          let a = new Date(value);
+          if (!isNaN(a.valueOf())) {
+            return a;
+          }
+        }
+        return value;
+      }
+      async _processResponse(res, options) {
+        return new Promise(async (resolve, reject) => {
+          const statusCode = res.message.statusCode;
+          const response = {
+            statusCode,
+            result: null,
+            headers: {}
+          };
+          if (statusCode == HttpCodes.NotFound) {
+            resolve(response);
+          }
+          let obj;
+          let contents;
+          try {
+            contents = await res.readBody();
+            if (contents && contents.length > 0) {
+              if (options && options.deserializeDates) {
+                obj = JSON.parse(contents, HttpClient.dateTimeDeserializer);
+              } else {
+                obj = JSON.parse(contents);
+              }
+              response.result = obj;
+            }
+            response.headers = res.message.headers;
+          } catch (err) {
+          }
+          if (statusCode > 299) {
+            let msg;
+            if (obj && obj.message) {
+              msg = obj.message;
+            } else if (contents && contents.length > 0) {
+              msg = contents;
+            } else {
+              msg = "Failed request: (" + statusCode + ")";
+            }
+            let err = new HttpClientError(msg, statusCode);
+            err.result = response.result;
+            reject(err);
+          } else {
+            resolve(response);
+          }
+        });
+      }
+    };
+    exports.HttpClient = HttpClient;
+  }
+});
+
+// dist/dnt/node_modules/@actions/http-client/auth.js
+var require_auth = __commonJS({
+  "dist/dnt/node_modules/@actions/http-client/auth.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var BasicCredentialHandler = class {
+      constructor(username, password) {
+        this.username = username;
+        this.password = password;
+      }
+      prepareRequest(options) {
+        options.headers["Authorization"] = "Basic " + Buffer.from(this.username + ":" + this.password).toString("base64");
+      }
+      canHandleAuthentication(response) {
+        return false;
+      }
+      handleAuthentication(httpClient, requestInfo, objs) {
+        return null;
+      }
+    };
+    exports.BasicCredentialHandler = BasicCredentialHandler;
+    var BearerCredentialHandler = class {
+      constructor(token) {
+        this.token = token;
+      }
+      prepareRequest(options) {
+        options.headers["Authorization"] = "Bearer " + this.token;
+      }
+      canHandleAuthentication(response) {
+        return false;
+      }
+      handleAuthentication(httpClient, requestInfo, objs) {
+        return null;
+      }
+    };
+    exports.BearerCredentialHandler = BearerCredentialHandler;
+    var PersonalAccessTokenCredentialHandler = class {
+      constructor(token) {
+        this.token = token;
+      }
+      prepareRequest(options) {
+        options.headers["Authorization"] = "Basic " + Buffer.from("PAT:" + this.token).toString("base64");
+      }
+      canHandleAuthentication(response) {
+        return false;
+      }
+      handleAuthentication(httpClient, requestInfo, objs) {
+        return null;
+      }
+    };
+    exports.PersonalAccessTokenCredentialHandler = PersonalAccessTokenCredentialHandler;
+  }
+});
+
+// dist/dnt/node_modules/@actions/core/lib/oidc-utils.js
+var require_oidc_utils = __commonJS({
+  "dist/dnt/node_modules/@actions/core/lib/oidc-utils.js"(exports) {
+    "use strict";
+    var __awaiter = exports && exports.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.OidcClient = void 0;
+    var http_client_1 = require_http_client();
+    var auth_1 = require_auth();
+    var core_1 = require_core();
+    var OidcClient = class {
+      static createHttpClient(allowRetry = true, maxRetry = 10) {
+        const requestOptions = {
+          allowRetries: allowRetry,
+          maxRetries: maxRetry
+        };
+        return new http_client_1.HttpClient("actions/oidc-client", [new auth_1.BearerCredentialHandler(OidcClient.getRequestToken())], requestOptions);
+      }
+      static getRequestToken() {
+        const token = process.env["ACTIONS_ID_TOKEN_REQUEST_TOKEN"];
+        if (!token) {
+          throw new Error("Unable to get ACTIONS_ID_TOKEN_REQUEST_TOKEN env variable");
+        }
+        return token;
+      }
+      static getIDTokenUrl() {
+        const runtimeUrl = process.env["ACTIONS_ID_TOKEN_REQUEST_URL"];
+        if (!runtimeUrl) {
+          throw new Error("Unable to get ACTIONS_ID_TOKEN_REQUEST_URL env variable");
+        }
+        return runtimeUrl;
+      }
+      static getCall(id_token_url) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+          const httpclient = OidcClient.createHttpClient();
+          const res = yield httpclient.getJson(id_token_url).catch((error) => {
+            throw new Error(`Failed to get ID Token. 
+ 
+        Error Code : ${error.statusCode}
+ 
+        Error Message: ${error.result.message}`);
+          });
+          const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
+          if (!id_token) {
+            throw new Error("Response json body do not have ID Token field");
+          }
+          return id_token;
+        });
+      }
+      static getIDToken(audience) {
+        return __awaiter(this, void 0, void 0, function* () {
+          try {
+            let id_token_url = OidcClient.getIDTokenUrl();
+            if (audience) {
+              const encodedAudience = encodeURIComponent(audience);
+              id_token_url = `${id_token_url}&audience=${encodedAudience}`;
+            }
+            core_1.debug(`ID token url is ${id_token_url}`);
+            const id_token = yield OidcClient.getCall(id_token_url);
+            core_1.setSecret(id_token);
+            return id_token;
+          } catch (error) {
+            throw new Error(`Error message: ${error.message}`);
+          }
+        });
+      }
+    };
+    exports.OidcClient = OidcClient;
+  }
+});
+
+// dist/dnt/node_modules/@actions/core/lib/core.js
+var require_core = __commonJS({
+  "dist/dnt/node_modules/@actions/core/lib/core.js"(exports) {
+    "use strict";
+    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      Object.defineProperty(o, k2, { enumerable: true, get: function() {
+        return m[k];
+      } });
+    } : function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      o[k2] = m[k];
+    });
+    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+      Object.defineProperty(o, "default", { enumerable: true, value: v });
+    } : function(o, v) {
+      o["default"] = v;
+    });
+    var __importStar = exports && exports.__importStar || function(mod) {
+      if (mod && mod.__esModule)
+        return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k in mod)
+          if (k !== "default" && Object.hasOwnProperty.call(mod, k))
+            __createBinding(result, mod, k);
+      }
+      __setModuleDefault(result, mod);
+      return result;
+    };
+    var __awaiter = exports && exports.__awaiter || function(thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P ? value : new P(function(resolve) {
+          resolve(value);
+        });
+      }
+      return new (P || (P = Promise))(function(resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      });
+    };
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.getIDToken = exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.notice = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
+    var command_1 = require_command();
+    var file_command_1 = require_file_command();
+    var utils_1 = require_utils();
+    var os = __importStar(require("os"));
+    var path = __importStar(require("path"));
+    var oidc_utils_1 = require_oidc_utils();
+    var ExitCode;
+    (function(ExitCode2) {
+      ExitCode2[ExitCode2["Success"] = 0] = "Success";
+      ExitCode2[ExitCode2["Failure"] = 1] = "Failure";
+    })(ExitCode = exports.ExitCode || (exports.ExitCode = {}));
+    function exportVariable(name, val) {
+      const convertedVal = utils_1.toCommandValue(val);
+      process.env[name] = convertedVal;
+      const filePath = process.env["GITHUB_ENV"] || "";
+      if (filePath) {
+        const delimiter = "_GitHubActionsFileCommandDelimeter_";
+        const commandValue = `${name}<<${delimiter}${os.EOL}${convertedVal}${os.EOL}${delimiter}`;
+        file_command_1.issueCommand("ENV", commandValue);
+      } else {
+        command_1.issueCommand("set-env", { name }, convertedVal);
+      }
+    }
+    exports.exportVariable = exportVariable;
+    function setSecret(secret) {
+      command_1.issueCommand("add-mask", {}, secret);
+    }
+    exports.setSecret = setSecret;
+    function addPath(inputPath) {
+      const filePath = process.env["GITHUB_PATH"] || "";
+      if (filePath) {
+        file_command_1.issueCommand("PATH", inputPath);
+      } else {
+        command_1.issueCommand("add-path", {}, inputPath);
+      }
+      process.env["PATH"] = `${inputPath}${path.delimiter}${process.env["PATH"]}`;
+    }
+    exports.addPath = addPath;
+    function getInput2(name, options) {
+      const val = process.env[`INPUT_${name.replace(/ /g, "_").toUpperCase()}`] || "";
+      if (options && options.required && !val) {
+        throw new Error(`Input required and not supplied: ${name}`);
+      }
+      if (options && options.trimWhitespace === false) {
+        return val;
+      }
+      return val.trim();
+    }
+    exports.getInput = getInput2;
+    function getMultilineInput(name, options) {
+      const inputs = getInput2(name, options).split("\n").filter((x) => x !== "");
+      return inputs;
+    }
+    exports.getMultilineInput = getMultilineInput;
+    function getBooleanInput(name, options) {
+      const trueValue = ["true", "True", "TRUE"];
+      const falseValue = ["false", "False", "FALSE"];
+      const val = getInput2(name, options);
+      if (trueValue.includes(val))
+        return true;
+      if (falseValue.includes(val))
+        return false;
+      throw new TypeError(`Input does not meet YAML 1.2 "Core Schema" specification: ${name}
+Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
+    }
+    exports.getBooleanInput = getBooleanInput;
+    function setOutput2(name, value) {
+      process.stdout.write(os.EOL);
+      command_1.issueCommand("set-output", { name }, value);
+    }
+    exports.setOutput = setOutput2;
+    function setCommandEcho(enabled) {
+      command_1.issue("echo", enabled ? "on" : "off");
+    }
+    exports.setCommandEcho = setCommandEcho;
+    function setFailed2(message) {
+      process.exitCode = ExitCode.Failure;
+      error(message);
+    }
+    exports.setFailed = setFailed2;
+    function isDebug() {
+      return process.env["RUNNER_DEBUG"] === "1";
+    }
+    exports.isDebug = isDebug;
+    function debug2(message) {
+      command_1.issueCommand("debug", {}, message);
+    }
+    exports.debug = debug2;
+    function error(message, properties = {}) {
+      command_1.issueCommand("error", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
+    }
+    exports.error = error;
+    function warning(message, properties = {}) {
+      command_1.issueCommand("warning", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
+    }
+    exports.warning = warning;
+    function notice(message, properties = {}) {
+      command_1.issueCommand("notice", utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
+    }
+    exports.notice = notice;
+    function info2(message) {
+      process.stdout.write(message + os.EOL);
+    }
+    exports.info = info2;
+    function startGroup(name) {
+      command_1.issue("group", name);
+    }
+    exports.startGroup = startGroup;
+    function endGroup() {
+      command_1.issue("endgroup");
+    }
+    exports.endGroup = endGroup;
+    function group(name, fn) {
+      return __awaiter(this, void 0, void 0, function* () {
+        startGroup(name);
+        let result;
+        try {
+          result = yield fn();
+        } finally {
+          endGroup();
+        }
+        return result;
+      });
+    }
+    exports.group = group;
+    function saveState(name, value) {
+      command_1.issueCommand("save-state", { name }, value);
+    }
+    exports.saveState = saveState;
+    function getState(name) {
+      return process.env[`STATE_${name}`] || "";
+    }
+    exports.getState = getState;
+    function getIDToken(aud) {
+      return __awaiter(this, void 0, void 0, function* () {
+        return yield oidc_utils_1.OidcClient.getIDToken(aud);
+      });
+    }
+    exports.getIDToken = getIDToken;
+  }
+});
+
+// dist/dnt/esm/_dnt.shims.js
 var import_shim_deno = __toESM(require_dist(), 1);
 var import_shim_deno2 = __toESM(require_dist(), 1);
 var dntGlobals = {
@@ -4438,2830 +5713,10 @@ function createMergeProxy(baseObj, extObj) {
   });
 }
 
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/_utils/distance.js
-function distance(a, b) {
-  if (a.length == 0) {
-    return b.length;
-  }
-  if (b.length == 0) {
-    return a.length;
-  }
-  const matrix = [];
-  for (let i = 0; i <= b.length; i++) {
-    matrix[i] = [i];
-  }
-  for (let j = 0; j <= a.length; j++) {
-    matrix[0][j] = j;
-  }
-  for (let i = 1; i <= b.length; i++) {
-    for (let j = 1; j <= a.length; j++) {
-      if (b.charAt(i - 1) == a.charAt(j - 1)) {
-        matrix[i][j] = matrix[i - 1][j - 1];
-      } else {
-        matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
-      }
-    }
-  }
-  return matrix[b.length][a.length];
-}
+// dist/dnt/esm/actions/main.js
+var import_core = __toESM(require_core(), 1);
 
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/flags/_utils.js
-function paramCaseToCamelCase(str) {
-  return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
-}
-function underscoreToCamelCase(str) {
-  return str.replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase().replace(/_([a-z])/g, (g) => g[1].toUpperCase());
-}
-function getOption(flags, name) {
-  while (name[0] === "-") {
-    name = name.slice(1);
-  }
-  for (const flag of flags) {
-    if (isOption(flag, name)) {
-      return flag;
-    }
-  }
-  return;
-}
-function didYouMeanOption(option, options) {
-  const optionNames = options.map((option2) => [option2.name, ...option2.aliases ?? []]).flat().map((option2) => getFlag(option2));
-  return didYouMean(" Did you mean option", getFlag(option), optionNames);
-}
-function didYouMeanType(type, types) {
-  return didYouMean(" Did you mean type", type, types);
-}
-function didYouMean(message, type, types) {
-  const match = closest(type, types);
-  return match ? `${message} "${match}"?` : "";
-}
-function getFlag(name) {
-  if (name.startsWith("-")) {
-    return name;
-  }
-  if (name.length > 1) {
-    return `--${name}`;
-  }
-  return `-${name}`;
-}
-function isOption(option, name) {
-  return option.name === name || option.aliases && option.aliases.indexOf(name) !== -1;
-}
-function closest(str, arr) {
-  let minDistance = Infinity;
-  let minIndex = 0;
-  for (let i = 0; i < arr.length; i++) {
-    const dist = distance(str, arr[i]);
-    if (dist < minDistance) {
-      minDistance = dist;
-      minIndex = i;
-    }
-  }
-  return arr[minIndex];
-}
-function getDefaultValue(option) {
-  return typeof option.default === "function" ? option.default() : option.default;
-}
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/flags/_errors.js
-var FlagsError = class extends Error {
-  constructor(message) {
-    super(message);
-    Object.setPrototypeOf(this, FlagsError.prototype);
-  }
-};
-var UnknownRequiredOption = class extends FlagsError {
-  constructor(option, options) {
-    super(`Unknown required option "${getFlag(option)}".${didYouMeanOption(option, options)}`);
-    Object.setPrototypeOf(this, UnknownRequiredOption.prototype);
-  }
-};
-var UnknownConflictingOption = class extends FlagsError {
-  constructor(option, options) {
-    super(`Unknown conflicting option "${getFlag(option)}".${didYouMeanOption(option, options)}`);
-    Object.setPrototypeOf(this, UnknownConflictingOption.prototype);
-  }
-};
-var UnknownType = class extends FlagsError {
-  constructor(type, types) {
-    super(`Unknown type "${type}".${didYouMeanType(type, types)}`);
-    Object.setPrototypeOf(this, UnknownType.prototype);
-  }
-};
-var ValidationError = class extends FlagsError {
-  constructor(message) {
-    super(message);
-    Object.setPrototypeOf(this, ValidationError.prototype);
-  }
-};
-var DuplicateOption = class extends ValidationError {
-  constructor(name) {
-    super(`Option "${getFlag(name).replace(/^--no-/, "--")}" can only occur once, but was found several times.`);
-    Object.setPrototypeOf(this, DuplicateOption.prototype);
-  }
-};
-var InvalidOption = class extends ValidationError {
-  constructor(option, options) {
-    super(`Invalid option "${getFlag(option)}".${didYouMeanOption(option, options)}`);
-    Object.setPrototypeOf(this, InvalidOption.prototype);
-  }
-};
-var UnknownOption = class extends ValidationError {
-  constructor(option, options) {
-    super(`Unknown option "${getFlag(option)}".${didYouMeanOption(option, options)}`);
-    Object.setPrototypeOf(this, UnknownOption.prototype);
-  }
-};
-var MissingOptionValue = class extends ValidationError {
-  constructor(option) {
-    super(`Missing value for option "${getFlag(option)}".`);
-    Object.setPrototypeOf(this, MissingOptionValue.prototype);
-  }
-};
-var InvalidOptionValue = class extends ValidationError {
-  constructor(option, expected, value) {
-    super(`Option "${getFlag(option)}" must be of type "${expected}", but got "${value}".`);
-    Object.setPrototypeOf(this, InvalidOptionValue.prototype);
-  }
-};
-var OptionNotCombinable = class extends ValidationError {
-  constructor(option) {
-    super(`Option "${getFlag(option)}" cannot be combined with other options.`);
-    Object.setPrototypeOf(this, OptionNotCombinable.prototype);
-  }
-};
-var ConflictingOption = class extends ValidationError {
-  constructor(option, conflictingOption) {
-    super(`Option "${getFlag(option)}" conflicts with option "${getFlag(conflictingOption)}".`);
-    Object.setPrototypeOf(this, ConflictingOption.prototype);
-  }
-};
-var DependingOption = class extends ValidationError {
-  constructor(option, dependingOption) {
-    super(`Option "${getFlag(option)}" depends on option "${getFlag(dependingOption)}".`);
-    Object.setPrototypeOf(this, DependingOption.prototype);
-  }
-};
-var MissingRequiredOption = class extends ValidationError {
-  constructor(option) {
-    super(`Missing required option "${getFlag(option)}".`);
-    Object.setPrototypeOf(this, MissingRequiredOption.prototype);
-  }
-};
-var RequiredArgumentFollowsOptionalArgument = class extends ValidationError {
-  constructor(arg) {
-    super(`An required argument cannot follow an optional argument, but "${arg}"  is defined as required.`);
-    Object.setPrototypeOf(this, RequiredArgumentFollowsOptionalArgument.prototype);
-  }
-};
-var ArgumentFollowsVariadicArgument = class extends ValidationError {
-  constructor(arg) {
-    super(`An argument cannot follow an variadic argument, but got "${arg}".`);
-    Object.setPrototypeOf(this, ArgumentFollowsVariadicArgument.prototype);
-  }
-};
-var NoArguments = class extends ValidationError {
-  constructor() {
-    super(`No arguments.`);
-    Object.setPrototypeOf(this, NoArguments.prototype);
-  }
-};
-var InvalidTypeError = class extends ValidationError {
-  constructor({ label, name, value, type }, expected) {
-    super(`${label} "${name}" must be of type "${type}", but got "${value}".` + (expected ? ` Expected values: ${expected.map((value2) => `"${value2}"`).join(", ")}` : ""));
-    Object.setPrototypeOf(this, MissingOptionValue.prototype);
-  }
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/flags/types.js
-var OptionType;
-(function(OptionType2) {
-  OptionType2["STRING"] = "string";
-  OptionType2["NUMBER"] = "number";
-  OptionType2["INTEGER"] = "integer";
-  OptionType2["BOOLEAN"] = "boolean";
-})(OptionType || (OptionType = {}));
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/_utils.js
-function didYouMeanCommand(command, commands, excludes = []) {
-  const commandNames = commands.map((command2) => command2.getName()).filter((command2) => !excludes.includes(command2));
-  return didYouMean(" Did you mean command", command, commandNames);
-}
-var ARGUMENT_REGEX = /^[<\[].+[\]>]$/;
-var ARGUMENT_DETAILS_REGEX = /[<\[:>\]]/;
-function splitArguments(args) {
-  const parts = args.trim().split(/[, =] */g);
-  const typeParts = [];
-  while (parts[parts.length - 1] && ARGUMENT_REGEX.test(parts[parts.length - 1])) {
-    typeParts.unshift(parts.pop());
-  }
-  const typeDefinition = typeParts.join(" ");
-  return { flags: parts, typeDefinition };
-}
-function parseArgumentsDefinition(argsDefinition, validate = true, all) {
-  const argumentDetails = [];
-  let hasOptional = false;
-  let hasVariadic = false;
-  const parts = argsDefinition.split(/ +/);
-  for (const arg of parts) {
-    if (validate && hasVariadic) {
-      throw new ArgumentFollowsVariadicArgument(arg);
-    }
-    const parts2 = arg.split(ARGUMENT_DETAILS_REGEX);
-    if (!parts2[1]) {
-      if (all) {
-        argumentDetails.push(parts2[0]);
-      }
-      continue;
-    }
-    const type = parts2[2] || OptionType.STRING;
-    const details = {
-      optionalValue: arg[0] !== "<",
-      name: parts2[1],
-      action: parts2[3] || type,
-      variadic: false,
-      list: type ? arg.indexOf(type + "[]") !== -1 : false,
-      type
-    };
-    if (validate && !details.optionalValue && hasOptional) {
-      throw new RequiredArgumentFollowsOptionalArgument(details.name);
-    }
-    if (arg[0] === "[") {
-      hasOptional = true;
-    }
-    if (details.name.length > 3) {
-      const istVariadicLeft = details.name.slice(0, 3) === "...";
-      const istVariadicRight = details.name.slice(-3) === "...";
-      hasVariadic = details.variadic = istVariadicLeft || istVariadicRight;
-      if (istVariadicLeft) {
-        details.name = details.name.slice(3);
-      } else if (istVariadicRight) {
-        details.name = details.name.slice(0, -3);
-      }
-    }
-    argumentDetails.push(details);
-  }
-  return argumentDetails;
-}
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/_errors.js
-var CommandError = class extends Error {
-  constructor(message) {
-    super(message);
-    Object.setPrototypeOf(this, CommandError.prototype);
-  }
-};
-var ValidationError2 = class extends CommandError {
-  constructor(message, { exitCode } = {}) {
-    super(message);
-    Object.defineProperty(this, "exitCode", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.setPrototypeOf(this, ValidationError2.prototype);
-    this.exitCode = exitCode ?? 1;
-  }
-};
-var DuplicateOptionName = class extends CommandError {
-  constructor(name) {
-    super(`Option with name "${getFlag(name)}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateOptionName.prototype);
-  }
-};
-var MissingCommandName = class extends CommandError {
-  constructor() {
-    super("Missing command name.");
-    Object.setPrototypeOf(this, MissingCommandName.prototype);
-  }
-};
-var DuplicateCommandName = class extends CommandError {
-  constructor(name) {
-    super(`Duplicate command name "${name}".`);
-    Object.setPrototypeOf(this, DuplicateCommandName.prototype);
-  }
-};
-var DuplicateCommandAlias = class extends CommandError {
-  constructor(alias) {
-    super(`Duplicate command alias "${alias}".`);
-    Object.setPrototypeOf(this, DuplicateCommandAlias.prototype);
-  }
-};
-var CommandNotFound = class extends CommandError {
-  constructor(name, commands, excluded) {
-    super(`Unknown command "${name}".${didYouMeanCommand(name, commands, excluded)}`);
-    Object.setPrototypeOf(this, UnknownCommand.prototype);
-  }
-};
-var DuplicateType = class extends CommandError {
-  constructor(name) {
-    super(`Type with name "${name}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateType.prototype);
-  }
-};
-var DuplicateCompletion = class extends CommandError {
-  constructor(name) {
-    super(`Completion with name "${name}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateCompletion.prototype);
-  }
-};
-var DuplicateExample = class extends CommandError {
-  constructor(name) {
-    super(`Example with name "${name}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateExample.prototype);
-  }
-};
-var DuplicateEnvironmentVariable = class extends CommandError {
-  constructor(name) {
-    super(`Environment variable with name "${name}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateEnvironmentVariable.prototype);
-  }
-};
-var MissingRequiredEnvVar = class extends ValidationError2 {
-  constructor(envVar) {
-    super(`Missing required environment variable "${envVar.names[0]}".`);
-    Object.setPrototypeOf(this, MissingRequiredEnvVar.prototype);
-  }
-};
-var EnvironmentVariableSingleValue = class extends CommandError {
-  constructor(name) {
-    super(`An environment variable can only have one value, but "${name}" has more than one.`);
-    Object.setPrototypeOf(this, EnvironmentVariableSingleValue.prototype);
-  }
-};
-var EnvironmentVariableOptionalValue = class extends CommandError {
-  constructor(name) {
-    super(`An environment variable cannot have an optional value, but "${name}" is defined as optional.`);
-    Object.setPrototypeOf(this, EnvironmentVariableOptionalValue.prototype);
-  }
-};
-var EnvironmentVariableVariadicValue = class extends CommandError {
-  constructor(name) {
-    super(`An environment variable cannot have an variadic value, but "${name}" is defined as variadic.`);
-    Object.setPrototypeOf(this, EnvironmentVariableVariadicValue.prototype);
-  }
-};
-var DefaultCommandNotFound = class extends CommandError {
-  constructor(name, commands) {
-    super(`Default command "${name}" not found.${didYouMeanCommand(name, commands)}`);
-    Object.setPrototypeOf(this, DefaultCommandNotFound.prototype);
-  }
-};
-var CommandExecutableNotFound = class extends CommandError {
-  constructor(name) {
-    super(`Command executable not found: ${name}`);
-    Object.setPrototypeOf(this, CommandExecutableNotFound.prototype);
-  }
-};
-var UnknownCommand = class extends ValidationError2 {
-  constructor(name, commands, excluded) {
-    super(`Unknown command "${name}".${didYouMeanCommand(name, commands, excluded)}`);
-    Object.setPrototypeOf(this, UnknownCommand.prototype);
-  }
-};
-var NoArgumentsAllowed = class extends ValidationError2 {
-  constructor(name) {
-    super(`No arguments allowed for command "${name}".`);
-    Object.setPrototypeOf(this, NoArgumentsAllowed.prototype);
-  }
-};
-var MissingArguments = class extends ValidationError2 {
-  constructor(args) {
-    super("Missing argument(s): " + args.join(", "));
-    Object.setPrototypeOf(this, MissingArguments.prototype);
-  }
-};
-var MissingArgument = class extends ValidationError2 {
-  constructor(arg) {
-    super(`Missing argument "${arg}".`);
-    Object.setPrototypeOf(this, MissingArgument.prototype);
-  }
-};
-var TooManyArguments = class extends ValidationError2 {
-  constructor(args) {
-    super(`Too many arguments: ${args.join(" ")}`);
-    Object.setPrototypeOf(this, TooManyArguments.prototype);
-  }
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/flags/types/boolean.js
-var boolean = (type) => {
-  if (~["1", "true"].indexOf(type.value)) {
-    return true;
-  }
-  if (~["0", "false"].indexOf(type.value)) {
-    return false;
-  }
-  throw new InvalidTypeError(type);
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/flags/types/number.js
-var number = (type) => {
-  const value = Number(type.value);
-  if (Number.isFinite(value)) {
-    return value;
-  }
-  throw new InvalidTypeError(type);
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/flags/types/string.js
-var string = ({ value }) => {
-  return value;
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/flags/validate_flags.js
-function validateFlags(flags, values, _knownFlaks, allowEmpty, optionNames = {}) {
-  const defaultValues = {};
-  for (const option of flags) {
-    let name;
-    let defaultValue = void 0;
-    if (option.name.startsWith("no-")) {
-      const propName = option.name.replace(/^no-/, "");
-      if (propName in values) {
-        continue;
-      }
-      const positiveOption = getOption(flags, propName);
-      if (positiveOption) {
-        continue;
-      }
-      name = paramCaseToCamelCase(propName);
-      defaultValue = true;
-    }
-    if (!name) {
-      name = paramCaseToCamelCase(option.name);
-    }
-    if (!(name in optionNames)) {
-      optionNames[name] = option.name;
-    }
-    const hasDefaultValue = typeof values[name] === "undefined" && (typeof option.default !== "undefined" || typeof defaultValue !== "undefined");
-    if (hasDefaultValue) {
-      values[name] = getDefaultValue(option) ?? defaultValue;
-      defaultValues[option.name] = true;
-      if (typeof option.value === "function") {
-        values[name] = option.value(values[name]);
-      }
-    }
-  }
-  const keys = Object.keys(values);
-  if (keys.length === 0 && allowEmpty) {
-    return;
-  }
-  const options = keys.map((name) => ({
-    name,
-    option: getOption(flags, optionNames[name])
-  }));
-  for (const { name, option } of options) {
-    if (!option) {
-      throw new UnknownOption(name, flags);
-    }
-    if (option.standalone) {
-      if (keys.length > 1) {
-        if (options.every(({ option: opt }) => opt && (option === opt || defaultValues[opt.name]))) {
-          return;
-        }
-        throw new OptionNotCombinable(option.name);
-      }
-      return;
-    }
-    option.conflicts?.forEach((flag) => {
-      if (isset(flag, values)) {
-        throw new ConflictingOption(option.name, flag);
-      }
-    });
-    option.depends?.forEach((flag) => {
-      if (!isset(flag, values) && !defaultValues[option.name]) {
-        throw new DependingOption(option.name, flag);
-      }
-    });
-    const isArray = (option.args?.length || 0) > 1;
-    option.args?.forEach((arg, i) => {
-      if (arg.requiredValue && (typeof values[name] === "undefined" || isArray && typeof values[name][i] === "undefined")) {
-        throw new MissingOptionValue(option.name);
-      }
-    });
-  }
-  for (const option of flags) {
-    if (option.required && !(paramCaseToCamelCase(option.name) in values)) {
-      if ((!option.conflicts || !option.conflicts.find((flag) => !!values[flag])) && !options.find((opt) => opt.option?.conflicts?.find((flag) => flag === option.name))) {
-        throw new MissingRequiredOption(option.name);
-      }
-    }
-  }
-  if (keys.length === 0 && !allowEmpty) {
-    throw new NoArguments();
-  }
-}
-function isset(flag, values) {
-  const name = paramCaseToCamelCase(flag);
-  return typeof values[name] !== "undefined";
-}
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/flags/types/integer.js
-var integer = (type) => {
-  const value = Number(type.value);
-  if (Number.isInteger(value)) {
-    return value;
-  }
-  throw new InvalidTypeError(type);
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/flags/flags.js
-var Types = {
-  [OptionType.STRING]: string,
-  [OptionType.NUMBER]: number,
-  [OptionType.INTEGER]: integer,
-  [OptionType.BOOLEAN]: boolean
-};
-function parseFlags(args, opts = {}) {
-  args = args.slice();
-  !opts.flags && (opts.flags = []);
-  let inLiteral = false;
-  let negate = false;
-  const flags = {};
-  const optionNames = {};
-  let literal = [];
-  let unknown = [];
-  let stopEarly = null;
-  opts.flags.forEach((opt) => {
-    opt.depends?.forEach((flag) => {
-      if (!opts.flags || !getOption(opts.flags, flag)) {
-        throw new UnknownRequiredOption(flag, opts.flags ?? []);
-      }
-    });
-    opt.conflicts?.forEach((flag) => {
-      if (!opts.flags || !getOption(opts.flags, flag)) {
-        throw new UnknownConflictingOption(flag, opts.flags ?? []);
-      }
-    });
-  });
-  for (let argsIndex = 0; argsIndex < args.length; argsIndex++) {
-    let option;
-    let optionArgs;
-    let current = args[argsIndex];
-    let currentValue;
-    if (inLiteral) {
-      literal.push(current);
-      continue;
-    }
-    if (current === "--") {
-      inLiteral = true;
-      continue;
-    }
-    const isFlag = current.length > 1 && current[0] === "-";
-    const next = () => currentValue ?? args[argsIndex + 1];
-    if (isFlag) {
-      let parseNext = function(option2, optionArgs2) {
-        const arg = optionArgs2[optionArgsIndex];
-        if (!arg) {
-          const flag = next();
-          throw new UnknownOption(flag, opts.flags ?? []);
-        }
-        if (!arg.type) {
-          arg.type = OptionType.BOOLEAN;
-        }
-        if (option2.args?.length) {
-          if ((typeof arg.optionalValue === "undefined" || arg.optionalValue === false) && typeof arg.requiredValue === "undefined") {
-            arg.requiredValue = true;
-          }
-        } else {
-          if (arg.type !== OptionType.BOOLEAN && (typeof arg.optionalValue === "undefined" || arg.optionalValue === false) && typeof arg.requiredValue === "undefined") {
-            arg.requiredValue = true;
-          }
-        }
-        if (arg.requiredValue) {
-          if (inOptionalArg) {
-            throw new RequiredArgumentFollowsOptionalArgument(option2.name);
-          }
-        } else {
-          inOptionalArg = true;
-        }
-        if (negate) {
-          flags[propName] = false;
-          return;
-        }
-        let result2;
-        let increase = false;
-        if (arg.list && hasNext(arg)) {
-          const parsed = next().split(arg.separator || ",").map((nextValue) => {
-            const value = parseValue(option2, arg, nextValue);
-            if (typeof value === "undefined") {
-              throw new InvalidOptionValue(option2.name, arg.type ?? "?", nextValue);
-            }
-            return value;
-          });
-          if (parsed?.length) {
-            result2 = parsed;
-          }
-        } else {
-          if (hasNext(arg)) {
-            result2 = parseValue(option2, arg, next());
-          } else if (arg.optionalValue && arg.type === OptionType.BOOLEAN) {
-            result2 = true;
-          }
-        }
-        if (increase && typeof currentValue === "undefined") {
-          argsIndex++;
-          if (!arg.variadic) {
-            optionArgsIndex++;
-          } else if (optionArgs2[optionArgsIndex + 1]) {
-            throw new ArgumentFollowsVariadicArgument(next());
-          }
-        }
-        if (typeof result2 !== "undefined" && (optionArgs2.length > 1 || arg.variadic)) {
-          if (!flags[propName]) {
-            flags[propName] = [];
-          }
-          flags[propName].push(result2);
-          if (hasNext(arg)) {
-            parseNext(option2, optionArgs2);
-          }
-        } else {
-          flags[propName] = result2;
-        }
-        function hasNext(arg2) {
-          const nextValue = currentValue ?? args[argsIndex + 1];
-          if (!currentValue && !nextValue) {
-            return false;
-          }
-          if (arg2.requiredValue) {
-            return true;
-          }
-          if (arg2.optionalValue || arg2.variadic) {
-            return nextValue[0] !== "-" || arg2.type === OptionType.NUMBER && !isNaN(Number(nextValue));
-          }
-          return false;
-        }
-        function parseValue(option3, arg2, value) {
-          const type = arg2.type || OptionType.STRING;
-          const result3 = opts.parse ? opts.parse({
-            label: "Option",
-            type,
-            name: `--${option3.name}`,
-            value
-          }) : parseFlagValue(option3, arg2, value);
-          if (typeof result3 !== "undefined") {
-            increase = true;
-          }
-          return result3;
-        }
-      };
-      const isShort = current[1] !== "-";
-      const isLong = isShort ? false : current.length > 3 && current[2] !== "-";
-      if (!isShort && !isLong) {
-        throw new InvalidOption(current, opts.flags);
-      }
-      const equalSignIndex = current.indexOf("=");
-      if (equalSignIndex > -1) {
-        currentValue = current.slice(equalSignIndex + 1) || void 0;
-        current = current.slice(0, equalSignIndex);
-      }
-      if (isShort && current.length > 2 && current[2] !== ".") {
-        args.splice(argsIndex, 1, ...splitFlags(current));
-        current = args[argsIndex];
-      } else if (isLong && current.startsWith("--no-")) {
-        negate = true;
-      }
-      option = getOption(opts.flags, current);
-      if (!option) {
-        if (opts.flags.length) {
-          throw new UnknownOption(current, opts.flags);
-        }
-        option = {
-          name: current.replace(/^-+/, ""),
-          optionalValue: true,
-          type: OptionType.STRING
-        };
-      }
-      const positiveName = negate ? option.name.replace(/^no-?/, "") : option.name;
-      const propName = paramCaseToCamelCase(positiveName);
-      if (typeof flags[propName] !== "undefined") {
-        if (!opts.flags.length) {
-          option.collect = true;
-        } else if (!option.collect) {
-          throw new DuplicateOption(current);
-        }
-      }
-      optionArgs = option.args?.length ? option.args : [{
-        type: option.type,
-        requiredValue: option.requiredValue,
-        optionalValue: option.optionalValue,
-        variadic: option.variadic,
-        list: option.list,
-        separator: option.separator
-      }];
-      let optionArgsIndex = 0;
-      let inOptionalArg = false;
-      const previous = flags[propName];
-      parseNext(option, optionArgs);
-      if (typeof flags[propName] === "undefined") {
-        if (optionArgs[optionArgsIndex].requiredValue) {
-          throw new MissingOptionValue(option.name);
-        } else if (typeof option.default !== "undefined") {
-          flags[propName] = getDefaultValue(option);
-        } else {
-          flags[propName] = true;
-        }
-      }
-      if (option.value) {
-        flags[propName] = option.value(flags[propName], previous);
-      } else if (option.collect) {
-        const value = typeof previous !== "undefined" ? Array.isArray(previous) ? previous : [previous] : [];
-        value.push(flags[propName]);
-        flags[propName] = value;
-      }
-      optionNames[propName] = option.name;
-      opts.option?.(option, flags[propName]);
-    } else {
-      if (opts.stopEarly) {
-        stopEarly = current;
-        break;
-      }
-      unknown.push(current);
-    }
-  }
-  if (stopEarly) {
-    const stopEarlyArgIndex = args.indexOf(stopEarly);
-    if (stopEarlyArgIndex !== -1) {
-      const doubleDashIndex = args.indexOf("--");
-      unknown = args.slice(stopEarlyArgIndex, doubleDashIndex === -1 ? void 0 : doubleDashIndex);
-      if (doubleDashIndex !== -1) {
-        literal = args.slice(doubleDashIndex + 1);
-      }
-    }
-  }
-  if (opts.flags?.length) {
-    validateFlags(opts.flags, flags, opts.knownFlaks, opts.allowEmpty, optionNames);
-  }
-  const result = Object.keys(flags).reduce((result2, key) => {
-    if (~key.indexOf(".")) {
-      key.split(".").reduce((result3, subKey, index, parts) => {
-        if (index === parts.length - 1) {
-          result3[subKey] = flags[key];
-        } else {
-          result3[subKey] = result3[subKey] ?? {};
-        }
-        return result3[subKey];
-      }, result2);
-    } else {
-      result2[key] = flags[key];
-    }
-    return result2;
-  }, {});
-  return { flags: result, unknown, literal };
-}
-function splitFlags(flag) {
-  const normalized = [];
-  const flags = flag.slice(1).split("");
-  if (isNaN(Number(flag[flag.length - 1]))) {
-    flags.forEach((val) => normalized.push(`-${val}`));
-  } else {
-    normalized.push(`-${flags.shift()}`);
-    if (flags.length) {
-      normalized.push(flags.join(""));
-    }
-  }
-  return normalized;
-}
-function parseFlagValue(option, arg, value) {
-  const type = arg.type || OptionType.STRING;
-  const parseType = Types[type];
-  if (!parseType) {
-    throw new UnknownType(type, Object.keys(Types));
-  }
-  return parseType({
-    label: "Option",
-    type,
-    name: `--${option.name}`,
-    value
-  });
-}
-
-// cli/dist/esm/deps/deno_land/std_0.113.0/fmt/colors.js
-var { Deno: Deno3 } = dntGlobalThis;
-var noColor = typeof Deno3?.noColor === "boolean" ? Deno3.noColor : true;
-var enabled = !noColor;
-function setColorEnabled(value) {
-  if (noColor) {
-    return;
-  }
-  enabled = value;
-}
-function getColorEnabled() {
-  return enabled;
-}
-function code(open, close) {
-  return {
-    open: `\x1B[${open.join(";")}m`,
-    close: `\x1B[${close}m`,
-    regexp: new RegExp(`\\x1b\\[${close}m`, "g")
-  };
-}
-function run(str, code2) {
-  return enabled ? `${code2.open}${str.replace(code2.regexp, code2.open)}${code2.close}` : str;
-}
-function bold(str) {
-  return run(str, code([1], 22));
-}
-function dim(str) {
-  return run(str, code([2], 22));
-}
-function italic(str) {
-  return run(str, code([3], 23));
-}
-function red(str) {
-  return run(str, code([31], 39));
-}
-function green(str) {
-  return run(str, code([32], 39));
-}
-function yellow(str) {
-  return run(str, code([33], 39));
-}
-function blue(str) {
-  return run(str, code([34], 39));
-}
-function magenta(str) {
-  return run(str, code([35], 39));
-}
-var ANSI_PATTERN = new RegExp([
-  "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)",
-  "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))"
-].join("|"), "g");
-function stripColor(string2) {
-  return string2.replace(ANSI_PATTERN, "");
-}
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/type.js
-var Type = class {
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/types/boolean.js
-var BooleanType = class extends Type {
-  parse(type) {
-    return boolean(type);
-  }
-  complete() {
-    return ["true", "false"];
-  }
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/types/number.js
-var NumberType = class extends Type {
-  parse(type) {
-    return number(type);
-  }
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/types/string.js
-var StringType = class extends Type {
-  parse(type) {
-    return string(type);
-  }
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/table/border.js
-var border = {
-  top: "\u2500",
-  topMid: "\u252C",
-  topLeft: "\u250C",
-  topRight: "\u2510",
-  bottom: "\u2500",
-  bottomMid: "\u2534",
-  bottomLeft: "\u2514",
-  bottomRight: "\u2518",
-  left: "\u2502",
-  leftMid: "\u251C",
-  mid: "\u2500",
-  midMid: "\u253C",
-  right: "\u2502",
-  rightMid: "\u2524",
-  middle: "\u2502"
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/table/cell.js
-var Cell = class {
-  constructor(value) {
-    Object.defineProperty(this, "value", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value
-    });
-    Object.defineProperty(this, "options", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: {}
-    });
-  }
-  get length() {
-    return this.toString().length;
-  }
-  static from(value) {
-    const cell = new this(value);
-    if (value instanceof Cell) {
-      cell.options = { ...value.options };
-    }
-    return cell;
-  }
-  toString() {
-    return this.value.toString();
-  }
-  setValue(value) {
-    this.value = value;
-    return this;
-  }
-  clone(value) {
-    const cell = new Cell(value ?? this);
-    cell.options = { ...this.options };
-    return cell;
-  }
-  border(enable, override = true) {
-    if (override || typeof this.options.border === "undefined") {
-      this.options.border = enable;
-    }
-    return this;
-  }
-  colSpan(span, override = true) {
-    if (override || typeof this.options.colSpan === "undefined") {
-      this.options.colSpan = span;
-    }
-    return this;
-  }
-  rowSpan(span, override = true) {
-    if (override || typeof this.options.rowSpan === "undefined") {
-      this.options.rowSpan = span;
-    }
-    return this;
-  }
-  align(direction, override = true) {
-    if (override || typeof this.options.align === "undefined") {
-      this.options.align = direction;
-    }
-    return this;
-  }
-  getBorder() {
-    return this.options.border === true;
-  }
-  getColSpan() {
-    return typeof this.options.colSpan === "number" && this.options.colSpan > 0 ? this.options.colSpan : 1;
-  }
-  getRowSpan() {
-    return typeof this.options.rowSpan === "number" && this.options.rowSpan > 0 ? this.options.rowSpan : 1;
-  }
-  getAlign() {
-    return this.options.align ?? "left";
-  }
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/table/row.js
-var Row = class extends Array {
-  constructor() {
-    super(...arguments);
-    Object.defineProperty(this, "options", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: {}
-    });
-  }
-  static from(cells) {
-    const row = new this(...cells);
-    if (cells instanceof Row) {
-      row.options = { ...cells.options };
-    }
-    return row;
-  }
-  clone() {
-    const row = new Row(...this.map((cell) => cell instanceof Cell ? cell.clone() : cell));
-    row.options = { ...this.options };
-    return row;
-  }
-  border(enable, override = true) {
-    if (override || typeof this.options.border === "undefined") {
-      this.options.border = enable;
-    }
-    return this;
-  }
-  align(direction, override = true) {
-    if (override || typeof this.options.align === "undefined") {
-      this.options.align = direction;
-    }
-    return this;
-  }
-  getBorder() {
-    return this.options.border === true;
-  }
-  hasBorder() {
-    return this.getBorder() || this.some((cell) => cell instanceof Cell && cell.getBorder());
-  }
-  getAlign() {
-    return this.options.align ?? "left";
-  }
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/table/utils.js
-function consumeWords(length, content) {
-  let consumed = "";
-  const words = content.split(/ /g);
-  for (let i = 0; i < words.length; i++) {
-    let word = words[i];
-    const hasLineBreak = word.indexOf("\n") !== -1;
-    if (hasLineBreak) {
-      word = word.split("\n").shift();
-    }
-    if (consumed) {
-      const nextLength = stripColor(word).length;
-      const consumedLength = stripColor(consumed).length;
-      if (consumedLength + nextLength >= length) {
-        break;
-      }
-    }
-    consumed += (i > 0 ? " " : "") + word;
-    if (hasLineBreak) {
-      break;
-    }
-  }
-  return consumed;
-}
-function longest(index, rows, maxWidth) {
-  return Math.max(...rows.map((row) => (row[index] instanceof Cell && row[index].getColSpan() > 1 ? "" : row[index]?.toString() || "").split("\n").map((r) => {
-    const str = typeof maxWidth === "undefined" ? r : consumeWords(maxWidth, r);
-    return stripColor(str).length || 0;
-  })).flat());
-}
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/table/layout.js
-var TableLayout = class {
-  constructor(table, options) {
-    Object.defineProperty(this, "table", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: table
-    });
-    Object.defineProperty(this, "options", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: options
-    });
-  }
-  toString() {
-    const opts = this.createLayout();
-    return opts.rows.length ? this.renderRows(opts) : "";
-  }
-  createLayout() {
-    Object.keys(this.options.chars).forEach((key) => {
-      if (typeof this.options.chars[key] !== "string") {
-        this.options.chars[key] = "";
-      }
-    });
-    const hasBodyBorder = this.table.getBorder() || this.table.hasBodyBorder();
-    const hasHeaderBorder = this.table.hasHeaderBorder();
-    const hasBorder = hasHeaderBorder || hasBodyBorder;
-    const header = this.table.getHeader();
-    const rows = this.spanRows(header ? [header, ...this.table] : this.table.slice());
-    const columns = Math.max(...rows.map((row) => row.length));
-    for (const row of rows) {
-      const length = row.length;
-      if (length < columns) {
-        const diff = columns - length;
-        for (let i = 0; i < diff; i++) {
-          row.push(this.createCell(null, row));
-        }
-      }
-    }
-    const padding = [];
-    const width = [];
-    for (let colIndex = 0; colIndex < columns; colIndex++) {
-      const minColWidth = Array.isArray(this.options.minColWidth) ? this.options.minColWidth[colIndex] : this.options.minColWidth;
-      const maxColWidth = Array.isArray(this.options.maxColWidth) ? this.options.maxColWidth[colIndex] : this.options.maxColWidth;
-      const colWidth = longest(colIndex, rows, maxColWidth);
-      width[colIndex] = Math.min(maxColWidth, Math.max(minColWidth, colWidth));
-      padding[colIndex] = Array.isArray(this.options.padding) ? this.options.padding[colIndex] : this.options.padding;
-    }
-    return {
-      padding,
-      width,
-      rows,
-      columns,
-      hasBorder,
-      hasBodyBorder,
-      hasHeaderBorder
-    };
-  }
-  spanRows(_rows, rowIndex = 0, colIndex = 0, rowSpan = [], colSpan = 1) {
-    const rows = _rows;
-    if (rowIndex >= rows.length && rowSpan.every((span) => span === 1)) {
-      return rows;
-    } else if (rows[rowIndex] && colIndex >= rows[rowIndex].length && colIndex >= rowSpan.length && colSpan === 1) {
-      return this.spanRows(rows, ++rowIndex, 0, rowSpan, 1);
-    }
-    if (colSpan > 1) {
-      colSpan--;
-      rowSpan[colIndex] = rowSpan[colIndex - 1];
-      rows[rowIndex].splice(colIndex - 1, 0, rows[rowIndex][colIndex - 1]);
-      return this.spanRows(rows, rowIndex, ++colIndex, rowSpan, colSpan);
-    }
-    if (colIndex === 0) {
-      rows[rowIndex] = this.createRow(rows[rowIndex] || []);
-    }
-    if (rowSpan[colIndex] > 1) {
-      rowSpan[colIndex]--;
-      rows[rowIndex].splice(colIndex, 0, rows[rowIndex - 1][colIndex]);
-      return this.spanRows(rows, rowIndex, ++colIndex, rowSpan, colSpan);
-    }
-    rows[rowIndex][colIndex] = this.createCell(rows[rowIndex][colIndex] || null, rows[rowIndex]);
-    colSpan = rows[rowIndex][colIndex].getColSpan();
-    rowSpan[colIndex] = rows[rowIndex][colIndex].getRowSpan();
-    return this.spanRows(rows, rowIndex, ++colIndex, rowSpan, colSpan);
-  }
-  createRow(row) {
-    return Row.from(row).border(this.table.getBorder(), false).align(this.table.getAlign(), false);
-  }
-  createCell(cell, row) {
-    return Cell.from(cell ?? "").border(row.getBorder(), false).align(row.getAlign(), false);
-  }
-  renderRows(opts) {
-    let result = "";
-    const rowSpan = new Array(opts.columns).fill(1);
-    for (let rowIndex = 0; rowIndex < opts.rows.length; rowIndex++) {
-      result += this.renderRow(rowSpan, rowIndex, opts);
-    }
-    return result.slice(0, -1);
-  }
-  renderRow(rowSpan, rowIndex, opts, isMultiline) {
-    const row = opts.rows[rowIndex];
-    const prevRow = opts.rows[rowIndex - 1];
-    const nextRow = opts.rows[rowIndex + 1];
-    let result = "";
-    let colSpan = 1;
-    if (!isMultiline && rowIndex === 0 && row.hasBorder()) {
-      result += this.renderBorderRow(void 0, row, rowSpan, opts);
-    }
-    let isMultilineRow = false;
-    result += " ".repeat(this.options.indent || 0);
-    for (let colIndex = 0; colIndex < opts.columns; colIndex++) {
-      if (colSpan > 1) {
-        colSpan--;
-        rowSpan[colIndex] = rowSpan[colIndex - 1];
-        continue;
-      }
-      result += this.renderCell(colIndex, row, opts);
-      if (rowSpan[colIndex] > 1) {
-        if (!isMultiline) {
-          rowSpan[colIndex]--;
-        }
-      } else if (!prevRow || prevRow[colIndex] !== row[colIndex]) {
-        rowSpan[colIndex] = row[colIndex].getRowSpan();
-      }
-      colSpan = row[colIndex].getColSpan();
-      if (rowSpan[colIndex] === 1 && row[colIndex].length) {
-        isMultilineRow = true;
-      }
-    }
-    if (opts.columns > 0) {
-      if (row[opts.columns - 1].getBorder()) {
-        result += this.options.chars.right;
-      } else if (opts.hasBorder) {
-        result += " ";
-      }
-    }
-    result += "\n";
-    if (isMultilineRow) {
-      return result + this.renderRow(rowSpan, rowIndex, opts, isMultilineRow);
-    }
-    if (rowIndex === 0 && opts.hasHeaderBorder || rowIndex < opts.rows.length - 1 && opts.hasBodyBorder) {
-      result += this.renderBorderRow(row, nextRow, rowSpan, opts);
-    }
-    if (rowIndex === opts.rows.length - 1 && row.hasBorder()) {
-      result += this.renderBorderRow(row, void 0, rowSpan, opts);
-    }
-    return result;
-  }
-  renderCell(colIndex, row, opts, noBorder) {
-    let result = "";
-    const prevCell = row[colIndex - 1];
-    const cell = row[colIndex];
-    if (!noBorder) {
-      if (colIndex === 0) {
-        if (cell.getBorder()) {
-          result += this.options.chars.left;
-        } else if (opts.hasBorder) {
-          result += " ";
-        }
-      } else {
-        if (cell.getBorder() || prevCell?.getBorder()) {
-          result += this.options.chars.middle;
-        } else if (opts.hasBorder) {
-          result += " ";
-        }
-      }
-    }
-    let maxLength = opts.width[colIndex];
-    const colSpan = cell.getColSpan();
-    if (colSpan > 1) {
-      for (let o = 1; o < colSpan; o++) {
-        maxLength += opts.width[colIndex + o] + opts.padding[colIndex + o];
-        if (opts.hasBorder) {
-          maxLength += opts.padding[colIndex + o] + 1;
-        }
-      }
-    }
-    const { current, next } = this.renderCellValue(cell, maxLength);
-    row[colIndex].setValue(next);
-    if (opts.hasBorder) {
-      result += " ".repeat(opts.padding[colIndex]);
-    }
-    result += current;
-    if (opts.hasBorder || colIndex < opts.columns - 1) {
-      result += " ".repeat(opts.padding[colIndex]);
-    }
-    return result;
-  }
-  renderCellValue(cell, maxLength) {
-    const length = Math.min(maxLength, stripColor(cell.toString()).length);
-    let words = consumeWords(length, cell.toString());
-    const breakWord = stripColor(words).length > length;
-    if (breakWord) {
-      words = words.slice(0, length);
-    }
-    const next = cell.toString().slice(words.length + (breakWord ? 0 : 1));
-    const fillLength = maxLength - stripColor(words).length;
-    const align = cell.getAlign();
-    let current;
-    if (fillLength === 0) {
-      current = words;
-    } else if (align === "left") {
-      current = words + " ".repeat(fillLength);
-    } else if (align === "center") {
-      current = " ".repeat(Math.floor(fillLength / 2)) + words + " ".repeat(Math.ceil(fillLength / 2));
-    } else if (align === "right") {
-      current = " ".repeat(fillLength) + words;
-    } else {
-      throw new Error("Unknown direction: " + align);
-    }
-    return {
-      current,
-      next: cell.clone(next)
-    };
-  }
-  renderBorderRow(prevRow, nextRow, rowSpan, opts) {
-    let result = "";
-    let colSpan = 1;
-    for (let colIndex = 0; colIndex < opts.columns; colIndex++) {
-      if (rowSpan[colIndex] > 1) {
-        if (!nextRow) {
-          throw new Error("invalid layout");
-        }
-        if (colSpan > 1) {
-          colSpan--;
-          continue;
-        }
-      }
-      result += this.renderBorderCell(colIndex, prevRow, nextRow, rowSpan, opts);
-      colSpan = nextRow?.[colIndex].getColSpan() ?? 1;
-    }
-    return result.length ? " ".repeat(this.options.indent) + result + "\n" : "";
-  }
-  renderBorderCell(colIndex, prevRow, nextRow, rowSpan, opts) {
-    const a1 = prevRow?.[colIndex - 1];
-    const a2 = nextRow?.[colIndex - 1];
-    const b1 = prevRow?.[colIndex];
-    const b2 = nextRow?.[colIndex];
-    const a1Border = !!a1?.getBorder();
-    const a2Border = !!a2?.getBorder();
-    const b1Border = !!b1?.getBorder();
-    const b2Border = !!b2?.getBorder();
-    const hasColSpan = (cell) => (cell?.getColSpan() ?? 1) > 1;
-    const hasRowSpan = (cell) => (cell?.getRowSpan() ?? 1) > 1;
-    let result = "";
-    if (colIndex === 0) {
-      if (rowSpan[colIndex] > 1) {
-        if (b1Border) {
-          result += this.options.chars.left;
-        } else {
-          result += " ";
-        }
-      } else if (b1Border && b2Border) {
-        result += this.options.chars.leftMid;
-      } else if (b1Border) {
-        result += this.options.chars.bottomLeft;
-      } else if (b2Border) {
-        result += this.options.chars.topLeft;
-      } else {
-        result += " ";
-      }
-    } else if (colIndex < opts.columns) {
-      if (a1Border && b2Border || b1Border && a2Border) {
-        const a1ColSpan = hasColSpan(a1);
-        const a2ColSpan = hasColSpan(a2);
-        const b1ColSpan = hasColSpan(b1);
-        const b2ColSpan = hasColSpan(b2);
-        const a1RowSpan = hasRowSpan(a1);
-        const a2RowSpan = hasRowSpan(a2);
-        const b1RowSpan = hasRowSpan(b1);
-        const b2RowSpan = hasRowSpan(b2);
-        const hasAllBorder = a1Border && b2Border && b1Border && a2Border;
-        const hasAllRowSpan = a1RowSpan && b1RowSpan && a2RowSpan && b2RowSpan;
-        const hasAllColSpan = a1ColSpan && b1ColSpan && a2ColSpan && b2ColSpan;
-        if (hasAllRowSpan && hasAllBorder) {
-          result += this.options.chars.middle;
-        } else if (hasAllColSpan && hasAllBorder && a1 === b1 && a2 === b2) {
-          result += this.options.chars.mid;
-        } else if (a1ColSpan && b1ColSpan && a1 === b1) {
-          result += this.options.chars.topMid;
-        } else if (a2ColSpan && b2ColSpan && a2 === b2) {
-          result += this.options.chars.bottomMid;
-        } else if (a1RowSpan && a2RowSpan && a1 === a2) {
-          result += this.options.chars.leftMid;
-        } else if (b1RowSpan && b2RowSpan && b1 === b2) {
-          result += this.options.chars.rightMid;
-        } else {
-          result += this.options.chars.midMid;
-        }
-      } else if (a1Border && b1Border) {
-        if (hasColSpan(a1) && hasColSpan(b1) && a1 === b1) {
-          result += this.options.chars.bottom;
-        } else {
-          result += this.options.chars.bottomMid;
-        }
-      } else if (b1Border && b2Border) {
-        if (rowSpan[colIndex] > 1) {
-          result += this.options.chars.left;
-        } else {
-          result += this.options.chars.leftMid;
-        }
-      } else if (b2Border && a2Border) {
-        if (hasColSpan(a2) && hasColSpan(b2) && a2 === b2) {
-          result += this.options.chars.top;
-        } else {
-          result += this.options.chars.topMid;
-        }
-      } else if (a1Border && a2Border) {
-        if (hasRowSpan(a1) && a1 === a2) {
-          result += this.options.chars.right;
-        } else {
-          result += this.options.chars.rightMid;
-        }
-      } else if (a1Border) {
-        result += this.options.chars.bottomRight;
-      } else if (b1Border) {
-        result += this.options.chars.bottomLeft;
-      } else if (a2Border) {
-        result += this.options.chars.topRight;
-      } else if (b2Border) {
-        result += this.options.chars.topLeft;
-      } else {
-        result += " ";
-      }
-    }
-    const length = opts.padding[colIndex] + opts.width[colIndex] + opts.padding[colIndex];
-    if (rowSpan[colIndex] > 1 && nextRow) {
-      result += this.renderCell(colIndex, nextRow, opts, true);
-      if (nextRow[colIndex] === nextRow[nextRow.length - 1]) {
-        if (b1Border) {
-          result += this.options.chars.right;
-        } else {
-          result += " ";
-        }
-        return result;
-      }
-    } else if (b1Border && b2Border) {
-      result += this.options.chars.mid.repeat(length);
-    } else if (b1Border) {
-      result += this.options.chars.bottom.repeat(length);
-    } else if (b2Border) {
-      result += this.options.chars.top.repeat(length);
-    } else {
-      result += " ".repeat(length);
-    }
-    if (colIndex === opts.columns - 1) {
-      if (b1Border && b2Border) {
-        result += this.options.chars.rightMid;
-      } else if (b1Border) {
-        result += this.options.chars.bottomRight;
-      } else if (b2Border) {
-        result += this.options.chars.topRight;
-      } else {
-        result += " ";
-      }
-    }
-    return result;
-  }
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/table/table.js
-var Table = class extends Array {
-  constructor() {
-    super(...arguments);
-    Object.defineProperty(this, "options", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: {
-        indent: 0,
-        border: false,
-        maxColWidth: Infinity,
-        minColWidth: 0,
-        padding: 1,
-        chars: { ...Table._chars }
-      }
-    });
-    Object.defineProperty(this, "headerRow", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-  }
-  static from(rows) {
-    const table = new this(...rows);
-    if (rows instanceof Table) {
-      table.options = { ...rows.options };
-      table.headerRow = rows.headerRow ? Row.from(rows.headerRow) : void 0;
-    }
-    return table;
-  }
-  static fromJson(rows) {
-    return new this().fromJson(rows);
-  }
-  static chars(chars) {
-    Object.assign(this._chars, chars);
-    return this;
-  }
-  static render(rows) {
-    Table.from(rows).render();
-  }
-  fromJson(rows) {
-    this.header(Object.keys(rows[0]));
-    this.body(rows.map((row) => Object.values(row)));
-    return this;
-  }
-  header(header) {
-    this.headerRow = header instanceof Row ? header : Row.from(header);
-    return this;
-  }
-  body(rows) {
-    this.length = 0;
-    this.push(...rows);
-    return this;
-  }
-  clone() {
-    const table = new Table(...this.map((row) => row instanceof Row ? row.clone() : Row.from(row).clone()));
-    table.options = { ...this.options };
-    table.headerRow = this.headerRow?.clone();
-    return table;
-  }
-  toString() {
-    return new TableLayout(this, this.options).toString();
-  }
-  render() {
-    console.log(this.toString());
-    return this;
-  }
-  maxColWidth(width, override = true) {
-    if (override || typeof this.options.maxColWidth === "undefined") {
-      this.options.maxColWidth = width;
-    }
-    return this;
-  }
-  minColWidth(width, override = true) {
-    if (override || typeof this.options.minColWidth === "undefined") {
-      this.options.minColWidth = width;
-    }
-    return this;
-  }
-  indent(width, override = true) {
-    if (override || typeof this.options.indent === "undefined") {
-      this.options.indent = width;
-    }
-    return this;
-  }
-  padding(padding, override = true) {
-    if (override || typeof this.options.padding === "undefined") {
-      this.options.padding = padding;
-    }
-    return this;
-  }
-  border(enable, override = true) {
-    if (override || typeof this.options.border === "undefined") {
-      this.options.border = enable;
-    }
-    return this;
-  }
-  align(direction, override = true) {
-    if (override || typeof this.options.align === "undefined") {
-      this.options.align = direction;
-    }
-    return this;
-  }
-  chars(chars) {
-    Object.assign(this.options.chars, chars);
-    return this;
-  }
-  getHeader() {
-    return this.headerRow;
-  }
-  getBody() {
-    return [...this];
-  }
-  getMaxColWidth() {
-    return this.options.maxColWidth;
-  }
-  getMinColWidth() {
-    return this.options.minColWidth;
-  }
-  getIndent() {
-    return this.options.indent;
-  }
-  getPadding() {
-    return this.options.padding;
-  }
-  getBorder() {
-    return this.options.border === true;
-  }
-  hasHeaderBorder() {
-    const hasBorder = this.headerRow?.hasBorder();
-    return hasBorder === true || this.getBorder() && hasBorder !== false;
-  }
-  hasBodyBorder() {
-    return this.getBorder() || this.some((row) => row instanceof Row ? row.hasBorder() : row.some((cell) => cell instanceof Cell ? cell.getBorder : false));
-  }
-  hasBorder() {
-    return this.hasHeaderBorder() || this.hasBodyBorder();
-  }
-  getAlign() {
-    return this.options.align ?? "left";
-  }
-};
-Object.defineProperty(Table, "_chars", {
-  enumerable: true,
-  configurable: true,
-  writable: true,
-  value: { ...border }
-});
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/help/_help_generator.js
-var HelpGenerator = class {
-  constructor(cmd, options = {}) {
-    Object.defineProperty(this, "cmd", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: cmd
-    });
-    Object.defineProperty(this, "indent", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: 2
-    });
-    Object.defineProperty(this, "options", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    this.options = {
-      types: false,
-      hints: true,
-      colors: true,
-      long: false,
-      ...options
-    };
-  }
-  static generate(cmd, options) {
-    return new HelpGenerator(cmd, options).generate();
-  }
-  generate() {
-    const areColorsEnabled = getColorEnabled();
-    setColorEnabled(this.options.colors);
-    const result = this.generateHeader() + this.generateDescription() + this.generateOptions() + this.generateCommands() + this.generateEnvironmentVariables() + this.generateExamples();
-    setColorEnabled(areColorsEnabled);
-    return result;
-  }
-  generateHeader() {
-    const usage = this.cmd.getUsage();
-    const rows = [
-      [
-        bold("Usage:"),
-        magenta(this.cmd.getPath() + (usage ? " " + highlightArguments(usage, this.options.types) : ""))
-      ]
-    ];
-    const version = this.cmd.getVersion();
-    if (version) {
-      rows.push([bold("Version:"), yellow(`${this.cmd.getVersion()}`)]);
-    }
-    return "\n" + Table.from(rows).indent(this.indent).padding(1).toString() + "\n";
-  }
-  generateDescription() {
-    if (!this.cmd.getDescription()) {
-      return "";
-    }
-    return this.label("Description") + Table.from([
-      [this.cmd.getDescription()]
-    ]).indent(this.indent * 2).maxColWidth(140).padding(1).toString() + "\n";
-  }
-  generateOptions() {
-    const options = this.cmd.getOptions(false);
-    if (!options.length) {
-      return "";
-    }
-    const hasTypeDefinitions = !!options.find((option) => !!option.typeDefinition);
-    if (hasTypeDefinitions) {
-      return this.label("Options") + Table.from([
-        ...options.map((option) => [
-          option.flags.map((flag) => blue(flag)).join(", "),
-          highlightArguments(option.typeDefinition || "", this.options.types),
-          red(bold("-")),
-          this.options.long ? option.description : option.description.split("\n", 1)[0],
-          this.generateHints(option)
-        ])
-      ]).padding([2, 2, 1, 2]).indent(this.indent * 2).maxColWidth([60, 60, 1, 80, 60]).toString() + "\n";
-    }
-    return this.label("Options") + Table.from([
-      ...options.map((option) => [
-        option.flags.map((flag) => blue(flag)).join(", "),
-        red(bold("-")),
-        this.options.long ? option.description : option.description.split("\n", 1)[0],
-        this.generateHints(option)
-      ])
-    ]).indent(this.indent * 2).maxColWidth([60, 1, 80, 60]).padding([2, 1, 2]).toString() + "\n";
-  }
-  generateCommands() {
-    const commands = this.cmd.getCommands(false);
-    if (!commands.length) {
-      return "";
-    }
-    const hasTypeDefinitions = !!commands.find((command) => !!command.getArgsDefinition());
-    if (hasTypeDefinitions) {
-      return this.label("Commands") + Table.from([
-        ...commands.map((command) => [
-          [command.getName(), ...command.getAliases()].map((name) => blue(name)).join(", "),
-          highlightArguments(command.getArgsDefinition() || "", this.options.types),
-          red(bold("-")),
-          command.getShortDescription()
-        ])
-      ]).indent(this.indent * 2).maxColWidth([60, 60, 1, 80]).padding([2, 2, 1, 2]).toString() + "\n";
-    }
-    return this.label("Commands") + Table.from([
-      ...commands.map((command) => [
-        [command.getName(), ...command.getAliases()].map((name) => blue(name)).join(", "),
-        red(bold("-")),
-        command.getShortDescription()
-      ])
-    ]).maxColWidth([60, 1, 80]).padding([2, 1, 2]).indent(this.indent * 2).toString() + "\n";
-  }
-  generateEnvironmentVariables() {
-    const envVars = this.cmd.getEnvVars(false);
-    if (!envVars.length) {
-      return "";
-    }
-    return this.label("Environment variables") + Table.from([
-      ...envVars.map((envVar) => [
-        envVar.names.map((name) => blue(name)).join(", "),
-        highlightArgumentDetails(envVar.details, this.options.types),
-        red(bold("-")),
-        this.options.long ? envVar.description : envVar.description.split("\n", 1)[0]
-      ])
-    ]).padding([2, 2, 1]).indent(this.indent * 2).maxColWidth([60, 60, 1, 80]).toString() + "\n";
-  }
-  generateExamples() {
-    const examples = this.cmd.getExamples();
-    if (!examples.length) {
-      return "";
-    }
-    return this.label("Examples") + Table.from(examples.map((example) => [
-      dim(bold(`${capitalize(example.name)}:`)),
-      example.description
-    ])).padding(1).indent(this.indent * 2).maxColWidth(150).toString() + "\n";
-  }
-  generateHints(option) {
-    if (!this.options.hints) {
-      return "";
-    }
-    const hints = [];
-    option.required && hints.push(yellow(`required`));
-    typeof option.default !== "undefined" && hints.push(bold(`Default: `) + inspect(option.default, this.options.colors));
-    option.depends?.length && hints.push(yellow(bold(`Depends: `)) + italic(option.depends.map(getFlag).join(", ")));
-    option.conflicts?.length && hints.push(red(bold(`Conflicts: `)) + italic(option.conflicts.map(getFlag).join(", ")));
-    const type = this.cmd.getType(option.args[0]?.type)?.handler;
-    if (type instanceof Type) {
-      const possibleValues = type.values?.(this.cmd, this.cmd.getParent());
-      if (possibleValues?.length) {
-        hints.push(bold(`Values: `) + possibleValues.map((value) => inspect(value, this.options.colors)).join(", "));
-      }
-    }
-    if (hints.length) {
-      return `(${hints.join(", ")})`;
-    }
-    return "";
-  }
-  label(label) {
-    return "\n" + " ".repeat(this.indent) + bold(`${label}:`) + "\n\n";
-  }
-};
-function capitalize(string2) {
-  return string2?.charAt(0).toUpperCase() + string2.slice(1);
-}
-function inspect(value, colors) {
-  return import_shim_deno2.Deno.inspect(value, { depth: 1, colors, trailingComma: false });
-}
-function highlightArguments(argsDefinition, types = true) {
-  if (!argsDefinition) {
-    return "";
-  }
-  return parseArgumentsDefinition(argsDefinition, false, true).map((arg) => typeof arg === "string" ? arg : highlightArgumentDetails(arg, types)).join(" ");
-}
-function highlightArgumentDetails(arg, types = true) {
-  let str = "";
-  str += yellow(arg.optionalValue ? "[" : "<");
-  let name = "";
-  name += arg.name;
-  if (arg.variadic) {
-    name += "...";
-  }
-  name = magenta(name);
-  str += name;
-  if (types) {
-    str += yellow(":");
-    str += red(arg.type);
-    if (arg.list) {
-      str += green("[]");
-    }
-  }
-  str += yellow(arg.optionalValue ? "]" : ">");
-  return str;
-}
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/types/integer.js
-var IntegerType = class extends Type {
-  parse(type) {
-    return integer(type);
-  }
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/command.js
-var Command = class {
-  constructor() {
-    Object.defineProperty(this, "types", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: /* @__PURE__ */ new Map()
-    });
-    Object.defineProperty(this, "rawArgs", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "literalArgs", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "_name", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: "COMMAND"
-    });
-    Object.defineProperty(this, "_parent", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "_globalParent", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "ver", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "desc", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: ""
-    });
-    Object.defineProperty(this, "_usage", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "fn", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "options", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "commands", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: /* @__PURE__ */ new Map()
-    });
-    Object.defineProperty(this, "examples", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "envVars", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "aliases", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "completions", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: /* @__PURE__ */ new Map()
-    });
-    Object.defineProperty(this, "cmd", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: this
-    });
-    Object.defineProperty(this, "argsDefinition", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "isExecutable", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "throwOnError", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "_allowEmpty", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: true
-    });
-    Object.defineProperty(this, "_stopEarly", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "defaultCommand", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "_useRawArgs", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "args", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "isHidden", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "isGlobal", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "hasDefaults", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "_versionOption", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "_helpOption", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "_help", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "_shouldExit", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-  }
-  versionOption(flags, desc, opts) {
-    this._versionOption = flags === false ? flags : {
-      flags,
-      desc,
-      opts: typeof opts === "function" ? { action: opts } : opts
-    };
-    return this;
-  }
-  helpOption(flags, desc, opts) {
-    this._helpOption = flags === false ? flags : {
-      flags,
-      desc,
-      opts: typeof opts === "function" ? { action: opts } : opts
-    };
-    return this;
-  }
-  command(nameAndArguments, cmdOrDescription, override) {
-    const result = splitArguments(nameAndArguments);
-    const name = result.flags.shift();
-    const aliases = result.flags;
-    if (!name) {
-      throw new MissingCommandName();
-    }
-    if (this.getBaseCommand(name, true)) {
-      if (!override) {
-        throw new DuplicateCommandName(name);
-      }
-      this.removeCommand(name);
-    }
-    let description;
-    let cmd;
-    if (typeof cmdOrDescription === "string") {
-      description = cmdOrDescription;
-    }
-    if (cmdOrDescription instanceof Command) {
-      cmd = cmdOrDescription.reset();
-    } else {
-      cmd = new Command();
-    }
-    cmd._name = name;
-    cmd._parent = this;
-    if (description) {
-      cmd.description(description);
-    }
-    if (result.typeDefinition) {
-      cmd.arguments(result.typeDefinition);
-    }
-    aliases.forEach((alias) => cmd.alias(alias));
-    this.commands.set(name, cmd);
-    this.select(name);
-    return this;
-  }
-  alias(alias) {
-    if (this.cmd._name === alias || this.cmd.aliases.includes(alias)) {
-      throw new DuplicateCommandAlias(alias);
-    }
-    this.cmd.aliases.push(alias);
-    return this;
-  }
-  reset() {
-    this.cmd = this;
-    return this;
-  }
-  select(name) {
-    const cmd = this.getBaseCommand(name, true);
-    if (!cmd) {
-      throw new CommandNotFound(name, this.getBaseCommands(true));
-    }
-    this.cmd = cmd;
-    return this;
-  }
-  name(name) {
-    this.cmd._name = name;
-    return this;
-  }
-  version(version) {
-    if (typeof version === "string") {
-      this.cmd.ver = () => version;
-    } else if (typeof version === "function") {
-      this.cmd.ver = version;
-    }
-    return this;
-  }
-  help(help) {
-    if (typeof help === "string") {
-      this.cmd._help = () => help;
-    } else if (typeof help === "function") {
-      this.cmd._help = help;
-    } else {
-      this.cmd._help = (cmd, options) => HelpGenerator.generate(cmd, { ...help, ...options });
-    }
-    return this;
-  }
-  description(description) {
-    this.cmd.desc = description;
-    return this;
-  }
-  usage(usage) {
-    this.cmd._usage = usage;
-    return this;
-  }
-  hidden() {
-    this.cmd.isHidden = true;
-    return this;
-  }
-  global() {
-    this.cmd.isGlobal = true;
-    return this;
-  }
-  executable() {
-    this.cmd.isExecutable = true;
-    return this;
-  }
-  arguments(args) {
-    this.cmd.argsDefinition = args;
-    return this;
-  }
-  action(fn) {
-    this.cmd.fn = fn;
-    return this;
-  }
-  allowEmpty(allowEmpty = true) {
-    this.cmd._allowEmpty = allowEmpty;
-    return this;
-  }
-  stopEarly(stopEarly = true) {
-    this.cmd._stopEarly = stopEarly;
-    return this;
-  }
-  useRawArgs(useRawArgs = true) {
-    this.cmd._useRawArgs = useRawArgs;
-    return this;
-  }
-  default(name) {
-    this.cmd.defaultCommand = name;
-    return this;
-  }
-  globalType(name, type, options) {
-    return this.type(name, type, { ...options, global: true });
-  }
-  type(name, handler, options) {
-    if (this.cmd.types.get(name) && !options?.override) {
-      throw new DuplicateType(name);
-    }
-    this.cmd.types.set(name, { ...options, name, handler });
-    if (handler instanceof Type && (typeof handler.complete !== "undefined" || typeof handler.values !== "undefined")) {
-      const completeHandler = (cmd, parent) => handler.complete?.(cmd, parent) || [];
-      this.complete(name, completeHandler, options);
-    }
-    return this;
-  }
-  globalComplete(name, complete, options) {
-    return this.complete(name, complete, { ...options, global: true });
-  }
-  complete(name, complete, options) {
-    if (this.cmd.completions.has(name) && !options?.override) {
-      throw new DuplicateCompletion(name);
-    }
-    this.cmd.completions.set(name, {
-      name,
-      complete,
-      ...options
-    });
-    return this;
-  }
-  throwErrors() {
-    this.cmd.throwOnError = true;
-    return this;
-  }
-  noExit() {
-    this.cmd._shouldExit = false;
-    this.throwErrors();
-    return this;
-  }
-  shouldThrowErrors() {
-    return this.cmd.throwOnError || !!this.cmd._parent?.shouldThrowErrors();
-  }
-  shouldExit() {
-    return this.cmd._shouldExit ?? this.cmd._parent?.shouldExit() ?? true;
-  }
-  globalOption(flags, desc, opts) {
-    if (typeof opts === "function") {
-      return this.option(flags, desc, { value: opts, global: true });
-    }
-    return this.option(flags, desc, { ...opts, global: true });
-  }
-  option(flags, desc, opts) {
-    if (typeof opts === "function") {
-      return this.option(flags, desc, { value: opts });
-    }
-    const result = splitArguments(flags);
-    const args = result.typeDefinition ? parseArgumentsDefinition(result.typeDefinition) : [];
-    const option = {
-      ...opts,
-      name: "",
-      description: desc,
-      args,
-      flags: result.flags,
-      typeDefinition: result.typeDefinition
-    };
-    if (option.separator) {
-      for (const arg of args) {
-        if (arg.list) {
-          arg.separator = option.separator;
-        }
-      }
-    }
-    for (const part of option.flags) {
-      const arg = part.trim();
-      const isLong = /^--/.test(arg);
-      const name = isLong ? arg.slice(2) : arg.slice(1);
-      if (this.cmd.getBaseOption(name, true)) {
-        if (opts?.override) {
-          this.removeOption(name);
-        } else {
-          throw new DuplicateOptionName(name);
-        }
-      }
-      if (!option.name && isLong) {
-        option.name = name;
-      } else if (!option.aliases) {
-        option.aliases = [name];
-      } else {
-        option.aliases.push(name);
-      }
-    }
-    if (option.prepend) {
-      this.cmd.options.unshift(option);
-    } else {
-      this.cmd.options.push(option);
-    }
-    return this;
-  }
-  example(name, description) {
-    if (this.cmd.hasExample(name)) {
-      throw new DuplicateExample(name);
-    }
-    this.cmd.examples.push({ name, description });
-    return this;
-  }
-  globalEnv(name, description, options) {
-    return this.env(name, description, { ...options, global: true });
-  }
-  env(name, description, options) {
-    const result = splitArguments(name);
-    if (!result.typeDefinition) {
-      result.typeDefinition = "<value:boolean>";
-    }
-    if (result.flags.some((envName) => this.cmd.getBaseEnvVar(envName, true))) {
-      throw new DuplicateEnvironmentVariable(name);
-    }
-    const details = parseArgumentsDefinition(result.typeDefinition);
-    if (details.length > 1) {
-      throw new EnvironmentVariableSingleValue(name);
-    } else if (details.length && details[0].optionalValue) {
-      throw new EnvironmentVariableOptionalValue(name);
-    } else if (details.length && details[0].variadic) {
-      throw new EnvironmentVariableVariadicValue(name);
-    }
-    this.cmd.envVars.push({
-      name: result.flags[0],
-      names: result.flags,
-      description,
-      type: details[0].type,
-      details: details.shift(),
-      ...options
-    });
-    return this;
-  }
-  async parse(args = import_shim_deno2.Deno.args) {
-    try {
-      this.reset();
-      this.registerDefaults();
-      this.rawArgs = args;
-      if (args.length > 0) {
-        const subCommand = this.getCommand(args[0], true);
-        if (subCommand) {
-          subCommand._globalParent = this;
-          return subCommand.parse(this.rawArgs.slice(1));
-        }
-      }
-      if (this.isExecutable) {
-        await this.executeExecutable(this.rawArgs);
-        return {
-          options: {},
-          args: [],
-          cmd: this,
-          literal: []
-        };
-      } else if (this._useRawArgs) {
-        const env = await this.parseEnvVars();
-        return await this.execute(env, ...this.rawArgs);
-      } else {
-        const { actionOption, flags, unknown, literal } = this.parseFlags(this.rawArgs);
-        this.literalArgs = literal;
-        const env = await this.parseEnvVars();
-        const options = { ...env, ...flags };
-        const params = this.parseArguments(unknown, options);
-        if (actionOption) {
-          await actionOption.action.call(this, options, ...params);
-          if (actionOption.standalone) {
-            return {
-              options,
-              args: params,
-              cmd: this,
-              literal: this.literalArgs
-            };
-          }
-        }
-        return await this.execute(options, ...params);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        throw this.error(error);
-      } else {
-        throw this.error(new Error(`[non-error-thrown] ${error}`));
-      }
-    }
-  }
-  registerDefaults() {
-    if (this.hasDefaults || this.getParent()) {
-      return this;
-    }
-    this.hasDefaults = true;
-    this.reset();
-    !this.types.has("string") && this.type("string", new StringType(), { global: true });
-    !this.types.has("number") && this.type("number", new NumberType(), { global: true });
-    !this.types.has("integer") && this.type("integer", new IntegerType(), { global: true });
-    !this.types.has("boolean") && this.type("boolean", new BooleanType(), { global: true });
-    if (!this._help) {
-      this.help({
-        hints: true,
-        types: false
-      });
-    }
-    if (this._versionOption !== false && (this._versionOption || this.ver)) {
-      this.option(this._versionOption?.flags || "-V, --version", this._versionOption?.desc || "Show the version number for this program.", {
-        standalone: true,
-        prepend: true,
-        action: function() {
-          this.showVersion();
-          this.exit();
-        },
-        ...this._versionOption?.opts ?? {}
-      });
-    }
-    if (this._helpOption !== false) {
-      this.option(this._helpOption?.flags || "-h, --help", this._helpOption?.desc || "Show this help.", {
-        standalone: true,
-        global: true,
-        prepend: true,
-        action: function() {
-          this.showHelp({
-            long: this.getRawArgs().includes(`--${helpOption.name}`)
-          });
-          this.exit();
-        },
-        ...this._helpOption?.opts ?? {}
-      });
-      const helpOption = this.options[0];
-    }
-    return this;
-  }
-  async execute(options, ...args) {
-    if (this.fn) {
-      await this.fn(options, ...args);
-    } else if (this.defaultCommand) {
-      const cmd = this.getCommand(this.defaultCommand, true);
-      if (!cmd) {
-        throw new DefaultCommandNotFound(this.defaultCommand, this.getCommands());
-      }
-      cmd._globalParent = this;
-      await cmd.execute(options, ...args);
-    }
-    return { options, args, cmd: this, literal: this.literalArgs };
-  }
-  async executeExecutable(args) {
-    const command = this.getPath().replace(/\s+/g, "-");
-    await import_shim_deno2.Deno.permissions.request({ name: "run", command });
-    try {
-      const process2 = import_shim_deno2.Deno.run({
-        cmd: [command, ...args]
-      });
-      const status = await process2.status();
-      if (!status.success) {
-        import_shim_deno2.Deno.exit(status.code);
-      }
-    } catch (error) {
-      if (error instanceof import_shim_deno2.Deno.errors.NotFound) {
-        throw new CommandExecutableNotFound(command);
-      }
-      throw error;
-    }
-  }
-  parseFlags(args) {
-    try {
-      let actionOption;
-      const result = parseFlags(args, {
-        stopEarly: this._stopEarly,
-        allowEmpty: this._allowEmpty,
-        flags: this.getOptions(true),
-        parse: (type) => this.parseType(type),
-        option: (option) => {
-          if (!actionOption && option.action) {
-            actionOption = option;
-          }
-        }
-      });
-      return { ...result, actionOption };
-    } catch (error) {
-      if (error instanceof ValidationError) {
-        throw new ValidationError2(error.message);
-      }
-      throw error;
-    }
-  }
-  parseType(type) {
-    const typeSettings = this.getType(type.type);
-    if (!typeSettings) {
-      throw new UnknownType(type.type, this.getTypes().map((type2) => type2.name));
-    }
-    return typeSettings.handler instanceof Type ? typeSettings.handler.parse(type) : typeSettings.handler(type);
-  }
-  async parseEnvVars() {
-    const envVars = this.getEnvVars(true);
-    const result = {};
-    if (!envVars.length) {
-      return result;
-    }
-    const hasEnvPermissions = (await import_shim_deno2.Deno.permissions.query({
-      name: "env"
-    })).state === "granted";
-    for (const env of envVars) {
-      const name = hasEnvPermissions && env.names.find((name2) => !!import_shim_deno2.Deno.env.get(name2));
-      if (name) {
-        const propertyName = underscoreToCamelCase(env.prefix ? env.names[0].replace(new RegExp(`^${env.prefix}`), "") : env.names[0]);
-        result[propertyName] = this.parseType({
-          label: "Environment variable",
-          type: env.type,
-          name,
-          value: import_shim_deno2.Deno.env.get(name) ?? ""
-        });
-        if (env.value && typeof result[propertyName] !== "undefined") {
-          result[propertyName] = env.value(result[propertyName]);
-        }
-      } else if (env.required) {
-        throw new MissingRequiredEnvVar(env);
-      }
-    }
-    return result;
-  }
-  parseArguments(args, flags) {
-    const params = [];
-    args = args.slice(0);
-    if (!this.hasArguments()) {
-      if (args.length) {
-        if (this.hasCommands(true)) {
-          throw new UnknownCommand(args[0], this.getCommands());
-        } else {
-          throw new NoArgumentsAllowed(this.getPath());
-        }
-      }
-    } else {
-      if (!args.length) {
-        const required = this.getArguments().filter((expectedArg) => !expectedArg.optionalValue).map((expectedArg) => expectedArg.name);
-        if (required.length) {
-          const flagNames = Object.keys(flags);
-          const hasStandaloneOption = !!flagNames.find((name) => this.getOption(name, true)?.standalone);
-          if (!hasStandaloneOption) {
-            throw new MissingArguments(required);
-          }
-        }
-      } else {
-        for (const expectedArg of this.getArguments()) {
-          if (!args.length) {
-            if (expectedArg.optionalValue) {
-              break;
-            }
-            throw new MissingArgument(`Missing argument: ${expectedArg.name}`);
-          }
-          let arg;
-          if (expectedArg.variadic) {
-            arg = args.splice(0, args.length).map((value) => this.parseType({
-              label: "Argument",
-              type: expectedArg.type,
-              name: expectedArg.name,
-              value
-            }));
-          } else {
-            arg = this.parseType({
-              label: "Argument",
-              type: expectedArg.type,
-              name: expectedArg.name,
-              value: args.shift()
-            });
-          }
-          if (arg) {
-            params.push(arg);
-          }
-        }
-        if (args.length) {
-          throw new TooManyArguments(args);
-        }
-      }
-    }
-    return params;
-  }
-  error(error) {
-    if (this.shouldThrowErrors() || !(error instanceof ValidationError2)) {
-      return error;
-    }
-    this.showHelp();
-    console.error(red(`  ${bold("error")}: ${error.message}
-`));
-    import_shim_deno2.Deno.exit(error instanceof ValidationError2 ? error.exitCode : 1);
-  }
-  getName() {
-    return this._name;
-  }
-  getParent() {
-    return this._parent;
-  }
-  getGlobalParent() {
-    return this._globalParent;
-  }
-  getMainCommand() {
-    return this._parent?.getMainCommand() ?? this;
-  }
-  getAliases() {
-    return this.aliases;
-  }
-  getPath() {
-    return this._parent ? this._parent.getPath() + " " + this._name : this._name;
-  }
-  getArgsDefinition() {
-    return this.argsDefinition;
-  }
-  getArgument(name) {
-    return this.getArguments().find((arg) => arg.name === name);
-  }
-  getArguments() {
-    if (!this.args.length && this.argsDefinition) {
-      this.args = parseArgumentsDefinition(this.argsDefinition);
-    }
-    return this.args;
-  }
-  hasArguments() {
-    return !!this.argsDefinition;
-  }
-  getVersion() {
-    return this.getVersionHandler()?.call(this, this);
-  }
-  getVersionHandler() {
-    return this.ver ?? this._parent?.getVersionHandler();
-  }
-  getDescription() {
-    return typeof this.desc === "function" ? this.desc = this.desc() : this.desc;
-  }
-  getUsage() {
-    return this._usage ?? this.getArgsDefinition();
-  }
-  getShortDescription() {
-    return this.getDescription().trim().split("\n", 1)[0];
-  }
-  getRawArgs() {
-    return this.rawArgs;
-  }
-  getLiteralArgs() {
-    return this.literalArgs;
-  }
-  showVersion() {
-    console.log(this.getVersion());
-  }
-  showHelp(options) {
-    console.log(this.getHelp(options));
-  }
-  getHelp(options) {
-    this.registerDefaults();
-    return this.getHelpHandler().call(this, this, options ?? {});
-  }
-  getHelpHandler() {
-    return this._help ?? this._parent?.getHelpHandler();
-  }
-  exit(code2 = 0) {
-    if (this.shouldExit()) {
-      import_shim_deno2.Deno.exit(code2);
-    }
-  }
-  hasOptions(hidden) {
-    return this.getOptions(hidden).length > 0;
-  }
-  getOptions(hidden) {
-    return this.getGlobalOptions(hidden).concat(this.getBaseOptions(hidden));
-  }
-  getBaseOptions(hidden) {
-    if (!this.options.length) {
-      return [];
-    }
-    return hidden ? this.options.slice(0) : this.options.filter((opt) => !opt.hidden);
-  }
-  getGlobalOptions(hidden) {
-    const getOptions = (cmd, options = [], names = []) => {
-      if (cmd) {
-        if (cmd.options.length) {
-          cmd.options.forEach((option) => {
-            if (option.global && !this.options.find((opt) => opt.name === option.name) && names.indexOf(option.name) === -1 && (hidden || !option.hidden)) {
-              names.push(option.name);
-              options.push(option);
-            }
-          });
-        }
-        return getOptions(cmd._parent, options, names);
-      }
-      return options;
-    };
-    return getOptions(this._parent);
-  }
-  hasOption(name, hidden) {
-    return !!this.getOption(name, hidden);
-  }
-  getOption(name, hidden) {
-    return this.getBaseOption(name, hidden) ?? this.getGlobalOption(name, hidden);
-  }
-  getBaseOption(name, hidden) {
-    const option = this.options.find((option2) => option2.name === name);
-    return option && (hidden || !option.hidden) ? option : void 0;
-  }
-  getGlobalOption(name, hidden) {
-    if (!this._parent) {
-      return;
-    }
-    const option = this._parent.getBaseOption(name, hidden);
-    if (!option || !option.global) {
-      return this._parent.getGlobalOption(name, hidden);
-    }
-    return option;
-  }
-  removeOption(name) {
-    const index = this.options.findIndex((option) => option.name === name);
-    if (index === -1) {
-      return;
-    }
-    return this.options.splice(index, 1)[0];
-  }
-  hasCommands(hidden) {
-    return this.getCommands(hidden).length > 0;
-  }
-  getCommands(hidden) {
-    return this.getGlobalCommands(hidden).concat(this.getBaseCommands(hidden));
-  }
-  getBaseCommands(hidden) {
-    const commands = Array.from(this.commands.values());
-    return hidden ? commands : commands.filter((cmd) => !cmd.isHidden);
-  }
-  getGlobalCommands(hidden) {
-    const getCommands = (cmd, commands = [], names = []) => {
-      if (cmd) {
-        if (cmd.commands.size) {
-          cmd.commands.forEach((cmd2) => {
-            if (cmd2.isGlobal && this !== cmd2 && !this.commands.has(cmd2._name) && names.indexOf(cmd2._name) === -1 && (hidden || !cmd2.isHidden)) {
-              names.push(cmd2._name);
-              commands.push(cmd2);
-            }
-          });
-        }
-        return getCommands(cmd._parent, commands, names);
-      }
-      return commands;
-    };
-    return getCommands(this._parent);
-  }
-  hasCommand(name, hidden) {
-    return !!this.getCommand(name, hidden);
-  }
-  getCommand(name, hidden) {
-    return this.getBaseCommand(name, hidden) ?? this.getGlobalCommand(name, hidden);
-  }
-  getBaseCommand(name, hidden) {
-    for (const cmd of this.commands.values()) {
-      if (cmd._name === name || cmd.aliases.includes(name)) {
-        return cmd && (hidden || !cmd.isHidden) ? cmd : void 0;
-      }
-    }
-  }
-  getGlobalCommand(name, hidden) {
-    if (!this._parent) {
-      return;
-    }
-    const cmd = this._parent.getBaseCommand(name, hidden);
-    if (!cmd?.isGlobal) {
-      return this._parent.getGlobalCommand(name, hidden);
-    }
-    return cmd;
-  }
-  removeCommand(name) {
-    const command = this.getBaseCommand(name, true);
-    if (command) {
-      this.commands.delete(command._name);
-    }
-    return command;
-  }
-  getTypes() {
-    return this.getGlobalTypes().concat(this.getBaseTypes());
-  }
-  getBaseTypes() {
-    return Array.from(this.types.values());
-  }
-  getGlobalTypes() {
-    const getTypes = (cmd, types = [], names = []) => {
-      if (cmd) {
-        if (cmd.types.size) {
-          cmd.types.forEach((type) => {
-            if (type.global && !this.types.has(type.name) && names.indexOf(type.name) === -1) {
-              names.push(type.name);
-              types.push(type);
-            }
-          });
-        }
-        return getTypes(cmd._parent, types, names);
-      }
-      return types;
-    };
-    return getTypes(this._parent);
-  }
-  getType(name) {
-    return this.getBaseType(name) ?? this.getGlobalType(name);
-  }
-  getBaseType(name) {
-    return this.types.get(name);
-  }
-  getGlobalType(name) {
-    if (!this._parent) {
-      return;
-    }
-    const cmd = this._parent.getBaseType(name);
-    if (!cmd?.global) {
-      return this._parent.getGlobalType(name);
-    }
-    return cmd;
-  }
-  getCompletions() {
-    return this.getGlobalCompletions().concat(this.getBaseCompletions());
-  }
-  getBaseCompletions() {
-    return Array.from(this.completions.values());
-  }
-  getGlobalCompletions() {
-    const getCompletions = (cmd, completions = [], names = []) => {
-      if (cmd) {
-        if (cmd.completions.size) {
-          cmd.completions.forEach((completion) => {
-            if (completion.global && !this.completions.has(completion.name) && names.indexOf(completion.name) === -1) {
-              names.push(completion.name);
-              completions.push(completion);
-            }
-          });
-        }
-        return getCompletions(cmd._parent, completions, names);
-      }
-      return completions;
-    };
-    return getCompletions(this._parent);
-  }
-  getCompletion(name) {
-    return this.getBaseCompletion(name) ?? this.getGlobalCompletion(name);
-  }
-  getBaseCompletion(name) {
-    return this.completions.get(name);
-  }
-  getGlobalCompletion(name) {
-    if (!this._parent) {
-      return;
-    }
-    const completion = this._parent.getBaseCompletion(name);
-    if (!completion?.global) {
-      return this._parent.getGlobalCompletion(name);
-    }
-    return completion;
-  }
-  hasEnvVars(hidden) {
-    return this.getEnvVars(hidden).length > 0;
-  }
-  getEnvVars(hidden) {
-    return this.getGlobalEnvVars(hidden).concat(this.getBaseEnvVars(hidden));
-  }
-  getBaseEnvVars(hidden) {
-    if (!this.envVars.length) {
-      return [];
-    }
-    return hidden ? this.envVars.slice(0) : this.envVars.filter((env) => !env.hidden);
-  }
-  getGlobalEnvVars(hidden) {
-    const getEnvVars = (cmd, envVars = [], names = []) => {
-      if (cmd) {
-        if (cmd.envVars.length) {
-          cmd.envVars.forEach((envVar) => {
-            if (envVar.global && !this.envVars.find((env) => env.names[0] === envVar.names[0]) && names.indexOf(envVar.names[0]) === -1 && (hidden || !envVar.hidden)) {
-              names.push(envVar.names[0]);
-              envVars.push(envVar);
-            }
-          });
-        }
-        return getEnvVars(cmd._parent, envVars, names);
-      }
-      return envVars;
-    };
-    return getEnvVars(this._parent);
-  }
-  hasEnvVar(name, hidden) {
-    return !!this.getEnvVar(name, hidden);
-  }
-  getEnvVar(name, hidden) {
-    return this.getBaseEnvVar(name, hidden) ?? this.getGlobalEnvVar(name, hidden);
-  }
-  getBaseEnvVar(name, hidden) {
-    const envVar = this.envVars.find((env) => env.names.indexOf(name) !== -1);
-    return envVar && (hidden || !envVar.hidden) ? envVar : void 0;
-  }
-  getGlobalEnvVar(name, hidden) {
-    if (!this._parent) {
-      return;
-    }
-    const envVar = this._parent.getBaseEnvVar(name, hidden);
-    if (!envVar?.global) {
-      return this._parent.getGlobalEnvVar(name, hidden);
-    }
-    return envVar;
-  }
-  hasExamples() {
-    return this.examples.length > 0;
-  }
-  getExamples() {
-    return this.examples;
-  }
-  hasExample(name) {
-    return !!this.getExample(name);
-  }
-  getExample(name) {
-    return this.examples.find((example) => example.name === name);
-  }
-};
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/completions/bash.js
-var _BashCompletionsCommand_cmd;
-_BashCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/completions/fish.js
-var _FishCompletionsCommand_cmd;
-_FishCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/completions/zsh.js
-var _ZshCompletionsCommand_cmd;
-_ZshCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/completions/mod.js
-var _CompletionsCommand_cmd;
-_CompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
-
-// cli/dist/esm/deps/deno_land/x/cliffy_v0.20.1/command/types/child_command.js
-var _ChildCommandType_cmd;
-_ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
-
-// cli/dist/esm/core/gh.js
+// dist/dnt/esm/core/gh.js
 async function exec(cmd) {
   const process2 = import_shim_deno2.Deno.run({
     cmd,
@@ -7284,8 +5739,8 @@ async function exec(cmd) {
   }
 }
 var ExecError = class extends Error {
-  constructor(cmd, code2, stderr) {
-    super(`\`${cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code2}
+  constructor(cmd, code, stderr) {
+    super(`\`${cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code}
 ${stderr}`);
     Object.defineProperty(this, "cmd", {
       enumerable: true,
@@ -7297,7 +5752,7 @@ ${stderr}`);
       enumerable: true,
       configurable: true,
       writable: true,
-      value: code2
+      value: code
     });
     Object.defineProperty(this, "stderr", {
       enumerable: true,
@@ -7332,18 +5787,18 @@ async function listRepositoryTags(owner, repo, { perPage, page, jq } = {}) {
   return await exec(cmd);
 }
 
-// cli/dist/esm/core/mod.js
+// dist/dnt/esm/core/mod.js
 async function ghDescribe(owner, repo, commitish, defaultValue) {
   const [tags, sha] = await Promise.all([fetchTags(owner, repo), fetchSha(owner, repo, commitish)]);
   if (0 < tags.size) {
-    let distance2 = 0;
+    let distance = 0;
     for await (const commit of fetchHistory(owner, repo, sha)) {
       const tag = tags.get(commit);
       if (tag) {
-        const describe2 = genDescribe(tag, distance2, sha);
-        return { describe: describe2, tag, distance: distance2, sha };
+        const describe2 = genDescribe(tag, distance, sha);
+        return { describe: describe2, tag, distance, sha };
       } else {
-        distance2++;
+        distance++;
       }
     }
   }
@@ -7387,92 +5842,34 @@ async function* fetchHistory(owner, repo, sha) {
     }
   } while (count === perPage);
 }
-function genDescribe(tag, distance2, sha) {
-  if (distance2 === 0) {
+function genDescribe(tag, distance, sha) {
+  if (distance === 0) {
     return tag;
   } else {
-    return `${tag}-${distance2}-g${sha.substring(0, 7)}`;
+    return `${tag}-${distance}-g${sha.substring(0, 7)}`;
   }
 }
 
-// cli/dist/esm/cli/main.js
-async function listRemotes() {
-  const process2 = import_shim_deno2.Deno.run({
-    cmd: ["git", "remote", "-v"],
-    stdout: "piped",
-    stderr: "piped"
-  });
-  const [status, stdout, stderr] = await Promise.all([
-    process2.status(),
-    process2.output(),
-    process2.stderrOutput()
-  ]);
-  if (status.code === 0) {
-    const lines = new TextDecoder().decode(stdout).trim().split("\n").map((x) => /(.+)\s+(.+)\s+\((push|fetch)\)/.exec(x) || []).filter((x) => x.length === 4);
-    const remotes = [];
-    let name = void 0;
-    let fetchUrl = void 0;
-    let pushUrl = void 0;
-    for (const [_, lineName, lineUrl, type] of lines) {
-      if (!name) {
-        name = lineName;
-      } else if (name != lineName) {
-        remotes.push({ name, fetchUrl, pushUrl });
-        name = lineName;
-        fetchUrl = pushUrl = void 0;
-      }
-      switch (type) {
-        case "fetch":
-          fetchUrl = lineUrl;
-          break;
-        case "push":
-          pushUrl = lineUrl;
-          break;
-      }
-    }
-    if (name) {
-      remotes.push({ name, fetchUrl, pushUrl });
-    }
-    return remotes;
-  } else {
-    throw new Error(new TextDecoder().decode(stderr).trim());
+// dist/dnt/esm/actions/main.js
+async function run() {
+  const token = (0, import_core.getInput)("token", { required: true });
+  const [owner, repo] = (0, import_core.getInput)("repo", { required: true }).split("/");
+  (0, import_core.debug)(`input repo: ${owner}/${repo}`);
+  const commitish = (0, import_core.getInput)("commit-ish", { required: true });
+  (0, import_core.debug)(`input commit-ish: ${commitish}`);
+  const defaultValue = (0, import_core.getInput)("default");
+  (0, import_core.debug)(`input default: ${defaultValue}`);
+  try {
+    import_shim_deno2.Deno.env.set("GITHUB_TOKEN", token);
+    const { describe, tag, distance, sha } = await ghDescribe(owner, repo, commitish, defaultValue);
+    (0, import_core.info)(describe);
+    (0, import_core.setOutput)("describe", describe);
+    (0, import_core.setOutput)("tag", tag);
+    (0, import_core.setOutput)("distance", distance);
+    (0, import_core.setOutput)("sha", sha);
+  } catch (e) {
+    const message = e instanceof Error && e.stack || String(e);
+    (0, import_core.setFailed)(message);
   }
 }
-async function getOriginRepo() {
-  const remotes = await listRemotes();
-  const { fetchUrl } = remotes.find((x) => x.name === "origin" && x.fetchUrl) || remotes[0];
-  if (!fetchUrl)
-    throw new Error();
-  const [_, owner, name] = new URL(fetchUrl).pathname.split("/", 3);
-  return `${owner}/${name.endsWith(".git") ? name.substring(0, name.length - 4) : name}`;
-}
-async function getHeadSha() {
-  await import_shim_deno2.Deno.permissions.request({ name: "run", command: "git" });
-  const process2 = import_shim_deno2.Deno.run({
-    cmd: ["git", "rev-parse", "HEAD"],
-    stdout: "piped",
-    stderr: "piped"
-  });
-  const [status, stdout, stderr] = await Promise.all([
-    process2.status(),
-    process2.output(),
-    process2.stderrOutput()
-  ]);
-  if (status.code === 0) {
-    return new TextDecoder().decode(stdout).trim();
-  } else {
-    throw new Error(new TextDecoder().decode(stderr).trim());
-  }
-}
-var cli = new Command().name("gh-describe").version("").description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--default", "It is output instead when it action fails. If empty, this step will fail.").arguments("[commit-ish]").action(async (options, commitish) => {
-  const [owner, repo] = (options.repo || await (async () => {
-    await import_shim_deno2.Deno.permissions.request({ name: "run", command: "git" });
-    return await getOriginRepo();
-  })()).split("/");
-  const defaultValue = options.default;
-  commitish ||= await getHeadSha();
-  await import_shim_deno2.Deno.permissions.request({ name: "run", command: "gh" });
-  const { describe } = await ghDescribe(owner, repo, commitish, defaultValue);
-  console.log(describe);
-}).parse(import_shim_deno2.Deno.args);
-(async () => await cli)();
+run();

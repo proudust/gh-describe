@@ -40,7 +40,7 @@ output:
 
 runs:
   using: node16
-  main: actions/dist/index.js
+  main: dist/actions.js
 
 branding:
   icon: git-pull-request

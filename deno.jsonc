@@ -3,8 +3,7 @@
     "files": {
       "exclude": [
         ".history",
-        "actions/dist",
-        "cli/dist",
+        "dist",
         "node_modules"
       ]
     },
@@ -16,8 +15,7 @@
     "files": {
       "exclude": [
         ".history",
-        "actions/dist",
-        "cli/dist",
+        "dist",
         "node_modules"
       ]
     }
