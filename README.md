@@ -19,12 +19,12 @@ behavior.
 
 All inputs are optional. If not set, sensible defaults will be used.
 
-| Name       | Description                                                               | Default                                                   |
-| ---------- | ------------------------------------------------------------------------- | --------------------------------------------------------- |
-| token      | Personal Access Token (PAT)                                               | `GITHUB_TOKEN`                                            |
-| repo       | Target repository                                                         | The owner and repository that triggered the workflow run. |
-| commit-ish | Commit-ish object names to describe.                                      | The branch or tag ref that triggered the workflow run.    |
-| default    | It is output instead when it action fails. If empty, this step will fail. | `​`                                                       |
+| Name       | Description                              | Default                                                   |
+| ---------- | ---------------------------------------- | --------------------------------------------------------- |
+| token      | Personal Access Token (PAT)              | `GITHUB_TOKEN`                                            |
+| repo       | Target repository                        | The owner and repository that triggered the workflow run. |
+| commit-ish | Commit-ish object names to describe.     | The branch or tag ref that triggered the workflow run.    |
+| default    | Use this value if the name is not found. | `​`                                                       |
 
 ### Action outputs
 

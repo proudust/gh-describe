@@ -93,7 +93,7 @@ const cli = new Command<CommandOptions, CommandArguments>()
   .version("")
   .description("Emulate `git describe --tags` in shallow clone repository.")
   .option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO")
-  .option("--default", "It is output instead when it action fails. If empty, this step will fail.")
+  .option("--default <tag:string>", "Use this value if the name is not found.")
   .type("runtime", new EnumType(["deno", "node"]))
   .option(
     "--runtime <runtime:runtime>",

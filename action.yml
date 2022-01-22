@@ -15,9 +15,7 @@ inputs:
       The branch or tag ref that triggered the workflow run.
     default: ${{ github.ref }}
   default:
-    description: >
-      It is output instead when it action fails.
-      If empty, this step will fail.
+    description: Use this value if the name is not found.
     default:
 
 output:
