@@ -83,6 +83,7 @@ typings/
 # dist
 */dist/*
 !/actions/dist/index.js
+!/cli/dist/index.js
 
 # Gatsby files
 .cache/

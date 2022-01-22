@@ -87,7 +87,7 @@ async function getHeadSha() {
 type CommandOptions = { repo?: string; default?: string };
 type CommandArguments = [commitIsh: string | undefined];
 
-await new Command<CommandOptions, CommandArguments>()
+const cli = new Command<CommandOptions, CommandArguments>()
   .name("gh-describe")
   .version("")
   .description("Emulate `git describe --tags` in shallow clone repository.")
@@ -107,3 +107,5 @@ await new Command<CommandOptions, CommandArguments>()
     console.log(describe);
   })
   .parse(Deno.args);
+
+(async () => (await cli))();

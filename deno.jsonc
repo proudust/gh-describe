@@ -4,6 +4,7 @@
       "exclude": [
         ".history",
         "actions/dist",
+        "cli/dist",
         "node_modules"
       ]
     },
@@ -16,6 +17,7 @@
       "exclude": [
         ".history",
         "actions/dist",
+        "cli/dist",
         "node_modules"
       ]
     }
