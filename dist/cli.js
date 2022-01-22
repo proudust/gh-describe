@@ -8,6 +8,10 @@ var __markAsModule = (target) => __defProp(target, "__esModule", { value: true }
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
 var __reExport = (target, module2, copyDefault, desc) => {
   if (module2 && typeof module2 === "object" || typeof module2 === "function") {
     for (let key of __getOwnPropNames(module2))
@@ -3214,7 +3218,7 @@ var require_run = __commonJS({
     var which_1 = __importDefault(require_which());
     var streams_js_1 = require_streams();
     var errors = __importStar(require_errors());
-    var run2 = function run3(options) {
+    var run3 = function run4(options) {
       const [cmd, ...args] = options.cmd;
       if (options.cwd && !fs_1.default.existsSync(options.cwd)) {
         throw new Error("The directory name is invalid.");
@@ -3237,7 +3241,7 @@ var require_run = __commonJS({
       });
       return new Process(process2);
     };
-    exports.run = run2;
+    exports.run = run3;
     function getStdio(value, kind) {
       if (value === "inherit" || value == null) {
         return "inherit";
@@ -4438,6 +4442,611 @@ function createMergeProxy(baseObj, extObj) {
   });
 }
 
+// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/ansi/ansi_escapes.js
+var ansi_escapes_exports = {};
+__export(ansi_escapes_exports, {
+  bel: () => bel,
+  clearScreen: () => clearScreen,
+  clearTerminal: () => clearTerminal,
+  cursorBackward: () => cursorBackward,
+  cursorDown: () => cursorDown,
+  cursorForward: () => cursorForward,
+  cursorHide: () => cursorHide,
+  cursorLeft: () => cursorLeft,
+  cursorMove: () => cursorMove,
+  cursorNextLine: () => cursorNextLine,
+  cursorPosition: () => cursorPosition,
+  cursorPrevLine: () => cursorPrevLine,
+  cursorRestore: () => cursorRestore,
+  cursorSave: () => cursorSave,
+  cursorShow: () => cursorShow,
+  cursorTo: () => cursorTo,
+  cursorUp: () => cursorUp,
+  eraseDown: () => eraseDown,
+  eraseLine: () => eraseLine,
+  eraseLineEnd: () => eraseLineEnd,
+  eraseLineStart: () => eraseLineStart,
+  eraseLines: () => eraseLines,
+  eraseScreen: () => eraseScreen,
+  eraseUp: () => eraseUp,
+  image: () => image,
+  link: () => link,
+  scrollDown: () => scrollDown,
+  scrollUp: () => scrollUp
+});
+
+// dist/dnt/esm/deps/deno_land/std_0.113.0/encoding/base64.js
+var base64abc = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+  "a",
+  "b",
+  "c",
+  "d",
+  "e",
+  "f",
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z",
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "+",
+  "/"
+];
+function encode(data) {
+  const uint8 = typeof data === "string" ? new TextEncoder().encode(data) : data instanceof Uint8Array ? data : new Uint8Array(data);
+  let result = "", i;
+  const l = uint8.length;
+  for (i = 2; i < l; i += 3) {
+    result += base64abc[uint8[i - 2] >> 2];
+    result += base64abc[(uint8[i - 2] & 3) << 4 | uint8[i - 1] >> 4];
+    result += base64abc[(uint8[i - 1] & 15) << 2 | uint8[i] >> 6];
+    result += base64abc[uint8[i] & 63];
+  }
+  if (i === l + 1) {
+    result += base64abc[uint8[i - 2] >> 2];
+    result += base64abc[(uint8[i - 2] & 3) << 4];
+    result += "==";
+  }
+  if (i === l) {
+    result += base64abc[uint8[i - 2] >> 2];
+    result += base64abc[(uint8[i - 2] & 3) << 4 | uint8[i - 1] >> 4];
+    result += base64abc[(uint8[i - 1] & 15) << 2];
+    result += "=";
+  }
+  return result;
+}
+
+// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/ansi/ansi_escapes.js
+var ESC = "\x1B";
+var CSI = `${ESC}[`;
+var OSC = `${ESC}]`;
+var SEP = ";";
+var bel = "\x07";
+var cursorPosition = `${CSI}6n`;
+function cursorTo(x, y) {
+  if (typeof y !== "number") {
+    return `${CSI}${x}G`;
+  }
+  return `${CSI}${y};${x}H`;
+}
+function cursorMove(x, y) {
+  let ret = "";
+  if (x < 0) {
+    ret += `${CSI}${-x}D`;
+  } else if (x > 0) {
+    ret += `${CSI}${x}C`;
+  }
+  if (y < 0) {
+    ret += `${CSI}${-y}A`;
+  } else if (y > 0) {
+    ret += `${CSI}${y}B`;
+  }
+  return ret;
+}
+function cursorUp(count = 1) {
+  return `${CSI}${count}A`;
+}
+function cursorDown(count = 1) {
+  return `${CSI}${count}B`;
+}
+function cursorForward(count = 1) {
+  return `${CSI}${count}C`;
+}
+function cursorBackward(count = 1) {
+  return `${CSI}${count}D`;
+}
+function cursorNextLine(count = 1) {
+  return `${CSI}E`.repeat(count);
+}
+function cursorPrevLine(count = 1) {
+  return `${CSI}F`.repeat(count);
+}
+var cursorLeft = `${CSI}G`;
+var cursorHide = `${CSI}?25l`;
+var cursorShow = `${CSI}?25h`;
+var cursorSave = `${ESC}7`;
+var cursorRestore = `${ESC}8`;
+function scrollUp(count = 1) {
+  return `${CSI}S`.repeat(count);
+}
+function scrollDown(count = 1) {
+  return `${CSI}T`.repeat(count);
+}
+var eraseScreen = `${CSI}2J`;
+function eraseUp(count = 1) {
+  return `${CSI}1J`.repeat(count);
+}
+function eraseDown(count = 1) {
+  return `${CSI}0J`.repeat(count);
+}
+var eraseLine = `${CSI}2K`;
+var eraseLineEnd = `${CSI}0K`;
+var eraseLineStart = `${CSI}1K`;
+function eraseLines(count) {
+  let clear = "";
+  for (let i = 0; i < count; i++) {
+    clear += eraseLine + (i < count - 1 ? cursorUp() : "");
+  }
+  clear += cursorLeft;
+  return clear;
+}
+var clearScreen = "\x1Bc";
+var clearTerminal = import_shim_deno2.Deno.build.os === "windows" ? `${eraseScreen}${CSI}0f` : `${eraseScreen}${CSI}3J${CSI}H`;
+function link(text, url) {
+  return [
+    OSC,
+    "8",
+    SEP,
+    SEP,
+    url,
+    bel,
+    text,
+    OSC,
+    "8",
+    SEP,
+    SEP,
+    bel
+  ].join("");
+}
+function image(buffer, options) {
+  let ret = `${OSC}1337;File=inline=1`;
+  if (options?.width) {
+    ret += `;width=${options.width}`;
+  }
+  if (options?.height) {
+    ret += `;height=${options.height}`;
+  }
+  if (options?.preserveAspectRatio === false) {
+    ret += ";preserveAspectRatio=0";
+  }
+  return ret + ":" + encode(buffer) + bel;
+}
+
+// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/ansi/ansi.js
+var ansi = factory();
+function factory() {
+  let result = [];
+  let stack = [];
+  const ansi2 = function(...args) {
+    if (this) {
+      if (args.length) {
+        update(args);
+        return this;
+      }
+      return this.toString();
+    }
+    return factory();
+  };
+  ansi2.text = function(text) {
+    stack.push([text, []]);
+    return this;
+  };
+  ansi2.toString = function() {
+    update();
+    const str = result.join("");
+    result = [];
+    return str;
+  };
+  ansi2.toBuffer = function() {
+    return new TextEncoder().encode(this.toString());
+  };
+  const methodList = Object.entries(ansi_escapes_exports);
+  for (const [name, method] of methodList) {
+    Object.defineProperty(ansi2, name, {
+      get() {
+        stack.push([method, []]);
+        return this;
+      }
+    });
+  }
+  return ansi2;
+  function update(args) {
+    if (!stack.length) {
+      return;
+    }
+    if (args) {
+      stack[stack.length - 1][1] = args;
+    }
+    result.push(...stack.map(([prop, args2]) => typeof prop === "string" ? prop : prop.call(ansi2, ...args2)));
+    stack = [];
+  }
+}
+
+// dist/dnt/esm/deps/deno_land/std_0.113.0/fmt/colors.js
+var colors_exports = {};
+__export(colors_exports, {
+  bgBlack: () => bgBlack,
+  bgBlue: () => bgBlue,
+  bgBrightBlack: () => bgBrightBlack,
+  bgBrightBlue: () => bgBrightBlue,
+  bgBrightCyan: () => bgBrightCyan,
+  bgBrightGreen: () => bgBrightGreen,
+  bgBrightMagenta: () => bgBrightMagenta,
+  bgBrightRed: () => bgBrightRed,
+  bgBrightWhite: () => bgBrightWhite,
+  bgBrightYellow: () => bgBrightYellow,
+  bgCyan: () => bgCyan,
+  bgGreen: () => bgGreen,
+  bgMagenta: () => bgMagenta,
+  bgRed: () => bgRed,
+  bgRgb24: () => bgRgb24,
+  bgRgb8: () => bgRgb8,
+  bgWhite: () => bgWhite,
+  bgYellow: () => bgYellow,
+  black: () => black,
+  blue: () => blue,
+  bold: () => bold,
+  brightBlack: () => brightBlack,
+  brightBlue: () => brightBlue,
+  brightCyan: () => brightCyan,
+  brightGreen: () => brightGreen,
+  brightMagenta: () => brightMagenta,
+  brightRed: () => brightRed,
+  brightWhite: () => brightWhite,
+  brightYellow: () => brightYellow,
+  cyan: () => cyan,
+  dim: () => dim,
+  getColorEnabled: () => getColorEnabled,
+  gray: () => gray,
+  green: () => green,
+  hidden: () => hidden,
+  inverse: () => inverse,
+  italic: () => italic,
+  magenta: () => magenta,
+  red: () => red,
+  reset: () => reset,
+  rgb24: () => rgb24,
+  rgb8: () => rgb8,
+  setColorEnabled: () => setColorEnabled,
+  strikethrough: () => strikethrough,
+  stripColor: () => stripColor,
+  underline: () => underline,
+  white: () => white,
+  yellow: () => yellow
+});
+var { Deno: Deno3 } = dntGlobalThis;
+var noColor = typeof Deno3?.noColor === "boolean" ? Deno3.noColor : true;
+var enabled = !noColor;
+function setColorEnabled(value) {
+  if (noColor) {
+    return;
+  }
+  enabled = value;
+}
+function getColorEnabled() {
+  return enabled;
+}
+function code(open, close) {
+  return {
+    open: `\x1B[${open.join(";")}m`,
+    close: `\x1B[${close}m`,
+    regexp: new RegExp(`\\x1b\\[${close}m`, "g")
+  };
+}
+function run(str, code2) {
+  return enabled ? `${code2.open}${str.replace(code2.regexp, code2.open)}${code2.close}` : str;
+}
+function reset(str) {
+  return run(str, code([0], 0));
+}
+function bold(str) {
+  return run(str, code([1], 22));
+}
+function dim(str) {
+  return run(str, code([2], 22));
+}
+function italic(str) {
+  return run(str, code([3], 23));
+}
+function underline(str) {
+  return run(str, code([4], 24));
+}
+function inverse(str) {
+  return run(str, code([7], 27));
+}
+function hidden(str) {
+  return run(str, code([8], 28));
+}
+function strikethrough(str) {
+  return run(str, code([9], 29));
+}
+function black(str) {
+  return run(str, code([30], 39));
+}
+function red(str) {
+  return run(str, code([31], 39));
+}
+function green(str) {
+  return run(str, code([32], 39));
+}
+function yellow(str) {
+  return run(str, code([33], 39));
+}
+function blue(str) {
+  return run(str, code([34], 39));
+}
+function magenta(str) {
+  return run(str, code([35], 39));
+}
+function cyan(str) {
+  return run(str, code([36], 39));
+}
+function white(str) {
+  return run(str, code([37], 39));
+}
+function gray(str) {
+  return brightBlack(str);
+}
+function brightBlack(str) {
+  return run(str, code([90], 39));
+}
+function brightRed(str) {
+  return run(str, code([91], 39));
+}
+function brightGreen(str) {
+  return run(str, code([92], 39));
+}
+function brightYellow(str) {
+  return run(str, code([93], 39));
+}
+function brightBlue(str) {
+  return run(str, code([94], 39));
+}
+function brightMagenta(str) {
+  return run(str, code([95], 39));
+}
+function brightCyan(str) {
+  return run(str, code([96], 39));
+}
+function brightWhite(str) {
+  return run(str, code([97], 39));
+}
+function bgBlack(str) {
+  return run(str, code([40], 49));
+}
+function bgRed(str) {
+  return run(str, code([41], 49));
+}
+function bgGreen(str) {
+  return run(str, code([42], 49));
+}
+function bgYellow(str) {
+  return run(str, code([43], 49));
+}
+function bgBlue(str) {
+  return run(str, code([44], 49));
+}
+function bgMagenta(str) {
+  return run(str, code([45], 49));
+}
+function bgCyan(str) {
+  return run(str, code([46], 49));
+}
+function bgWhite(str) {
+  return run(str, code([47], 49));
+}
+function bgBrightBlack(str) {
+  return run(str, code([100], 49));
+}
+function bgBrightRed(str) {
+  return run(str, code([101], 49));
+}
+function bgBrightGreen(str) {
+  return run(str, code([102], 49));
+}
+function bgBrightYellow(str) {
+  return run(str, code([103], 49));
+}
+function bgBrightBlue(str) {
+  return run(str, code([104], 49));
+}
+function bgBrightMagenta(str) {
+  return run(str, code([105], 49));
+}
+function bgBrightCyan(str) {
+  return run(str, code([106], 49));
+}
+function bgBrightWhite(str) {
+  return run(str, code([107], 49));
+}
+function clampAndTruncate(n, max = 255, min = 0) {
+  return Math.trunc(Math.max(Math.min(n, max), min));
+}
+function rgb8(str, color) {
+  return run(str, code([38, 5, clampAndTruncate(color)], 39));
+}
+function bgRgb8(str, color) {
+  return run(str, code([48, 5, clampAndTruncate(color)], 49));
+}
+function rgb24(str, color) {
+  if (typeof color === "number") {
+    return run(str, code([38, 2, color >> 16 & 255, color >> 8 & 255, color & 255], 39));
+  }
+  return run(str, code([
+    38,
+    2,
+    clampAndTruncate(color.r),
+    clampAndTruncate(color.g),
+    clampAndTruncate(color.b)
+  ], 39));
+}
+function bgRgb24(str, color) {
+  if (typeof color === "number") {
+    return run(str, code([48, 2, color >> 16 & 255, color >> 8 & 255, color & 255], 49));
+  }
+  return run(str, code([
+    48,
+    2,
+    clampAndTruncate(color.r),
+    clampAndTruncate(color.g),
+    clampAndTruncate(color.b)
+  ], 49));
+}
+var ANSI_PATTERN = new RegExp([
+  "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)",
+  "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))"
+].join("|"), "g");
+function stripColor(string2) {
+  return string2.replace(ANSI_PATTERN, "");
+}
+
+// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/ansi/colors.js
+var proto = /* @__PURE__ */ Object.create(null);
+var methodNames = Object.keys(colors_exports);
+for (const name of methodNames) {
+  if (name === "setColorEnabled" || name === "getColorEnabled") {
+    continue;
+  }
+  Object.defineProperty(proto, name, {
+    get() {
+      return factory2([...this._stack, name]);
+    }
+  });
+}
+var colors = factory2();
+function factory2(stack = []) {
+  const colors2 = function(str, ...args) {
+    if (str) {
+      const lastIndex = stack.length - 1;
+      return stack.reduce((str2, name, index) => index === lastIndex ? colors_exports[name](str2, ...args) : colors_exports[name](str2), str);
+    }
+    const tmp = stack.slice();
+    stack = [];
+    return factory2(tmp);
+  };
+  Object.setPrototypeOf(colors2, proto);
+  colors2._stack = stack;
+  return colors2;
+}
+
+// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/ansi/cursor_position.js
+function getCursorPosition({ stdin = import_shim_deno2.Deno.stdin, stdout = import_shim_deno2.Deno.stdout } = {}) {
+  const data = new Uint8Array(8);
+  import_shim_deno2.Deno.setRaw(stdin.rid, true);
+  stdout.writeSync(new TextEncoder().encode(cursorPosition));
+  stdin.readSync(data);
+  import_shim_deno2.Deno.setRaw(stdin.rid, false);
+  const [y, x] = new TextDecoder().decode(data).match(/\[(\d+);(\d+)R/)?.slice(1, 3).map(Number) ?? [0, 0];
+  return { x, y };
+}
+
+// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/ansi/tty.js
+var tty = factory3();
+function factory3(options) {
+  let result = "";
+  let stack = [];
+  const stdout = options?.stdout ?? import_shim_deno2.Deno.stdout;
+  const stdin = options?.stdin ?? import_shim_deno2.Deno.stdin;
+  const tty2 = function(...args) {
+    if (this) {
+      update(args);
+      stdout.writeSync(new TextEncoder().encode(result));
+      return this;
+    }
+    return factory3(args[0] ?? options);
+  };
+  tty2.text = function(text) {
+    stack.push([text, []]);
+    update();
+    stdout.writeSync(new TextEncoder().encode(result));
+    return this;
+  };
+  tty2.getCursorPosition = () => getCursorPosition({ stdout, stdin });
+  const methodList = Object.entries(ansi_escapes_exports);
+  for (const [name, method] of methodList) {
+    if (name === "cursorPosition") {
+      continue;
+    }
+    Object.defineProperty(tty2, name, {
+      get() {
+        stack.push([method, []]);
+        return this;
+      }
+    });
+  }
+  return tty2;
+  function update(args) {
+    if (!stack.length) {
+      return;
+    }
+    if (args) {
+      stack[stack.length - 1][1] = args;
+    }
+    result = stack.reduce((prev, [cur, args2]) => prev + (typeof cur === "string" ? cur : cur.call(tty2, ...args2)), "");
+    stack = [];
+  }
+}
+
 // dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/_utils/distance.js
 function distance(a, b) {
   if (a.length == 0) {
@@ -5234,61 +5843,6 @@ function parseFlagValue(option, arg, value) {
     name: `--${option.name}`,
     value
   });
-}
-
-// dist/dnt/esm/deps/deno_land/std_0.113.0/fmt/colors.js
-var { Deno: Deno3 } = dntGlobalThis;
-var noColor = typeof Deno3?.noColor === "boolean" ? Deno3.noColor : true;
-var enabled = !noColor;
-function setColorEnabled(value) {
-  if (noColor) {
-    return;
-  }
-  enabled = value;
-}
-function getColorEnabled() {
-  return enabled;
-}
-function code(open, close) {
-  return {
-    open: `\x1B[${open.join(";")}m`,
-    close: `\x1B[${close}m`,
-    regexp: new RegExp(`\\x1b\\[${close}m`, "g")
-  };
-}
-function run(str, code2) {
-  return enabled ? `${code2.open}${str.replace(code2.regexp, code2.open)}${code2.close}` : str;
-}
-function bold(str) {
-  return run(str, code([1], 22));
-}
-function dim(str) {
-  return run(str, code([2], 22));
-}
-function italic(str) {
-  return run(str, code([3], 23));
-}
-function red(str) {
-  return run(str, code([31], 39));
-}
-function green(str) {
-  return run(str, code([32], 39));
-}
-function yellow(str) {
-  return run(str, code([33], 39));
-}
-function blue(str) {
-  return run(str, code([34], 39));
-}
-function magenta(str) {
-  return run(str, code([35], 39));
-}
-var ANSI_PATTERN = new RegExp([
-  "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)",
-  "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))"
-].join("|"), "g");
-function stripColor(string2) {
-  return string2.replace(ANSI_PATTERN, "");
 }
 
 // dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/type.js
@@ -6166,8 +6720,8 @@ var HelpGenerator = class {
 function capitalize(string2) {
   return string2?.charAt(0).toUpperCase() + string2.slice(1);
 }
-function inspect(value, colors) {
-  return import_shim_deno2.Deno.inspect(value, { depth: 1, colors, trailingComma: false });
+function inspect(value, colors2) {
+  return import_shim_deno2.Deno.inspect(value, { depth: 1, colors: colors2, trailingComma: false });
 }
 function highlightArguments(argsDefinition, types = true) {
   if (!argsDefinition) {
@@ -6987,24 +7541,24 @@ var Command = class {
       import_shim_deno2.Deno.exit(code2);
     }
   }
-  hasOptions(hidden) {
-    return this.getOptions(hidden).length > 0;
+  hasOptions(hidden2) {
+    return this.getOptions(hidden2).length > 0;
   }
-  getOptions(hidden) {
-    return this.getGlobalOptions(hidden).concat(this.getBaseOptions(hidden));
+  getOptions(hidden2) {
+    return this.getGlobalOptions(hidden2).concat(this.getBaseOptions(hidden2));
   }
-  getBaseOptions(hidden) {
+  getBaseOptions(hidden2) {
     if (!this.options.length) {
       return [];
     }
-    return hidden ? this.options.slice(0) : this.options.filter((opt) => !opt.hidden);
+    return hidden2 ? this.options.slice(0) : this.options.filter((opt) => !opt.hidden);
   }
-  getGlobalOptions(hidden) {
+  getGlobalOptions(hidden2) {
     const getOptions = (cmd, options = [], names = []) => {
       if (cmd) {
         if (cmd.options.length) {
           cmd.options.forEach((option) => {
-            if (option.global && !this.options.find((opt) => opt.name === option.name) && names.indexOf(option.name) === -1 && (hidden || !option.hidden)) {
+            if (option.global && !this.options.find((opt) => opt.name === option.name) && names.indexOf(option.name) === -1 && (hidden2 || !option.hidden)) {
               names.push(option.name);
               options.push(option);
             }
@@ -7016,23 +7570,23 @@ var Command = class {
     };
     return getOptions(this._parent);
   }
-  hasOption(name, hidden) {
-    return !!this.getOption(name, hidden);
+  hasOption(name, hidden2) {
+    return !!this.getOption(name, hidden2);
   }
-  getOption(name, hidden) {
-    return this.getBaseOption(name, hidden) ?? this.getGlobalOption(name, hidden);
+  getOption(name, hidden2) {
+    return this.getBaseOption(name, hidden2) ?? this.getGlobalOption(name, hidden2);
   }
-  getBaseOption(name, hidden) {
+  getBaseOption(name, hidden2) {
     const option = this.options.find((option2) => option2.name === name);
-    return option && (hidden || !option.hidden) ? option : void 0;
+    return option && (hidden2 || !option.hidden) ? option : void 0;
   }
-  getGlobalOption(name, hidden) {
+  getGlobalOption(name, hidden2) {
     if (!this._parent) {
       return;
     }
-    const option = this._parent.getBaseOption(name, hidden);
+    const option = this._parent.getBaseOption(name, hidden2);
     if (!option || !option.global) {
-      return this._parent.getGlobalOption(name, hidden);
+      return this._parent.getGlobalOption(name, hidden2);
     }
     return option;
   }
@@ -7043,22 +7597,22 @@ var Command = class {
     }
     return this.options.splice(index, 1)[0];
   }
-  hasCommands(hidden) {
-    return this.getCommands(hidden).length > 0;
+  hasCommands(hidden2) {
+    return this.getCommands(hidden2).length > 0;
   }
-  getCommands(hidden) {
-    return this.getGlobalCommands(hidden).concat(this.getBaseCommands(hidden));
+  getCommands(hidden2) {
+    return this.getGlobalCommands(hidden2).concat(this.getBaseCommands(hidden2));
   }
-  getBaseCommands(hidden) {
+  getBaseCommands(hidden2) {
     const commands = Array.from(this.commands.values());
-    return hidden ? commands : commands.filter((cmd) => !cmd.isHidden);
+    return hidden2 ? commands : commands.filter((cmd) => !cmd.isHidden);
   }
-  getGlobalCommands(hidden) {
+  getGlobalCommands(hidden2) {
     const getCommands = (cmd, commands = [], names = []) => {
       if (cmd) {
         if (cmd.commands.size) {
           cmd.commands.forEach((cmd2) => {
-            if (cmd2.isGlobal && this !== cmd2 && !this.commands.has(cmd2._name) && names.indexOf(cmd2._name) === -1 && (hidden || !cmd2.isHidden)) {
+            if (cmd2.isGlobal && this !== cmd2 && !this.commands.has(cmd2._name) && names.indexOf(cmd2._name) === -1 && (hidden2 || !cmd2.isHidden)) {
               names.push(cmd2._name);
               commands.push(cmd2);
             }
@@ -7070,26 +7624,26 @@ var Command = class {
     };
     return getCommands(this._parent);
   }
-  hasCommand(name, hidden) {
-    return !!this.getCommand(name, hidden);
+  hasCommand(name, hidden2) {
+    return !!this.getCommand(name, hidden2);
   }
-  getCommand(name, hidden) {
-    return this.getBaseCommand(name, hidden) ?? this.getGlobalCommand(name, hidden);
+  getCommand(name, hidden2) {
+    return this.getBaseCommand(name, hidden2) ?? this.getGlobalCommand(name, hidden2);
   }
-  getBaseCommand(name, hidden) {
+  getBaseCommand(name, hidden2) {
     for (const cmd of this.commands.values()) {
       if (cmd._name === name || cmd.aliases.includes(name)) {
-        return cmd && (hidden || !cmd.isHidden) ? cmd : void 0;
+        return cmd && (hidden2 || !cmd.isHidden) ? cmd : void 0;
       }
     }
   }
-  getGlobalCommand(name, hidden) {
+  getGlobalCommand(name, hidden2) {
     if (!this._parent) {
       return;
     }
-    const cmd = this._parent.getBaseCommand(name, hidden);
+    const cmd = this._parent.getBaseCommand(name, hidden2);
     if (!cmd?.isGlobal) {
-      return this._parent.getGlobalCommand(name, hidden);
+      return this._parent.getGlobalCommand(name, hidden2);
     }
     return cmd;
   }
@@ -7178,24 +7732,24 @@ var Command = class {
     }
     return completion;
   }
-  hasEnvVars(hidden) {
-    return this.getEnvVars(hidden).length > 0;
+  hasEnvVars(hidden2) {
+    return this.getEnvVars(hidden2).length > 0;
   }
-  getEnvVars(hidden) {
-    return this.getGlobalEnvVars(hidden).concat(this.getBaseEnvVars(hidden));
+  getEnvVars(hidden2) {
+    return this.getGlobalEnvVars(hidden2).concat(this.getBaseEnvVars(hidden2));
   }
-  getBaseEnvVars(hidden) {
+  getBaseEnvVars(hidden2) {
     if (!this.envVars.length) {
       return [];
     }
-    return hidden ? this.envVars.slice(0) : this.envVars.filter((env) => !env.hidden);
+    return hidden2 ? this.envVars.slice(0) : this.envVars.filter((env) => !env.hidden);
   }
-  getGlobalEnvVars(hidden) {
+  getGlobalEnvVars(hidden2) {
     const getEnvVars = (cmd, envVars = [], names = []) => {
       if (cmd) {
         if (cmd.envVars.length) {
           cmd.envVars.forEach((envVar) => {
-            if (envVar.global && !this.envVars.find((env) => env.names[0] === envVar.names[0]) && names.indexOf(envVar.names[0]) === -1 && (hidden || !envVar.hidden)) {
+            if (envVar.global && !this.envVars.find((env) => env.names[0] === envVar.names[0]) && names.indexOf(envVar.names[0]) === -1 && (hidden2 || !envVar.hidden)) {
               names.push(envVar.names[0]);
               envVars.push(envVar);
             }
@@ -7207,23 +7761,23 @@ var Command = class {
     };
     return getEnvVars(this._parent);
   }
-  hasEnvVar(name, hidden) {
-    return !!this.getEnvVar(name, hidden);
+  hasEnvVar(name, hidden2) {
+    return !!this.getEnvVar(name, hidden2);
   }
-  getEnvVar(name, hidden) {
-    return this.getBaseEnvVar(name, hidden) ?? this.getGlobalEnvVar(name, hidden);
+  getEnvVar(name, hidden2) {
+    return this.getBaseEnvVar(name, hidden2) ?? this.getGlobalEnvVar(name, hidden2);
   }
-  getBaseEnvVar(name, hidden) {
+  getBaseEnvVar(name, hidden2) {
     const envVar = this.envVars.find((env) => env.names.indexOf(name) !== -1);
-    return envVar && (hidden || !envVar.hidden) ? envVar : void 0;
+    return envVar && (hidden2 || !envVar.hidden) ? envVar : void 0;
   }
-  getGlobalEnvVar(name, hidden) {
+  getGlobalEnvVar(name, hidden2) {
     if (!this._parent) {
       return;
     }
-    const envVar = this._parent.getBaseEnvVar(name, hidden);
+    const envVar = this._parent.getBaseEnvVar(name, hidden2);
     if (!envVar?.global) {
-      return this._parent.getGlobalEnvVar(name, hidden);
+      return this._parent.getGlobalEnvVar(name, hidden2);
     }
     return envVar;
   }
@@ -7335,7 +7889,7 @@ ${stderr}`);
     });
   }
 };
-async function listCommits(owner, repo, { sha, perPage, page, jq } = {}) {
+async function listCommits(owner, repo, { sha, perPage, page, host, jq } = {}) {
   const param = new URLSearchParams();
   if (sha)
     param.set("sha", sha);
@@ -7344,140 +7898,96 @@ async function listCommits(owner, repo, { sha, perPage, page, jq } = {}) {
   if (page)
     param.set("page", String(page));
   const cmd = ["gh", "api", `repos/${owner}/${repo}/commits?${param}`];
+  if (host)
+    cmd.push("--hostname", host);
   if (jq)
     cmd.push("-q", jq);
   return await exec(cmd);
 }
-async function listRepositoryTags(owner, repo, { perPage, page, jq } = {}) {
+async function listRepositoryTags(owner, repo, { perPage, page, host, jq } = {}) {
   const param = new URLSearchParams();
   if (perPage)
     param.set("per_page", String(perPage));
   if (page)
     param.set("page", String(page));
   const cmd = ["gh", "api", `repos/${owner}/${repo}/tags?${param}`];
+  if (host)
+    cmd.push("--hostname", host);
   if (jq)
     cmd.push("-q", jq);
   return await exec(cmd);
 }
 
-// dist/dnt/esm/core/mod.js
-async function ghDescribe(owner, repo, commitish, defaultValue) {
-  const [tags, sha] = await Promise.all([fetchTags(owner, repo), fetchSha(owner, repo, commitish)]);
-  if (0 < tags.size) {
-    let distance2 = 0;
-    for await (const commit of fetchHistory(owner, repo, sha)) {
-      const tag = tags.get(commit);
-      if (tag) {
-        const describe2 = genDescribe(tag, distance2, sha);
-        return { describe: describe2, tag, distance: distance2, sha };
-      } else {
-        distance2++;
-      }
+// dist/dnt/esm/core/ghrepo.js
+var GitHubRepository = class {
+  constructor(owner, name, host) {
+    Object.defineProperty(this, "owner", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: owner
+    });
+    Object.defineProperty(this, "name", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: name
+    });
+    Object.defineProperty(this, "host", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: host
+    });
+  }
+  toString() {
+    if (this.host) {
+      return `${this.host}/${this.owner}/${this.name}`;
+    } else {
+      return `${this.owner}/${this.name}`;
     }
   }
-  if (!defaultValue) {
-    throw new Error("A tag cannot be found in the commit history.");
-  }
-  const totalCommit = 0;
-  const describe = genDescribe(defaultValue, totalCommit, sha);
-  return { describe, tag: defaultValue, distance: totalCommit, sha };
-}
-async function fetchTags(owner, repo) {
-  const tags = [];
-  const perPage = 100;
-  const jq = ".[] | [.commit.sha, .name]";
-  let page = 0;
-  let count;
-  do {
-    page++;
-    const stdout = await listRepositoryTags(owner, repo, { perPage, page, jq });
-    count = tags.push(...stdout.split("\n").map((x) => JSON.parse(x)));
-  } while (count === perPage);
-  return new Map(tags);
-}
-async function fetchSha(owner, repo, sha) {
-  const perPage = 1;
-  const jq = ".[].sha";
-  return await listCommits(owner, repo, { sha, perPage, jq });
-}
-async function* fetchHistory(owner, repo, sha) {
-  const perPage = 100;
-  const jq = ".[].sha";
-  let page = 0;
-  let count;
-  do {
-    page++;
-    const stdout = await listCommits(owner, repo, { sha, perPage, page, jq });
-    const historySpan = stdout.trim().split("\n");
-    count = historySpan.length;
-    for (const commitSha of historySpan) {
-      yield commitSha;
-    }
-  } while (count === perPage);
-}
-function genDescribe(tag, distance2, sha) {
-  if (distance2 === 0) {
-    return tag;
+};
+function parse(repo) {
+  if (isUrl(repo)) {
+    return parseFromUrl(repo);
   } else {
-    return `${tag}-${distance2}-g${sha.substring(0, 7)}`;
+    return parseFromFullName(repo);
+  }
+}
+function isUrl(maybeUrl) {
+  return maybeUrl.startsWith("git@") || maybeUrl.startsWith("ssh:") || maybeUrl.startsWith("git+ssh:") || maybeUrl.startsWith("git:") || maybeUrl.startsWith("http:") || maybeUrl.startsWith("git+https:") || maybeUrl.startsWith("https:");
+}
+function parseFromUrl(rawUrl) {
+  const { host, pathname } = new URL(rawUrl);
+  const [_, owner, rawName] = pathname.split("/", 3);
+  const name = rawName.endsWith(".git") ? rawName.substring(0, rawName.length - 4) : rawName;
+  const maybeHost = host !== "github.com" ? host : void 0;
+  return new GitHubRepository(owner, name, maybeHost);
+}
+function parseFromFullName(fullName) {
+  const parts = fullName.split("/", 4);
+  if (parts.some((p) => p.length <= 0)) {
+    throwFormatError(fullName);
+  }
+  switch (parts.length) {
+    case 2:
+      return new GitHubRepository(parts[0], parts[1]);
+    case 3:
+      return new GitHubRepository(parts[1], parts[2], parts[0]);
+    default:
+      throwFormatError(fullName);
+  }
+  function throwFormatError(invalid) {
+    throw new Error(`"${invalid}" is invalid format. Requires "[HOST/]OWNER/REPO" format.`);
   }
 }
 
-// dist/dnt/esm/cli/main.js
-async function listRemotes() {
+// dist/dnt/esm/core/git.js
+async function exec2(cmd) {
+  await import_shim_deno2.Deno.permissions.request({ name: "run", command: cmd[0] });
   const process2 = import_shim_deno2.Deno.run({
-    cmd: ["git", "remote", "-v"],
-    stdout: "piped",
-    stderr: "piped"
-  });
-  const [status, stdout, stderr] = await Promise.all([
-    process2.status(),
-    process2.output(),
-    process2.stderrOutput()
-  ]);
-  if (status.code === 0) {
-    const lines = new TextDecoder().decode(stdout).trim().split("\n").map((x) => /(.+)\s+(.+)\s+\((push|fetch)\)/.exec(x) || []).filter((x) => x.length === 4);
-    const remotes = [];
-    let name = void 0;
-    let fetchUrl = void 0;
-    let pushUrl = void 0;
-    for (const [_, lineName, lineUrl, type] of lines) {
-      if (!name) {
-        name = lineName;
-      } else if (name != lineName) {
-        remotes.push({ name, fetchUrl, pushUrl });
-        name = lineName;
-        fetchUrl = pushUrl = void 0;
-      }
-      switch (type) {
-        case "fetch":
-          fetchUrl = lineUrl;
-          break;
-        case "push":
-          pushUrl = lineUrl;
-          break;
-      }
-    }
-    if (name) {
-      remotes.push({ name, fetchUrl, pushUrl });
-    }
-    return remotes;
-  } else {
-    throw new Error(new TextDecoder().decode(stderr).trim());
-  }
-}
-async function getOriginRepo() {
-  const remotes = await listRemotes();
-  const { fetchUrl } = remotes.find((x) => x.name === "origin" && x.fetchUrl) || remotes[0];
-  if (!fetchUrl)
-    throw new Error();
-  const [_, owner, name] = new URL(fetchUrl).pathname.split("/", 3);
-  return `${owner}/${name.endsWith(".git") ? name.substring(0, name.length - 4) : name}`;
-}
-async function getHeadSha() {
-  await import_shim_deno2.Deno.permissions.request({ name: "run", command: "git" });
-  const process2 = import_shim_deno2.Deno.run({
-    cmd: ["git", "rev-parse", "HEAD"],
+    cmd,
     stdout: "piped",
     stderr: "piped"
   });
@@ -7489,18 +7999,179 @@ async function getHeadSha() {
   if (status.code === 0) {
     return new TextDecoder().decode(stdout).trim();
   } else {
-    throw new Error(new TextDecoder().decode(stderr).trim());
+    throw new GitError(cmd, status.code, new TextDecoder().decode(stderr).trim());
   }
 }
-var cli = new Command().name("gh-describe").version("").description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--default", "It is output instead when it action fails. If empty, this step will fail.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async (options, commitish) => {
-  const [owner, repo] = (options.repo || await (async () => {
-    await import_shim_deno2.Deno.permissions.request({ name: "run", command: "git" });
-    return await getOriginRepo();
-  })()).split("/");
-  const defaultValue = options.default;
-  commitish ||= await getHeadSha();
-  await import_shim_deno2.Deno.permissions.request({ name: "run", command: "gh" });
-  const { describe } = await ghDescribe(owner, repo, commitish, defaultValue);
-  console.log(describe);
-}).parse(import_shim_deno2.Deno.args);
-(async () => await cli)();
+var GitError = class extends Error {
+  constructor(cmd, code2, stderr) {
+    super(`\`${cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code2}
+${stderr}`);
+    Object.defineProperty(this, "cmd", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: cmd
+    });
+    Object.defineProperty(this, "code", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: code2
+    });
+    Object.defineProperty(this, "stderr", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: stderr
+    });
+  }
+};
+async function listRemotes() {
+  const lines = (await exec2(["git", "remote", "-v"])).split("\n").map((x) => /(.+)\s+(.+)\s+\((push|fetch)\)/.exec(x) || []).filter((x) => x.length === 4);
+  const remotes = [];
+  let name = void 0;
+  let fetchUrl = void 0;
+  let pushUrl = void 0;
+  for (const [_, lineName, lineUrl, type] of lines) {
+    if (!name) {
+      name = lineName;
+    } else if (name != lineName) {
+      remotes.push({ name, fetchUrl, pushUrl });
+      name = lineName;
+      fetchUrl = pushUrl = void 0;
+    }
+    switch (type) {
+      case "fetch":
+        fetchUrl = lineUrl;
+        break;
+      case "push":
+        pushUrl = lineUrl;
+        break;
+    }
+  }
+  if (name) {
+    remotes.push({ name, fetchUrl, pushUrl });
+  }
+  return remotes;
+}
+async function getOriginRepo() {
+  const remotes = await listRemotes();
+  const { fetchUrl } = remotes.find((x) => x.name === "origin" && x.fetchUrl) || remotes[0];
+  if (!fetchUrl)
+    throw new Error();
+  return parseFromUrl(fetchUrl);
+}
+async function getHeadSha() {
+  return await exec2(["git", "rev-parse", "HEAD"]);
+}
+async function gitDescribe() {
+  return await exec2(["git", "describe", "--tags"]);
+}
+
+// dist/dnt/esm/core/mod.js
+var GhDescribeError = class extends Error {
+};
+async function ghDescribe(repo, commitish, defaultValue) {
+  if (!repo) {
+    repo = await getOriginRepo();
+  } else if (typeof repo === "string") {
+    repo = parse(repo);
+  }
+  const [tags, sha] = await Promise.all([fetchTags(repo), fetchSha(repo, commitish)]);
+  if (0 < tags.size) {
+    let distance2 = 0;
+    for await (const commit of fetchHistory(repo, sha)) {
+      const tag = tags.get(commit);
+      if (tag) {
+        const describe2 = genDescribe(tag, distance2, sha);
+        return { describe: describe2, tag, distance: distance2, sha };
+      } else {
+        distance2++;
+      }
+    }
+  }
+  if (!defaultValue) {
+    throw new GhDescribeError("No names found, cannot describe anything.");
+  }
+  const totalCommit = 0;
+  const describe = genDescribe(defaultValue, totalCommit, sha);
+  return { describe, tag: defaultValue, distance: totalCommit, sha };
+}
+async function fetchTags({ owner, name, host }) {
+  const tags = [];
+  const perPage = 100;
+  const jq = ".[] | [.commit.sha, .name]";
+  let page = 0;
+  let count;
+  do {
+    page++;
+    const stdout = await listRepositoryTags(owner, name, { perPage, page, host, jq });
+    count = tags.push(...stdout.split("\n").filter((x) => !!x).map((x) => JSON.parse(x)));
+  } while (count === perPage);
+  return new Map(tags);
+}
+async function fetchSha({ owner, name, host }, sha) {
+  if (sha) {
+    try {
+      const perPage = 1;
+      const jq = ".[].sha";
+      return await listCommits(owner, name, { sha, perPage, host, jq });
+    } catch {
+      return sha;
+    }
+  } else {
+    return getHeadSha();
+  }
+}
+async function* fetchHistory(repo, sha) {
+  try {
+    const { owner, name, host } = repo;
+    const perPage = 100;
+    const jq = ".[].sha";
+    let page = 0;
+    let count;
+    do {
+      page++;
+      const stdout = await listCommits(owner, name, { sha, perPage, page, host, jq });
+      const historySpan = stdout.trim().split("\n");
+      count = historySpan.length;
+      for (const commitSha of historySpan) {
+        yield commitSha;
+      }
+    } while (count === perPage);
+  } catch (e) {
+    if (e instanceof ExecError && e.stderr === "gh: Not Found (HTTP 404)") {
+      const msg = `ambiguous argument '${sha}': unknown revision or path not in the ${repo} tree.`;
+      throw new GhDescribeError(msg);
+    }
+    throw e;
+  }
+}
+function genDescribe(tag, distance2, sha) {
+  if (distance2 === 0) {
+    return tag;
+  } else {
+    return `${tag}-${distance2}-g${sha.substring(0, 7)}`;
+  }
+}
+
+// dist/dnt/esm/cli/main.js
+async function run2() {
+  return await new Command().name("gh-describe").version(await gitDescribe()).description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--default <tag:string>", "Use this value if the name is not found.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async (options, commitish) => {
+    const repo = options.repo || await getOriginRepo();
+    const defaultValue = options.default;
+    try {
+      await import_shim_deno2.Deno.permissions.request({ name: "run", command: "gh" });
+      const { describe } = await ghDescribe(repo, commitish, defaultValue);
+      console.log(describe);
+    } catch (e) {
+      if (e instanceof GhDescribeError) {
+        console.error(`${colors.bold.red("fatal:")} ${e.message}`);
+        import_shim_deno2.Deno.exit(1);
+      } else {
+        throw e;
+      }
+    }
+  }).parse(import_shim_deno2.Deno.args);
+}
+run2();

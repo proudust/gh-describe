@@ -5762,7 +5762,7 @@ ${stderr}`);
     });
   }
 };
-async function listCommits(owner, repo, { sha, perPage, page, jq } = {}) {
+async function listCommits(owner, repo, { sha, perPage, page, host, jq } = {}) {
   const param = new URLSearchParams();
   if (sha)
     param.set("sha", sha);
@@ -5771,28 +5771,186 @@ async function listCommits(owner, repo, { sha, perPage, page, jq } = {}) {
   if (page)
     param.set("page", String(page));
   const cmd = ["gh", "api", `repos/${owner}/${repo}/commits?${param}`];
+  if (host)
+    cmd.push("--hostname", host);
   if (jq)
     cmd.push("-q", jq);
   return await exec(cmd);
 }
-async function listRepositoryTags(owner, repo, { perPage, page, jq } = {}) {
+async function listRepositoryTags(owner, repo, { perPage, page, host, jq } = {}) {
   const param = new URLSearchParams();
   if (perPage)
     param.set("per_page", String(perPage));
   if (page)
     param.set("page", String(page));
   const cmd = ["gh", "api", `repos/${owner}/${repo}/tags?${param}`];
+  if (host)
+    cmd.push("--hostname", host);
   if (jq)
     cmd.push("-q", jq);
   return await exec(cmd);
 }
 
+// dist/dnt/esm/core/ghrepo.js
+var GitHubRepository = class {
+  constructor(owner, name, host) {
+    Object.defineProperty(this, "owner", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: owner
+    });
+    Object.defineProperty(this, "name", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: name
+    });
+    Object.defineProperty(this, "host", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: host
+    });
+  }
+  toString() {
+    if (this.host) {
+      return `${this.host}/${this.owner}/${this.name}`;
+    } else {
+      return `${this.owner}/${this.name}`;
+    }
+  }
+};
+function parse(repo) {
+  if (isUrl(repo)) {
+    return parseFromUrl(repo);
+  } else {
+    return parseFromFullName(repo);
+  }
+}
+function isUrl(maybeUrl) {
+  return maybeUrl.startsWith("git@") || maybeUrl.startsWith("ssh:") || maybeUrl.startsWith("git+ssh:") || maybeUrl.startsWith("git:") || maybeUrl.startsWith("http:") || maybeUrl.startsWith("git+https:") || maybeUrl.startsWith("https:");
+}
+function parseFromUrl(rawUrl) {
+  const { host, pathname } = new URL(rawUrl);
+  const [_, owner, rawName] = pathname.split("/", 3);
+  const name = rawName.endsWith(".git") ? rawName.substring(0, rawName.length - 4) : rawName;
+  const maybeHost = host !== "github.com" ? host : void 0;
+  return new GitHubRepository(owner, name, maybeHost);
+}
+function parseFromFullName(fullName) {
+  const parts = fullName.split("/", 4);
+  if (parts.some((p) => p.length <= 0)) {
+    throwFormatError(fullName);
+  }
+  switch (parts.length) {
+    case 2:
+      return new GitHubRepository(parts[0], parts[1]);
+    case 3:
+      return new GitHubRepository(parts[1], parts[2], parts[0]);
+    default:
+      throwFormatError(fullName);
+  }
+  function throwFormatError(invalid) {
+    throw new Error(`"${invalid}" is invalid format. Requires "[HOST/]OWNER/REPO" format.`);
+  }
+}
+
+// dist/dnt/esm/core/git.js
+async function exec2(cmd) {
+  await import_shim_deno2.Deno.permissions.request({ name: "run", command: cmd[0] });
+  const process2 = import_shim_deno2.Deno.run({
+    cmd,
+    stdout: "piped",
+    stderr: "piped"
+  });
+  const [status, stdout, stderr] = await Promise.all([
+    process2.status(),
+    process2.output(),
+    process2.stderrOutput()
+  ]);
+  if (status.code === 0) {
+    return new TextDecoder().decode(stdout).trim();
+  } else {
+    throw new GitError(cmd, status.code, new TextDecoder().decode(stderr).trim());
+  }
+}
+var GitError = class extends Error {
+  constructor(cmd, code, stderr) {
+    super(`\`${cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code}
+${stderr}`);
+    Object.defineProperty(this, "cmd", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: cmd
+    });
+    Object.defineProperty(this, "code", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: code
+    });
+    Object.defineProperty(this, "stderr", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: stderr
+    });
+  }
+};
+async function listRemotes() {
+  const lines = (await exec2(["git", "remote", "-v"])).split("\n").map((x) => /(.+)\s+(.+)\s+\((push|fetch)\)/.exec(x) || []).filter((x) => x.length === 4);
+  const remotes = [];
+  let name = void 0;
+  let fetchUrl = void 0;
+  let pushUrl = void 0;
+  for (const [_, lineName, lineUrl, type] of lines) {
+    if (!name) {
+      name = lineName;
+    } else if (name != lineName) {
+      remotes.push({ name, fetchUrl, pushUrl });
+      name = lineName;
+      fetchUrl = pushUrl = void 0;
+    }
+    switch (type) {
+      case "fetch":
+        fetchUrl = lineUrl;
+        break;
+      case "push":
+        pushUrl = lineUrl;
+        break;
+    }
+  }
+  if (name) {
+    remotes.push({ name, fetchUrl, pushUrl });
+  }
+  return remotes;
+}
+async function getOriginRepo() {
+  const remotes = await listRemotes();
+  const { fetchUrl } = remotes.find((x) => x.name === "origin" && x.fetchUrl) || remotes[0];
+  if (!fetchUrl)
+    throw new Error();
+  return parseFromUrl(fetchUrl);
+}
+async function getHeadSha() {
+  return await exec2(["git", "rev-parse", "HEAD"]);
+}
+
 // dist/dnt/esm/core/mod.js
-async function ghDescribe(owner, repo, commitish, defaultValue) {
-  const [tags, sha] = await Promise.all([fetchTags(owner, repo), fetchSha(owner, repo, commitish)]);
+var GhDescribeError = class extends Error {
+};
+async function ghDescribe(repo, commitish, defaultValue) {
+  if (!repo) {
+    repo = await getOriginRepo();
+  } else if (typeof repo === "string") {
+    repo = parse(repo);
+  }
+  const [tags, sha] = await Promise.all([fetchTags(repo), fetchSha(repo, commitish)]);
   if (0 < tags.size) {
     let distance = 0;
-    for await (const commit of fetchHistory(owner, repo, sha)) {
+    for await (const commit of fetchHistory(repo, sha)) {
       const tag = tags.get(commit);
       if (tag) {
         const describe2 = genDescribe(tag, distance, sha);
@@ -5803,13 +5961,13 @@ async function ghDescribe(owner, repo, commitish, defaultValue) {
     }
   }
   if (!defaultValue) {
-    throw new Error("A tag cannot be found in the commit history.");
+    throw new GhDescribeError("No names found, cannot describe anything.");
   }
   const totalCommit = 0;
   const describe = genDescribe(defaultValue, totalCommit, sha);
   return { describe, tag: defaultValue, distance: totalCommit, sha };
 }
-async function fetchTags(owner, repo) {
+async function fetchTags({ owner, name, host }) {
   const tags = [];
   const perPage = 100;
   const jq = ".[] | [.commit.sha, .name]";
@@ -5817,30 +5975,47 @@ async function fetchTags(owner, repo) {
   let count;
   do {
     page++;
-    const stdout = await listRepositoryTags(owner, repo, { perPage, page, jq });
-    count = tags.push(...stdout.split("\n").map((x) => JSON.parse(x)));
+    const stdout = await listRepositoryTags(owner, name, { perPage, page, host, jq });
+    count = tags.push(...stdout.split("\n").filter((x) => !!x).map((x) => JSON.parse(x)));
   } while (count === perPage);
   return new Map(tags);
 }
-async function fetchSha(owner, repo, sha) {
-  const perPage = 1;
-  const jq = ".[].sha";
-  return await listCommits(owner, repo, { sha, perPage, jq });
-}
-async function* fetchHistory(owner, repo, sha) {
-  const perPage = 100;
-  const jq = ".[].sha";
-  let page = 0;
-  let count;
-  do {
-    page++;
-    const stdout = await listCommits(owner, repo, { sha, perPage, page, jq });
-    const historySpan = stdout.trim().split("\n");
-    count = historySpan.length;
-    for (const commitSha of historySpan) {
-      yield commitSha;
+async function fetchSha({ owner, name, host }, sha) {
+  if (sha) {
+    try {
+      const perPage = 1;
+      const jq = ".[].sha";
+      return await listCommits(owner, name, { sha, perPage, host, jq });
+    } catch {
+      return sha;
     }
-  } while (count === perPage);
+  } else {
+    return getHeadSha();
+  }
+}
+async function* fetchHistory(repo, sha) {
+  try {
+    const { owner, name, host } = repo;
+    const perPage = 100;
+    const jq = ".[].sha";
+    let page = 0;
+    let count;
+    do {
+      page++;
+      const stdout = await listCommits(owner, name, { sha, perPage, page, host, jq });
+      const historySpan = stdout.trim().split("\n");
+      count = historySpan.length;
+      for (const commitSha of historySpan) {
+        yield commitSha;
+      }
+    } while (count === perPage);
+  } catch (e) {
+    if (e instanceof ExecError && e.stderr === "gh: Not Found (HTTP 404)") {
+      const msg = `ambiguous argument '${sha}': unknown revision or path not in the ${repo} tree.`;
+      throw new GhDescribeError(msg);
+    }
+    throw e;
+  }
 }
 function genDescribe(tag, distance, sha) {
   if (distance === 0) {
@@ -5853,23 +6028,27 @@ function genDescribe(tag, distance, sha) {
 // dist/dnt/esm/actions/main.js
 async function run() {
   const token = (0, import_core.getInput)("token", { required: true });
-  const [owner, repo] = (0, import_core.getInput)("repo", { required: true }).split("/");
-  (0, import_core.debug)(`input repo: ${owner}/${repo}`);
+  const repo = (0, import_core.getInput)("repo", { required: true });
+  (0, import_core.debug)(`input repo: ${repo}`);
   const commitish = (0, import_core.getInput)("commit-ish", { required: true });
   (0, import_core.debug)(`input commit-ish: ${commitish}`);
   const defaultValue = (0, import_core.getInput)("default");
   (0, import_core.debug)(`input default: ${defaultValue}`);
   try {
     import_shim_deno2.Deno.env.set("GITHUB_TOKEN", token);
-    const { describe, tag, distance, sha } = await ghDescribe(owner, repo, commitish, defaultValue);
+    const { describe, tag, distance, sha } = await ghDescribe(repo, commitish, defaultValue);
     (0, import_core.info)(describe);
     (0, import_core.setOutput)("describe", describe);
     (0, import_core.setOutput)("tag", tag);
     (0, import_core.setOutput)("distance", distance);
     (0, import_core.setOutput)("sha", sha);
   } catch (e) {
-    const message = e instanceof Error && e.stack || String(e);
-    (0, import_core.setFailed)(message);
+    if (e instanceof GhDescribeError) {
+      (0, import_core.setFailed)(`fatal: ${e.message}`);
+    } else {
+      const message = e instanceof Error && e.stack || String(e);
+      (0, import_core.setFailed)(message);
+    }
   }
 }
 run();

@@ -36,6 +36,14 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: gh-describe-canary
+          path: ./dist/gh-describe-*
 
       - name: Verify No Unstaged Changes
         run: |
@@ -60,3 +68,37 @@ jobs:
 
       - name: Test Run
         uses: ./
+
+  release:
+    runs-on: ubuntu-latest
+    if: >
+      startsWith(github.ref, 'refs/tags/') ||
+      github.event_name == 'release'
+    needs:
+      - build
+      - test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Restore
+        uses: actions/download-artifact@v2
+        with:
+          name: gh-describe-canary
+          path: ./dist
+
+      - name: Run gh-describe
+        id: ghd
+        uses: ./
+
+      - name: Create Release and Upload Files
+        run: |
+          if gh release view "${GITHUB_RELEASE_TAG}" --json tagName >/dev/null && echo 'release found'; then
+            gh release upload --clobber "${GITHUB_RELEASE_TAG}" ./dist/gh-describe-*
+          else
+            gh release create -d --generate-notes "${GITHUB_RELEASE_TAG}" ./dist/gh-describe-*
+          fi
+        env:
+          GITHUB_RELEASE_TAG: ${{ steps.ghd.outputs.tag }}
+          GITHUB_TOKEN: ${{ github.token }}

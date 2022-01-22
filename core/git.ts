@@ -84,3 +84,7 @@ export async function getOriginRepo() {
 export async function getHeadSha(): Promise<string> {
   return (await exec(["git", "rev-parse", "HEAD"]));
 }
+
+export async function gitDescribe() {
+  return (await exec(["git", "describe", "--tags"]));
+}
