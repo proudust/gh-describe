@@ -31,7 +31,7 @@ Require [GitHub CLI](https://github.com/cli/cli#installation) and
 
 ```sh
 # Install
-deno install -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.0/cli/main.ts
+deno install -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.1/cli/main.ts
 
 # Usage
 gh-describe
@@ -52,7 +52,7 @@ gh-describe-x86_64-unknown-linux-gnu
 ```sh
 $ gh describe --help
   Usage:   gh-describe [commit-ish]
-  Version: v1.4.0
+  Version: v1.4.1
 
   Description:
 
