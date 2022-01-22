@@ -1,5 +1,6 @@
 import { ExecError, graphql, listCommits, listRepositoryTags } from "./gh.ts";
 import { parse } from "./ghrepo.ts";
+import { getHeadSha, getOriginRepo } from "./git.ts";
 
 export default ghDescribe;
 
@@ -13,11 +14,16 @@ interface GhDescribeOutput {
 export class GhDescribeError extends Error {}
 
 export async function ghDescribe(
-  repoString: string,
-  commitish: string,
+  repo?: string | Repo,
+  commitish?: string,
   defaultValue?: string,
 ): Promise<GhDescribeOutput> {
-  const repo = parse(repoString);
+  if (!repo) {
+    repo = await getOriginRepo();
+  } else if (typeof repo === "string") {
+    repo = parse(repo);
+  }
+
   const [tags, sha] = await Promise.all([fetchTags(repo), fetchSha(repo, commitish)]);
 
   if (0 < tags.size) {
@@ -67,13 +73,17 @@ export async function fetchTags({ owner, name, host }: Repo): Promise<Map<string
   return new Map(tags);
 }
 
-export async function fetchSha({ owner, name, host }: Repo, sha: string): Promise<string> {
-  try {
-    const perPage = 1;
-    const jq = ".[].sha";
-    return await listCommits(owner, name, { sha, perPage, host, jq });
-  } catch {
-    return sha;
+export async function fetchSha({ owner, name, host }: Repo, sha?: string): Promise<string> {
+  if (sha) {
+    try {
+      const perPage = 1;
+      const jq = ".[].sha";
+      return await listCommits(owner, name, { sha, perPage, host, jq });
+    } catch {
+      return sha;
+    }
+  } else {
+    return getHeadSha();
   }
 }
 

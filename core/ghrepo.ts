@@ -35,7 +35,7 @@ function isUrl(maybeUrl: string): boolean {
     maybeUrl.startsWith("https:");
 }
 
-function parseFromUrl(rawUrl: string): GitHubRepository {
+export function parseFromUrl(rawUrl: string): GitHubRepository {
   const { host, pathname } = new URL(rawUrl);
   const [_, owner, rawName] = pathname.split("/", 3);
   const name = rawName.endsWith(".git") ? rawName.substring(0, rawName.length - 4) : rawName;
