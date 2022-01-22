@@ -1,4 +1,5 @@
 import { graphql, listCommits, listRepositoryTags } from "./gh.ts";
+import { parse } from "./ghrepo.ts";
 
 export default ghDescribe;
 
@@ -10,16 +11,16 @@ interface GhDescribeOutput {
 }
 
 export async function ghDescribe(
-  owner: string,
-  repo: string,
+  repoString: string,
   commitish: string,
   defaultValue?: string,
 ): Promise<GhDescribeOutput> {
-  const [tags, sha] = await Promise.all([fetchTags(owner, repo), fetchSha(owner, repo, commitish)]);
+  const repo = parse(repoString);
+  const [tags, sha] = await Promise.all([fetchTags(repo), fetchSha(repo, commitish)]);
 
   if (0 < tags.size) {
     let distance = 0;
-    for await (const commit of fetchHistory(owner, repo, sha)) {
+    for await (const commit of fetchHistory(repo, sha)) {
       const tag = tags.get(commit);
       if (tag) {
         const describe = genDescribe(tag, distance, sha);
@@ -39,7 +40,13 @@ export async function ghDescribe(
   return { describe, tag: defaultValue, distance: totalCommit, sha };
 }
 
-export async function fetchTags(owner: string, repo: string): Promise<Map<string, string>> {
+interface Repo {
+  owner: string;
+  name: string;
+  host?: string;
+}
+
+export async function fetchTags({ owner, name, host }: Repo): Promise<Map<string, string>> {
   const tags: [sha: string, name: string][] = [];
   const perPage = 100;
   const jq = ".[] | [.commit.sha, .name]";
@@ -47,7 +54,7 @@ export async function fetchTags(owner: string, repo: string): Promise<Map<string
   let count: number;
   do {
     page++;
-    const stdout = await listRepositoryTags(owner, repo, { perPage, page, jq });
+    const stdout = await listRepositoryTags(owner, name, { perPage, page, host, jq });
     count = tags.push(
       ...stdout
         .split("\n")
@@ -57,15 +64,14 @@ export async function fetchTags(owner: string, repo: string): Promise<Map<string
   return new Map(tags);
 }
 
-export async function fetchSha(owner: string, repo: string, sha: string): Promise<string> {
+export async function fetchSha({ owner, name, host }: Repo, sha: string): Promise<string> {
   const perPage = 1;
   const jq = ".[].sha";
-  return await listCommits(owner, repo, { sha, perPage, jq });
+  return await listCommits(owner, name, { sha, perPage, host, jq });
 }
 
 export async function* fetchHistory(
-  owner: string,
-  repo: string,
+  { owner, name, host }: Repo,
   sha: string,
 ): AsyncGenerator<string, void, void> {
   const perPage = 100;
@@ -74,7 +80,7 @@ export async function* fetchHistory(
   let count: number;
   do {
     page++;
-    const stdout = await listCommits(owner, repo, { sha, perPage, page, jq });
+    const stdout = await listCommits(owner, name, { sha, perPage, page, host, jq });
     const historySpan = stdout
       .trim()
       .split("\n");
@@ -85,10 +91,10 @@ export async function* fetchHistory(
   } while (count === perPage);
 }
 
-export async function fetchTotalCommit(owner: string, repo: string, sha: string) {
-  const stdout = await graphql`
+export async function fetchTotalCommit({ owner, name, host }: Repo, sha: string) {
+  const stdout = await graphql({ host })`
   {
-    repository(owner: "${owner}", name: "${repo}") {
+    repository(owner: "${owner}", name: "${name}") {
       object(expression: "${sha}") {
         ... on Commit {
           history(first: 0) {

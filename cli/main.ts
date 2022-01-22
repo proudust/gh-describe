@@ -100,15 +100,15 @@ const cli = new Command<CommandOptions, CommandArguments>()
   )
   .arguments("[commit-ish]")
   .action(async (options, commitish) => {
-    const [owner, repo] = (options.repo || await (async () => {
+    const repo = (options.repo || await (async () => {
       await Deno.permissions.request({ name: "run", command: "git" });
       return await getOriginRepo();
-    })()).split("/");
+    })());
     const defaultValue = options.default;
     commitish ||= await getHeadSha();
 
     await Deno.permissions.request({ name: "run", command: "gh" });
-    const { describe } = await ghDescribe(owner, repo, commitish, defaultValue);
+    const { describe } = await ghDescribe(repo, commitish, defaultValue);
     console.log(describe);
   })
   .parse(Deno.args);
