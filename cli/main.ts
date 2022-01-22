@@ -1,4 +1,4 @@
-import { Command } from "https://deno.land/x/cliffy@v0.20.1/command/mod.ts";
+import { Command, EnumType } from "https://deno.land/x/cliffy@v0.20.1/command/mod.ts";
 import { ghDescribe } from "../core/mod.ts";
 
 interface Remote {
@@ -93,6 +93,11 @@ const cli = new Command<CommandOptions, CommandArguments>()
   .description("Emulate `git describe --tags` in shallow clone repository.")
   .option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO")
   .option("--default", "It is output instead when it action fails. If empty, this step will fail.")
+  .type("runtime", new EnumType(["deno", "node"]))
+  .option(
+    "--runtime <runtime:runtime>",
+    "If installed by `gh extension install`, can specify the execution runtime.",
+  )
   .arguments("[commit-ish]")
   .action(async (options, commitish) => {
     const [owner, repo] = (options.repo || await (async () => {

@@ -7261,6 +7261,34 @@ _CompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 var _ChildCommandType_cmd;
 _ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
 
+// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/types/enum.js
+var EnumType = class extends Type {
+  constructor(values) {
+    super();
+    Object.defineProperty(this, "allowedValues", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: void 0
+    });
+    this.allowedValues = values;
+  }
+  parse(type) {
+    for (const value of this.allowedValues) {
+      if (value.toString() === type.value) {
+        return value;
+      }
+    }
+    throw new InvalidTypeError(type, this.allowedValues.slice());
+  }
+  values() {
+    return this.allowedValues.slice();
+  }
+  complete() {
+    return this.values();
+  }
+};
+
 // dist/dnt/esm/core/gh.js
 async function exec(cmd) {
   const process2 = import_shim_deno2.Deno.run({
@@ -7464,7 +7492,7 @@ async function getHeadSha() {
     throw new Error(new TextDecoder().decode(stderr).trim());
   }
 }
-var cli = new Command().name("gh-describe").version("").description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--default", "It is output instead when it action fails. If empty, this step will fail.").arguments("[commit-ish]").action(async (options, commitish) => {
+var cli = new Command().name("gh-describe").version("").description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--default", "It is output instead when it action fails. If empty, this step will fail.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async (options, commitish) => {
   const [owner, repo] = (options.repo || await (async () => {
     await import_shim_deno2.Deno.permissions.request({ name: "run", command: "git" });
     return await getOriginRepo();
