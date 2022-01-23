@@ -1,6 +1,6 @@
 import { join } from "https://deno.land/std@0.122.0/path/mod.ts";
 import { build as dnt } from "https://deno.land/x/dnt@0.16.1/mod.ts";
-import { build as esbuild } from "https://deno.land/x/esbuild@v0.14.11/mod.js";
+import { build as esbuild } from "https://deno.land/x/esbuild@v0.14.13/mod.js";
 import { ghDescribe } from "./core/mod.ts";
 import Package from "./package.json" assert { type: "json" };
 
