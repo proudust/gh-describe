@@ -1,4 +1,4 @@
-# gh-describe
+# gh describe
 
 `git describe --tags` in shallow clones.
 
@@ -7,47 +7,52 @@ a history of all tags and branches, which is difficult to use in workflows where
 clone. This action gets the history from the GitHub API instead of locally and reproduces its
 behavior.
 
-## Usage by Terminal
+## Install
 
-### Install
-
-#### GitHub CLI Extensions
+### GitHub CLI Extensions
 
 Require [GitHub CLI](https://github.com/cli/cli#installation) and JavaScript Runtime
-([Deno](https://deno.land/#installation) or [Node.js](https://nodejs.org/))
+([Deno](https://deno.land/#installation) or [Node.js](https://nodejs.org/)).
 
 ```sh
-# Install
 gh extensions install proudust/gh-describe
-
-# Usage
-gh describe
 ```
 
-#### Deno Install
+### Deno Install
 
 Require [GitHub CLI](https://github.com/cli/cli#installation) and
 [Deno](https://deno.land/#installation).
 
 ```sh
-# Install
-deno install -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.1/cli/main.ts
-
-# Usage
-gh-describe
+deno run -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.1/cli/main.ts
 ```
 
-#### Deno Compile
+or
+
+```sh
+deno install -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.1/cli/main.ts
+```
+
+### Deno Compile
 
 Require [GitHub CLI](https://github.com/cli/cli#installation). Download from
 [Release page](https://github.com/proudust/gh-describe/releases/latest).
 
-```sh
-# Usage
-gh-describe-x86_64-unknown-linux-gnu
+## Usage
+
+GitHub CLI Extensions:
+
+```
+gh describe
 ```
 
-### Usage
+Deno:
+
+```
+gh-describe
+```
+
+### Help
 
 ```sh
 $ gh describe --help
@@ -67,7 +72,7 @@ $ gh describe --help
     --runtime      <runtime>  - If installed by `gh extension install`, can specify the execution runtime.  (Values: "deno", "node")
 ```
 
-## Usage by GitHub Actions
+## GitHub Actions
 
 ```yml
 - name: Git describe
