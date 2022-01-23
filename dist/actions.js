@@ -5942,11 +5942,7 @@ async function getHeadSha() {
 var GhDescribeError = class extends Error {
 };
 async function ghDescribe(repo, commitish, defaultValue) {
-  if (!repo) {
-    repo = await getOriginRepo();
-  } else if (typeof repo === "string") {
-    repo = parse(repo);
-  }
+  repo = await resolveRepo(repo);
   const [tags, sha] = await Promise.all([fetchTags(repo), fetchSha(repo, commitish)]);
   if (0 < tags.size) {
     let distance = 0;
@@ -5966,6 +5962,19 @@ async function ghDescribe(repo, commitish, defaultValue) {
   const totalCommit = 0;
   const describe = genDescribe(defaultValue, totalCommit, sha);
   return { describe, tag: defaultValue, distance: totalCommit, sha };
+}
+async function resolveRepo(repo) {
+  if (typeof repo === "string") {
+    return parse(repo);
+  }
+  try {
+    return await getOriginRepo();
+  } catch (e) {
+    if (e instanceof GitError && e.stderr === "fatal: not a git repository (or any of the parent directories): .git") {
+      throw new GhDescribeError(e.stderr, e);
+    }
+    throw e;
+  }
 }
 async function fetchTags({ owner, name, host }) {
   const tags = [];

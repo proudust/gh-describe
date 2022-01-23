@@ -1,8 +1,14 @@
 import { ExecError, graphql, listCommits, listRepositoryTags } from "./gh.ts";
 import { parse } from "./ghrepo.ts";
-import { getHeadSha, getOriginRepo } from "./git.ts";
+import { getHeadSha, getOriginRepo, GitError } from "./git.ts";
 
 export default ghDescribe;
+
+interface Repo {
+  owner: string;
+  name: string;
+  host?: string;
+}
 
 interface GhDescribeOutput {
   describe: string;
@@ -18,11 +24,7 @@ export async function ghDescribe(
   commitish?: string,
   defaultValue?: string,
 ): Promise<GhDescribeOutput> {
-  if (!repo) {
-    repo = await getOriginRepo();
-  } else if (typeof repo === "string") {
-    repo = parse(repo);
-  }
+  repo = await resolveRepo(repo);
 
   const [tags, sha] = await Promise.all([fetchTags(repo), fetchSha(repo, commitish)]);
 
@@ -48,10 +50,22 @@ export async function ghDescribe(
   return { describe, tag: defaultValue, distance: totalCommit, sha };
 }
 
-interface Repo {
-  owner: string;
-  name: string;
-  host?: string;
+export async function resolveRepo(repo?: string | Repo): Promise<Repo> {
+  if (typeof repo === "string") {
+    return parse(repo);
+  }
+
+  try {
+    return await getOriginRepo();
+  } catch (e: unknown) {
+    if (
+      e instanceof GitError &&
+      e.stderr === "fatal: not a git repository (or any of the parent directories): .git"
+    ) {
+      throw new GhDescribeError(e.stderr, e);
+    }
+    throw e;
+  }
 }
 
 export async function fetchTags({ owner, name, host }: Repo): Promise<Map<string, string>> {

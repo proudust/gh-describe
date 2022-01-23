@@ -9278,11 +9278,7 @@ async function gitDescribe({ cwd }) {
 var GhDescribeError = class extends Error {
 };
 async function ghDescribe(repo, commitish, defaultValue) {
-  if (!repo) {
-    repo = await getOriginRepo();
-  } else if (typeof repo === "string") {
-    repo = parse4(repo);
-  }
+  repo = await resolveRepo(repo);
   const [tags, sha] = await Promise.all([fetchTags(repo), fetchSha(repo, commitish)]);
   if (0 < tags.size) {
     let distance2 = 0;
@@ -9302,6 +9298,19 @@ async function ghDescribe(repo, commitish, defaultValue) {
   const totalCommit = 0;
   const describe = genDescribe(defaultValue, totalCommit, sha);
   return { describe, tag: defaultValue, distance: totalCommit, sha };
+}
+async function resolveRepo(repo) {
+  if (typeof repo === "string") {
+    return parse4(repo);
+  }
+  try {
+    return await getOriginRepo();
+  } catch (e) {
+    if (e instanceof GitError && e.stderr === "fatal: not a git repository (or any of the parent directories): .git") {
+      throw new GhDescribeError(e.stderr, e);
+    }
+    throw e;
+  }
 }
 async function fetchTags({ owner, name, host }) {
   const tags = [];
@@ -9370,12 +9379,10 @@ function which() {
   }
 }
 async function run2() {
-  return await new Command().name("gh-describe").version(await gitDescribe({ cwd: which() })).description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--default <tag:string>", "Use this value if the name is not found.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async (options, commitish) => {
-    const repo = options.repo || await getOriginRepo();
-    const defaultValue = options.default;
+  return await new Command().name("gh-describe").version(await gitDescribe({ cwd: which() })).description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--default <tag:string>", "Use this value if the name is not found.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async ({ repo, default: defaultTag }, commitish) => {
     try {
       await import_shim_deno2.Deno.permissions.request({ name: "run", command: "gh" });
-      const { describe } = await ghDescribe(repo, commitish, defaultValue);
+      const { describe } = await ghDescribe(repo, commitish, defaultTag);
       console.log(describe);
     } catch (e) {
       if (e instanceof GhDescribeError) {

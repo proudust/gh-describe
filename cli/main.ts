@@ -2,7 +2,7 @@ import { dirname, fromFileUrl } from "https://deno.land/std@0.122.0/path/mod.ts"
 import { colors } from "https://deno.land/x/cliffy@v0.20.1/ansi/mod.ts";
 import { Command, EnumType } from "https://deno.land/x/cliffy@v0.20.1/command/mod.ts";
 import { ghDescribe, GhDescribeError } from "../core/mod.ts";
-import { getOriginRepo, gitDescribe } from "../core/git.ts";
+import { gitDescribe } from "../core/git.ts";
 
 declare const __filename: string;
 
@@ -34,13 +34,10 @@ async function run() {
       "If installed by `gh extension install`, can specify the execution runtime.",
     )
     .arguments("[commit-ish]")
-    .action(async (options, commitish) => {
-      const repo = options.repo || await getOriginRepo();
-      const defaultValue = options.default;
-
+    .action(async ({ repo, default: defaultTag }, commitish) => {
       try {
         await Deno.permissions.request({ name: "run", command: "gh" });
-        const { describe } = await ghDescribe(repo, commitish, defaultValue);
+        const { describe } = await ghDescribe(repo, commitish, defaultTag);
         console.log(describe);
       } catch (e: unknown) {
         if (e instanceof GhDescribeError) {
