@@ -5,13 +5,16 @@
   "main": "dist/cli.ts",
   "scripts": {
     "build": "deno run --allow-env --allow-net --allow-read --allow-run --allow-write _build.ts",
+    "compile": "deno run --allow-env --allow-net --allow-read --allow-run --allow-write _compile.ts",
     "fix": "run-s fix:*",
     "fix:deno-lint": "deno lint --config deno.jsonc",
     "fix:deno-fmt": "deno fmt --config deno.jsonc",
     "lint": "run-p -l -c --aggregate-output lint:*",
     "lint:deno-lint": "deno lint --config deno.jsonc",
     "lint:deno-fmt": "deno fmt --check --config deno.jsonc",
-    "start": "deno run --allow-run --unstable cli/main.ts",
+    "start": "npm run start:deno",
+    "start:deno": "deno run --allow-run --unstable cli/main.ts",
+    "start:node": "npm run build && node dist/cli.js",
     "test": "run-p -l -c --aggregate-output lint:* unit",
     "unit": "deno test core"
   },
