@@ -1,6 +1,6 @@
 {
   "name": "gh-describe",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "`git describe --tags` in shallow clones on GitHub Actions.",
   "main": "dist/cli.ts",
   "scripts": {

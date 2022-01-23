@@ -24,13 +24,13 @@ Require [GitHub CLI](https://github.com/cli/cli#installation) and
 [Deno](https://deno.land/#installation).
 
 ```sh
-deno run -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.1/cli/main.ts
+deno run -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.2/cli/main.ts
 ```
 
 or
 
 ```sh
-deno install -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.1/cli/main.ts
+deno install -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.2/cli/main.ts
 ```
 
 ### Deno Compile
@@ -57,7 +57,7 @@ gh-describe
 ```sh
 $ gh describe --help
   Usage:   gh-describe [commit-ish]
-  Version: v1.4.1
+  Version: v1.4.2
 
   Description:
 
