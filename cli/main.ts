@@ -10,11 +10,13 @@ declare let globalThis: {
   version: string | undefined;
 };
 
-function which(): string {
-  if (import.meta.url) {
-    return dirname(fromFileUrl(import.meta.url));
+async function version(): Promise<string> {
+  if (import.meta.url?.startsWith("file:")) {
+    return await gitDescribe({ cwd: dirname(fromFileUrl(import.meta.url)) });
+  } else if (import.meta.url?.startsWith("https:")) {
+    return /v\d+\.\d+\.\d+/.exec(import.meta.url)?.[0] || "unknown";
   } else {
-    return dirname(__filename);
+    return await gitDescribe({ cwd: dirname(__filename) });
   }
 }
 
@@ -24,7 +26,7 @@ type CommandArguments = [commitIsh: string | undefined];
 async function run() {
   return await new Command<CommandOptions, CommandArguments>()
     .name("gh-describe")
-    .version(globalThis.version || await gitDescribe({ cwd: which() }))
+    .version(globalThis.version || await version())
     .description("Emulate `git describe --tags` in shallow clone repository.")
     .option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO")
     .option("--default <tag:string>", "Use this value if the name is not found.")

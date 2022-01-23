@@ -1745,7 +1745,7 @@ var require_which = __commonJS({
         pathExtExe
       };
     };
-    var which2 = (cmd, opt, cb) => {
+    var which = (cmd, opt, cb) => {
       if (typeof opt === "function") {
         cb = opt;
         opt = {};
@@ -1808,8 +1808,8 @@ var require_which = __commonJS({
         return null;
       throw getNotFoundError(cmd);
     };
-    module2.exports = which2;
-    which2.sync = whichSync;
+    module2.exports = which;
+    which.sync = whichSync;
   }
 });
 
@@ -7806,8 +7806,8 @@ var HelpGenerator = class {
         magenta(this.cmd.getPath() + (usage ? " " + highlightArguments(usage, this.options.types) : ""))
       ]
     ];
-    const version = this.cmd.getVersion();
-    if (version) {
+    const version2 = this.cmd.getVersion();
+    if (version2) {
       rows.push([bold("Version:"), yellow(`${this.cmd.getVersion()}`)]);
     }
     return "\n" + Table.from(rows).indent(this.indent).padding(1).toString() + "\n";
@@ -8230,11 +8230,11 @@ var Command = class {
     this.cmd._name = name;
     return this;
   }
-  version(version) {
-    if (typeof version === "string") {
-      this.cmd.ver = () => version;
-    } else if (typeof version === "function") {
-      this.cmd.ver = version;
+  version(version2) {
+    if (typeof version2 === "string") {
+      this.cmd.ver = () => version2;
+    } else if (typeof version2 === "function") {
+      this.cmd.ver = version2;
     }
     return this;
   }
@@ -9371,15 +9371,17 @@ function genDescribe(tag, distance2, sha) {
 }
 
 // dist/dnt/esm/cli/main.js
-function which() {
+async function version() {
   if (void 0) {
-    return dirname3(fromFileUrl3(void 0));
+    return await gitDescribe({ cwd: dirname3(fromFileUrl3(void 0)) });
+  } else if (void 0) {
+    return /v\d+\.\d+\.\d+/.exec(void 0)?.[0] || "unknown";
   } else {
-    return dirname3(__filename);
+    return await gitDescribe({ cwd: dirname3(__filename) });
   }
 }
 async function run2() {
-  return await new Command().name("gh-describe").version(await gitDescribe({ cwd: which() })).description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--default <tag:string>", "Use this value if the name is not found.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async ({ repo, default: defaultTag }, commitish) => {
+  return await new Command().name("gh-describe").version(await version()).description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--default <tag:string>", "Use this value if the name is not found.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async ({ repo, default: defaultTag }, commitish) => {
     try {
       await import_shim_deno2.Deno.permissions.request({ name: "run", command: "gh" });
       const { describe } = await ghDescribe(repo, commitish, defaultTag);
