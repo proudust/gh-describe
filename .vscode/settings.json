@@ -3,8 +3,16 @@
   "deno.lint": true,
   "deno.unstable": true,
   "deno.config": "./deno.jsonc",
-  "editor.defaultFormatter": "denoland.vscode-deno",
   "deno.suggest.imports.hosts": {
     "https://deno.land": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
   }
 }
