@@ -21,21 +21,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: npm
 
       - name: Use Deno
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
 
-      - name: Restore Dependencies
-        run: npm ci
-
       - name: Lint and Test
-        run: npm test
+        run: deno task test
 
       - name: Build
-        run: npm run build
+        run: deno task build
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -64,18 +60,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: npm
 
       - name: Use Deno
         uses: denoland/setup-deno@v1
         with:
           deno-version: v1.x
 
-      - name: Restore Dependencies
-        run: npm ci
-
       - name: Build
-        run: npm run compile
+        run: deno task compile
         env:
           GITHUB_TOKEN: ${{ github.token }}
 

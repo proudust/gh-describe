@@ -1,7 +1,6 @@
 import { build as dnt } from "https://deno.land/x/dnt@0.16.1/mod.ts";
 import { build as esbuild } from "https://deno.land/x/esbuild@v0.14.13/mod.js";
 import { ghDescribe } from "./core/mod.ts";
-import Package from "./package.json" assert { type: "json" };
 
 console.log("$ gh describe");
 const { describe } = await ghDescribe();
@@ -21,8 +20,22 @@ await dnt({
   declaration: false,
   cjs: false,
   package: {
-    name: Package.name,
-    version: Package.version,
+    name: "gh-describe",
+    version: "1.4.3",
+    description: "`git describe --tags` in shallow clones on GitHub Actions.",
+    repository: {
+      type: "git",
+      url: "git+https://github.com/proudust/gh-describe.git",
+    },
+    keywords: [
+      "actions",
+    ],
+    author: "Proudust",
+    license: "MIT",
+    bugs: {
+      url: "https://github.com/proudust/gh-describe/issues",
+    },
+    homepage: "https://github.com/proudust/gh-describe#readme",
   },
 });
 
