@@ -86,8 +86,40 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Test Run
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Use Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Install on GitHub CLI Extensions
+        run: gh extensions install .
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Test Run on GitHub CLI Extensions with Deno
+        run: gh describe --runtime deno
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Test Run on GitHub CLI Extensions with Node.js
+        run: gh describe --runtime node
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Test Run on Deno Run
+        run: deno run --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/"${GITHUB_SHA}"/cli/main.ts
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Test Run on GitHub Actions
         uses: ./
 
   release:
