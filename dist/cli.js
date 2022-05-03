@@ -24,13 +24,138 @@ var __toESM = (module2, isNodeMode) => {
   return __reExport(__markAsModule(__defProp(module2 != null ? __create(__getProtoOf(module2)) : {}, "default", !isNodeMode && module2 && module2.__esModule ? { get: () => module2.default, enumerable: true } : { value: module2, enumerable: true })), module2);
 };
 
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/errors.js
+var require_errors = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/errors.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.WriteZero = exports.UnexpectedEof = exports.TimedOut = exports.PermissionDenied = exports.NotFound = exports.NotConnected = exports.InvalidData = exports.Interrupted = exports.Http = exports.ConnectionReset = exports.ConnectionRefused = exports.ConnectionAborted = exports.Busy = exports.BrokenPipe = exports.BadResource = exports.AlreadyExists = exports.AddrNotAvailable = exports.AddrInUse = void 0;
+    var AddrInUse = class extends Error {
+    };
+    exports.AddrInUse = AddrInUse;
+    var AddrNotAvailable = class extends Error {
+    };
+    exports.AddrNotAvailable = AddrNotAvailable;
+    var AlreadyExists = class extends Error {
+    };
+    exports.AlreadyExists = AlreadyExists;
+    var BadResource = class extends Error {
+    };
+    exports.BadResource = BadResource;
+    var BrokenPipe = class extends Error {
+    };
+    exports.BrokenPipe = BrokenPipe;
+    var Busy = class extends Error {
+    };
+    exports.Busy = Busy;
+    var ConnectionAborted = class extends Error {
+    };
+    exports.ConnectionAborted = ConnectionAborted;
+    var ConnectionRefused = class extends Error {
+    };
+    exports.ConnectionRefused = ConnectionRefused;
+    var ConnectionReset = class extends Error {
+    };
+    exports.ConnectionReset = ConnectionReset;
+    var Http = class extends Error {
+    };
+    exports.Http = Http;
+    var Interrupted = class extends Error {
+    };
+    exports.Interrupted = Interrupted;
+    var InvalidData = class extends Error {
+    };
+    exports.InvalidData = InvalidData;
+    var NotConnected = class extends Error {
+    };
+    exports.NotConnected = NotConnected;
+    var NotFound = class extends Error {
+    };
+    exports.NotFound = NotFound;
+    var PermissionDenied = class extends Error {
+    };
+    exports.PermissionDenied = PermissionDenied;
+    var TimedOut = class extends Error {
+    };
+    exports.TimedOut = TimedOut;
+    var UnexpectedEof = class extends Error {
+    };
+    exports.UnexpectedEof = UnexpectedEof;
+    var WriteZero = class extends Error {
+    };
+    exports.WriteZero = WriteZero;
+  }
+});
+
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/errorMap.js
+var require_errorMap = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/errorMap.js"(exports) {
+    "use strict";
+    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
+    } : function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      o[k2] = m[k];
+    });
+    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+      Object.defineProperty(o, "default", { enumerable: true, value: v });
+    } : function(o, v) {
+      o["default"] = v;
+    });
+    var __importStar = exports && exports.__importStar || function(mod) {
+      if (mod && mod.__esModule)
+        return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k in mod)
+          if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+            __createBinding(result, mod, k);
+      }
+      __setModuleDefault(result, mod);
+      return result;
+    };
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var errors = __importStar(require_errors());
+    var mapper = (Ctor) => (err) => Object.assign(new Ctor(err.message), {
+      stack: err.stack
+    });
+    var map = {
+      EEXIST: mapper(errors.AlreadyExists),
+      ENOENT: mapper(errors.NotFound)
+    };
+    var isNodeErr = (e) => {
+      return e instanceof Error && "code" in e;
+    };
+    function mapError(e) {
+      var _a;
+      if (!isNodeErr(e))
+        return e;
+      return ((_a = map[e.code]) === null || _a === void 0 ? void 0 : _a.call(map, e)) || e;
+    }
+    exports.default = mapError;
+  }
+});
+
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/stat.js
 var require_stat = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/stat.js"(exports) {
     "use strict";
+    var __importDefault = exports && exports.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.stat = exports.denoifyFileInfo = void 0;
     var promises_1 = require("fs/promises");
+    var errorMap_js_1 = __importDefault(require_errorMap());
     function denoifyFileInfo(s) {
       return {
         atime: s.atime,
@@ -52,7 +177,13 @@ var require_stat = __commonJS({
       };
     }
     exports.denoifyFileInfo = denoifyFileInfo;
-    var stat = async (path2) => denoifyFileInfo(await (0, promises_1.stat)(path2));
+    var stat = async (path2) => {
+      try {
+        return denoifyFileInfo(await (0, promises_1.stat)(path2));
+      } catch (e) {
+        throw (0, errorMap_js_1.default)(e);
+      }
+    };
     exports.stat = stat;
   }
 });
@@ -64,9 +195,13 @@ var require_fstat = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -151,6 +286,12 @@ var require_read = __commonJS({
     var fs_1 = require("fs");
     var _read = (0, util_1.promisify)(fs_1.read);
     var read = async function read2(rid, buffer) {
+      if (buffer == null) {
+        throw new TypeError("Buffer must not be null.");
+      }
+      if (buffer.length === 0) {
+        return 0;
+      }
       const { bytesRead } = await _read(rid, buffer, 0, buffer.length, null);
       return bytesRead === 0 ? null : bytesRead;
     };
@@ -165,9 +306,13 @@ var require_readSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -208,9 +353,13 @@ var require_write = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -253,9 +402,13 @@ var require_writeSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -285,16 +438,20 @@ var require_writeSync = __commonJS({
   }
 });
 
-// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/File.js
-var require_File = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/File.js"(exports) {
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/FsFile.js
+var require_FsFile = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/FsFile.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -318,7 +475,7 @@ var require_File = __commonJS({
       return result;
     };
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.File = void 0;
+    exports.File = exports.FsFile = void 0;
     var fs = __importStar(require("fs"));
     var fstat_js_1 = require_fstat();
     var fstatSync_js_1 = require_fstatSync();
@@ -328,7 +485,7 @@ var require_File = __commonJS({
     var readSync_js_1 = require_readSync();
     var write_js_1 = require_write();
     var writeSync_js_1 = require_writeSync();
-    var File = class {
+    var FsFile = class {
       constructor(rid) {
         this.rid = rid;
       }
@@ -350,10 +507,10 @@ var require_File = __commonJS({
       readSync(p) {
         return (0, readSync_js_1.readSync)(this.rid, p);
       }
-      seek(offset, whence) {
+      seek(_offset, _whence) {
         throw new Error("Method not implemented.");
       }
-      seekSync(offset, whence) {
+      seekSync(_offset, _whence) {
         throw new Error("Method not implemented.");
       }
       async stat() {
@@ -365,7 +522,15 @@ var require_File = __commonJS({
       close() {
         fs.closeSync(this.rid);
       }
+      get readable() {
+        throw new Error("Not implemented.");
+      }
+      get writable() {
+        throw new Error("Not implemented.");
+      }
     };
+    exports.FsFile = FsFile;
+    var File = FsFile;
     exports.File = File;
   }
 });
@@ -374,8 +539,12 @@ var require_File = __commonJS({
 var require_PermissionStatus = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/PermissionStatus.js"(exports) {
     "use strict";
+    var _a;
+    var _b;
+    var _c;
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.PermissionStatus = void 0;
+    (_a = (_c = globalThis).EventTarget) !== null && _a !== void 0 ? _a : _c.EventTarget = (_b = require("events").EventTarget) !== null && _b !== void 0 ? _b : null;
     var PermissionStatus = class extends EventTarget {
       constructor(state) {
         super();
@@ -414,10 +583,13 @@ var require_classes = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.PermissionStatus = exports.Permissions = exports.File = void 0;
-    var File_js_1 = require_File();
+    exports.PermissionStatus = exports.Permissions = exports.FsFile = exports.File = void 0;
+    var FsFile_js_1 = require_FsFile();
     Object.defineProperty(exports, "File", { enumerable: true, get: function() {
-      return File_js_1.File;
+      return FsFile_js_1.File;
+    } });
+    Object.defineProperty(exports, "FsFile", { enumerable: true, get: function() {
+      return FsFile_js_1.FsFile;
     } });
     var Permissions_js_1 = require_Permissions();
     Object.defineProperty(exports, "Permissions", { enumerable: true, get: function() {
@@ -458,123 +630,6 @@ var require_enums = __commonJS({
   }
 });
 
-// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/errors.js
-var require_errors = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/errors.js"(exports) {
-    "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.WriteZero = exports.UnexpectedEof = exports.TimedOut = exports.PermissionDenied = exports.NotFound = exports.NotConnected = exports.InvalidData = exports.Interrupted = exports.Http = exports.ConnectionReset = exports.ConnectionRefused = exports.ConnectionAborted = exports.Busy = exports.BrokenPipe = exports.BadResource = exports.AlreadyExists = exports.AddrNotAvailable = exports.AddrInUse = void 0;
-    var AddrInUse = class extends Error {
-    };
-    exports.AddrInUse = AddrInUse;
-    var AddrNotAvailable = class extends Error {
-    };
-    exports.AddrNotAvailable = AddrNotAvailable;
-    var AlreadyExists = class extends Error {
-    };
-    exports.AlreadyExists = AlreadyExists;
-    var BadResource = class extends Error {
-    };
-    exports.BadResource = BadResource;
-    var BrokenPipe = class extends Error {
-    };
-    exports.BrokenPipe = BrokenPipe;
-    var Busy = class extends Error {
-    };
-    exports.Busy = Busy;
-    var ConnectionAborted = class extends Error {
-    };
-    exports.ConnectionAborted = ConnectionAborted;
-    var ConnectionRefused = class extends Error {
-    };
-    exports.ConnectionRefused = ConnectionRefused;
-    var ConnectionReset = class extends Error {
-    };
-    exports.ConnectionReset = ConnectionReset;
-    var Http = class extends Error {
-    };
-    exports.Http = Http;
-    var Interrupted = class extends Error {
-    };
-    exports.Interrupted = Interrupted;
-    var InvalidData = class extends Error {
-    };
-    exports.InvalidData = InvalidData;
-    var NotConnected = class extends Error {
-    };
-    exports.NotConnected = NotConnected;
-    var NotFound = class extends Error {
-    };
-    exports.NotFound = NotFound;
-    var PermissionDenied = class extends Error {
-    };
-    exports.PermissionDenied = PermissionDenied;
-    var TimedOut = class extends Error {
-    };
-    exports.TimedOut = TimedOut;
-    var UnexpectedEof = class extends Error {
-    };
-    exports.UnexpectedEof = UnexpectedEof;
-    var WriteZero = class extends Error {
-    };
-    exports.WriteZero = WriteZero;
-  }
-});
-
-// dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/errorMap.js
-var require_errorMap = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/errorMap.js"(exports) {
-    "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
-    } : function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
-      o[k2] = m[k];
-    });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
-      Object.defineProperty(o, "default", { enumerable: true, value: v });
-    } : function(o, v) {
-      o["default"] = v;
-    });
-    var __importStar = exports && exports.__importStar || function(mod) {
-      if (mod && mod.__esModule)
-        return mod;
-      var result = {};
-      if (mod != null) {
-        for (var k in mod)
-          if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
-            __createBinding(result, mod, k);
-      }
-      __setModuleDefault(result, mod);
-      return result;
-    };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    var errors = __importStar(require_errors());
-    var mapper = (Ctor) => (err) => Object.assign(new Ctor(err.message), {
-      stack: err.stack
-    });
-    var map = {
-      EEXIST: mapper(errors.AlreadyExists),
-      ENOENT: mapper(errors.NotFound)
-    };
-    var isNodeErr = (e) => {
-      return e instanceof Error && "code" in e;
-    };
-    function mapError(e) {
-      var _a;
-      if (!isNodeErr(e))
-        return e;
-      return ((_a = map[e.code]) === null || _a === void 0 ? void 0 : _a.call(map, e)) || e;
-    }
-    exports.default = mapError;
-  }
-});
-
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/build.js
 var require_build = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/build.js"(exports) {
@@ -582,9 +637,13 @@ var require_build = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -673,10 +732,6 @@ var require_metrics = __commonJS({
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.metrics = void 0;
     var metrics = function metrics2() {
-      console.warn([
-        "Deno.metrics() shim returns a dummy object that does not update.",
-        "If you think this is a mistake, raise an issue at https://github.com/denoland/node_deno_shims/issues"
-      ].join("\n"));
       return {
         opsDispatched: 0,
         opsDispatchedSync: 0,
@@ -760,10 +815,95 @@ var require_std = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.stderr = exports.stdout = exports.stdin = void 0;
-    var File_js_1 = require_File();
-    exports.stdin = new File_js_1.File(0);
-    exports.stdout = new File_js_1.File(1);
-    exports.stderr = new File_js_1.File(2);
+    function chain(fn, cleanup) {
+      let prev;
+      return function _fn(...args) {
+        const curr = (prev || Promise.resolve()).then(() => fn(...args)).finally(cleanup || (() => {
+        })).then((result) => {
+          if (prev === curr)
+            prev = void 0;
+          return result;
+        });
+        return prev = curr;
+      };
+    }
+    exports.stdin = {
+      rid: 0,
+      read: chain((p) => {
+        return new Promise((resolve4, reject) => {
+          process.stdin.resume();
+          process.stdin.on("error", onerror);
+          process.stdin.once("readable", () => {
+            var _a;
+            process.stdin.off("error", onerror);
+            const data = (_a = process.stdin.read(p.length)) !== null && _a !== void 0 ? _a : process.stdin.read();
+            if (data) {
+              p.set(data);
+              resolve4(data.length > 0 ? data.length : null);
+            } else {
+              resolve4(null);
+            }
+          });
+          function onerror(error) {
+            reject(error);
+            process.stdin.off("error", onerror);
+          }
+        });
+      }, () => process.stdin.pause()),
+      get readable() {
+        throw new Error("Not implemented.");
+      },
+      readSync() {
+        throw new Error("Not implemented.");
+      },
+      close() {
+        process.stdin.destroy();
+      }
+    };
+    exports.stdout = {
+      rid: 1,
+      write: chain((p) => {
+        return new Promise((resolve4) => {
+          const result = process.stdout.write(p);
+          if (!result) {
+            process.stdout.once("drain", () => resolve4(p.length));
+          } else {
+            resolve4(p.length);
+          }
+        });
+      }),
+      get writable() {
+        throw new Error("Not implemented.");
+      },
+      writeSync() {
+        throw new Error("Not implemented");
+      },
+      close() {
+        process.stdout.destroy();
+      }
+    };
+    exports.stderr = {
+      rid: 2,
+      write: chain((p) => {
+        return new Promise((resolve4) => {
+          const result = process.stderr.write(p);
+          if (!result) {
+            process.stderr.once("drain", () => resolve4(p.length));
+          } else {
+            resolve4(p.length);
+          }
+        });
+      }),
+      get writable() {
+        throw new Error("Not implemented.");
+      },
+      writeSync() {
+        throw new Error("Not implemented");
+      },
+      close() {
+        process.stderr.destroy();
+      }
+    };
   }
 });
 
@@ -773,8 +913,8 @@ var require_version = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.typescript = exports.deno = void 0;
-    exports.deno = "1.17.2";
-    exports.typescript = "4.5.2";
+    exports.deno = "1.20.5";
+    exports.typescript = "4.6.2";
   }
 });
 
@@ -800,9 +940,13 @@ var require_variables = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -914,9 +1058,13 @@ var require_chmod = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -953,9 +1101,13 @@ var require_chmodSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -992,9 +1144,13 @@ var require_chown = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -1032,9 +1188,13 @@ var require_chownSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -1072,9 +1232,13 @@ var require_close = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -1128,8 +1292,8 @@ var require_Conn = __commonJS({
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.TlsConn = exports.Conn = void 0;
     var net_1 = require("net");
-    var File_js_1 = require_File();
-    var Conn = class extends File_js_1.File {
+    var FsFile_js_1 = require_FsFile();
+    var Conn = class extends FsFile_js_1.FsFile {
       constructor(rid, localAddr, remoteAddr, socket) {
         super(rid);
         this.rid = rid;
@@ -1140,6 +1304,12 @@ var require_Conn = __commonJS({
       }
       async closeWrite() {
         await new Promise((resolve4) => __classPrivateFieldGet(this, _Conn_socket, "f").end(resolve4));
+      }
+      setNoDelay(enable) {
+        __classPrivateFieldGet(this, _Conn_socket, "f").setNoDelay(enable);
+      }
+      setKeepAlive(enable) {
+        __classPrivateFieldGet(this, _Conn_socket, "f").setKeepAlive(enable);
       }
     };
     exports.Conn = Conn;
@@ -1165,7 +1335,7 @@ var require_connect = __commonJS({
     var net_1 = require("net");
     var Conn_js_1 = require_Conn();
     var connect = function connect2(options) {
-      if (!isConnectOptions(options)) {
+      if (options.transport === "unix") {
         throw new Error("Unstable UnixConnectOptions is not implemented");
       }
       const { transport = "tcp", hostname = "127.0.0.1", port } = options;
@@ -1190,9 +1360,6 @@ var require_connect = __commonJS({
           resolve4(new Conn_js_1.Conn(rid, localAddr, remoteAddr, socket));
         });
       });
-      function isConnectOptions(options2) {
-        return options2.port != null;
-      }
     };
     exports.connect = connect;
   }
@@ -1301,9 +1468,13 @@ var require_copyFile = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -1355,9 +1526,13 @@ var require_copyFileSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -1409,9 +1584,13 @@ var require_fs_flags = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -1463,7 +1642,7 @@ var require_fs_flags = __commonJS({
     function getCreationFlag(opts) {
       if (!opts.write && !opts.append) {
         if (opts.truncate || opts.create || opts.createNew) {
-          throw new errors.BadResource("EINVAL: One of 'truncate', 'create', 'createNew' is required when 'write' and 'append' are false.");
+          throw new errors.BadResource("EINVAL: One of 'write', 'append' is required to 'truncate', 'create' or 'createNew' file.");
         }
       }
       if (opts.append) {
@@ -1501,12 +1680,16 @@ var require_fs_flags = __commonJS({
 var require_open = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/open.js"(exports) {
     "use strict";
+    var __importDefault = exports && exports.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.open = void 0;
     var fs_1 = require("fs");
     var util_1 = require("util");
-    var File_js_1 = require_File();
+    var FsFile_js_1 = require_FsFile();
     var fs_flags_js_1 = require_fs_flags();
+    var errorMap_js_1 = __importDefault(require_errorMap());
     var nodeOpen = (0, util_1.promisify)(fs_1.open);
     var open = async function open2(path2, { read, write, append, truncate, create, createNew, mode = 438 } = {
       read: true
@@ -1519,8 +1702,12 @@ var require_open = __commonJS({
         create,
         createNew
       });
-      const fd = await nodeOpen(path2, flagMode, mode);
-      return new File_js_1.File(fd);
+      try {
+        const fd = await nodeOpen(path2, flagMode, mode);
+        return new FsFile_js_1.File(fd);
+      } catch (err) {
+        throw (0, errorMap_js_1.default)(err);
+      }
     };
     exports.open = open;
   }
@@ -1534,7 +1721,7 @@ var require_create = __commonJS({
     exports.create = void 0;
     var open_js_1 = require_open();
     var create = async function create2(path2) {
-      return await (0, open_js_1.open)(path2, { create: true, truncate: true });
+      return await (0, open_js_1.open)(path2, { write: true, create: true, truncate: true });
     };
     exports.create = create;
   }
@@ -1544,11 +1731,15 @@ var require_create = __commonJS({
 var require_openSync = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/openSync.js"(exports) {
     "use strict";
+    var __importDefault = exports && exports.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.openSync = void 0;
     var fs_1 = require("fs");
-    var File_js_1 = require_File();
+    var FsFile_js_1 = require_FsFile();
     var fs_flags_js_1 = require_fs_flags();
+    var errorMap_js_1 = __importDefault(require_errorMap());
     var openSync = function openSync2(path2, { read, write, append, truncate, create, createNew, mode = 438 } = {
       read: true
     }) {
@@ -1560,8 +1751,12 @@ var require_openSync = __commonJS({
         create,
         createNew
       });
-      const fd = (0, fs_1.openSync)(path2, flagMode, mode);
-      return new File_js_1.File(fd);
+      try {
+        const fd = (0, fs_1.openSync)(path2, flagMode, mode);
+        return new FsFile_js_1.File(fd);
+      } catch (err) {
+        throw (0, errorMap_js_1.default)(err);
+      }
     };
     exports.openSync = openSync;
   }
@@ -1575,7 +1770,12 @@ var require_createSync = __commonJS({
     exports.createSync = void 0;
     var openSync_js_1 = require_openSync();
     var createSync = function createSync2(path2) {
-      return (0, openSync_js_1.openSync)(path2, { create: true, truncate: true });
+      return (0, openSync_js_1.openSync)(path2, {
+        create: true,
+        truncate: true,
+        read: true,
+        write: true
+      });
     };
     exports.createSync = createSync;
   }
@@ -1901,9 +2101,13 @@ var require_inspect = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -1962,9 +2166,13 @@ var require_link = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2001,9 +2209,13 @@ var require_linkSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2040,9 +2252,13 @@ var require_Listener = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2122,6 +2338,12 @@ var require_Listener = __commonJS({
       close() {
         (0, close_js_1.close)(this.rid);
       }
+      ref() {
+        throw new Error("Not implemented");
+      }
+      unref() {
+        throw new Error("Not implemented");
+      }
       [(_Listener_listener = /* @__PURE__ */ new WeakMap(), Symbol.asyncIterator)]() {
         return this;
       }
@@ -2160,8 +2382,8 @@ var require_listen = __commonJS({
       }
     }
     var listen = function listen2(options) {
-      if (!isConnectOptions(options)) {
-        throw new Error("Unstable UnixConnectOptions is not implemented");
+      if (options.transport === "unix") {
+        throw new Error("Unstable UnixListenOptions is not implemented");
       }
       const { port, hostname = "0.0.0.0", transport = "tcp" } = options;
       if (transport !== "tcp") {
@@ -2175,9 +2397,6 @@ var require_listen = __commonJS({
         transport: "tcp"
       }, _listen(server, waitFor));
       return listener;
-      function isConnectOptions(options2) {
-        return options2.port != null;
-      }
     };
     exports.listen = listen;
   }
@@ -2190,9 +2409,13 @@ var require_readTextFileSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2267,7 +2490,7 @@ var require_listenTls = __commonJS({
       if (transport !== "tcp") {
         throw new Error("Deno.listen is only implemented for transport: tcp");
       }
-      const [cert, key] = [certFile, keyFile].map(readTextFileSync_js_1.readTextFileSync);
+      const [cert, key] = [certFile, keyFile].map((f) => f == null ? void 0 : (0, readTextFileSync_js_1.readTextFileSync)(f));
       const server = (0, tls_1.createServer)({ cert, key });
       const waitFor = new Promise((resolve4) => server.listen(port, hostname, resolve4));
       const listener = new Listener_js_1.Listener(server._handle.fd, {
@@ -2288,9 +2511,13 @@ var require_lstat = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2313,11 +2540,21 @@ var require_lstat = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
+    var __importDefault = exports && exports.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.lstat = void 0;
     var fs = __importStar(require("fs/promises"));
     var stat_js_1 = require_stat();
-    var lstat = async (path2) => (0, stat_js_1.denoifyFileInfo)(await fs.lstat(path2));
+    var errorMap_js_1 = __importDefault(require_errorMap());
+    var lstat = async (path2) => {
+      try {
+        return (0, stat_js_1.denoifyFileInfo)(await fs.lstat(path2));
+      } catch (e) {
+        throw (0, errorMap_js_1.default)(e);
+      }
+    };
     exports.lstat = lstat;
   }
 });
@@ -2329,9 +2566,13 @@ var require_lstatSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2416,9 +2657,13 @@ var require_writeTextFile = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2490,9 +2735,13 @@ var require_writeTextFileSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2598,9 +2847,13 @@ var require_mkdirSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2758,9 +3011,13 @@ var require_readLink = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2797,9 +3054,13 @@ var require_readLinkSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2836,9 +3097,13 @@ var require_realPath = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2875,9 +3140,13 @@ var require_realPathSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2914,8 +3183,17 @@ var require_remove = __commonJS({
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.remove = void 0;
     var promises_1 = require("fs/promises");
-    var remove = function remove2(path2, options = {}) {
-      return (0, promises_1.rm)(path2, options.recursive ? { recursive: true, force: true } : {});
+    var remove = async function remove2(path2, options = {}) {
+      const innerOptions = options.recursive ? { recursive: true, force: true } : {};
+      try {
+        return await (0, promises_1.rm)(path2, innerOptions);
+      } catch (err) {
+        if (err.code === "ERR_FS_EISDIR") {
+          return await (0, promises_1.rmdir)(path2, innerOptions);
+        } else {
+          throw err;
+        }
+      }
     };
     exports.remove = remove;
   }
@@ -2928,9 +3206,13 @@ var require_removeSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -2956,7 +3238,18 @@ var require_removeSync = __commonJS({
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.removeSync = void 0;
     var fs = __importStar(require("fs"));
-    var removeSync = (path2, options = {}) => fs.rmSync(path2, options.recursive ? { recursive: true, force: true } : {});
+    var removeSync = (path2, options = {}) => {
+      const innerOptions = options.recursive ? { recursive: true, force: true } : {};
+      try {
+        fs.rmSync(path2, innerOptions);
+      } catch (err) {
+        if (err.code === "ERR_FS_EISDIR") {
+          fs.rmdirSync(path2, innerOptions);
+        } else {
+          throw err;
+        }
+      }
+    };
     exports.removeSync = removeSync;
   }
 });
@@ -2982,9 +3275,13 @@ var require_renameSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -3152,9 +3449,13 @@ var require_run = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -3386,6 +3687,12 @@ var require_run = __commonJS({
         __classPrivateFieldSet(this, _ProcessReadStream_closed, true, "f");
         __classPrivateFieldGet(this, _ProcessReadStream_stream, "f").destroy();
       }
+      get readable() {
+        throw new Error("Not implemented.");
+      }
+      get writable() {
+        throw new Error("Not implemented.");
+      }
     };
     _ProcessReadStream_stream = /* @__PURE__ */ new WeakMap(), _ProcessReadStream_bufferStreamReader = /* @__PURE__ */ new WeakMap(), _ProcessReadStream_closed = /* @__PURE__ */ new WeakMap();
     var ProcessWriteStream = class {
@@ -3436,9 +3743,13 @@ var require_statSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -3477,9 +3788,13 @@ var require_symlink = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -3517,9 +3832,13 @@ var require_symlinkSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -3550,9 +3869,9 @@ var require_symlinkSync = __commonJS({
   }
 });
 
-// dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/test.js
-var require_test = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/test.js"(exports) {
+// dist/dnt/node_modules/@deno/shim-deno-test/dist/definitions.js
+var require_definitions = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno-test/dist/definitions.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.testDefinitions = void 0;
@@ -3560,13 +3879,13 @@ var require_test = __commonJS({
   }
 });
 
-// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/test.js
-var require_test2 = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/test.js"(exports) {
+// dist/dnt/node_modules/@deno/shim-deno-test/dist/test.js
+var require_test = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno-test/dist/test.js"(exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.test = void 0;
-    var test_js_1 = require_test();
+    var definitions_js_1 = require_definitions();
     var test = function test2() {
       var _a, _b;
       let testDef;
@@ -3622,9 +3941,53 @@ var require_test2 = __commonJS({
       if (((_b = (_a = testDef.name) === null || _a === void 0 ? void 0 : _a.length) !== null && _b !== void 0 ? _b : 0) === 0) {
         throw new TypeError("The test name can't be empty");
       }
-      test_js_1.testDefinitions.push(testDef);
+      definitions_js_1.testDefinitions.push(testDef);
     };
     exports.test = test;
+  }
+});
+
+// dist/dnt/node_modules/@deno/shim-deno-test/dist/index.js
+var require_dist = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno-test/dist/index.js"(exports) {
+    "use strict";
+    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      Object.defineProperty(o, k2, { enumerable: true, get: function() {
+        return m[k];
+      } });
+    } : function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      o[k2] = m[k];
+    });
+    var __exportStar = exports && exports.__exportStar || function(m, exports2) {
+      for (var p in m)
+        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
+          __createBinding(exports2, m, p);
+    };
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.testDefinitions = exports.Deno = void 0;
+    exports.Deno = require_test();
+    __exportStar(require_test(), exports);
+    var definitions_js_1 = require_definitions();
+    Object.defineProperty(exports, "testDefinitions", { enumerable: true, get: function() {
+      return definitions_js_1.testDefinitions;
+    } });
+  }
+});
+
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/test.js
+var require_test2 = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/test.js"(exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.test = void 0;
+    var shim_deno_test_1 = require_dist();
+    Object.defineProperty(exports, "test", { enumerable: true, get: function() {
+      return shim_deno_test_1.test;
+    } });
   }
 });
 
@@ -3635,9 +3998,13 @@ var require_truncate = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -3689,9 +4056,13 @@ var require_truncateSync = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -3804,9 +4175,13 @@ var require_writeFile = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -4230,9 +4605,13 @@ var require_main = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -4324,9 +4703,13 @@ var require_deno = __commonJS({
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -4344,15 +4727,19 @@ var require_deno = __commonJS({
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/index.js
-var require_dist = __commonJS({
+var require_dist2 = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/index.js"(exports) {
     "use strict";
     var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
-      Object.defineProperty(o, k2, { enumerable: true, get: function() {
-        return m[k];
-      } });
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
     } : function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
@@ -4382,8 +4769,8 @@ var require_dist = __commonJS({
 });
 
 // dist/dnt/esm/_dnt.shims.js
-var import_shim_deno = __toESM(require_dist(), 1);
-var import_shim_deno2 = __toESM(require_dist(), 1);
+var import_shim_deno = __toESM(require_dist2(), 1);
+var import_shim_deno2 = __toESM(require_dist2(), 1);
 var dntGlobals = {
   Deno: import_shim_deno.Deno
 };
@@ -4442,7 +4829,7 @@ function createMergeProxy(baseObj, extObj) {
   });
 }
 
-// dist/dnt/esm/deps/deno_land/std_0.122.0/_util/os.js
+// dist/dnt/esm/deps/deno.land/std@0.122.0/_util/os.js
 var osType = (() => {
   const { Deno: Deno4 } = dntGlobalThis;
   if (typeof Deno4?.build?.os === "string") {
@@ -4456,7 +4843,7 @@ var osType = (() => {
 })();
 var isWindows = osType === "windows";
 
-// dist/dnt/esm/deps/deno_land/std_0.122.0/path/win32.js
+// dist/dnt/esm/deps/deno.land/std@0.122.0/path/win32.js
 var win32_exports = {};
 __export(win32_exports, {
   basename: () => basename,
@@ -4476,7 +4863,7 @@ __export(win32_exports, {
   toNamespacedPath: () => toNamespacedPath
 });
 
-// dist/dnt/esm/deps/deno_land/std_0.122.0/path/_constants.js
+// dist/dnt/esm/deps/deno.land/std@0.122.0/path/_constants.js
 var CHAR_UPPERCASE_A = 65;
 var CHAR_LOWERCASE_A = 97;
 var CHAR_UPPERCASE_Z = 90;
@@ -4487,7 +4874,7 @@ var CHAR_BACKWARD_SLASH = 92;
 var CHAR_COLON = 58;
 var CHAR_QUESTION_MARK = 63;
 
-// dist/dnt/esm/deps/deno_land/std_0.122.0/path/_util.js
+// dist/dnt/esm/deps/deno.land/std@0.122.0/path/_util.js
 function assertPath(path2) {
   if (typeof path2 !== "string") {
     throw new TypeError(`Path must be a string. Received ${JSON.stringify(path2)}`);
@@ -4586,7 +4973,7 @@ function encodeWhitespace(string2) {
   });
 }
 
-// dist/dnt/esm/deps/deno_land/std_0.122.0/_util/assert.js
+// dist/dnt/esm/deps/deno.land/std@0.122.0/_util/assert.js
 var DenoStdInternalError = class extends Error {
   constructor(message) {
     super(message);
@@ -4599,7 +4986,7 @@ function assert(expr, msg = "") {
   }
 }
 
-// dist/dnt/esm/deps/deno_land/std_0.122.0/path/win32.js
+// dist/dnt/esm/deps/deno.land/std@0.122.0/path/win32.js
 var sep = "\\";
 var delimiter = ";";
 function resolve(...pathSegments) {
@@ -5275,7 +5662,7 @@ function toFileUrl(path2) {
   return url;
 }
 
-// dist/dnt/esm/deps/deno_land/std_0.122.0/path/posix.js
+// dist/dnt/esm/deps/deno.land/std@0.122.0/path/posix.js
 var posix_exports = {};
 __export(posix_exports, {
   basename: () => basename2,
@@ -5640,11 +6027,11 @@ function toFileUrl2(path2) {
   return url;
 }
 
-// dist/dnt/esm/deps/deno_land/std_0.122.0/path/mod.js
+// dist/dnt/esm/deps/deno.land/std@0.122.0/path/mod.js
 var path = isWindows ? win32_exports : posix_exports;
 var { basename: basename3, delimiter: delimiter3, dirname: dirname3, extname: extname3, format: format3, fromFileUrl: fromFileUrl3, isAbsolute: isAbsolute3, join: join3, normalize: normalize3, parse: parse3, relative: relative3, resolve: resolve3, sep: sep3, toFileUrl: toFileUrl3, toNamespacedPath: toNamespacedPath3 } = path;
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/ansi/ansi_escapes.js
 var ansi_escapes_exports = {};
 __export(ansi_escapes_exports, {
   bel: () => bel,
@@ -5677,7 +6064,7 @@ __export(ansi_escapes_exports, {
   scrollUp: () => scrollUp
 });
 
-// dist/dnt/esm/deps/deno_land/std_0.113.0/encoding/base64.js
+// dist/dnt/esm/deps/deno.land/std@0.113.0/encoding/base64.js
 var base64abc = [
   "A",
   "B",
@@ -5768,7 +6155,7 @@ function encode(data) {
   return result;
 }
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/ansi/ansi_escapes.js
 var ESC = "\x1B";
 var CSI = `${ESC}[`;
 var OSC = `${ESC}]`;
@@ -5874,7 +6261,7 @@ function image(buffer, options) {
   return ret + ":" + encode(buffer) + bel;
 }
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/ansi/ansi.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/ansi/ansi.js
 var ansi = factory();
 function factory() {
   let result = [];
@@ -5924,7 +6311,7 @@ function factory() {
   }
 }
 
-// dist/dnt/esm/deps/deno_land/std_0.113.0/fmt/colors.js
+// dist/dnt/esm/deps/deno.land/std@0.113.0/fmt/colors.js
 var colors_exports = {};
 __export(colors_exports, {
   bgBlack: () => bgBlack,
@@ -6162,7 +6549,7 @@ function stripColor(string2) {
   return string2.replace(ANSI_PATTERN, "");
 }
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/ansi/colors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/ansi/colors.js
 var proto = /* @__PURE__ */ Object.create(null);
 var methodNames = Object.keys(colors_exports);
 for (const name of methodNames) {
@@ -6191,7 +6578,7 @@ function factory2(stack = []) {
   return colors2;
 }
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/ansi/cursor_position.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/ansi/cursor_position.js
 function getCursorPosition({ stdin = import_shim_deno2.Deno.stdin, stdout = import_shim_deno2.Deno.stdout } = {}) {
   const data = new Uint8Array(8);
   import_shim_deno2.Deno.setRaw(stdin.rid, true);
@@ -6202,7 +6589,7 @@ function getCursorPosition({ stdin = import_shim_deno2.Deno.stdin, stdout = impo
   return { x, y };
 }
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/ansi/tty.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/ansi/tty.js
 var tty = factory3();
 function factory3(options) {
   let result = "";
@@ -6249,7 +6636,7 @@ function factory3(options) {
   }
 }
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/_utils/distance.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/_utils/distance.js
 function distance(a, b) {
   if (a.length == 0) {
     return b.length;
@@ -6276,7 +6663,7 @@ function distance(a, b) {
   return matrix[b.length][a.length];
 }
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/flags/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/_utils.js
 function paramCaseToCamelCase(str) {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
@@ -6333,7 +6720,7 @@ function getDefaultValue(option) {
   return typeof option.default === "function" ? option.default() : option.default;
 }
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/flags/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/_errors.js
 var FlagsError = class extends Error {
   constructor(message) {
     super(message);
@@ -6443,7 +6830,7 @@ var InvalidTypeError = class extends ValidationError {
   }
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/flags/types.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/types.js
 var OptionType;
 (function(OptionType2) {
   OptionType2["STRING"] = "string";
@@ -6452,7 +6839,7 @@ var OptionType;
   OptionType2["BOOLEAN"] = "boolean";
 })(OptionType || (OptionType = {}));
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/_utils.js
 function didYouMeanCommand(command, commands, excludes = []) {
   const commandNames = commands.map((command2) => command2.getName()).filter((command2) => !excludes.includes(command2));
   return didYouMean(" Did you mean command", command, commandNames);
@@ -6514,7 +6901,7 @@ function parseArgumentsDefinition(argsDefinition, validate = true, all) {
   return argumentDetails;
 }
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/_errors.js
 var CommandError = class extends Error {
   constructor(message) {
     super(message);
@@ -6655,7 +7042,7 @@ var TooManyArguments = class extends ValidationError2 {
   }
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/flags/types/boolean.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/types/boolean.js
 var boolean = (type) => {
   if (~["1", "true"].indexOf(type.value)) {
     return true;
@@ -6666,7 +7053,7 @@ var boolean = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/flags/types/number.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/types/number.js
 var number = (type) => {
   const value = Number(type.value);
   if (Number.isFinite(value)) {
@@ -6675,12 +7062,12 @@ var number = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/flags/types/string.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/types/string.js
 var string = ({ value }) => {
   return value;
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/flags/validate_flags.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/validate_flags.js
 function validateFlags(flags, values, _knownFlaks, allowEmpty, optionNames = {}) {
   const defaultValues = {};
   for (const option of flags) {
@@ -6767,7 +7154,7 @@ function isset(flag, values) {
   return typeof values[name] !== "undefined";
 }
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/flags/types/integer.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/types/integer.js
 var integer = (type) => {
   const value = Number(type.value);
   if (Number.isInteger(value)) {
@@ -6776,7 +7163,7 @@ var integer = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/flags/flags.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/flags.js
 var Types = {
   [OptionType.STRING]: string,
   [OptionType.NUMBER]: number,
@@ -7047,11 +7434,11 @@ function parseFlagValue(option, arg, value) {
   });
 }
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/type.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/type.js
 var Type = class {
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/types/boolean.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/types/boolean.js
 var BooleanType = class extends Type {
   parse(type) {
     return boolean(type);
@@ -7061,21 +7448,21 @@ var BooleanType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/types/number.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/types/number.js
 var NumberType = class extends Type {
   parse(type) {
     return number(type);
   }
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/types/string.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/types/string.js
 var StringType = class extends Type {
   parse(type) {
     return string(type);
   }
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/table/border.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/table/border.js
 var border = {
   top: "\u2500",
   topMid: "\u252C",
@@ -7094,7 +7481,7 @@ var border = {
   middle: "\u2502"
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/table/cell.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/table/cell.js
 var Cell = class {
   constructor(value) {
     Object.defineProperty(this, "value", {
@@ -7170,7 +7557,7 @@ var Cell = class {
   }
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/table/row.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/table/row.js
 var Row = class extends Array {
   constructor() {
     super(...arguments);
@@ -7216,7 +7603,7 @@ var Row = class extends Array {
   }
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/table/utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/table/utils.js
 function consumeWords(length, content) {
   let consumed = "";
   const words = content.split(/ /g);
@@ -7247,7 +7634,7 @@ function longest(index, rows, maxWidth) {
   })).flat());
 }
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/table/layout.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/table/layout.js
 var TableLayout = class {
   constructor(table, options) {
     Object.defineProperty(this, "table", {
@@ -7608,7 +7995,7 @@ var TableLayout = class {
   }
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/table/table.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/table/table.js
 var Table = class extends Array {
   constructor() {
     super(...arguments);
@@ -7759,7 +8146,7 @@ Object.defineProperty(Table, "_chars", {
   value: { ...border }
 });
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/help/_help_generator.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/help/_help_generator.js
 var HelpGenerator = class {
   constructor(cmd, options = {}) {
     Object.defineProperty(this, "cmd", {
@@ -7952,14 +8339,14 @@ function highlightArgumentDetails(arg, types = true) {
   return str;
 }
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/types/integer.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/types/integer.js
 var IntegerType = class extends Type {
   parse(type) {
     return integer(type);
   }
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/command.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/command.js
 var Command = class {
   constructor() {
     Object.defineProperty(this, "types", {
@@ -8997,27 +9384,27 @@ var Command = class {
   }
 };
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/completions/bash.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/completions/bash.js
 var _BashCompletionsCommand_cmd;
 _BashCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/completions/fish.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/completions/fish.js
 var _FishCompletionsCommand_cmd;
 _FishCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/completions/zsh.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/completions/zsh.js
 var _ZshCompletionsCommand_cmd;
 _ZshCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/completions/mod.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/completions/mod.js
 var _CompletionsCommand_cmd;
 _CompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/types/child_command.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/types/child_command.js
 var _ChildCommandType_cmd;
 _ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno_land/x/cliffy_v0.20.1/command/types/enum.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/types/enum.js
 var EnumType = class extends Type {
   constructor(values) {
     super();

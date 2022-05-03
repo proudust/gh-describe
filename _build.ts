@@ -1,4 +1,4 @@
-import { build as dnt } from "https://deno.land/x/dnt@0.16.1/mod.ts";
+import { build as dnt } from "https://deno.land/x/dnt@0.23.0/mod.ts";
 import { build as esbuild } from "https://deno.land/x/esbuild@v0.14.13/mod.js";
 import { ghDescribe } from "./core/mod.ts";
 
@@ -18,7 +18,7 @@ await dnt({
   test: false,
   typeCheck: false,
   declaration: false,
-  cjs: false,
+  scriptModule: false,
   package: {
     name: "gh-describe",
     version: "1.4.3",
