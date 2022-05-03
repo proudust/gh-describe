@@ -1,5 +1,5 @@
 import { join } from "https://deno.land/std@0.122.0/path/mod.ts";
-import { build as esbuild } from "https://deno.land/x/esbuild@v0.14.13/mod.js";
+import { build as esbuild } from "https://deno.land/x/esbuild@v0.14.38/mod.js";
 import { ghDescribe } from "./core/mod.ts";
 
 console.log("$ gh describe");
