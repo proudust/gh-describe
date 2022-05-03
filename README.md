@@ -7,72 +7,7 @@ a history of all tags and branches, which is difficult to use in workflows where
 clone. This action gets the history from the GitHub API instead of locally and reproduces its
 behavior.
 
-## Install
-
-### GitHub CLI Extensions
-
-Require [GitHub CLI](https://github.com/cli/cli#installation) and JavaScript Runtime
-([Deno](https://deno.land/#installation) or [Node.js](https://nodejs.org/)).
-
-```sh
-gh extensions install proudust/gh-describe
-```
-
-### Deno Install
-
-Require [GitHub CLI](https://github.com/cli/cli#installation) and
-[Deno](https://deno.land/#installation).
-
-```sh
-deno run -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.3/cli/main.ts
-```
-
-or
-
-```sh
-deno install -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.3/cli/main.ts
-```
-
-### Deno Compile
-
-Require [GitHub CLI](https://github.com/cli/cli#installation). Download from
-[Release page](https://github.com/proudust/gh-describe/releases/latest).
-
-## Usage
-
-GitHub CLI Extensions:
-
-```
-gh describe
-```
-
-Deno:
-
-```
-gh-describe
-```
-
-### Help
-
-```sh
-$ gh describe --help
-  Usage:   gh-describe [commit-ish]
-  Version: v1.4.3
-
-  Description:
-
-    Emulate `git describe --tags` in shallow clone repository.
-
-  Options:
-
-    -h, --help                - Show this help.
-    -V, --version             - Show the version number for this program.
-    -R, --repo     <repo>     - Target repository. Format: OWNER/REPO
-    --default      <tag>      - Use this value if the name is not found.
-    --runtime      <runtime>  - If installed by `gh extension install`, can specify the execution runtime.  (Values: "deno", "node")
-```
-
-## GitHub Actions
+## Usage on GitHub Actions
 
 ```yml
 - name: Git describe
@@ -115,6 +50,73 @@ Note that in order to read the step outputs the action step must have an id.
     echo "tag     : ${{ steps.ghd.outputs.tag }}"
     echo "distance: ${{ steps.ghd.outputs.distance }}"
     echo "sha     : ${{ steps.ghd.outputs.sha }}"
+```
+
+## Usage on your terminal
+
+### GitHub CLI Extensions
+
+Require [GitHub CLI](https://github.com/cli/cli#installation) and JavaScript Runtime
+([Deno](https://deno.land/#installation) or [Node.js](https://nodejs.org/)).
+
+```sh
+gh extensions install proudust/gh-describe
+gh describe
+```
+
+### Deno
+
+Require [GitHub CLI](https://github.com/cli/cli#installation) and
+[Deno](https://deno.land/#installation).
+
+```sh
+deno run --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.3/cli/main.ts
+```
+
+or
+
+```sh
+deno install -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.3/cli/main.ts
+gh-describe
+```
+
+### Self-contained executable
+
+Require [GitHub CLI](https://github.com/cli/cli#installation). Download from
+[Release page](https://github.com/proudust/gh-describe/releases/latest).
+
+Windows:
+
+```cmd
+gh-describe-x86_64-pc-windows-msvc.exe
+```
+
+Mac or Linux:
+
+```sh
+./gh-describe-aarch64-apple-darwin
+./gh-describe-x86_64-apple-darwin
+./gh-describe-x86_64-unknown-linux-gnu
+```
+
+### Help
+
+```sh
+$ gh describe --help
+  Usage:   gh-describe [commit-ish]
+  Version: v1.4.3
+
+  Description:
+
+    Emulate `git describe --tags` in shallow clone repository.
+
+  Options:
+
+    -h, --help                - Show this help.
+    -V, --version             - Show the version number for this program.
+    -R, --repo     <repo>     - Target repository. Format: OWNER/REPO
+    --default      <tag>      - Use this value if the name is not found.
+    --runtime      <runtime>  - If installed by `gh extension install`, can specify the execution runtime.  (Values: "deno", "node")
 ```
 
 ## License
