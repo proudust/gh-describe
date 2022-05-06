@@ -1278,7 +1278,7 @@ var require_Conn = __commonJS({
         throw new TypeError("Cannot write private member to an object whose class did not declare it");
       return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
     };
-    var __classPrivateFieldGet = exports && exports.__classPrivateFieldGet || function(receiver, state, kind, f) {
+    var __classPrivateFieldGet2 = exports && exports.__classPrivateFieldGet || function(receiver, state, kind, f) {
       if (kind === "a" && !f)
         throw new TypeError("Private accessor was defined without a getter");
       if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
@@ -1300,13 +1300,13 @@ var require_Conn = __commonJS({
         __classPrivateFieldSet(this, _Conn_socket, socket || new net_1.Socket({ fd: rid }), "f");
       }
       async closeWrite() {
-        await new Promise((resolve4) => __classPrivateFieldGet(this, _Conn_socket, "f").end(resolve4));
+        await new Promise((resolve4) => __classPrivateFieldGet2(this, _Conn_socket, "f").end(resolve4));
       }
       setNoDelay(enable) {
-        __classPrivateFieldGet(this, _Conn_socket, "f").setNoDelay(enable);
+        __classPrivateFieldGet2(this, _Conn_socket, "f").setNoDelay(enable);
       }
       setKeepAlive(enable) {
-        __classPrivateFieldGet(this, _Conn_socket, "f").setKeepAlive(enable);
+        __classPrivateFieldGet2(this, _Conn_socket, "f").setKeepAlive(enable);
       }
     };
     exports.Conn = Conn;
@@ -2287,7 +2287,7 @@ var require_Listener = __commonJS({
         throw new TypeError("Cannot write private member to an object whose class did not declare it");
       return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
     };
-    var __classPrivateFieldGet = exports && exports.__classPrivateFieldGet || function(receiver, state, kind, f) {
+    var __classPrivateFieldGet2 = exports && exports.__classPrivateFieldGet || function(receiver, state, kind, f) {
       if (kind === "a" && !f)
         throw new TypeError("Private accessor was defined without a getter");
       if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
@@ -2307,10 +2307,10 @@ var require_Listener = __commonJS({
         __classPrivateFieldSet(this, _Listener_listener, listener, "f");
       }
       async accept() {
-        if (!__classPrivateFieldGet(this, _Listener_listener, "f")) {
+        if (!__classPrivateFieldGet2(this, _Listener_listener, "f")) {
           throw new errors.BadResource("Listener not initialised");
         }
-        const result = await __classPrivateFieldGet(this, _Listener_listener, "f").next();
+        const result = await __classPrivateFieldGet2(this, _Listener_listener, "f").next();
         if (result.done) {
           throw new errors.BadResource("Server not listening");
         }
@@ -3321,7 +3321,7 @@ var require_streams = __commonJS({
         throw new TypeError("Cannot write private member to an object whose class did not declare it");
       return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
     };
-    var __classPrivateFieldGet = exports && exports.__classPrivateFieldGet || function(receiver, state, kind, f) {
+    var __classPrivateFieldGet2 = exports && exports.__classPrivateFieldGet || function(receiver, state, kind, f) {
       if (kind === "a" && !f)
         throw new TypeError("Private accessor was defined without a getter");
       if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
@@ -3345,36 +3345,36 @@ var require_streams = __commonJS({
         _BufferStreamReader_ended.set(this, false);
         _BufferStreamReader_pendingActions.set(this, []);
         __classPrivateFieldSet(this, _BufferStreamReader_stream, stream, "f");
-        __classPrivateFieldGet(this, _BufferStreamReader_stream, "f").pause();
-        __classPrivateFieldGet(this, _BufferStreamReader_stream, "f").on("error", (error) => {
+        __classPrivateFieldGet2(this, _BufferStreamReader_stream, "f").pause();
+        __classPrivateFieldGet2(this, _BufferStreamReader_stream, "f").on("error", (error) => {
           __classPrivateFieldSet(this, _BufferStreamReader_error, error, "f");
-          __classPrivateFieldGet(this, _BufferStreamReader_instances, "m", _BufferStreamReader_runPendingActions).call(this);
+          __classPrivateFieldGet2(this, _BufferStreamReader_instances, "m", _BufferStreamReader_runPendingActions).call(this);
         });
-        __classPrivateFieldGet(this, _BufferStreamReader_stream, "f").on("readable", () => {
-          __classPrivateFieldGet(this, _BufferStreamReader_instances, "m", _BufferStreamReader_runPendingActions).call(this);
+        __classPrivateFieldGet2(this, _BufferStreamReader_stream, "f").on("readable", () => {
+          __classPrivateFieldGet2(this, _BufferStreamReader_instances, "m", _BufferStreamReader_runPendingActions).call(this);
         });
-        __classPrivateFieldGet(this, _BufferStreamReader_stream, "f").on("end", () => {
+        __classPrivateFieldGet2(this, _BufferStreamReader_stream, "f").on("end", () => {
           __classPrivateFieldSet(this, _BufferStreamReader_ended, true, "f");
-          __classPrivateFieldGet(this, _BufferStreamReader_instances, "m", _BufferStreamReader_runPendingActions).call(this);
+          __classPrivateFieldGet2(this, _BufferStreamReader_instances, "m", _BufferStreamReader_runPendingActions).call(this);
         });
       }
       readAll() {
         return new Promise((resolve4, reject) => {
           const chunks = [];
           const action = () => {
-            if (__classPrivateFieldGet(this, _BufferStreamReader_error, "f")) {
-              reject(__classPrivateFieldGet(this, _BufferStreamReader_error, "f"));
+            if (__classPrivateFieldGet2(this, _BufferStreamReader_error, "f")) {
+              reject(__classPrivateFieldGet2(this, _BufferStreamReader_error, "f"));
               return;
             }
-            const buffer = __classPrivateFieldGet(this, _BufferStreamReader_stream, "f").read();
+            const buffer = __classPrivateFieldGet2(this, _BufferStreamReader_stream, "f").read();
             if (buffer != null) {
               chunks.push(buffer);
-              __classPrivateFieldGet(this, _BufferStreamReader_pendingActions, "f").push(action);
-            } else if (__classPrivateFieldGet(this, _BufferStreamReader_ended, "f")) {
+              __classPrivateFieldGet2(this, _BufferStreamReader_pendingActions, "f").push(action);
+            } else if (__classPrivateFieldGet2(this, _BufferStreamReader_ended, "f")) {
               const result = Buffer.concat(chunks);
               resolve4(result);
             } else {
-              __classPrivateFieldGet(this, _BufferStreamReader_pendingActions, "f").push(action);
+              __classPrivateFieldGet2(this, _BufferStreamReader_pendingActions, "f").push(action);
             }
           };
           action();
@@ -3383,20 +3383,20 @@ var require_streams = __commonJS({
       read(p) {
         return new Promise((resolve4, reject) => {
           const action = () => {
-            if (__classPrivateFieldGet(this, _BufferStreamReader_error, "f")) {
-              reject(__classPrivateFieldGet(this, _BufferStreamReader_error, "f"));
+            if (__classPrivateFieldGet2(this, _BufferStreamReader_error, "f")) {
+              reject(__classPrivateFieldGet2(this, _BufferStreamReader_error, "f"));
               return;
             }
-            const readBuffer = __classPrivateFieldGet(this, _BufferStreamReader_stream, "f").read(p.byteLength);
+            const readBuffer = __classPrivateFieldGet2(this, _BufferStreamReader_stream, "f").read(p.byteLength);
             if (readBuffer && readBuffer.byteLength > 0) {
               readBuffer.copy(p, 0, 0, readBuffer.byteLength);
               resolve4(readBuffer.byteLength);
               return;
             }
-            if (__classPrivateFieldGet(this, _BufferStreamReader_ended, "f")) {
+            if (__classPrivateFieldGet2(this, _BufferStreamReader_ended, "f")) {
               resolve4(null);
             } else {
-              __classPrivateFieldGet(this, _BufferStreamReader_pendingActions, "f").push(action);
+              __classPrivateFieldGet2(this, _BufferStreamReader_pendingActions, "f").push(action);
             }
           };
           action();
@@ -3406,7 +3406,7 @@ var require_streams = __commonJS({
     exports.BufferStreamReader = BufferStreamReader;
     _BufferStreamReader_stream = /* @__PURE__ */ new WeakMap(), _BufferStreamReader_error = /* @__PURE__ */ new WeakMap(), _BufferStreamReader_ended = /* @__PURE__ */ new WeakMap(), _BufferStreamReader_pendingActions = /* @__PURE__ */ new WeakMap(), _BufferStreamReader_instances = /* @__PURE__ */ new WeakSet(), _BufferStreamReader_runPendingActions = function _BufferStreamReader_runPendingActions2() {
       const errors = [];
-      for (const action of __classPrivateFieldGet(this, _BufferStreamReader_pendingActions, "f").splice(0)) {
+      for (const action of __classPrivateFieldGet2(this, _BufferStreamReader_pendingActions, "f").splice(0)) {
         try {
           action();
         } catch (err) {
@@ -3424,7 +3424,7 @@ var require_streams = __commonJS({
       }
       write(p) {
         return new Promise((resolve4, reject) => {
-          __classPrivateFieldGet(this, _StreamWriter_stream, "f").write(p, (err) => {
+          __classPrivateFieldGet2(this, _StreamWriter_stream, "f").write(p, (err) => {
             if (err) {
               reject(err);
             } else {
@@ -3484,7 +3484,7 @@ var require_run = __commonJS({
         throw new TypeError("Cannot write private member to an object whose class did not declare it");
       return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
     };
-    var __classPrivateFieldGet = exports && exports.__classPrivateFieldGet || function(receiver, state, kind, f) {
+    var __classPrivateFieldGet2 = exports && exports.__classPrivateFieldGet || function(receiver, state, kind, f) {
       if (kind === "a" && !f)
         throw new TypeError("Private accessor was defined without a getter");
       if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
@@ -3598,28 +3598,28 @@ var require_run = __commonJS({
         _Process_status.set(this, void 0);
         _Process_receivedStatus.set(this, false);
         __classPrivateFieldSet(this, _Process_process, process2, "f");
-        __classPrivateFieldSet(this, _Process_stdout, (_a = ProcessReadStream.fromNullable(__classPrivateFieldGet(this, _Process_process, "f").stdout)) !== null && _a !== void 0 ? _a : null, "f");
-        __classPrivateFieldSet(this, _Process_stderr, (_b = ProcessReadStream.fromNullable(__classPrivateFieldGet(this, _Process_process, "f").stderr)) !== null && _b !== void 0 ? _b : null, "f");
-        __classPrivateFieldSet(this, _Process_stdin, (_c = ProcessWriteStream.fromNullable(__classPrivateFieldGet(this, _Process_process, "f").stdin)) !== null && _c !== void 0 ? _c : null, "f");
+        __classPrivateFieldSet(this, _Process_stdout, (_a = ProcessReadStream.fromNullable(__classPrivateFieldGet2(this, _Process_process, "f").stdout)) !== null && _a !== void 0 ? _a : null, "f");
+        __classPrivateFieldSet(this, _Process_stderr, (_b = ProcessReadStream.fromNullable(__classPrivateFieldGet2(this, _Process_process, "f").stderr)) !== null && _b !== void 0 ? _b : null, "f");
+        __classPrivateFieldSet(this, _Process_stdin, (_c = ProcessWriteStream.fromNullable(__classPrivateFieldGet2(this, _Process_process, "f").stdin)) !== null && _c !== void 0 ? _c : null, "f");
         __classPrivateFieldSet(this, _Process_status, (0, events_1.once)(process2, "exit"), "f");
       }
       get rid() {
         return NaN;
       }
       get pid() {
-        return __classPrivateFieldGet(this, _Process_process, "f").pid;
+        return __classPrivateFieldGet2(this, _Process_process, "f").pid;
       }
       get stdin() {
-        return __classPrivateFieldGet(this, _Process_stdin, "f");
+        return __classPrivateFieldGet2(this, _Process_stdin, "f");
       }
       get stdout() {
-        return __classPrivateFieldGet(this, _Process_stdout, "f");
+        return __classPrivateFieldGet2(this, _Process_stdout, "f");
       }
       get stderr() {
-        return __classPrivateFieldGet(this, _Process_stderr, "f");
+        return __classPrivateFieldGet2(this, _Process_stderr, "f");
       }
       async status() {
-        const [receivedCode, signalName] = await __classPrivateFieldGet(this, _Process_status, "f");
+        const [receivedCode, signalName] = await __classPrivateFieldGet2(this, _Process_status, "f");
         const signal = signalName ? os_1.default.constants.signals[signalName] : receivedCode > 128 ? receivedCode - 128 : void 0;
         const code2 = receivedCode != null ? receivedCode : signal != null ? 128 + signal : void 0;
         const success = code2 === 0;
@@ -3627,30 +3627,30 @@ var require_run = __commonJS({
         return { code: code2, signal, success };
       }
       async output() {
-        if (!__classPrivateFieldGet(this, _Process_stdout, "f")) {
+        if (!__classPrivateFieldGet2(this, _Process_stdout, "f")) {
           throw new TypeError("stdout was not piped");
         }
-        const result = await __classPrivateFieldGet(this, _Process_stdout, "f").readAll();
-        __classPrivateFieldGet(this, _Process_stdout, "f").close();
+        const result = await __classPrivateFieldGet2(this, _Process_stdout, "f").readAll();
+        __classPrivateFieldGet2(this, _Process_stdout, "f").close();
         return result;
       }
       async stderrOutput() {
-        if (!__classPrivateFieldGet(this, _Process_stderr, "f")) {
+        if (!__classPrivateFieldGet2(this, _Process_stderr, "f")) {
           throw new TypeError("stderr was not piped");
         }
-        const result = await __classPrivateFieldGet(this, _Process_stderr, "f").readAll();
-        __classPrivateFieldGet(this, _Process_stderr, "f").close();
+        const result = await __classPrivateFieldGet2(this, _Process_stderr, "f").readAll();
+        __classPrivateFieldGet2(this, _Process_stderr, "f").close();
         return result;
       }
       close() {
-        __classPrivateFieldGet(this, _Process_process, "f").unref();
-        __classPrivateFieldGet(this, _Process_process, "f").kill();
+        __classPrivateFieldGet2(this, _Process_process, "f").unref();
+        __classPrivateFieldGet2(this, _Process_process, "f").kill();
       }
       kill(signo) {
-        if (__classPrivateFieldGet(this, _Process_receivedStatus, "f")) {
+        if (__classPrivateFieldGet2(this, _Process_receivedStatus, "f")) {
           throw new errors.NotFound("entity not found");
         }
-        __classPrivateFieldGet(this, _Process_process, "f").kill(signo);
+        __classPrivateFieldGet2(this, _Process_process, "f").kill(signo);
       }
     };
     exports.Process = Process;
@@ -3667,22 +3667,22 @@ var require_run = __commonJS({
         return stream ? new ProcessReadStream(stream) : void 0;
       }
       readAll() {
-        if (__classPrivateFieldGet(this, _ProcessReadStream_closed, "f")) {
+        if (__classPrivateFieldGet2(this, _ProcessReadStream_closed, "f")) {
           return Promise.resolve(new Uint8Array(0));
         } else {
-          return __classPrivateFieldGet(this, _ProcessReadStream_bufferStreamReader, "f").readAll();
+          return __classPrivateFieldGet2(this, _ProcessReadStream_bufferStreamReader, "f").readAll();
         }
       }
       read(p) {
-        if (__classPrivateFieldGet(this, _ProcessReadStream_closed, "f")) {
+        if (__classPrivateFieldGet2(this, _ProcessReadStream_closed, "f")) {
           return Promise.resolve(null);
         } else {
-          return __classPrivateFieldGet(this, _ProcessReadStream_bufferStreamReader, "f").read(p);
+          return __classPrivateFieldGet2(this, _ProcessReadStream_bufferStreamReader, "f").read(p);
         }
       }
       close() {
         __classPrivateFieldSet(this, _ProcessReadStream_closed, true, "f");
-        __classPrivateFieldGet(this, _ProcessReadStream_stream, "f").destroy();
+        __classPrivateFieldGet2(this, _ProcessReadStream_stream, "f").destroy();
       }
       get readable() {
         throw new Error("Not implemented.");
@@ -3704,15 +3704,15 @@ var require_run = __commonJS({
         return stream ? new ProcessWriteStream(stream) : void 0;
       }
       write(p) {
-        if (__classPrivateFieldGet(this, _ProcessWriteStream_closed, "f")) {
+        if (__classPrivateFieldGet2(this, _ProcessWriteStream_closed, "f")) {
           return Promise.resolve(0);
         } else {
-          return __classPrivateFieldGet(this, _ProcessWriteStream_streamWriter, "f").write(p);
+          return __classPrivateFieldGet2(this, _ProcessWriteStream_streamWriter, "f").write(p);
         }
       }
       close() {
         __classPrivateFieldSet(this, _ProcessWriteStream_closed, true, "f");
-        __classPrivateFieldGet(this, _ProcessWriteStream_stream, "f").end();
+        __classPrivateFieldGet2(this, _ProcessWriteStream_stream, "f").end();
       }
     };
     _ProcessWriteStream_stream = /* @__PURE__ */ new WeakMap(), _ProcessWriteStream_streamWriter = /* @__PURE__ */ new WeakMap(), _ProcessWriteStream_closed = /* @__PURE__ */ new WeakMap();
@@ -6032,7 +6032,7 @@ var { join: join3, normalize: normalize3 } = path;
 var path2 = isWindows ? win32_exports : posix_exports;
 var { basename: basename3, delimiter: delimiter3, dirname: dirname3, extname: extname3, format: format3, fromFileUrl: fromFileUrl3, isAbsolute: isAbsolute3, join: join4, normalize: normalize4, parse: parse3, relative: relative3, resolve: resolve3, sep: sep3, toFileUrl: toFileUrl3, toNamespacedPath: toNamespacedPath3 } = path2;
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/ansi/ansi_escapes.js
 var ansi_escapes_exports = {};
 __export(ansi_escapes_exports, {
   bel: () => bel,
@@ -6065,7 +6065,7 @@ __export(ansi_escapes_exports, {
   scrollUp: () => scrollUp
 });
 
-// dist/dnt/esm/deps/deno.land/std@0.113.0/encoding/base64.js
+// dist/dnt/esm/deps/deno.land/std@0.137.0/encoding/base64.js
 var base64abc = [
   "A",
   "B",
@@ -6156,7 +6156,7 @@ function encode(data) {
   return result;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/ansi/ansi_escapes.js
 var ESC = "\x1B";
 var CSI = `${ESC}[`;
 var OSC = `${ESC}]`;
@@ -6262,7 +6262,7 @@ function image(buffer, options) {
   return ret + ":" + encode(buffer) + bel;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/ansi/ansi.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/ansi/ansi.js
 var ansi = factory();
 function factory() {
   let result = [];
@@ -6312,7 +6312,7 @@ function factory() {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.113.0/fmt/colors.js
+// dist/dnt/esm/deps/deno.land/std@0.137.0/fmt/colors.js
 var colors_exports = {};
 __export(colors_exports, {
   bgBlack: () => bgBlack,
@@ -6543,14 +6543,14 @@ function bgRgb24(str, color) {
   ], 49));
 }
 var ANSI_PATTERN = new RegExp([
-  "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)",
-  "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))"
+  "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)",
+  "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-nq-uy=><~]))"
 ].join("|"), "g");
 function stripColor(string2) {
   return string2.replace(ANSI_PATTERN, "");
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/ansi/colors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/ansi/colors.js
 var proto = /* @__PURE__ */ Object.create(null);
 var methodNames = Object.keys(colors_exports);
 for (const name of methodNames) {
@@ -6579,7 +6579,7 @@ function factory2(stack = []) {
   return colors2;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/ansi/cursor_position.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/ansi/cursor_position.js
 function getCursorPosition({ stdin = import_shim_deno2.Deno.stdin, stdout = import_shim_deno2.Deno.stdout } = {}) {
   const data = new Uint8Array(8);
   import_shim_deno2.Deno.setRaw(stdin.rid, true);
@@ -6590,7 +6590,7 @@ function getCursorPosition({ stdin = import_shim_deno2.Deno.stdin, stdout = impo
   return { x, y };
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/ansi/tty.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/ansi/tty.js
 var tty = factory3();
 function factory3(options) {
   let result = "";
@@ -6637,7 +6637,7 @@ function factory3(options) {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/_utils/distance.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/_utils/distance.js
 function distance(a, b) {
   if (a.length == 0) {
     return b.length;
@@ -6664,7 +6664,7 @@ function distance(a, b) {
   return matrix[b.length][a.length];
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/flags/_utils.js
 function paramCaseToCamelCase(str) {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
@@ -6705,6 +6705,33 @@ function getFlag(name) {
 function isOption(option, name) {
   return option.name === name || option.aliases && option.aliases.indexOf(name) !== -1;
 }
+function matchWildCardOptions(name, flags) {
+  for (const option of flags) {
+    if (option.name.indexOf("*") === -1) {
+      continue;
+    }
+    let matched = matchWildCardOption(name, option);
+    if (matched) {
+      matched = { ...matched, name };
+      flags.push(matched);
+      return matched;
+    }
+  }
+}
+function matchWildCardOption(name, option) {
+  const parts = option.name.split(".");
+  const parts2 = name.split(".");
+  if (parts.length !== parts2.length) {
+    return false;
+  }
+  const count = Math.max(parts.length, parts2.length);
+  for (let i = 0; i < count; i++) {
+    if (parts[i] !== parts2[i] && parts[i] !== "*") {
+      return false;
+    }
+  }
+  return option;
+}
 function closest(str, arr) {
   let minDistance = Infinity;
   let minIndex = 0;
@@ -6721,7 +6748,7 @@ function getDefaultValue(option) {
   return typeof option.default === "function" ? option.default() : option.default;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/flags/_errors.js
 var FlagsError = class extends Error {
   constructor(message) {
     super(message);
@@ -6818,12 +6845,6 @@ var ArgumentFollowsVariadicArgument = class extends ValidationError {
     Object.setPrototypeOf(this, ArgumentFollowsVariadicArgument.prototype);
   }
 };
-var NoArguments = class extends ValidationError {
-  constructor() {
-    super(`No arguments.`);
-    Object.setPrototypeOf(this, NoArguments.prototype);
-  }
-};
 var InvalidTypeError = class extends ValidationError {
   constructor({ label, name, value, type }, expected) {
     super(`${label} "${name}" must be of type "${type}", but got "${value}".` + (expected ? ` Expected values: ${expected.map((value2) => `"${value2}"`).join(", ")}` : ""));
@@ -6831,7 +6852,7 @@ var InvalidTypeError = class extends ValidationError {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/types.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/flags/types.js
 var OptionType;
 (function(OptionType2) {
   OptionType2["STRING"] = "string";
@@ -6840,7 +6861,7 @@ var OptionType;
   OptionType2["BOOLEAN"] = "boolean";
 })(OptionType || (OptionType = {}));
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/_utils.js
 function didYouMeanCommand(command, commands, excludes = []) {
   const commandNames = commands.map((command2) => command2.getName()).filter((command2) => !excludes.includes(command2));
   return didYouMean(" Did you mean command", command, commandNames);
@@ -6854,7 +6875,7 @@ function splitArguments(args) {
     typeParts.unshift(parts.pop());
   }
   const typeDefinition = typeParts.join(" ");
-  return { flags: parts, typeDefinition };
+  return { flags: parts, typeDefinition, equalsSign: args.includes("=") };
 }
 function parseArgumentsDefinition(argsDefinition, validate = true, all) {
   const argumentDetails = [];
@@ -6874,7 +6895,8 @@ function parseArgumentsDefinition(argsDefinition, validate = true, all) {
     }
     const type = parts2[2] || OptionType.STRING;
     const details = {
-      optionalValue: arg[0] !== "<",
+      optionalValue: arg[0] === "[",
+      requiredValue: arg[0] === "<",
       name: parts2[1],
       action: parts2[3] || type,
       variadic: false,
@@ -6901,8 +6923,28 @@ function parseArgumentsDefinition(argsDefinition, validate = true, all) {
   }
   return argumentDetails;
 }
+function dedent(str) {
+  const lines = str.split(/\r?\n|\r/g);
+  let text = "";
+  let indent = 0;
+  for (const line of lines) {
+    if (text || line.trim()) {
+      if (!text) {
+        text = line.trimStart();
+        indent = line.length - text.length;
+      } else {
+        text += line.slice(indent);
+      }
+      text += "\n";
+    }
+  }
+  return text.trimEnd();
+}
+function getDescription(description, short) {
+  return short ? description.trim().split("\n", 1)[0] : dedent(description);
+}
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/_errors.js
 var CommandError = class extends Error {
   constructor(message) {
     super(message);
@@ -7043,7 +7085,7 @@ var TooManyArguments = class extends ValidationError2 {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/types/boolean.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/flags/types/boolean.js
 var boolean = (type) => {
   if (~["1", "true"].indexOf(type.value)) {
     return true;
@@ -7054,7 +7096,7 @@ var boolean = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/types/number.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/flags/types/number.js
 var number = (type) => {
   const value = Number(type.value);
   if (Number.isFinite(value)) {
@@ -7063,15 +7105,44 @@ var number = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/types/string.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/flags/types/string.js
 var string = ({ value }) => {
   return value;
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/validate_flags.js
-function validateFlags(flags, values, _knownFlaks, allowEmpty, optionNames = {}) {
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/flags/validate_flags.js
+function validateFlags(opts, values, optionNameMap = {}) {
+  if (!opts.flags?.length) {
+    return;
+  }
+  const defaultValues = setDefaultValues(opts, values, optionNameMap);
+  const optionNames = Object.keys(values);
+  if (!optionNames.length && opts.allowEmpty) {
+    return;
+  }
+  const options = optionNames.map((name) => ({
+    name,
+    option: getOption(opts.flags, optionNameMap[name])
+  }));
+  for (const { name, option } of options) {
+    if (!option) {
+      throw new UnknownOption(name, opts.flags);
+    }
+    if (validateStandaloneOption(option, options, optionNames, defaultValues)) {
+      return;
+    }
+    validateConflictingOptions(option, values);
+    validateDependingOptions(option, values, defaultValues);
+    validateRequiredValues(option, values, name);
+  }
+  validateRequiredOptions(options, values, opts);
+}
+function setDefaultValues(opts, values, optionNameMap = {}) {
   const defaultValues = {};
-  for (const option of flags) {
+  if (!opts.flags?.length) {
+    return defaultValues;
+  }
+  for (const option of opts.flags) {
     let name;
     let defaultValue = void 0;
     if (option.name.startsWith("no-")) {
@@ -7079,7 +7150,7 @@ function validateFlags(flags, values, _knownFlaks, allowEmpty, optionNames = {})
       if (propName in values) {
         continue;
       }
-      const positiveOption = getOption(flags, propName);
+      const positiveOption = getOption(opts.flags, propName);
       if (positiveOption) {
         continue;
       }
@@ -7089,10 +7160,10 @@ function validateFlags(flags, values, _knownFlaks, allowEmpty, optionNames = {})
     if (!name) {
       name = paramCaseToCamelCase(option.name);
     }
-    if (!(name in optionNames)) {
-      optionNames[name] = option.name;
+    if (!(name in optionNameMap)) {
+      optionNameMap[name] = option.name;
     }
-    const hasDefaultValue = typeof values[name] === "undefined" && (typeof option.default !== "undefined" || typeof defaultValue !== "undefined");
+    const hasDefaultValue = (!opts.ignoreDefaults || typeof opts.ignoreDefaults[name] === "undefined") && typeof values[name] === "undefined" && (typeof option.default !== "undefined" || typeof defaultValue !== "undefined");
     if (hasDefaultValue) {
       values[name] = getDefaultValue(option) ?? defaultValue;
       defaultValues[option.name] = true;
@@ -7101,53 +7172,52 @@ function validateFlags(flags, values, _knownFlaks, allowEmpty, optionNames = {})
       }
     }
   }
-  const keys = Object.keys(values);
-  if (keys.length === 0 && allowEmpty) {
+  return defaultValues;
+}
+function validateStandaloneOption(option, options, optionNames, defaultValues) {
+  if (!option.standalone) {
+    return false;
+  }
+  if (optionNames.length === 1) {
+    return true;
+  }
+  if (options.every((opt) => opt.option && (option === opt.option || defaultValues[opt.option.name]))) {
+    return true;
+  }
+  throw new OptionNotCombinable(option.name);
+}
+function validateConflictingOptions(option, values) {
+  option.conflicts?.forEach((flag) => {
+    if (isset(flag, values)) {
+      throw new ConflictingOption(option.name, flag);
+    }
+  });
+}
+function validateDependingOptions(option, values, defaultValues) {
+  option.depends?.forEach((flag) => {
+    if (!isset(flag, values) && !defaultValues[option.name]) {
+      throw new DependingOption(option.name, flag);
+    }
+  });
+}
+function validateRequiredValues(option, values, name) {
+  const isArray = (option.args?.length || 0) > 1;
+  option.args?.forEach((arg, i) => {
+    if (arg.requiredValue && (typeof values[name] === "undefined" || isArray && typeof values[name][i] === "undefined")) {
+      throw new MissingOptionValue(option.name);
+    }
+  });
+}
+function validateRequiredOptions(options, values, opts) {
+  if (!opts.flags?.length) {
     return;
   }
-  const options = keys.map((name) => ({
-    name,
-    option: getOption(flags, optionNames[name])
-  }));
-  for (const { name, option } of options) {
-    if (!option) {
-      throw new UnknownOption(name, flags);
-    }
-    if (option.standalone) {
-      if (keys.length > 1) {
-        if (options.every(({ option: opt }) => opt && (option === opt || defaultValues[opt.name]))) {
-          return;
-        }
-        throw new OptionNotCombinable(option.name);
-      }
-      return;
-    }
-    option.conflicts?.forEach((flag) => {
-      if (isset(flag, values)) {
-        throw new ConflictingOption(option.name, flag);
-      }
-    });
-    option.depends?.forEach((flag) => {
-      if (!isset(flag, values) && !defaultValues[option.name]) {
-        throw new DependingOption(option.name, flag);
-      }
-    });
-    const isArray = (option.args?.length || 0) > 1;
-    option.args?.forEach((arg, i) => {
-      if (arg.requiredValue && (typeof values[name] === "undefined" || isArray && typeof values[name][i] === "undefined")) {
-        throw new MissingOptionValue(option.name);
-      }
-    });
-  }
-  for (const option of flags) {
+  for (const option of opts.flags) {
     if (option.required && !(paramCaseToCamelCase(option.name) in values)) {
       if ((!option.conflicts || !option.conflicts.find((flag) => !!values[flag])) && !options.find((opt) => opt.option?.conflicts?.find((flag) => flag === option.name))) {
         throw new MissingRequiredOption(option.name);
       }
     }
-  }
-  if (keys.length === 0 && !allowEmpty) {
-    throw new NoArguments();
   }
 }
 function isset(flag, values) {
@@ -7155,7 +7225,7 @@ function isset(flag, values) {
   return typeof values[name] !== "undefined";
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/types/integer.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/flags/types/integer.js
 var integer = (type) => {
   const value = Number(type.value);
   if (Number.isInteger(value)) {
@@ -7164,7 +7234,7 @@ var integer = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/flags/flags.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/flags/flags.js
 var Types = {
   [OptionType.STRING]: string,
   [OptionType.NUMBER]: number,
@@ -7177,7 +7247,7 @@ function parseFlags(args, opts = {}) {
   let inLiteral = false;
   let negate = false;
   const flags = {};
-  const optionNames = {};
+  const optionNameMap = {};
   let literal = [];
   let unknown = [];
   let stopEarly = null;
@@ -7279,11 +7349,17 @@ function parseFlags(args, opts = {}) {
         }
         function hasNext(arg2) {
           const nextValue = currentValue ?? args[argsIndex + 1];
-          if (!currentValue && !nextValue) {
+          if (!nextValue) {
+            return false;
+          }
+          if (optionArgs2.length > 1 && optionArgsIndex >= optionArgs2.length) {
             return false;
           }
           if (arg2.requiredValue) {
             return true;
+          }
+          if (option2.equalsSign && arg2.optionalValue && !arg2.variadic && typeof currentValue === "undefined") {
+            return false;
           }
           if (arg2.optionalValue || arg2.variadic) {
             return nextValue[0] !== "-" || arg2.type === OptionType.NUMBER && !isNaN(Number(nextValue));
@@ -7323,13 +7399,19 @@ function parseFlags(args, opts = {}) {
       option = getOption(opts.flags, current);
       if (!option) {
         if (opts.flags.length) {
-          throw new UnknownOption(current, opts.flags);
+          const name = current.replace(/^-+/g, "");
+          option = matchWildCardOptions(name, opts.flags);
+          if (!option) {
+            throw new UnknownOption(current, opts.flags);
+          }
         }
-        option = {
-          name: current.replace(/^-+/, ""),
-          optionalValue: true,
-          type: OptionType.STRING
-        };
+        if (!option) {
+          option = {
+            name: current.replace(/^-+/, ""),
+            optionalValue: true,
+            type: OptionType.STRING
+          };
+        }
       }
       const positiveName = negate ? option.name.replace(/^no-?/, "") : option.name;
       const propName = paramCaseToCamelCase(positiveName);
@@ -7368,7 +7450,7 @@ function parseFlags(args, opts = {}) {
         value.push(flags[propName]);
         flags[propName] = value;
       }
-      optionNames[propName] = option.name;
+      optionNameMap[propName] = option.name;
       opts.option?.(option, flags[propName]);
     } else {
       if (opts.stopEarly) {
@@ -7388,9 +7470,7 @@ function parseFlags(args, opts = {}) {
       }
     }
   }
-  if (opts.flags?.length) {
-    validateFlags(opts.flags, flags, opts.knownFlaks, opts.allowEmpty, optionNames);
-  }
+  validateFlags(opts, flags, optionNameMap);
   const result = Object.keys(flags).reduce((result2, key) => {
     if (~key.indexOf(".")) {
       key.split(".").reduce((result3, subKey, index, parts) => {
@@ -7435,11 +7515,11 @@ function parseFlagValue(option, arg, value) {
   });
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/type.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/type.js
 var Type = class {
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/types/boolean.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/types/boolean.js
 var BooleanType = class extends Type {
   parse(type) {
     return boolean(type);
@@ -7449,21 +7529,28 @@ var BooleanType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/types/number.js
-var NumberType = class extends Type {
-  parse(type) {
-    return number(type);
-  }
-};
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/types/string.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/types/string.js
 var StringType = class extends Type {
   parse(type) {
     return string(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/table/border.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/types/file.js
+var FileType = class extends StringType {
+  constructor() {
+    super();
+  }
+};
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/types/number.js
+var NumberType = class extends Type {
+  parse(type) {
+    return number(type);
+  }
+};
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/table/border.js
 var border = {
   top: "\u2500",
   topMid: "\u252C",
@@ -7482,7 +7569,7 @@ var border = {
   middle: "\u2502"
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/table/cell.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/table/cell.js
 var Cell = class {
   constructor(value) {
     Object.defineProperty(this, "value", {
@@ -7558,7 +7645,7 @@ var Cell = class {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/table/row.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/table/row.js
 var Row = class extends Array {
   constructor() {
     super(...arguments);
@@ -7604,40 +7691,61 @@ var Row = class extends Array {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/table/utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/table/utils.js
 function consumeWords(length, content) {
   let consumed = "";
-  const words = content.split(/ /g);
+  const words = content.split("\n")[0]?.split(/ /g);
   for (let i = 0; i < words.length; i++) {
-    let word = words[i];
-    const hasLineBreak = word.indexOf("\n") !== -1;
-    if (hasLineBreak) {
-      word = word.split("\n").shift();
-    }
+    const word = words[i];
     if (consumed) {
-      const nextLength = stripColor(word).length;
-      const consumedLength = stripColor(consumed).length;
+      const nextLength = strLength(word);
+      const consumedLength = strLength(consumed);
       if (consumedLength + nextLength >= length) {
         break;
       }
     }
     consumed += (i > 0 ? " " : "") + word;
-    if (hasLineBreak) {
-      break;
-    }
   }
   return consumed;
 }
 function longest(index, rows, maxWidth) {
-  return Math.max(...rows.map((row) => (row[index] instanceof Cell && row[index].getColSpan() > 1 ? "" : row[index]?.toString() || "").split("\n").map((r) => {
-    const str = typeof maxWidth === "undefined" ? r : consumeWords(maxWidth, r);
-    return stripColor(str).length || 0;
-  })).flat());
+  const cellLengths = rows.map((row) => {
+    const cell = row[index];
+    const cellValue = cell instanceof Cell && cell.getColSpan() > 1 ? "" : cell?.toString() || "";
+    return cellValue.split("\n").map((line) => {
+      const str = typeof maxWidth === "undefined" ? line : consumeWords(maxWidth, line);
+      return strLength(str) || 0;
+    });
+  }).flat();
+  return Math.max(...cellLengths);
 }
+var strLength = (str) => {
+  str = stripColor(str);
+  let length = 0;
+  for (let i = 0; i < str.length; i++) {
+    const charCode = str.charCodeAt(i);
+    if (charCode >= 19968 && charCode <= 40869) {
+      length += 2;
+    } else {
+      length += 1;
+    }
+  }
+  return length;
+};
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/table/layout.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/table/layout.js
+var __classPrivateFieldGet = function(receiver, state, kind, f) {
+  if (kind === "a" && !f)
+    throw new TypeError("Private accessor was defined without a getter");
+  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+    throw new TypeError("Cannot read private member from an object whose class did not declare it");
+  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+};
+var _TableLayout_instances;
+var _TableLayout_getRows;
 var TableLayout = class {
   constructor(table, options) {
+    _TableLayout_instances.add(this);
     Object.defineProperty(this, "table", {
       enumerable: true,
       configurable: true,
@@ -7664,8 +7772,7 @@ var TableLayout = class {
     const hasBodyBorder = this.table.getBorder() || this.table.hasBodyBorder();
     const hasHeaderBorder = this.table.hasHeaderBorder();
     const hasBorder = hasHeaderBorder || hasBodyBorder;
-    const header = this.table.getHeader();
-    const rows = this.spanRows(header ? [header, ...this.table] : this.table.slice());
+    const rows = __classPrivateFieldGet(this, _TableLayout_instances, "m", _TableLayout_getRows).call(this);
     const columns = Math.max(...rows.map((row) => row.length));
     for (const row of rows) {
       const length = row.length;
@@ -7825,14 +7932,14 @@ var TableLayout = class {
     return result;
   }
   renderCellValue(cell, maxLength) {
-    const length = Math.min(maxLength, stripColor(cell.toString()).length);
+    const length = Math.min(maxLength, strLength(cell.toString()));
     let words = consumeWords(length, cell.toString());
-    const breakWord = stripColor(words).length > length;
+    const breakWord = strLength(words) > length;
     if (breakWord) {
       words = words.slice(0, length);
     }
     const next = cell.toString().slice(words.length + (breakWord ? 0 : 1));
-    const fillLength = maxLength - stripColor(words).length;
+    const fillLength = maxLength - strLength(words);
     const align = cell.getAlign();
     let current;
     if (fillLength === 0) {
@@ -7995,8 +8102,20 @@ var TableLayout = class {
     return result;
   }
 };
+_TableLayout_instances = /* @__PURE__ */ new WeakSet(), _TableLayout_getRows = function _TableLayout_getRows2() {
+  const header = this.table.getHeader();
+  const rows = header ? [header, ...this.table] : this.table.slice();
+  const hasSpan = rows.some((row) => row.some((cell) => cell instanceof Cell && (cell.getColSpan() > 1 || cell.getRowSpan() > 1)));
+  if (hasSpan) {
+    return this.spanRows(rows);
+  }
+  return rows.map((row) => {
+    const newRow = this.createRow(row);
+    return newRow.map((cell) => this.createCell(cell, newRow));
+  });
+};
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/table/table.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/table/table.js
 var Table = class extends Array {
   constructor() {
     super(...arguments);
@@ -8147,7 +8266,7 @@ Object.defineProperty(Table, "_chars", {
   value: { ...border }
 });
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/help/_help_generator.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/help/_help_generator.js
 var HelpGenerator = class {
   constructor(cmd, options = {}) {
     Object.defineProperty(this, "cmd", {
@@ -8182,7 +8301,7 @@ var HelpGenerator = class {
   generate() {
     const areColorsEnabled = getColorEnabled();
     setColorEnabled(this.options.colors);
-    const result = this.generateHeader() + this.generateDescription() + this.generateOptions() + this.generateCommands() + this.generateEnvironmentVariables() + this.generateExamples();
+    const result = this.generateHeader() + this.generateMeta() + this.generateDescription() + this.generateOptions() + this.generateCommands() + this.generateEnvironmentVariables() + this.generateExamples();
     setColorEnabled(areColorsEnabled);
     return result;
   }
@@ -8200,12 +8319,23 @@ var HelpGenerator = class {
     }
     return "\n" + Table.from(rows).indent(this.indent).padding(1).toString() + "\n";
   }
+  generateMeta() {
+    const meta = Object.entries(this.cmd.getMeta());
+    if (!meta.length) {
+      return "";
+    }
+    const rows = [];
+    for (const [name, value] of meta) {
+      rows.push([bold(`${name}: `) + value]);
+    }
+    return "\n" + Table.from(rows).indent(this.indent).padding(1).toString() + "\n";
+  }
   generateDescription() {
     if (!this.cmd.getDescription()) {
       return "";
     }
     return this.label("Description") + Table.from([
-      [this.cmd.getDescription()]
+      [dedent(this.cmd.getDescription())]
     ]).indent(this.indent * 2).maxColWidth(140).padding(1).toString() + "\n";
   }
   generateOptions() {
@@ -8213,23 +8343,53 @@ var HelpGenerator = class {
     if (!options.length) {
       return "";
     }
-    const hasTypeDefinitions = !!options.find((option) => !!option.typeDefinition);
+    let groups = [];
+    const hasGroups = options.some((option) => option.groupName);
+    if (hasGroups) {
+      for (const option of options) {
+        let group = groups.find((group2) => group2.name === option.groupName);
+        if (!group) {
+          group = {
+            name: option.groupName,
+            options: []
+          };
+          groups.push(group);
+        }
+        group.options.push(option);
+      }
+    } else {
+      groups = [{
+        name: "Options",
+        options
+      }];
+    }
+    let result = "";
+    for (const group of groups) {
+      result += this.generateOptionGroup(group);
+    }
+    return result;
+  }
+  generateOptionGroup(group) {
+    if (!group.options.length) {
+      return "";
+    }
+    const hasTypeDefinitions = !!group.options.find((option) => !!option.typeDefinition);
     if (hasTypeDefinitions) {
-      return this.label("Options") + Table.from([
-        ...options.map((option) => [
+      return this.label(group.name ?? "Options") + Table.from([
+        ...group.options.map((option) => [
           option.flags.map((flag) => blue(flag)).join(", "),
           highlightArguments(option.typeDefinition || "", this.options.types),
           red(bold("-")),
-          this.options.long ? option.description : option.description.split("\n", 1)[0],
+          getDescription(option.description, !this.options.long),
           this.generateHints(option)
         ])
       ]).padding([2, 2, 1, 2]).indent(this.indent * 2).maxColWidth([60, 60, 1, 80, 60]).toString() + "\n";
     }
-    return this.label("Options") + Table.from([
-      ...options.map((option) => [
+    return this.label(group.name ?? "Options") + Table.from([
+      ...group.options.map((option) => [
         option.flags.map((flag) => blue(flag)).join(", "),
         red(bold("-")),
-        this.options.long ? option.description : option.description.split("\n", 1)[0],
+        getDescription(option.description, !this.options.long),
         this.generateHints(option)
       ])
     ]).indent(this.indent * 2).maxColWidth([60, 1, 80, 60]).padding([2, 1, 2]).toString() + "\n";
@@ -8268,7 +8428,7 @@ var HelpGenerator = class {
         envVar.names.map((name) => blue(name)).join(", "),
         highlightArgumentDetails(envVar.details, this.options.types),
         red(bold("-")),
-        this.options.long ? envVar.description : envVar.description.split("\n", 1)[0]
+        this.options.long ? dedent(envVar.description) : envVar.description.trim().split("\n", 1)[0]
       ])
     ]).padding([2, 2, 1]).indent(this.indent * 2).maxColWidth([60, 60, 1, 80]).toString() + "\n";
   }
@@ -8279,7 +8439,7 @@ var HelpGenerator = class {
     }
     return this.label("Examples") + Table.from(examples.map((example) => [
       dim(bold(`${capitalize(example.name)}:`)),
-      example.description
+      dedent(example.description)
     ])).padding(1).indent(this.indent * 2).maxColWidth(150).toString() + "\n";
   }
   generateHints(option) {
@@ -8340,14 +8500,14 @@ function highlightArgumentDetails(arg, types = true) {
   return str;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/types/integer.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/types/integer.js
 var IntegerType = class extends Type {
   parse(type) {
     return integer(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/command.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/command.js
 var Command = class {
   constructor() {
     Object.defineProperty(this, "types", {
@@ -8474,7 +8634,7 @@ var Command = class {
       enumerable: true,
       configurable: true,
       writable: true,
-      value: true
+      value: false
     });
     Object.defineProperty(this, "_stopEarly", {
       enumerable: true,
@@ -8542,6 +8702,18 @@ var Command = class {
       writable: true,
       value: void 0
     });
+    Object.defineProperty(this, "_meta", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: {}
+    });
+    Object.defineProperty(this, "_groupName", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: void 0
+    });
   }
   versionOption(flags, desc, opts) {
     this._versionOption = flags === false ? flags : {
@@ -8560,6 +8732,7 @@ var Command = class {
     return this;
   }
   command(nameAndArguments, cmdOrDescription, override) {
+    this.reset();
     const result = splitArguments(nameAndArguments);
     const name = result.flags.shift();
     const aliases = result.flags;
@@ -8603,6 +8776,7 @@ var Command = class {
     return this;
   }
   reset() {
+    this._groupName = void 0;
     this.cmd = this;
     return this;
   }
@@ -8625,6 +8799,13 @@ var Command = class {
       this.cmd.ver = version2;
     }
     return this;
+  }
+  meta(name, value) {
+    this.cmd._meta[name] = value;
+    return this;
+  }
+  getMeta(name) {
+    return typeof name === "undefined" ? this._meta : this._meta[name];
   }
   help(help) {
     if (typeof help === "string") {
@@ -8680,8 +8861,8 @@ var Command = class {
     this.cmd.defaultCommand = name;
     return this;
   }
-  globalType(name, type, options) {
-    return this.type(name, type, { ...options, global: true });
+  globalType(name, handler, options) {
+    return this.type(name, handler, { ...options, global: true });
   }
   type(name, handler, options) {
     if (this.cmd.types.get(name) && !options?.override) {
@@ -8729,6 +8910,10 @@ var Command = class {
     }
     return this.option(flags, desc, { ...opts, global: true });
   }
+  group(name) {
+    this.cmd._groupName = name;
+    return this;
+  }
   option(flags, desc, opts) {
     if (typeof opts === "function") {
       return this.option(flags, desc, { value: opts });
@@ -8741,7 +8926,9 @@ var Command = class {
       description: desc,
       args,
       flags: result.flags,
-      typeDefinition: result.typeDefinition
+      equalsSign: result.equalsSign,
+      typeDefinition: result.typeDefinition,
+      groupName: this._groupName
     };
     if (option.separator) {
       for (const arg of args) {
@@ -8834,11 +9021,11 @@ var Command = class {
         };
       } else if (this._useRawArgs) {
         const env = await this.parseEnvVars();
-        return await this.execute(env, ...this.rawArgs);
+        return this.execute(env, ...this.rawArgs);
       } else {
-        const { actionOption, flags, unknown, literal } = this.parseFlags(this.rawArgs);
-        this.literalArgs = literal;
         const env = await this.parseEnvVars();
+        const { actionOption, flags, unknown, literal } = this.parseFlags(this.rawArgs, env);
+        this.literalArgs = literal;
         const options = { ...env, ...flags };
         const params = this.parseArguments(unknown, options);
         if (actionOption) {
@@ -8852,7 +9039,7 @@ var Command = class {
             };
           }
         }
-        return await this.execute(options, ...params);
+        return this.execute(options, ...params);
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -8872,6 +9059,7 @@ var Command = class {
     !this.types.has("number") && this.type("number", new NumberType(), { global: true });
     !this.types.has("integer") && this.type("integer", new IntegerType(), { global: true });
     !this.types.has("boolean") && this.type("boolean", new BooleanType(), { global: true });
+    !this.types.has("file") && this.type("file", new FileType(), { global: true });
     if (!this._help) {
       this.help({
         hints: true,
@@ -8882,22 +9070,29 @@ var Command = class {
       this.option(this._versionOption?.flags || "-V, --version", this._versionOption?.desc || "Show the version number for this program.", {
         standalone: true,
         prepend: true,
-        action: function() {
-          this.showVersion();
+        action: async function() {
+          const long = this.getRawArgs().includes(`--${versionOption.name}`);
+          if (long) {
+            await this.checkVersion();
+            this.showLongVersion();
+          } else {
+            this.showVersion();
+          }
           this.exit();
         },
         ...this._versionOption?.opts ?? {}
       });
+      const versionOption = this.options[0];
     }
     if (this._helpOption !== false) {
       this.option(this._helpOption?.flags || "-h, --help", this._helpOption?.desc || "Show this help.", {
         standalone: true,
         global: true,
         prepend: true,
-        action: function() {
-          this.showHelp({
-            long: this.getRawArgs().includes(`--${helpOption.name}`)
-          });
+        action: async function() {
+          const long = this.getRawArgs().includes(`--${helpOption.name}`);
+          await this.checkVersion();
+          this.showHelp({ long });
           this.exit();
         },
         ...this._helpOption?.opts ?? {}
@@ -8917,7 +9112,12 @@ var Command = class {
       cmd._globalParent = this;
       await cmd.execute(options, ...args);
     }
-    return { options, args, cmd: this, literal: this.literalArgs };
+    return {
+      options,
+      args,
+      cmd: this,
+      literal: this.literalArgs
+    };
   }
   async executeExecutable(args) {
     const command = this.getPath().replace(/\s+/g, "-");
@@ -8937,13 +9137,14 @@ var Command = class {
       throw error;
     }
   }
-  parseFlags(args) {
+  parseFlags(args, env) {
     try {
       let actionOption;
       const result = parseFlags(args, {
         stopEarly: this._stopEarly,
         allowEmpty: this._allowEmpty,
         flags: this.getOptions(true),
+        ignoreDefaults: env,
         parse: (type) => this.parseType(type),
         option: (option) => {
           if (!actionOption && option.action) {
@@ -9039,7 +9240,7 @@ var Command = class {
               value: args.shift()
             });
           }
-          if (arg) {
+          if (typeof arg !== "undefined") {
             params.push(arg);
           }
         }
@@ -9105,7 +9306,7 @@ var Command = class {
     return this._usage ?? this.getArgsDefinition();
   }
   getShortDescription() {
-    return this.getDescription().trim().split("\n", 1)[0];
+    return getDescription(this.getDescription(), true);
   }
   getRawArgs() {
     return this.rawArgs;
@@ -9115,6 +9316,13 @@ var Command = class {
   }
   showVersion() {
     console.log(this.getVersion());
+  }
+  getLongVersion() {
+    return `${bold(this.getMainCommand().getName())} ${blue(this.getVersion() ?? "")}` + Object.entries(this.getMeta()).map(([k, v]) => `
+${bold(k)} ${blue(v)}`).join("");
+  }
+  showLongVersion() {
+    console.log(this.getLongVersion());
   }
   showHelp(options) {
     console.log(this.getHelp(options));
@@ -9129,6 +9337,17 @@ var Command = class {
   exit(code2 = 0) {
     if (this.shouldExit()) {
       import_shim_deno2.Deno.exit(code2);
+    }
+  }
+  async checkVersion() {
+    const mainCommand = this.getMainCommand();
+    const upgradeCommand = mainCommand.getCommand("upgrade");
+    if (isUpgradeCommand(upgradeCommand)) {
+      const latestVersion = await upgradeCommand.getLatestVersion();
+      const currentVersion = mainCommand.getVersion();
+      if (currentVersion !== latestVersion) {
+        mainCommand.version(`${currentVersion}  ${bold(yellow(`(New version available: ${latestVersion}. Run '${mainCommand.getName()} upgrade' to upgrade to the latest version!)`))}`);
+      }
     }
   }
   hasOptions(hidden2) {
@@ -9384,28 +9603,31 @@ var Command = class {
     return this.examples.find((example) => example.name === name);
   }
 };
+function isUpgradeCommand(command) {
+  return command instanceof Command && "getLatestVersion" in command;
+}
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/completions/bash.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/completions/bash.js
 var _BashCompletionsCommand_cmd;
 _BashCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/completions/fish.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/completions/fish.js
 var _FishCompletionsCommand_cmd;
 _FishCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/completions/zsh.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/completions/zsh.js
 var _ZshCompletionsCommand_cmd;
 _ZshCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/completions/mod.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/completions/mod.js
 var _CompletionsCommand_cmd;
 _CompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/types/child_command.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/types/child_command.js
 var _ChildCommandType_cmd;
 _ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.20.1/command/types/enum.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.24.0/command/types/enum.js
 var EnumType = class extends Type {
   constructor(values) {
     super();
@@ -9415,7 +9637,7 @@ var EnumType = class extends Type {
       writable: true,
       value: void 0
     });
-    this.allowedValues = values;
+    this.allowedValues = Array.isArray(values) ? values : Object.values(values);
   }
   parse(type) {
     for (const value of this.allowedValues) {
