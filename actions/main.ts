@@ -1,4 +1,4 @@
-import { debug, getInput, info, setFailed, setOutput } from "https://esm.sh/@actions/core@1.6.0";
+import { debug, getInput, info, setFailed, setOutput } from "https://esm.sh/@actions/core@1.8.0";
 import { ghDescribe, GhDescribeError } from "../core/mod.ts";
 
 async function run() {
