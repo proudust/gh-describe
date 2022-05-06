@@ -21,7 +21,7 @@ await dnt({
   scriptModule: false,
   package: {
     name: "gh-describe",
-    version: "1.4.4",
+    version: "1.4.5",
     description: "`git describe --tags` in shallow clones on GitHub Actions.",
     repository: {
       type: "git",
