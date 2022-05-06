@@ -27,6 +27,7 @@
     "run:deno": "deno run --allow-run --unstable cli/main.ts",
     "run:node": "deno task build && node dist/cli.js",
     "test": "deno fmt --check & deno lint & deno task unit",
+    "udd": "udd *.ts **/*.ts --dry-run",
     "unit": "deno test core"
   }
 }
