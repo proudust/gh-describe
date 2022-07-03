@@ -9929,7 +9929,7 @@ Object.defineProperty(GhError.prototype, "name", {
   value: GhError.name,
   writable: true
 });
-async function listCommits({ owner, repo, sha, perPage, page, host, jq }) {
+function listCommitsArgs({ owner, repo, sha, perPage, page, host, jq }) {
   const param = new URLSearchParams();
   if (sha)
     param.set("sha", sha);
@@ -9942,9 +9942,13 @@ async function listCommits({ owner, repo, sha, perPage, page, host, jq }) {
     cmd.push("--hostname", host);
   if (jq)
     cmd.push("-q", jq);
+  return cmd;
+}
+async function listCommits(params) {
+  const cmd = listCommitsArgs(params);
   return await exec(cmd);
 }
-async function listRepositoryTags({ owner, repo, perPage, page, host, jq }) {
+function listRepositoryTagsArgs({ owner, repo, perPage, page, host, jq }) {
   const param = new URLSearchParams();
   if (perPage)
     param.set("per_page", String(perPage));
@@ -9955,6 +9959,10 @@ async function listRepositoryTags({ owner, repo, perPage, page, host, jq }) {
     cmd.push("--hostname", host);
   if (jq)
     cmd.push("-q", jq);
+  return cmd;
+}
+async function listRepositoryTags(params) {
+  const cmd = listRepositoryTagsArgs(params);
   return await exec(cmd);
 }
 
