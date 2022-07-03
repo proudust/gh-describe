@@ -7716,13 +7716,16 @@ async function exec(cmd) {
     if (0 < jqIndex) {
       await exec([...cmd.slice(0, jqIndex), ...cmd.slice(jqIndex + 2, cmd.length)]);
     }
-    throw new ExecError(cmd, status.code, new TextDecoder().decode(stderr).trim());
+    throw new GhError(cmd, status.code, new TextDecoder().decode(stderr).trim());
   }
 }
-var ExecError = class extends Error {
+var GhError = class extends Error {
   constructor(cmd, code, stderr) {
-    super(`\`${cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code}
-${stderr}`);
+    const cmdStr = cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ");
+    const message = `\`${cmdStr}\` exit code is not zero.
+  code: ${code}
+  stderr: "${stderr}"`;
+    super(message);
     Object.defineProperty(this, "cmd", {
       enumerable: true,
       configurable: true,
@@ -7741,8 +7744,15 @@ ${stderr}`);
       writable: true,
       value: stderr
     });
+    Error.captureStackTrace?.(this, this.constructor);
   }
 };
+Object.defineProperty(GhError.prototype, "name", {
+  configurable: true,
+  enumerable: false,
+  value: GhError.name,
+  writable: true
+});
 async function listCommits(owner, repo, { sha, perPage, page, host, jq } = {}) {
   const param = new URLSearchParams();
   if (sha)
@@ -7858,8 +7868,11 @@ async function exec2(cmd) {
 }
 var GitError = class extends Error {
   constructor(cmd, code, stderr) {
-    super(`\`${cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code}
-${stderr}`);
+    const cmdStr = cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ");
+    const message = `\`${cmdStr}\` exit code is not zero.
+  code: ${code}
+  stderr: "${stderr}"`;
+    super(message);
     Object.defineProperty(this, "cmd", {
       enumerable: true,
       configurable: true,
@@ -7878,8 +7891,15 @@ ${stderr}`);
       writable: true,
       value: stderr
     });
+    Error.captureStackTrace?.(this, this.constructor);
   }
 };
+Object.defineProperty(GitError.prototype, "name", {
+  configurable: true,
+  enumerable: false,
+  value: GitError.name,
+  writable: true
+});
 async function listRemotes() {
   const lines = (await exec2(["git", "remote", "-v"])).split("\n").map((x) => /(.+)\s+(.+)\s+\((push|fetch)\)/.exec(x) || []).filter((x) => x.length === 4);
   const remotes = [];
@@ -7922,6 +7942,12 @@ async function getHeadSha() {
 // dist/dnt/esm/core/mod.js
 var GhDescribeError = class extends Error {
 };
+Object.defineProperty(GhDescribeError.prototype, "name", {
+  configurable: true,
+  enumerable: false,
+  value: GhDescribeError.name,
+  writable: true
+});
 async function ghDescribe(repo, commitish, defaultValue, match) {
   repo = await resolveRepo(repo);
   const [tags, sha] = await Promise.all([fetchTags(repo, match), fetchSha(repo, commitish)]);
@@ -7952,7 +7978,7 @@ async function resolveRepo(repo) {
     return await getOriginRepo();
   } catch (e) {
     if (e instanceof GitError && e.stderr === "fatal: not a git repository (or any of the parent directories): .git") {
-      throw new GhDescribeError(e.stderr, e);
+      throw new GhDescribeError(e.stderr, { cause: e });
     }
     throw e;
   }
@@ -8001,7 +8027,7 @@ async function* fetchHistory(repo, sha) {
       }
     } while (count === perPage);
   } catch (e) {
-    if (e instanceof ExecError && e.stderr === "gh: Not Found (HTTP 404)") {
+    if (e instanceof GhError && e.stderr === "gh: Not Found (HTTP 404)") {
       const msg = `ambiguous argument '${sha}': unknown revision or path not in the ${repo} tree.`;
       throw new GhDescribeError(msg);
     }

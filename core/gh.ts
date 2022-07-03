@@ -20,23 +20,32 @@ export async function exec(cmd: string[]): Promise<string> {
 
       // Throws the first run error if re-run does not result in an error
     }
-    throw new ExecError(cmd, status.code, (new TextDecoder().decode(stderr)).trim());
+    throw new GhError(cmd, status.code, (new TextDecoder().decode(stderr)).trim());
   }
 }
 
-export class ExecError extends Error {
+export class GhError extends Error {
   constructor(
     public readonly cmd: readonly string[],
     public readonly code: number,
     public readonly stderr: string,
   ) {
-    super(
-      `\`${
-        cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")
-      }\` exit code is not zero, ExitCode: ${code}\n${stderr}`,
-    );
+    const cmdStr = cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ");
+    const message = `\`${cmdStr}\` exit code is not zero.
+  code: ${code}
+  stderr: "${stderr}"`;
+    super(message);
+
+    Error.captureStackTrace?.(this, this.constructor);
   }
 }
+
+Object.defineProperty(GhError.prototype, "name", {
+  configurable: true,
+  enumerable: false,
+  value: GhError.name,
+  writable: true,
+});
 
 interface GitHubCliOptions {
   host?: string | undefined;

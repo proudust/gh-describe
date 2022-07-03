@@ -25,13 +25,22 @@ export class GitError extends Error {
     public readonly code: number,
     public readonly stderr: string,
   ) {
-    super(
-      `\`${
-        cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")
-      }\` exit code is not zero, ExitCode: ${code}\n${stderr}`,
-    );
+    const cmdStr = cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ");
+    const message = `\`${cmdStr}\` exit code is not zero.
+  code: ${code}
+  stderr: "${stderr}"`;
+    super(message);
+
+    Error.captureStackTrace?.(this, this.constructor);
   }
 }
+
+Object.defineProperty(GitError.prototype, "name", {
+  configurable: true,
+  enumerable: false,
+  value: GitError.name,
+  writable: true,
+});
 
 interface Remote {
   name: string;

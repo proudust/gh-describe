@@ -1,5 +1,5 @@
 import { globToRegExp } from "https://deno.land/std@0.122.0/path/glob.ts";
-import { ExecError, graphql, listCommits, listRepositoryTags } from "./gh.ts";
+import { GhError, graphql, listCommits, listRepositoryTags } from "./gh.ts";
 import { parse } from "./ghrepo.ts";
 import { getHeadSha, getOriginRepo, GitError } from "./git.ts";
 
@@ -19,6 +19,13 @@ interface GhDescribeOutput {
 }
 
 export class GhDescribeError extends Error {}
+
+Object.defineProperty(GhDescribeError.prototype, "name", {
+  configurable: true,
+  enumerable: false,
+  value: GhDescribeError.name,
+  writable: true,
+});
 
 export async function ghDescribe(
   repo?: string | Repo,
@@ -64,7 +71,7 @@ export async function resolveRepo(repo?: string | Repo): Promise<Repo> {
       e instanceof GitError &&
       e.stderr === "fatal: not a git repository (or any of the parent directories): .git"
     ) {
-      throw new GhDescribeError(e.stderr, e);
+      throw new GhDescribeError(e.stderr, { cause: e });
     }
     throw e;
   }
@@ -128,7 +135,7 @@ export async function* fetchHistory(repo: Repo, sha: string): AsyncGenerator<str
       }
     } while (count === perPage);
   } catch (e: unknown) {
-    if (e instanceof ExecError && e.stderr === "gh: Not Found (HTTP 404)") {
+    if (e instanceof GhError && e.stderr === "gh: Not Found (HTTP 404)") {
       const msg = `ambiguous argument '${sha}': unknown revision or path not in the ${repo} tree.`;
       throw new GhDescribeError(msg);
     }
