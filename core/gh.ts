@@ -56,6 +56,8 @@ interface GitHubCliOptions {
  * @see https://docs.github.com/en/rest/reference/commits#list-commits--parameters
  */
 interface ListCommitsOptions {
+  owner: string;
+  repo: string;
   sha?: string;
   perPage?: number;
   page?: number;
@@ -64,11 +66,15 @@ interface ListCommitsOptions {
 /**
  * @see https://docs.github.com/en/rest/reference/commits#list-commits
  */
-export async function listCommits(
-  owner: string,
-  repo: string,
-  { sha, perPage, page, host, jq }: ListCommitsOptions & GitHubCliOptions = {},
-): Promise<string> {
+export async function listCommits({
+  owner,
+  repo,
+  sha,
+  perPage,
+  page,
+  host,
+  jq,
+}: ListCommitsOptions & GitHubCliOptions): Promise<string> {
   const param = new URLSearchParams();
   if (sha) param.set("sha", sha);
   if (perPage) param.set("per_page", String(perPage));
@@ -85,6 +91,8 @@ export async function listCommits(
  * @see https://docs.github.com/en/rest/reference/repos#list-repository-tags--parameters
  */
 interface ListRepositoryTagsOption {
+  owner: string;
+  repo: string;
   perPage?: number;
   page?: number;
 }
@@ -92,11 +100,14 @@ interface ListRepositoryTagsOption {
 /**
  * @see https://docs.github.com/en/rest/reference/repos#list-repository-tags
  */
-export async function listRepositoryTags(
-  owner: string,
-  repo: string,
-  { perPage, page, host, jq }: ListRepositoryTagsOption & GitHubCliOptions = {},
-): Promise<string> {
+export async function listRepositoryTags({
+  owner,
+  repo,
+  perPage,
+  page,
+  host,
+  jq,
+}: ListRepositoryTagsOption & GitHubCliOptions): Promise<string> {
   const param = new URLSearchParams();
   if (perPage) param.set("per_page", String(perPage));
   if (page) param.set("page", String(page));

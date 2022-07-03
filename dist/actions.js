@@ -7753,7 +7753,7 @@ Object.defineProperty(GhError.prototype, "name", {
   value: GhError.name,
   writable: true
 });
-async function listCommits(owner, repo, { sha, perPage, page, host, jq } = {}) {
+async function listCommits({ owner, repo, sha, perPage, page, host, jq }) {
   const param = new URLSearchParams();
   if (sha)
     param.set("sha", sha);
@@ -7768,7 +7768,7 @@ async function listCommits(owner, repo, { sha, perPage, page, host, jq } = {}) {
     cmd.push("-q", jq);
   return await exec(cmd);
 }
-async function listRepositoryTags(owner, repo, { perPage, page, host, jq } = {}) {
+async function listRepositoryTags({ owner, repo, perPage, page, host, jq }) {
   const param = new URLSearchParams();
   if (perPage)
     param.set("per_page", String(perPage));
@@ -7991,7 +7991,7 @@ async function fetchTags({ owner, name, host }, match) {
   let count;
   do {
     page++;
-    const stdout = await listRepositoryTags(owner, name, { perPage, page, host, jq });
+    const stdout = await listRepositoryTags({ owner, repo: name, perPage, page, host, jq });
     count = tags.push(...stdout.split("\n").filter((x) => !!x).map((x) => JSON.parse(x)).filter((x) => !matchRegExp || matchRegExp.test(x[1])));
   } while (count === perPage);
   return new Map(tags);
@@ -8001,7 +8001,7 @@ async function fetchSha({ owner, name, host }, sha) {
     try {
       const perPage = 1;
       const jq = ".[].sha";
-      return await listCommits(owner, name, { sha, perPage, host, jq });
+      return await listCommits({ owner, repo: name, sha, perPage, host, jq });
     } catch {
       return sha;
     }
@@ -8018,7 +8018,7 @@ async function* fetchHistory(repo, sha) {
     let count;
     do {
       page++;
-      const stdout = await listCommits(owner, name, { sha, perPage, page, host, jq });
+      const stdout = await listCommits({ owner, repo: name, sha, perPage, page, host, jq });
       const historySpan = stdout.trim().split("\n");
       count = historySpan.length;
       for (const commitSha of historySpan) {

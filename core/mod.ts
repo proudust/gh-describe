@@ -90,7 +90,7 @@ export async function fetchTags(
   let count: number;
   do {
     page++;
-    const stdout = await listRepositoryTags(owner, name, { perPage, page, host, jq });
+    const stdout = await listRepositoryTags({ owner, repo: name, perPage, page, host, jq });
     count = tags.push(
       ...stdout
         .split("\n")
@@ -107,7 +107,7 @@ export async function fetchSha({ owner, name, host }: Repo, sha?: string): Promi
     try {
       const perPage = 1;
       const jq = ".[].sha";
-      return await listCommits(owner, name, { sha, perPage, host, jq });
+      return await listCommits({ owner, repo: name, sha, perPage, host, jq });
     } catch {
       return sha;
     }
@@ -125,7 +125,7 @@ export async function* fetchHistory(repo: Repo, sha: string): AsyncGenerator<str
     let count: number;
     do {
       page++;
-      const stdout = await listCommits(owner, name, { sha, perPage, page, host, jq });
+      const stdout = await listCommits({ owner, repo: name, sha, perPage, page, host, jq });
       const historySpan = stdout
         .trim()
         .split("\n");
