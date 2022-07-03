@@ -19,12 +19,13 @@ behavior.
 
 All inputs are optional. If not set, sensible defaults will be used.
 
-| Name       | Description                              | Default                                                   |
-| ---------- | ---------------------------------------- | --------------------------------------------------------- |
-| token      | Personal Access Token (PAT)              | `GITHUB_TOKEN`                                            |
-| repo       | Target repository                        | The owner and repository that triggered the workflow run. |
-| commit-ish | Commit-ish object names to describe.     | The branch or tag ref that triggered the workflow run.    |
-| default    | Use this value if the name is not found. | `​`                                                       |
+| Name       | Description                                         | Default                                                   |
+| ---------- | --------------------------------------------------- | --------------------------------------------------------- |
+| token      | Personal Access Token (PAT)                         | `GITHUB_TOKEN`                                            |
+| repo       | Target repository                                   | The owner and repository that triggered the workflow run. |
+| commit-ish | Commit-ish object names to describe.                | The branch or tag ref that triggered the workflow run.    |
+| match      | Only consider tags matching the given glob pattern. | All tags                                                  |
+| default    | Use this value if the name is not found.            | `​`                                                       |
 
 ### Action outputs
 

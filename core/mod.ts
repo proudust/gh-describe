@@ -1,3 +1,4 @@
+import { globToRegExp } from "https://deno.land/std@0.122.0/path/glob.ts";
 import { ExecError, graphql, listCommits, listRepositoryTags } from "./gh.ts";
 import { parse } from "./ghrepo.ts";
 import { getHeadSha, getOriginRepo, GitError } from "./git.ts";
@@ -23,10 +24,11 @@ export async function ghDescribe(
   repo?: string | Repo,
   commitish?: string,
   defaultValue?: string,
+  match?: string,
 ): Promise<GhDescribeOutput> {
   repo = await resolveRepo(repo);
 
-  const [tags, sha] = await Promise.all([fetchTags(repo), fetchSha(repo, commitish)]);
+  const [tags, sha] = await Promise.all([fetchTags(repo, match), fetchSha(repo, commitish)]);
 
   if (0 < tags.size) {
     let distance = 0;
@@ -68,7 +70,12 @@ export async function resolveRepo(repo?: string | Repo): Promise<Repo> {
   }
 }
 
-export async function fetchTags({ owner, name, host }: Repo): Promise<Map<string, string>> {
+export async function fetchTags(
+  { owner, name, host }: Repo,
+  match?: string,
+): Promise<Map<string, string>> {
+  const matchRegExp = match && globToRegExp(match) || undefined;
+
   const tags: [sha: string, name: string][] = [];
   const perPage = 100;
   const jq = ".[] | [.commit.sha, .name]";
@@ -81,7 +88,8 @@ export async function fetchTags({ owner, name, host }: Repo): Promise<Map<string
       ...stdout
         .split("\n")
         .filter((x) => !!x)
-        .map((x) => JSON.parse(x)),
+        .map((x) => JSON.parse(x))
+        .filter((x) => !matchRegExp || matchRegExp.test(x[1])),
     );
   } while (count === perPage);
   return new Map(tags);
