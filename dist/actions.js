@@ -7849,7 +7849,6 @@ function parseFromFullName(fullName) {
 
 // dist/dnt/esm/core/git.js
 async function exec2(cmd) {
-  await import_shim_deno2.Deno.permissions.request({ name: "run", command: cmd[0] });
   const process2 = import_shim_deno2.Deno.run({
     cmd,
     stdout: "piped",

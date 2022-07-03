@@ -36,7 +36,6 @@ async function run() {
     .arguments("[commit-ish]")
     .action(async ({ repo, default: defaultTag, match }, commitish) => {
       try {
-        await Deno.permissions.request({ name: "run", command: "gh" });
         const { describe } = await ghDescribe(repo, commitish, defaultTag, match);
         console.log(describe);
       } catch (e: unknown) {
