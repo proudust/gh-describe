@@ -24,11 +24,10 @@ export async function ghDescribe(
   repo?: string | Repo,
   commitish?: string,
   defaultValue?: string,
-  match?: string,
 ): Promise<GhDescribeOutput> {
   repo = await resolveRepo(repo);
 
-  const [tags, sha] = await Promise.all([fetchTags(repo, match), fetchSha(repo, commitish)]);
+  const [tags, sha] = await Promise.all([fetchTags(repo), fetchSha(repo, commitish)]);
 
   if (0 < tags.size) {
     let distance = 0;
@@ -70,12 +69,7 @@ export async function resolveRepo(repo?: string | Repo): Promise<Repo> {
   }
 }
 
-export async function fetchTags(
-  { owner, name, host }: Repo,
-  match?: string,
-): Promise<Map<string, string>> {
-  const matchRegExp = match && globToRegExp(match) || undefined;
-
+export async function fetchTags({ owner, name, host }: Repo): Promise<Map<string, string>> {
   const tags: [sha: string, name: string][] = [];
   const perPage = 100;
   const jq = ".[] | [.commit.sha, .name]";
@@ -88,8 +82,7 @@ export async function fetchTags(
       ...stdout
         .split("\n")
         .filter((x) => !!x)
-        .map((x) => JSON.parse(x))
-        .filter((x) => !matchRegExp || matchRegExp.test(x[1])),
+        .map((x) => JSON.parse(x)),
     );
   } while (count === perPage);
   return new Map(tags);

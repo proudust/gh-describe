@@ -20,13 +20,15 @@ async function version(): Promise<string> {
   }
 }
 
+type CommandOptions = { repo?: string; default?: string };
+type CommandArguments = [commitIsh: string | undefined];
+
 async function run() {
-  return await new Command()
+  return await new Command<CommandOptions, CommandArguments>()
     .name("gh-describe")
     .version(globalThis.version || await version())
     .description("Emulate `git describe --tags` in shallow clone repository.")
     .option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO")
-    .option("--match <grob:string>", "Only consider tags matching the given glob pattern.")
     .option("--default <tag:string>", "Use this value if the name is not found.")
     .type("runtime", new EnumType(["deno", "node"]))
     .option(
@@ -34,10 +36,10 @@ async function run() {
       "If installed by `gh extension install`, can specify the execution runtime.",
     )
     .arguments("[commit-ish]")
-    .action(async ({ repo, default: defaultTag, match }, commitish) => {
+    .action(async ({ repo, default: defaultTag }, commitish) => {
       try {
         await Deno.permissions.request({ name: "run", command: "gh" });
-        const { describe } = await ghDescribe(repo, commitish, defaultTag, match);
+        const { describe } = await ghDescribe(repo, commitish, defaultTag);
         console.log(describe);
       } catch (e: unknown) {
         if (e instanceof GhDescribeError) {
