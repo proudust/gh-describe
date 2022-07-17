@@ -1,4 +1,4 @@
-import { build as dnt } from "https://deno.land/x/dnt@0.23.0/mod.ts";
+import { build as dnt } from "https://deno.land/x/dnt@0.28.0/mod.ts";
 import { build as esbuild } from "https://deno.land/x/esbuild@v0.14.38/mod.js";
 import { ghDescribe } from "./core/mod.ts";
 

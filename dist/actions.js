@@ -910,8 +910,8 @@ var require_version = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.typescript = exports.deno = void 0;
-    exports.deno = "1.20.5";
-    exports.typescript = "4.6.2";
+    exports.deno = "1.23.2";
+    exports.typescript = "4.7.2";
   }
 });
 
@@ -4640,7 +4640,7 @@ var require_main2 = __commonJS({
       return mod && mod.__esModule ? mod : { "default": mod };
     };
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.sleepSync = exports.utimeSync = exports.utime = exports.futimeSync = exports.futime = void 0;
+    exports.utimeSync = exports.utime = exports.futimeSync = exports.futime = void 0;
     var fs_1 = __importDefault(require("fs"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var variables_js_1 = require_variables();
@@ -4690,10 +4690,6 @@ var require_main2 = __commonJS({
       }
     };
     exports.utimeSync = utimeSync;
-    var sleepSync = function(milliseconds) {
-      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds);
-    };
-    exports.sleepSync = sleepSync;
   }
 });
 
