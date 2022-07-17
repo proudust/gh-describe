@@ -4826,21 +4826,21 @@ function createMergeProxy(baseObj, extObj) {
   });
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/_util/os.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/_util/os.js
 var osType = (() => {
   const { Deno: Deno4 } = dntGlobalThis;
   if (typeof Deno4?.build?.os === "string") {
     return Deno4.build.os;
   }
   const { navigator } = dntGlobalThis;
-  if (navigator?.appVersion?.includes?.("Win") ?? false) {
+  if (navigator?.appVersion?.includes?.("Win")) {
     return "windows";
   }
   return "linux";
 })();
 var isWindows = osType === "windows";
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/path/win32.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/path/win32.js
 var win32_exports = {};
 __export(win32_exports, {
   basename: () => basename,
@@ -4860,7 +4860,7 @@ __export(win32_exports, {
   toNamespacedPath: () => toNamespacedPath
 });
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/path/_constants.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/path/_constants.js
 var CHAR_UPPERCASE_A = 65;
 var CHAR_LOWERCASE_A = 97;
 var CHAR_UPPERCASE_Z = 90;
@@ -4871,7 +4871,7 @@ var CHAR_BACKWARD_SLASH = 92;
 var CHAR_COLON = 58;
 var CHAR_QUESTION_MARK = 63;
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/path/_util.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/path/_util.js
 function assertPath(path3) {
   if (typeof path3 !== "string") {
     throw new TypeError(`Path must be a string. Received ${JSON.stringify(path3)}`);
@@ -4970,7 +4970,7 @@ function encodeWhitespace(string2) {
   });
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/_util/assert.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/_util/assert.js
 var DenoStdInternalError = class extends Error {
   constructor(message) {
     super(message);
@@ -4983,7 +4983,7 @@ function assert(expr, msg = "") {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/path/win32.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/path/win32.js
 var sep = "\\";
 var delimiter = ";";
 function resolve(...pathSegments) {
@@ -5659,7 +5659,7 @@ function toFileUrl(path3) {
   return url;
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/path/posix.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/path/posix.js
 var posix_exports = {};
 __export(posix_exports, {
   basename: () => basename2,
@@ -6024,7 +6024,7 @@ function toFileUrl2(path3) {
   return url;
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/path/glob.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/path/glob.js
 var path = isWindows ? win32_exports : posix_exports;
 var { join: join3, normalize: normalize3 } = path;
 var regExpEscapeChars = [
@@ -6246,7 +6246,7 @@ function globToRegExp(glob, { extended = true, globstar: globstarOption = true, 
   return new RegExp(regExpString, caseInsensitive ? "i" : "");
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/path/mod.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/path/mod.js
 var path2 = isWindows ? win32_exports : posix_exports;
 var { basename: basename3, delimiter: delimiter3, dirname: dirname3, extname: extname3, format: format3, fromFileUrl: fromFileUrl3, isAbsolute: isAbsolute3, join: join4, normalize: normalize4, parse: parse3, relative: relative3, resolve: resolve3, sep: sep3, toFileUrl: toFileUrl3, toNamespacedPath: toNamespacedPath3 } = path2;
 

@@ -6277,21 +6277,21 @@ function createMergeProxy(baseObj, extObj) {
 // dist/dnt/esm/actions/main.js
 var import_core = __toESM(require_core(), 1);
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/_util/os.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/_util/os.js
 var osType = (() => {
   const { Deno: Deno3 } = dntGlobalThis;
   if (typeof Deno3?.build?.os === "string") {
     return Deno3.build.os;
   }
   const { navigator } = dntGlobalThis;
-  if (navigator?.appVersion?.includes?.("Win") ?? false) {
+  if (navigator?.appVersion?.includes?.("Win")) {
     return "windows";
   }
   return "linux";
 })();
 var isWindows = osType === "windows";
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/path/win32.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/path/win32.js
 var win32_exports = {};
 __export(win32_exports, {
   basename: () => basename,
@@ -6311,7 +6311,7 @@ __export(win32_exports, {
   toNamespacedPath: () => toNamespacedPath
 });
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/path/_constants.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/path/_constants.js
 var CHAR_UPPERCASE_A = 65;
 var CHAR_LOWERCASE_A = 97;
 var CHAR_UPPERCASE_Z = 90;
@@ -6322,7 +6322,7 @@ var CHAR_BACKWARD_SLASH = 92;
 var CHAR_COLON = 58;
 var CHAR_QUESTION_MARK = 63;
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/path/_util.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/path/_util.js
 function assertPath(path2) {
   if (typeof path2 !== "string") {
     throw new TypeError(`Path must be a string. Received ${JSON.stringify(path2)}`);
@@ -6421,7 +6421,7 @@ function encodeWhitespace(string) {
   });
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/_util/assert.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/_util/assert.js
 var DenoStdInternalError = class extends Error {
   constructor(message) {
     super(message);
@@ -6434,7 +6434,7 @@ function assert(expr, msg = "") {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/path/win32.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/path/win32.js
 var sep = "\\";
 var delimiter = ";";
 function resolve(...pathSegments) {
@@ -7110,7 +7110,7 @@ function toFileUrl(path2) {
   return url;
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/path/posix.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/path/posix.js
 var posix_exports = {};
 __export(posix_exports, {
   basename: () => basename2,
@@ -7475,7 +7475,7 @@ function toFileUrl2(path2) {
   return url;
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.122.0/path/glob.js
+// dist/dnt/esm/deps/deno.land/std@0.148.0/path/glob.js
 var path = isWindows ? win32_exports : posix_exports;
 var { join: join3, normalize: normalize3 } = path;
 var regExpEscapeChars = [

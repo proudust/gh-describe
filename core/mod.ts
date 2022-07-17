@@ -1,4 +1,4 @@
-import { globToRegExp } from "https://deno.land/std@0.122.0/path/glob.ts";
+import { globToRegExp } from "https://deno.land/std@0.148.0/path/glob.ts";
 import { ExecError, graphql, listCommits, listRepositoryTags } from "./gh.ts";
 import { parse } from "./ghrepo.ts";
 import { getHeadSha, getOriginRepo, GitError } from "./git.ts";
