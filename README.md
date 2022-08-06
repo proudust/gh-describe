@@ -70,13 +70,13 @@ Require [GitHub CLI](https://github.com/cli/cli#installation) and
 [Deno](https://deno.land/#installation).
 
 ```sh
-deno run --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.6/cli/main.ts
+deno run --allow-run https://raw.githubusercontent.com/proudust/gh-describe/v1.4.6/cli/main.ts
 ```
 
 or
 
 ```sh
-deno install -n gh-describe --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/v1.4.6/cli/main.ts
+deno install -n gh-describe --allow-run https://raw.githubusercontent.com/proudust/gh-describe/v1.4.6/cli/main.ts
 gh-describe
 ```
 

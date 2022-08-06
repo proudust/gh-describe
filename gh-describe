@@ -7,7 +7,7 @@ SCRIPT_DIR="$(
 )"
 
 function exec_by_deno() {
-    deno run -q --allow-run --unstable --no-check "${SCRIPT_DIR}"/cli/main.ts "$@"
+    deno run -q --allow-run "${SCRIPT_DIR}"/cli/main.ts "$@"
 }
 
 function exec_by_node() {

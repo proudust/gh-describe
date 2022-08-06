@@ -115,7 +115,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Test Run on Deno Run
-        run: deno run --allow-run --unstable https://raw.githubusercontent.com/proudust/gh-describe/"${GITHUB_SHA}"/cli/main.ts
+        run: deno run --allow-run https://raw.githubusercontent.com/proudust/gh-describe/"${GITHUB_SHA}"/cli/main.ts
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
