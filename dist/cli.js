@@ -9807,7 +9807,6 @@ function parseFromFullName(fullName) {
 
 // dist/dnt/esm/core/git.js
 async function exec2(cmd) {
-  await import_shim_deno2.Deno.permissions.request({ name: "run", command: cmd[0] });
   const process2 = import_shim_deno2.Deno.run({
     cmd,
     stdout: "piped",
@@ -10003,7 +10002,6 @@ async function version() {
 async function run2() {
   return await new Command().name("gh-describe").version(await version()).description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--default <tag:string>", "Use this value if the name is not found.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async ({ repo, default: defaultTag }, commitish) => {
     try {
-      await import_shim_deno2.Deno.permissions.request({ name: "run", command: "gh" });
       const { describe } = await ghDescribe(repo, commitish, defaultTag);
       console.log(describe);
     } catch (e) {

@@ -1,7 +1,6 @@
 import { parseFromUrl } from "./ghrepo.ts";
 
 async function exec(cmd: string[]): Promise<string> {
-  await Deno.permissions.request({ name: "run", command: cmd[0] });
   const process = Deno.run({
     cmd,
     stdout: "piped",
