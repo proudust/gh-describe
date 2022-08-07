@@ -11,6 +11,11 @@ interface Repo {
   host?: string;
 }
 
+interface Tags {
+  readonly size: number;
+  get(sha: string): string | undefined;
+}
+
 interface GhDescribeOutput {
   describe: string;
   tag: string;
@@ -69,7 +74,7 @@ export async function resolveRepo(repo?: string | Repo): Promise<Repo> {
   }
 }
 
-export async function fetchTags({ owner, name, host }: Repo): Promise<Map<string, string>> {
+export async function fetchTags({ owner, name, host }: Repo): Promise<Tags> {
   const tags: [sha: string, name: string][] = [];
   const perPage = 100;
   const jq = ".[] | [.commit.sha, .name]";
