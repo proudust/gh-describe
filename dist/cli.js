@@ -9896,27 +9896,39 @@ async function gitDescribe({ cwd }) {
 // dist/dnt/esm/core/mod.js
 var GhDescribeError = class extends Error {
 };
-async function ghDescribe(repo, commitish, defaultValue) {
-  repo = await resolveRepo(repo);
-  const [tags, sha] = await Promise.all([fetchTags(repo), fetchSha(repo, commitish)]);
+async function searchTag(tags, histories) {
   if (0 < tags.size) {
     let distance2 = 0;
-    for await (const commit of fetchHistory(repo, sha)) {
+    for await (const commit of histories) {
       const tag = tags.get(commit);
       if (tag) {
-        const describe2 = genDescribe(tag, distance2, sha);
-        return { describe: describe2, tag, distance: distance2, sha };
+        return { tag, distance: distance2 };
       } else {
         distance2++;
       }
     }
   }
-  if (!defaultValue) {
+  return null;
+}
+async function ghDescribe(repo, commitish, defaultValue) {
+  repo = await resolveRepo(repo);
+  const [tags, { sha, histories }] = await Promise.all([
+    fetchTags(repo),
+    (async () => {
+      const sha2 = await fetchSha(repo, commitish);
+      const histories2 = fetchHistory(repo, sha2);
+      return { sha: sha2, histories: histories2 };
+    })()
+  ]);
+  const { distance: distance2, tag } = await searchTag(tags, histories) || {
+    distance: 0,
+    tag: defaultValue
+  };
+  if (!tag) {
     throw new GhDescribeError("No names found, cannot describe anything.");
   }
-  const totalCommit = 0;
-  const describe = genDescribe(defaultValue, totalCommit, sha);
-  return { describe, tag: defaultValue, distance: totalCommit, sha };
+  const describe = genDescribe(tag, distance2, sha);
+  return { describe, tag, distance: distance2, sha };
 }
 async function resolveRepo(repo) {
   if (typeof repo === "string") {

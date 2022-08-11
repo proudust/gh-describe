@@ -1,4 +1,3 @@
-import { globToRegExp } from "https://deno.land/std@0.148.0/path/glob.ts";
 import { ExecError, graphql, listCommits, listRepositoryTags } from "./gh.ts";
 import { parse } from "./ghrepo.ts";
 import { getHeadSha, getOriginRepo, GitError } from "./git.ts";
@@ -16,6 +15,10 @@ interface Tags {
   get(sha: string): string | undefined;
 }
 
+type ForAwaitable<T> = Iterable<T> | AsyncIterable<T>;
+
+type Histories = ForAwaitable<string>;
+
 interface GhDescribeOutput {
   describe: string;
   tag: string;
@@ -25,6 +28,24 @@ interface GhDescribeOutput {
 
 export class GhDescribeError extends Error {}
 
+export async function searchTag(
+  tags: Tags,
+  histories: Histories,
+): Promise<{ distance: number; tag: string } | null> {
+  if (0 < tags.size) {
+    let distance = 0;
+    for await (const commit of histories) {
+      const tag = tags.get(commit);
+      if (tag) {
+        return { tag, distance };
+      } else {
+        distance++;
+      }
+    }
+  }
+  return null;
+}
+
 export async function ghDescribe(
   repo?: string | Repo,
   commitish?: string,
@@ -32,28 +53,26 @@ export async function ghDescribe(
 ): Promise<GhDescribeOutput> {
   repo = await resolveRepo(repo);
 
-  const [tags, sha] = await Promise.all([fetchTags(repo), fetchSha(repo, commitish)]);
+  const [tags, { sha, histories }] = await Promise.all([
+    fetchTags(repo),
+    (async () => {
+      const sha = await fetchSha(repo, commitish);
+      const histories = fetchHistory(repo, sha);
+      return { sha, histories };
+    })(),
+  ]);
 
-  if (0 < tags.size) {
-    let distance = 0;
-    for await (const commit of fetchHistory(repo, sha)) {
-      const tag = tags.get(commit);
-      if (tag) {
-        const describe = genDescribe(tag, distance, sha);
-        return { describe, tag, distance, sha };
-      } else {
-        distance++;
-      }
-    }
-  }
+  const { distance, tag } = (await searchTag(tags, histories)) || {
+    distance: 0,
+    tag: defaultValue,
+  };
 
-  if (!defaultValue) {
+  if (!tag) {
     throw new GhDescribeError("No names found, cannot describe anything.");
   }
 
-  const totalCommit = 0;
-  const describe = genDescribe(defaultValue, totalCommit, sha);
-  return { describe, tag: defaultValue, distance: totalCommit, sha };
+  const describe = genDescribe(tag, distance, sha);
+  return { describe, tag, distance, sha };
 }
 
 export async function resolveRepo(repo?: string | Repo): Promise<Repo> {
@@ -107,7 +126,7 @@ export async function fetchSha({ owner, name, host }: Repo, sha?: string): Promi
   }
 }
 
-export async function* fetchHistory(repo: Repo, sha: string): AsyncGenerator<string, void, void> {
+export async function* fetchHistory(repo: Repo, sha: string): Histories {
   try {
     const { owner, name, host } = repo;
     const perPage = 100;
