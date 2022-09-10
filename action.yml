@@ -14,11 +14,17 @@ inputs:
       Commit-ish object names to describe.
       The branch or tag ref that triggered the workflow run.
     default: ${{ github.ref }}
+  match:
+    description: Only consider tags matching the given glob pattern.
+    default: ""
+  exclude:
+    description: Do not consider tags matching the given glob pattern.
+    default: ""
   default:
     description: Use this value if the name is not found.
-    default:
+    default: ""
 
-output:
+outputs:
   describe:
     description: >
       `git describe --tags` like describe.

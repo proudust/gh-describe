@@ -8237,6 +8237,10 @@ async function run() {
   (0, import_core.debug)(`input repo: ${repo}`);
   const commitish = (0, import_core.getInput)("commit-ish", { required: true });
   (0, import_core.debug)(`input commit-ish: ${commitish}`);
+  const match = ((0, import_core.getInput)("match") || null)?.split(/\s*,\s*/);
+  (0, import_core.debug)(`input match: ${match}`);
+  const exclude = ((0, import_core.getInput)("exclude") || null)?.split(/\s*,\s*/);
+  (0, import_core.debug)(`input exclude: ${exclude}`);
   const defaultTag = (0, import_core.getInput)("default");
   (0, import_core.debug)(`input default: ${defaultTag}`);
   try {
@@ -8244,7 +8248,9 @@ async function run() {
     const { describe, tag, distance, sha } = await ghDescribe({
       repo,
       commitish,
-      defaultTag
+      defaultTag,
+      match,
+      exclude
     });
     (0, import_core.info)(describe);
     (0, import_core.setOutput)("describe", describe);

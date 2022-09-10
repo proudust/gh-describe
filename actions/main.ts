@@ -7,6 +7,10 @@ async function run() {
   debug(`input repo: ${repo}`);
   const commitish = getInput("commit-ish", { required: true });
   debug(`input commit-ish: ${commitish}`);
+  const match = (getInput("match") || null)?.split(/\s*,\s*/);
+  debug(`input match: ${match}`);
+  const exclude = (getInput("exclude") || null)?.split(/\s*,\s*/);
+  debug(`input exclude: ${exclude}`);
   const defaultTag = getInput("default");
   debug(`input default: ${defaultTag}`);
 
@@ -16,6 +20,8 @@ async function run() {
       repo,
       commitish,
       defaultTag,
+      match,
+      exclude,
     });
 
     info(describe);
