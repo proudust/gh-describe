@@ -20,9 +20,24 @@ type ForAwaitable<T> = Iterable<T> | AsyncIterable<T>;
 type Histories = ForAwaitable<string>;
 
 interface GhDescribeOutput {
+  /**
+   * `git describe --tags` like describe.
+   */
   describe: string;
+
+  /**
+   * Most recent tag.
+   */
   tag: string;
+
+  /**
+   * The number of additional commits from most recent tag.
+   */
   distance: number;
+
+  /**
+   * 	Object name for the commit itself.
+   */
   sha: string;
 }
 
@@ -46,10 +61,34 @@ export async function searchTag(
   return null;
 }
 
+interface GhDescribeOptions {
+  /**
+   * Target repository. Defaults to origin if omitted. Format: OWNER/REPO
+   *
+   * @default
+   */
+  repo?: string | Repo;
+
+  /**
+   * Target Commit-ish object name. Defaults to HEAD if omitted.
+   */
+  commitish?: string;
+
+  /**
+   * Use this value if the name is not found.
+   */
+  defaultTag?: string;
+}
+
+/**
+ * Emulate `git describe --tags` in shallow clone repository.
+ */
 export async function ghDescribe(
-  repo?: string | Repo,
-  commitish?: string,
-  defaultValue?: string,
+  {
+    repo,
+    commitish,
+    defaultTag,
+  }: GhDescribeOptions = {},
 ): Promise<GhDescribeOutput> {
   repo = await resolveRepo(repo);
 
@@ -64,7 +103,7 @@ export async function ghDescribe(
 
   const { distance, tag } = (await searchTag(tags, histories)) || {
     distance: 0,
-    tag: defaultValue,
+    tag: defaultTag,
   };
 
   if (!tag) {

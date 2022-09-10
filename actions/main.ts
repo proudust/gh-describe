@@ -7,12 +7,16 @@ async function run() {
   debug(`input repo: ${repo}`);
   const commitish = getInput("commit-ish", { required: true });
   debug(`input commit-ish: ${commitish}`);
-  const defaultValue = getInput("default");
-  debug(`input default: ${defaultValue}`);
+  const defaultTag = getInput("default");
+  debug(`input default: ${defaultTag}`);
 
   try {
     Deno.env.set("GITHUB_TOKEN", token);
-    const { describe, tag, distance, sha } = await ghDescribe(repo, commitish, defaultValue);
+    const { describe, tag, distance, sha } = await ghDescribe({
+      repo,
+      commitish,
+      defaultTag,
+    });
 
     info(describe);
     setOutput("describe", describe);

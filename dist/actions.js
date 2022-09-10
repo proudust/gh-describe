@@ -6704,7 +6704,7 @@ async function searchTag(tags, histories) {
   }
   return null;
 }
-async function ghDescribe(repo, commitish, defaultValue) {
+async function ghDescribe({ repo, commitish, defaultTag } = {}) {
   repo = await resolveRepo(repo);
   const [tags, { sha, histories }] = await Promise.all([
     fetchTags(repo),
@@ -6716,7 +6716,7 @@ async function ghDescribe(repo, commitish, defaultValue) {
   ]);
   const { distance, tag } = await searchTag(tags, histories) || {
     distance: 0,
-    tag: defaultValue
+    tag: defaultTag
   };
   if (!tag) {
     throw new GhDescribeError("No names found, cannot describe anything.");
@@ -6802,11 +6802,15 @@ async function run() {
   (0, import_core.debug)(`input repo: ${repo}`);
   const commitish = (0, import_core.getInput)("commit-ish", { required: true });
   (0, import_core.debug)(`input commit-ish: ${commitish}`);
-  const defaultValue = (0, import_core.getInput)("default");
-  (0, import_core.debug)(`input default: ${defaultValue}`);
+  const defaultTag = (0, import_core.getInput)("default");
+  (0, import_core.debug)(`input default: ${defaultTag}`);
   try {
     import_shim_deno2.Deno.env.set("GITHUB_TOKEN", token);
-    const { describe, tag, distance, sha } = await ghDescribe(repo, commitish, defaultValue);
+    const { describe, tag, distance, sha } = await ghDescribe({
+      repo,
+      commitish,
+      defaultTag
+    });
     (0, import_core.info)(describe);
     (0, import_core.setOutput)("describe", describe);
     (0, import_core.setOutput)("tag", tag);

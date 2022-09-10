@@ -38,7 +38,11 @@ async function run() {
     .arguments("[commit-ish]")
     .action(async ({ repo, default: defaultTag }, commitish) => {
       try {
-        const { describe } = await ghDescribe(repo, commitish, defaultTag);
+        const { describe } = await ghDescribe({
+          repo,
+          commitish,
+          defaultTag,
+        });
         console.log(describe);
       } catch (e: unknown) {
         if (e instanceof GhDescribeError) {

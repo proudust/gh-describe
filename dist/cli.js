@@ -9910,7 +9910,7 @@ async function searchTag(tags, histories) {
   }
   return null;
 }
-async function ghDescribe(repo, commitish, defaultValue) {
+async function ghDescribe({ repo, commitish, defaultTag } = {}) {
   repo = await resolveRepo(repo);
   const [tags, { sha, histories }] = await Promise.all([
     fetchTags(repo),
@@ -9922,7 +9922,7 @@ async function ghDescribe(repo, commitish, defaultValue) {
   ]);
   const { distance: distance2, tag } = await searchTag(tags, histories) || {
     distance: 0,
-    tag: defaultValue
+    tag: defaultTag
   };
   if (!tag) {
     throw new GhDescribeError("No names found, cannot describe anything.");
@@ -10014,7 +10014,11 @@ async function version() {
 async function run2() {
   return await new Command().name("gh-describe").version(await version()).description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--default <tag:string>", "Use this value if the name is not found.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async ({ repo, default: defaultTag }, commitish) => {
     try {
-      const { describe } = await ghDescribe(repo, commitish, defaultTag);
+      const { describe } = await ghDescribe({
+        repo,
+        commitish,
+        defaultTag
+      });
       console.log(describe);
     } catch (e) {
       if (e instanceof GhDescribeError) {
