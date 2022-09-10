@@ -1,6 +1,6 @@
 import { dirname, fromFileUrl } from "https://deno.land/std@0.148.0/path/mod.ts";
-import { colors } from "https://deno.land/x/cliffy@v0.24.2/ansi/mod.ts";
-import { Command, EnumType } from "https://deno.land/x/cliffy@v0.24.2/command/mod.ts";
+import { colors } from "https://deno.land/x/cliffy@v0.25.0/ansi/mod.ts";
+import { Command, EnumType } from "https://deno.land/x/cliffy@v0.25.0/command/mod.ts";
 import { ghDescribe, GhDescribeError } from "../core/mod.ts";
 import { gitDescribe } from "../core/git.ts";
 
