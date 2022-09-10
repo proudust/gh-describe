@@ -1,6 +1,7 @@
 import { ExecError, graphql, listCommits, listRepositoryTags } from "./gh.ts";
 import { parse } from "./ghrepo.ts";
 import { getHeadSha, getOriginRepo, GitError } from "./git.ts";
+import { globToRegExp } from "https://deno.land/std@0.148.0/path/glob.ts";
 
 export default ghDescribe;
 
@@ -75,6 +76,16 @@ interface GhDescribeOptions {
   commitish?: string;
 
   /**
+   * Only consider tags matching the given glob pattern.
+   */
+  match?: string | RegExp | (string | RegExp)[];
+
+  /**
+   * Do not consider tags matching the given glob pattern.
+   */
+  exclude?: string | RegExp | (string | RegExp)[];
+
+  /**
    * Use this value if the name is not found.
    */
   defaultTag?: string;
@@ -88,12 +99,14 @@ export async function ghDescribe(
     repo,
     commitish,
     defaultTag,
+    match,
+    exclude,
   }: GhDescribeOptions = {},
 ): Promise<GhDescribeOutput> {
   repo = await resolveRepo(repo);
 
   const [tags, { sha, histories }] = await Promise.all([
-    fetchTags(repo),
+    fetchTags(repo, { match, exclude }),
     (async () => {
       const sha = await fetchSha(repo, commitish);
       const histories = fetchHistory(repo, sha);
@@ -132,7 +145,33 @@ export async function resolveRepo(repo?: string | Repo): Promise<Repo> {
   }
 }
 
-export async function fetchTags({ owner, name, host }: Repo): Promise<Tags> {
+interface FetchTagsOptions {
+  match?: string | RegExp | (string | RegExp)[];
+  exclude?: string | RegExp | (string | RegExp)[];
+}
+
+function toReqExpArray(glob?: string | RegExp | (string | RegExp)[]): RegExp[] {
+  if (!glob) {
+    return [];
+  }
+
+  if (!(glob instanceof Array)) {
+    glob = [glob];
+  }
+
+  return glob.map((x) => x instanceof RegExp ? x : globToRegExp(x));
+}
+
+export async function fetchTags(
+  { owner, name, host }: Repo,
+  {
+    match: argMatch,
+    exclude: argExclude,
+  }: FetchTagsOptions = {},
+): Promise<Tags> {
+  const match = toReqExpArray(argMatch);
+  const exclude = toReqExpArray(argExclude);
+
   const tags: [sha: string, name: string][] = [];
   const perPage = 100;
   const jq = ".[] | [.commit.sha, .name]";
@@ -145,7 +184,11 @@ export async function fetchTags({ owner, name, host }: Repo): Promise<Tags> {
       ...stdout
         .split("\n")
         .filter((x) => !!x)
-        .map((x) => JSON.parse(x)),
+        .map((x) => JSON.parse(x))
+        .filter(([, tag]) =>
+          (!match.length || match.some((y) => y.test(tag))) &&
+          (!exclude.length || !exclude.some((y) => y.test(tag)))
+        ),
     );
   } while (count === perPage);
   return new Map(tags);
