@@ -910,8 +910,8 @@ var require_version = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.typescript = exports.deno = void 0;
-    exports.deno = "1.23.2";
-    exports.typescript = "4.7.2";
+    exports.deno = "1.24.1";
+    exports.typescript = "4.7.4";
   }
 });
 
@@ -3308,6 +3308,50 @@ var require_renameSync = __commonJS({
   }
 });
 
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/resolveDns.js
+var require_resolveDns = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/resolveDns.js"(exports) {
+    "use strict";
+    var __importDefault = exports && exports.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
+    Object.defineProperty(exports, "__esModule", { value: true });
+    exports.resolveDns = void 0;
+    var dns_1 = __importDefault(require("dns"));
+    var resolveDns = function resolveDns2(query, recordType, options) {
+      if (options) {
+        throw Error(`resolveDns option not implemnted yet`);
+      }
+      switch (recordType) {
+        case "A":
+        case "AAAA":
+        case "CNAME":
+        case "NS":
+        case "PTR":
+          return new Promise((resolve4, reject) => {
+            dns_1.default.resolve(query, recordType, (err, addresses) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve4(addresses);
+              }
+            });
+          });
+        case "ANAME":
+        case "CAA":
+        case "MX":
+        case "NAPTR":
+        case "SOA":
+        case "SRV":
+        case "TXT":
+        default:
+          throw Error(`resolveDns type ${recordType} not implemnted yet`);
+      }
+    };
+    exports.resolveDns = resolveDns;
+  }
+});
+
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/streams.js
 var require_streams = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/streams.js"(exports) {
@@ -4284,7 +4328,7 @@ var require_functions = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.readSync = exports.readLinkSync = exports.readLink = exports.readFileSync = exports.readFile = exports.readDirSync = exports.readDir = exports.read = exports.openSync = exports.open = exports.mkdirSync = exports.mkdir = exports.memoryUsage = exports.makeTempFileSync = exports.makeTempFile = exports.makeTempDirSync = exports.makeTempDir = exports.lstatSync = exports.lstat = exports.listenTls = exports.listen = exports.linkSync = exports.link = exports.kill = exports.inspect = exports.ftruncateSync = exports.ftruncate = exports.fsyncSync = exports.fsync = exports.fstatSync = exports.fstat = exports.fdatasyncSync = exports.fdatasync = exports.exit = exports.execPath = exports.cwd = exports.createSync = exports.create = exports.copyFileSync = exports.copyFile = exports.copy = exports.connectTls = exports.connect = exports.close = exports.chownSync = exports.chown = exports.chmodSync = exports.chmod = exports.chdir = exports.isatty = void 0;
-    exports.args = exports.writeTextFileSync = exports.writeTextFile = exports.writeSync = exports.writeFileSync = exports.writeFile = exports.write = exports.watchFs = exports.truncateSync = exports.truncate = exports.test = exports.symlinkSync = exports.symlink = exports.statSync = exports.stat = exports.shutdown = exports.run = exports.Process = exports.renameSync = exports.rename = exports.removeSync = exports.remove = exports.realPathSync = exports.realPath = exports.readTextFileSync = exports.readTextFile = void 0;
+    exports.args = exports.writeTextFileSync = exports.writeTextFile = exports.writeSync = exports.writeFileSync = exports.writeFile = exports.write = exports.watchFs = exports.truncateSync = exports.truncate = exports.test = exports.symlinkSync = exports.symlink = exports.statSync = exports.stat = exports.shutdown = exports.run = exports.Process = exports.resolveDns = exports.renameSync = exports.rename = exports.removeSync = exports.remove = exports.realPathSync = exports.realPath = exports.readTextFileSync = exports.readTextFile = void 0;
     var tty_1 = require("tty");
     Object.defineProperty(exports, "isatty", { enumerable: true, get: function() {
       return tty_1.isatty;
@@ -4516,6 +4560,10 @@ var require_functions = __commonJS({
     var renameSync_js_1 = require_renameSync();
     Object.defineProperty(exports, "renameSync", { enumerable: true, get: function() {
       return renameSync_js_1.renameSync;
+    } });
+    var resolveDns_js_1 = require_resolveDns();
+    Object.defineProperty(exports, "resolveDns", { enumerable: true, get: function() {
+      return resolveDns_js_1.resolveDns;
     } });
     var run_js_1 = require_run();
     Object.defineProperty(exports, "Process", { enumerable: true, get: function() {
