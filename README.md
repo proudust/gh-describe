@@ -112,11 +112,15 @@ $ gh describe --help
 
   Options:
 
-    -h, --help                - Show this help.
-    -V, --version             - Show the version number for this program.
-    -R, --repo     <repo>     - Target repository. Format: OWNER/REPO
-    --default      <tag>      - Use this value if the name is not found.
-    --runtime      <runtime>  - If installed by `gh extension install`, can specify the execution runtime.  (Values: "deno", "node")
+    -h, --help                   - Show this help.
+    -V, --version                - Show the version number for this program.
+    -R, --repo     <repo>        - Target repository. Format: OWNER/REPO
+    --match        <pattern...>  - Use this value if the name is not found.
+    --no-match                   - Clear and reset list of match pattern.
+    --exclude      <pattern...>  - Use this value if the name is not found.
+    --no-exclude                 - Clear and reset list of exclude pattern.
+    --default      <tag>         - Use this value if the name is not found.
+    --runtime      <runtime>     - If installed by `gh extension install`, can specify the execution runtime.  (Values: "deno", "node")
 ```
 
 ## License

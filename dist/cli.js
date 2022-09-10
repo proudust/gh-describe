@@ -10241,11 +10241,13 @@ async function version() {
   }
 }
 async function run2() {
-  return await new Command().name("gh-describe").version(await version()).description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--default <tag:string>", "Use this value if the name is not found.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async ({ repo, default: defaultTag }, commitish) => {
+  return await new Command().name("gh-describe").version(await version()).description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--match <pattern...:string>", "Only consider tags matching the given glob pattern.").option("--no-match", "Clear and reset list of match pattern.").option("--exclude <pattern...:string>", "Do not consider tags matching the given glob pattern.").option("--no-exclude", "Clear and reset list of exclude pattern.").option("--default <tag:string>", "Use this value if the name is not found.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async ({ repo, default: defaultTag, match, exclude }, commitish) => {
     try {
       const { describe } = await ghDescribe({
         repo,
         commitish,
+        match: match || void 0,
+        exclude: exclude || void 0,
         defaultTag
       });
       console.log(describe);
