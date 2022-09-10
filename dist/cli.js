@@ -19,7 +19,10 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/errors.js
 var require_errors = __commonJS({
@@ -8751,7 +8754,10 @@ function capitalize(string2) {
   return string2?.charAt(0).toUpperCase() + string2.slice(1);
 }
 function inspect(value, colors2) {
-  return import_shim_deno2.Deno.inspect(value, { depth: 1, colors: colors2, trailingComma: false });
+  return import_shim_deno2.Deno.inspect(
+    value,
+    { depth: 1, colors: colors2, trailingComma: false }
+  );
 }
 function highlightArguments(argsDefinition, types = true) {
   if (!argsDefinition) {
