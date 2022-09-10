@@ -21,7 +21,7 @@ inputs:
     description: Do not consider tags matching the given glob pattern.
     default: ""
   default:
-    description: Use this value if the name is not found.
+    description: If the name is not found, use this value.
     default: ""
 
 outputs:

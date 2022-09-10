@@ -33,7 +33,7 @@ async function run() {
       "Do not consider tags matching the given glob pattern.",
     )
     .option("--no-exclude", "Clear and reset list of exclude pattern.")
-    .option("--default <tag:string>", "Use this value if the name is not found.")
+    .option("--default <tag:string>", "If the name is not found, use this value.")
     .type("runtime", new EnumType(["deno", "node"]))
     .option(
       "--runtime <runtime:runtime>",

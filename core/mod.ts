@@ -86,7 +86,7 @@ interface GhDescribeOptions {
   exclude?: string | RegExp | (string | RegExp)[];
 
   /**
-   * Use this value if the name is not found.
+   * If the name is not found, use this value.
    */
   defaultTag?: string;
 }

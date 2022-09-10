@@ -2,10 +2,10 @@
 
 `git describe --tags` in shallow clones.
 
-`git describe` command is useful for versioning a development build. However, this command requires
-a history of all tags and branches, which is difficult to use in workflows where you often shallow
-clone. This action gets the history from the GitHub API instead of locally and reproduces its
-behavior.
+[`git describe`](https://git-scm.com/docs/git-describe) command is useful for versioning a
+development build. However, this command requires a history of all tags and branches, which is
+difficult to use in workflows where you often shallow clone. This action gets the history from the
+GitHub API instead of locally and reproduces its behavior.
 
 ## Usage on GitHub Actions
 
@@ -19,12 +19,14 @@ behavior.
 
 All inputs are optional. If not set, sensible defaults will be used.
 
-| Name       | Description                              | Default                                                   |
-| ---------- | ---------------------------------------- | --------------------------------------------------------- |
-| token      | Personal Access Token (PAT)              | `GITHUB_TOKEN`                                            |
-| repo       | Target repository                        | The owner and repository that triggered the workflow run. |
-| commit-ish | Commit-ish object names to describe.     | The branch or tag ref that triggered the workflow run.    |
-| default    | Use this value if the name is not found. | `​`                                                       |
+| Name       | Description                                           | Default                                                   |
+| ---------- | ----------------------------------------------------- | --------------------------------------------------------- |
+| token      | Personal Access Token (PAT)                           | `GITHUB_TOKEN`                                            |
+| repo       | Target repository                                     | The owner and repository that triggered the workflow run. |
+| commit-ish | Commit-ish object names to describe.                  | The branch or tag ref that triggered the workflow run.    |
+| match      | Only consider tags matching the given glob pattern.   |                                                           |
+| exclude    | Do not consider tags matching the given glob pattern. |                                                           |
+| default    | If the name is not found, use this value.             | If the name is not found, the action fails.               |
 
 ### Action outputs
 
@@ -112,14 +114,14 @@ $ gh describe --help
 
   Options:
 
-    -h, --help                   - Show this help.
-    -V, --version                - Show the version number for this program.
-    -R, --repo     <repo>        - Target repository. Format: OWNER/REPO
-    --match        <pattern...>  - Use this value if the name is not found.
-    --no-match                   - Clear and reset list of match pattern.
-    --exclude      <pattern...>  - Use this value if the name is not found.
-    --no-exclude                 - Clear and reset list of exclude pattern.
-    --default      <tag>         - Use this value if the name is not found.
+    -h, --help                   - Show this help.                                                                                     
+    -V, --version                - Show the version number for this program.                                                           
+    -R, --repo     <repo>        - Target repository. Format: OWNER/REPO                                                               
+    --match        <pattern...>  - Only consider tags matching the given glob pattern.                                                 
+    --no-match                   - Clear and reset list of match pattern.                                                              
+    --exclude      <pattern...>  - Do not consider tags matching the given glob pattern.                                               
+    --no-exclude                 - Clear and reset list of exclude pattern.                                                            
+    --default      <tag>         - If the name is not found, use this value.                                                           
     --runtime      <runtime>     - If installed by `gh extension install`, can specify the execution runtime.  (Values: "deno", "node")
 ```
 
