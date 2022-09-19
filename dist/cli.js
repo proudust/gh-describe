@@ -10165,6 +10165,10 @@ var EnumType = class extends Type {
   }
 };
 
+// dist/dnt/esm/core/gh_describe_error.js
+var GhDescribeError = class extends Error {
+};
+
 // dist/dnt/esm/gh-wrapper/exec.js
 async function exec2(args) {
   const process2 = import_shim_deno2.Deno.run({
@@ -10248,6 +10252,31 @@ async function listTags({ host, jq, ...options }) {
   if (jq)
     args.push("-q", jq);
   return await exec2(args);
+}
+
+// dist/dnt/esm/core/fetch_history.js
+async function* fetchHistory({ owner, repo, host, sha }) {
+  try {
+    const perPage = 100;
+    const jq = ".[].sha";
+    let page = 0;
+    let count;
+    do {
+      page++;
+      const stdout = await listCommits({ owner, repo, sha, perPage, page, host, jq });
+      const historySpan = stdout.trim().split("\n");
+      count = historySpan.length;
+      for (const commitSha of historySpan) {
+        yield commitSha;
+      }
+    } while (count === perPage);
+  } catch (e) {
+    if (e instanceof GitHubCliError && e.stderr === "gh: Not Found (HTTP 404)") {
+      const msg = `ambiguous argument '${sha}': unknown revision or path not in the ${repo} tree.`;
+      throw new GhDescribeError(msg);
+    }
+    throw e;
+  }
 }
 
 // dist/dnt/esm/core/to_reqexp_array.js
@@ -10375,15 +10404,13 @@ async function searchTag(tags, histories) {
 }
 
 // dist/dnt/esm/core/mod.js
-var GhDescribeError = class extends Error {
-};
 async function ghDescribe({ repo: maybeRepo, commitish, defaultTag, match, exclude } = {}) {
   const { owner, name: repo, host } = await resolveRepo(maybeRepo);
   const [tags, { sha, histories }] = await Promise.all([
     fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
       const sha2 = await fetchSha({ owner, name: repo, host }, commitish);
-      const histories2 = fetchHistory({ owner, name: repo, host }, sha2);
+      const histories2 = fetchHistory({ owner, repo, host, sha: sha2 });
       return { sha: sha2, histories: histories2 };
     })()
   ]);
@@ -10421,30 +10448,6 @@ async function fetchSha({ owner, name, host }, sha) {
     }
   } else {
     return revParse({ arg: "HEAD" });
-  }
-}
-async function* fetchHistory(repo, sha) {
-  try {
-    const { owner, name, host } = repo;
-    const perPage = 100;
-    const jq = ".[].sha";
-    let page = 0;
-    let count;
-    do {
-      page++;
-      const stdout = await listCommits({ owner, repo: name, sha, perPage, page, host, jq });
-      const historySpan = stdout.trim().split("\n");
-      count = historySpan.length;
-      for (const commitSha of historySpan) {
-        yield commitSha;
-      }
-    } while (count === perPage);
-  } catch (e) {
-    if (e instanceof GitHubCliError && e.stderr === "gh: Not Found (HTTP 404)") {
-      const msg = `ambiguous argument '${sha}': unknown revision or path not in the ${repo} tree.`;
-      throw new GhDescribeError(msg);
-    }
-    throw e;
   }
 }
 function genDescribe(tag, distance2, sha) {

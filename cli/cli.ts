@@ -1,6 +1,7 @@
 import { colors } from "https://deno.land/x/cliffy@v0.25.0/ansi/mod.ts";
 import { Command, EnumType } from "https://deno.land/x/cliffy@v0.25.0/command/mod.ts";
-import { ghDescribe, GhDescribeError } from "../core/mod.ts";
+import { GhDescribeError } from "../core/gh_describe_error.ts";
+import { ghDescribe } from "../core/mod.ts";
 
 interface GhDescribeCliArgs {
   version: string | (() => string);

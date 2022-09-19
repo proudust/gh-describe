@@ -1,6 +1,8 @@
 import * as gh from "../gh-wrapper/mod.ts";
+import { fetchHistory } from "./fetch_history.ts";
 import { fetchTags } from "./fetch_tags.ts";
 import { parse } from "./ghrepo.ts";
+import { GhDescribeError } from "./gh_describe_error.ts";
 import { getOriginRepo } from "./git.ts";
 import * as git from "../git-wrapper/mod.ts";
 import { searchTag } from "./search_tags.ts";
@@ -12,10 +14,6 @@ interface Repo {
   name: string;
   host?: string;
 }
-
-type ForAwaitable<T> = Iterable<T> | AsyncIterable<T>;
-
-type Histories = ForAwaitable<string>;
 
 interface GhDescribeOutput {
   /**
@@ -38,8 +36,6 @@ interface GhDescribeOutput {
    */
   sha: string;
 }
-
-export class GhDescribeError extends Error {}
 
 interface GhDescribeOptions {
   /**
@@ -88,7 +84,7 @@ export async function ghDescribe(
     fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
       const sha = await fetchSha({ owner, name: repo, host }, commitish);
-      const histories = fetchHistory({ owner, name: repo, host }, sha);
+      const histories = fetchHistory({ owner, repo, host, sha });
       return { sha, histories };
     })(),
   ]);
@@ -135,33 +131,6 @@ export async function fetchSha({ owner, name, host }: Repo, sha?: string): Promi
     }
   } else {
     return git.revParse({ arg: "HEAD" });
-  }
-}
-
-export async function* fetchHistory(repo: Repo, sha: string): Histories {
-  try {
-    const { owner, name, host } = repo;
-    const perPage = 100;
-    const jq = ".[].sha";
-    let page = 0;
-    let count: number;
-    do {
-      page++;
-      const stdout = await gh.listCommits({ owner, repo: name, sha, perPage, page, host, jq });
-      const historySpan = stdout
-        .trim()
-        .split("\n");
-      count = historySpan.length;
-      for (const commitSha of historySpan) {
-        yield commitSha;
-      }
-    } while (count === perPage);
-  } catch (e: unknown) {
-    if (e instanceof gh.GitHubCliError && e.stderr === "gh: Not Found (HTTP 404)") {
-      const msg = `ambiguous argument '${sha}': unknown revision or path not in the ${repo} tree.`;
-      throw new GhDescribeError(msg);
-    }
-    throw e;
   }
 }
 
