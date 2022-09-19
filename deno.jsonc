@@ -2,7 +2,6 @@
   "fmt": {
     "files": {
       "exclude": [
-        ".history",
         "dist",
         "node_modules"
       ]
@@ -14,7 +13,6 @@
   "lint": {
     "files": {
       "exclude": [
-        ".history",
         "dist",
         "node_modules"
       ]
