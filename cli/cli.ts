@@ -1,29 +1,15 @@
-import { dirname, fromFileUrl } from "https://deno.land/std@0.148.0/path/mod.ts";
 import { colors } from "https://deno.land/x/cliffy@v0.25.0/ansi/mod.ts";
 import { Command, EnumType } from "https://deno.land/x/cliffy@v0.25.0/command/mod.ts";
 import { ghDescribe, GhDescribeError } from "../core/mod.ts";
-import { gitDescribe } from "../core/git.ts";
 
-declare const __filename: string;
-
-declare let globalThis: {
-  version: string | undefined;
-};
-
-async function version(): Promise<string> {
-  if (import.meta.url?.startsWith("file:")) {
-    return await gitDescribe({ cwd: dirname(fromFileUrl(import.meta.url)) });
-  } else if (import.meta.url?.startsWith("https:")) {
-    return /v\d+\.\d+\.\d+/.exec(import.meta.url)?.[0] || "unknown";
-  } else {
-    return await gitDescribe({ cwd: dirname(__filename) });
-  }
+interface GhDescribeCliArgs {
+  version: string | (() => string);
 }
 
-export async function ghDescribeCli() {
+export async function ghDescribeCli({ version }: GhDescribeCliArgs) {
   return await new Command()
     .name("gh-describe")
-    .version(globalThis.version || await version())
+    .version(version)
     .description("Emulate `git describe --tags` in shallow clone repository.")
     .option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO")
     .option("--match <pattern...:string>", "Only consider tags matching the given glob pattern.")
