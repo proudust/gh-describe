@@ -7176,33 +7176,33 @@ function parseFromFullName(fullName) {
   }
 }
 
-// dist/dnt/esm/core/git.js
-async function exec2(cmd) {
+// dist/dnt/esm/git-wrapper/exec.js
+async function exec2(args) {
   const process2 = import_shim_deno2.Deno.run({
-    cmd,
+    cmd: ["git", ...args],
     stdout: "piped",
     stderr: "piped"
   });
-  const [status, stdout, stderr] = await Promise.all([
+  const [{ code }, stdout, stderr] = await Promise.all([
     process2.status(),
     process2.output(),
     process2.stderrOutput()
   ]);
-  if (status.code === 0) {
+  if (code === 0) {
     return new TextDecoder().decode(stdout).trim();
   } else {
-    throw new GitError(cmd, status.code, new TextDecoder().decode(stderr).trim());
+    throw new GitError(args, code, new TextDecoder().decode(stderr).trim());
   }
 }
 var GitError = class extends Error {
-  constructor(cmd, code, stderr) {
-    super(`\`${cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code}
+  constructor(args, code, stderr) {
+    super(`\`git ${args.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code}
 ${stderr}`);
-    Object.defineProperty(this, "cmd", {
+    Object.defineProperty(this, "args", {
       enumerable: true,
       configurable: true,
       writable: true,
-      value: cmd
+      value: args
     });
     Object.defineProperty(this, "code", {
       enumerable: true,
@@ -7218,8 +7218,17 @@ ${stderr}`);
     });
   }
 };
-async function listRemotes() {
-  const lines = (await exec2(["git", "remote", "-v"])).split("\n").map((x) => /(.+)\s+(.+)\s+\((push|fetch)\)/.exec(x) || []).filter((x) => x.length === 4);
+
+// dist/dnt/esm/git-wrapper/list_remotes.js
+function creareArgs({ cwd }) {
+  const args = [];
+  if (cwd)
+    args.push("-C", cwd);
+  args.push("remote", "-v");
+  return args;
+}
+function parseRemotes(stdout) {
+  const lines = stdout.split("\n").map((x) => /(.+)\s+(.+)\s+\((push|fetch)\)/.exec(x) || []).filter((x) => x.length === 4);
   const remotes = [];
   let name = void 0;
   let fetchUrl = void 0;
@@ -7246,15 +7255,32 @@ async function listRemotes() {
   }
   return remotes;
 }
+async function listRemotes(options = {}) {
+  const args = creareArgs(options);
+  const stdout = await exec2(args);
+  return parseRemotes(stdout);
+}
+
+// dist/dnt/esm/git-wrapper/rev_parse.js
+function creareArgs2({ arg, cwd }) {
+  const args = [];
+  if (cwd)
+    args.push("-C", cwd);
+  args.push("rev-parse", arg);
+  return args;
+}
+async function revParse(options) {
+  const args = creareArgs2(options);
+  return await exec2(args);
+}
+
+// dist/dnt/esm/core/git.js
 async function getOriginRepo() {
   const remotes = await listRemotes();
   const { fetchUrl } = remotes.find((x) => x.name === "origin" && x.fetchUrl) || remotes[0];
   if (!fetchUrl)
     throw new Error();
   return parseFromUrl(fetchUrl);
-}
-async function getHeadSha() {
-  return await exec2(["git", "rev-parse", "HEAD"]);
 }
 
 // dist/dnt/esm/deps/deno.land/std@0.148.0/_util/os.js
@@ -8761,7 +8787,7 @@ async function fetchSha({ owner, name, host }, sha) {
       return sha;
     }
   } else {
-    return getHeadSha();
+    return revParse({ arg: "HEAD" });
   }
 }
 async function* fetchHistory(repo, sha) {

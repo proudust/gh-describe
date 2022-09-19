@@ -1,6 +1,7 @@
 import * as gh from "../gh-wrapper/mod.ts";
 import { parse } from "./ghrepo.ts";
-import { getHeadSha, getOriginRepo, GitError } from "./git.ts";
+import { getOriginRepo } from "./git.ts";
+import * as git from "../git-wrapper/mod.ts";
 import { globToRegExp } from "https://deno.land/std@0.148.0/path/glob.ts";
 
 export default ghDescribe;
@@ -136,7 +137,7 @@ export async function resolveRepo(repo?: string | Repo): Promise<Repo> {
     return await getOriginRepo();
   } catch (e: unknown) {
     if (
-      e instanceof GitError &&
+      e instanceof git.GitError &&
       e.stderr === "fatal: not a git repository (or any of the parent directories): .git"
     ) {
       throw new GhDescribeError(e.stderr, e);
@@ -204,7 +205,7 @@ export async function fetchSha({ owner, name, host }: Repo, sha?: string): Promi
       return sha;
     }
   } else {
-    return getHeadSha();
+    return git.revParse({ arg: "HEAD" });
   }
 }
 
