@@ -1,9 +1,9 @@
 import * as gh from "../gh-wrapper/mod.ts";
+import { fetchTags } from "./fetch_tags.ts";
 import { parse } from "./ghrepo.ts";
 import { getOriginRepo } from "./git.ts";
 import * as git from "../git-wrapper/mod.ts";
 import { searchTag } from "./search_tags.ts";
-import { toReqExpArray } from "./to_reqexp_array.ts";
 
 export default ghDescribe;
 
@@ -11,11 +11,6 @@ interface Repo {
   owner: string;
   name: string;
   host?: string;
-}
-
-interface Tags {
-  readonly size: number;
-  get(sha: string): string | undefined;
 }
 
 type ForAwaitable<T> = Iterable<T> | AsyncIterable<T>;
@@ -80,20 +75,20 @@ interface GhDescribeOptions {
  */
 export async function ghDescribe(
   {
-    repo,
+    repo: maybeRepo,
     commitish,
     defaultTag,
     match,
     exclude,
   }: GhDescribeOptions = {},
 ): Promise<GhDescribeOutput> {
-  repo = await resolveRepo(repo);
+  const { owner, name: repo, host } = await resolveRepo(maybeRepo);
 
   const [tags, { sha, histories }] = await Promise.all([
-    fetchTags(repo, { match, exclude }),
+    fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
-      const sha = await fetchSha(repo, commitish);
-      const histories = fetchHistory(repo, sha);
+      const sha = await fetchSha({ owner, name: repo, host }, commitish);
+      const histories = fetchHistory({ owner, name: repo, host }, sha);
       return { sha, histories };
     })(),
   ]);
@@ -127,43 +122,6 @@ export async function resolveRepo(repo?: string | Repo): Promise<Repo> {
     }
     throw e;
   }
-}
-
-interface FetchTagsOptions {
-  match?: string | RegExp | (string | RegExp)[];
-  exclude?: string | RegExp | (string | RegExp)[];
-}
-
-export async function fetchTags(
-  { owner, name, host }: Repo,
-  {
-    match: argMatch,
-    exclude: argExclude,
-  }: FetchTagsOptions = {},
-): Promise<Tags> {
-  const match = toReqExpArray(argMatch);
-  const exclude = toReqExpArray(argExclude);
-
-  const tags: [sha: string, name: string][] = [];
-  const perPage = 100;
-  const jq = ".[] | [.commit.sha, .name]";
-  let page = 0;
-  let count: number;
-  do {
-    page++;
-    const stdout = await gh.listTags({ owner, repo: name, perPage, page, host, jq });
-    count = tags.push(
-      ...stdout
-        .split("\n")
-        .filter((x) => !!x)
-        .map((x) => JSON.parse(x))
-        .filter(([, tag]) =>
-          (!match.length || match.some((y) => y.test(tag))) &&
-          (!exclude.length || !exclude.some((y) => y.test(tag)))
-        ),
-    );
-  } while (count === perPage);
-  return new Map(tags);
 }
 
 export async function fetchSha({ owner, name, host }: Repo, sha?: string): Promise<string> {

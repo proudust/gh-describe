@@ -10250,6 +10250,40 @@ async function listTags({ host, jq, ...options }) {
   return await exec2(args);
 }
 
+// dist/dnt/esm/core/to_reqexp_array.js
+function toReqExpArray(glob) {
+  if (!glob) {
+    return [];
+  }
+  if (!(glob instanceof Array)) {
+    glob = [glob];
+  }
+  return glob.map((x) => x instanceof RegExp ? x : globToRegExp(x));
+}
+
+// dist/dnt/esm/core/fetch_tags.js
+function parseTags(stdout, { match, exclude }) {
+  return stdout.split("\n").filter((x) => x).map((x) => JSON.parse(x)).filter(([, tag]) => (!match.length || match.some((y) => y.test(tag))) && (!exclude.length || !exclude.some((y) => y.test(tag))));
+}
+async function fetchTags({ owner, repo, host, match, exclude }) {
+  const context = {
+    match: toReqExpArray(match),
+    exclude: toReqExpArray(exclude)
+  };
+  const tags = [];
+  const perPage = 100;
+  const jq = ".[] | [.commit.sha, .name]";
+  let page = 0;
+  let count;
+  do {
+    page++;
+    const stdout = await listTags({ owner, repo, perPage, page, host, jq });
+    const tuples = parseTags(stdout, context);
+    count = tags.push(...tuples);
+  } while (count === perPage);
+  return new Map(tags);
+}
+
 // dist/dnt/esm/core/ghrepo.js
 var GitHubRepository = class {
   constructor(owner, name, host) {
@@ -10340,27 +10374,16 @@ async function searchTag(tags, histories) {
   return null;
 }
 
-// dist/dnt/esm/core/to_reqexp_array.js
-function toReqExpArray(glob) {
-  if (!glob) {
-    return [];
-  }
-  if (!(glob instanceof Array)) {
-    glob = [glob];
-  }
-  return glob.map((x) => x instanceof RegExp ? x : globToRegExp(x));
-}
-
 // dist/dnt/esm/core/mod.js
 var GhDescribeError = class extends Error {
 };
-async function ghDescribe({ repo, commitish, defaultTag, match, exclude } = {}) {
-  repo = await resolveRepo(repo);
+async function ghDescribe({ repo: maybeRepo, commitish, defaultTag, match, exclude } = {}) {
+  const { owner, name: repo, host } = await resolveRepo(maybeRepo);
   const [tags, { sha, histories }] = await Promise.all([
-    fetchTags(repo, { match, exclude }),
+    fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
-      const sha2 = await fetchSha(repo, commitish);
-      const histories2 = fetchHistory(repo, sha2);
+      const sha2 = await fetchSha({ owner, name: repo, host }, commitish);
+      const histories2 = fetchHistory({ owner, name: repo, host }, sha2);
       return { sha: sha2, histories: histories2 };
     })()
   ]);
@@ -10386,21 +10409,6 @@ async function resolveRepo(repo) {
     }
     throw e;
   }
-}
-async function fetchTags({ owner, name, host }, { match: argMatch, exclude: argExclude } = {}) {
-  const match = toReqExpArray(argMatch);
-  const exclude = toReqExpArray(argExclude);
-  const tags = [];
-  const perPage = 100;
-  const jq = ".[] | [.commit.sha, .name]";
-  let page = 0;
-  let count;
-  do {
-    page++;
-    const stdout = await listTags({ owner, repo: name, perPage, page, host, jq });
-    count = tags.push(...stdout.split("\n").filter((x) => !!x).map((x) => JSON.parse(x)).filter(([, tag]) => (!match.length || match.some((y) => y.test(tag))) && (!exclude.length || !exclude.some((y) => y.test(tag)))));
-  } while (count === perPage);
-  return new Map(tags);
 }
 async function fetchSha({ owner, name, host }, sha) {
   if (sha) {

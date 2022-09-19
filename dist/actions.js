@@ -7111,194 +7111,6 @@ async function listTags({ host, jq, ...options }) {
   return await exec(args);
 }
 
-// dist/dnt/esm/core/ghrepo.js
-var GitHubRepository = class {
-  constructor(owner, name, host) {
-    Object.defineProperty(this, "owner", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: owner
-    });
-    Object.defineProperty(this, "name", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: name
-    });
-    Object.defineProperty(this, "host", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: host
-    });
-  }
-  toString() {
-    if (this.host) {
-      return `${this.host}/${this.owner}/${this.name}`;
-    } else {
-      return `${this.owner}/${this.name}`;
-    }
-  }
-};
-function parse(repo) {
-  if (isUrl(repo)) {
-    return parseFromUrl(repo);
-  } else {
-    return parseFromFullName(repo);
-  }
-}
-function isUrl(maybeUrl) {
-  return maybeUrl.startsWith("git@") || maybeUrl.startsWith("ssh:") || maybeUrl.startsWith("git+ssh:") || maybeUrl.startsWith("git:") || maybeUrl.startsWith("http:") || maybeUrl.startsWith("git+https:") || maybeUrl.startsWith("https:");
-}
-function parseFromUrl(rawUrl) {
-  const { host, pathname } = new URL(rawUrl);
-  const [_, owner, rawName] = pathname.split("/", 3);
-  const name = rawName.endsWith(".git") ? rawName.substring(0, rawName.length - 4) : rawName;
-  const maybeHost = host !== "github.com" ? host : void 0;
-  return new GitHubRepository(owner, name, maybeHost);
-}
-function parseFromFullName(fullName) {
-  const parts = fullName.split("/", 4);
-  if (parts.some((p) => p.length <= 0)) {
-    throwFormatError(fullName);
-  }
-  switch (parts.length) {
-    case 2:
-      return new GitHubRepository(parts[0], parts[1]);
-    case 3:
-      return new GitHubRepository(parts[1], parts[2], parts[0]);
-    default:
-      throwFormatError(fullName);
-  }
-  function throwFormatError(invalid) {
-    throw new Error(`"${invalid}" is invalid format. Requires "[HOST/]OWNER/REPO" format.`);
-  }
-}
-
-// dist/dnt/esm/git-wrapper/exec.js
-async function exec2(args) {
-  const process2 = import_shim_deno2.Deno.run({
-    cmd: ["git", ...args],
-    stdout: "piped",
-    stderr: "piped"
-  });
-  const [{ code }, stdout, stderr] = await Promise.all([
-    process2.status(),
-    process2.output(),
-    process2.stderrOutput()
-  ]);
-  if (code === 0) {
-    return new TextDecoder().decode(stdout).trim();
-  } else {
-    throw new GitError(args, code, new TextDecoder().decode(stderr).trim());
-  }
-}
-var GitError = class extends Error {
-  constructor(args, code, stderr) {
-    super(`\`git ${args.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code}
-${stderr}`);
-    Object.defineProperty(this, "args", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: args
-    });
-    Object.defineProperty(this, "code", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: code
-    });
-    Object.defineProperty(this, "stderr", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: stderr
-    });
-  }
-};
-
-// dist/dnt/esm/git-wrapper/list_remotes.js
-function creareArgs({ cwd }) {
-  const args = [];
-  if (cwd)
-    args.push("-C", cwd);
-  args.push("remote", "-v");
-  return args;
-}
-function parseRemotes(stdout) {
-  const lines = stdout.split("\n").map((x) => /(.+)\s+(.+)\s+\((push|fetch)\)/.exec(x) || []).filter((x) => x.length === 4);
-  const remotes = [];
-  let name = void 0;
-  let fetchUrl = void 0;
-  let pushUrl = void 0;
-  for (const [_, lineName, lineUrl, type] of lines) {
-    if (!name) {
-      name = lineName;
-    } else if (name != lineName) {
-      remotes.push({ name, fetchUrl, pushUrl });
-      name = lineName;
-      fetchUrl = pushUrl = void 0;
-    }
-    switch (type) {
-      case "fetch":
-        fetchUrl = lineUrl;
-        break;
-      case "push":
-        pushUrl = lineUrl;
-        break;
-    }
-  }
-  if (name) {
-    remotes.push({ name, fetchUrl, pushUrl });
-  }
-  return remotes;
-}
-async function listRemotes(options = {}) {
-  const args = creareArgs(options);
-  const stdout = await exec2(args);
-  return parseRemotes(stdout);
-}
-
-// dist/dnt/esm/git-wrapper/rev_parse.js
-function creareArgs2({ arg, cwd }) {
-  const args = [];
-  if (cwd)
-    args.push("-C", cwd);
-  args.push("rev-parse", arg);
-  return args;
-}
-async function revParse(options) {
-  const args = creareArgs2(options);
-  return await exec2(args);
-}
-
-// dist/dnt/esm/core/git.js
-async function getOriginRepo() {
-  const remotes = await listRemotes();
-  const { fetchUrl } = remotes.find((x) => x.name === "origin" && x.fetchUrl) || remotes[0];
-  if (!fetchUrl)
-    throw new Error();
-  return parseFromUrl(fetchUrl);
-}
-
-// dist/dnt/esm/core/search_tags.js
-async function searchTag(tags, histories) {
-  if (0 < tags.size) {
-    let distance = 0;
-    for await (const commit of histories) {
-      const tag = tags.get(commit);
-      if (tag) {
-        return { tag, distance };
-      } else {
-        distance++;
-      }
-    }
-  }
-  return null;
-}
-
 // dist/dnt/esm/deps/deno.land/std@0.148.0/_util/os.js
 var osType = (() => {
   const { Deno: Deno3 } = dntGlobalThis;
@@ -7325,7 +7137,7 @@ __export(win32_exports, {
   isAbsolute: () => isAbsolute,
   join: () => join,
   normalize: () => normalize,
-  parse: () => parse2,
+  parse: () => parse,
   relative: () => relative,
   resolve: () => resolve,
   sep: () => sep,
@@ -8001,7 +7813,7 @@ function format(pathObject) {
   }
   return _format("\\", pathObject);
 }
-function parse2(path2) {
+function parse(path2) {
   assertPath(path2);
   const ret = { root: "", dir: "", base: "", ext: "", name: "" };
   const len = path2.length;
@@ -8144,7 +7956,7 @@ __export(posix_exports, {
   isAbsolute: () => isAbsolute2,
   join: () => join2,
   normalize: () => normalize2,
-  parse: () => parse3,
+  parse: () => parse2,
   relative: () => relative2,
   resolve: () => resolve2,
   sep: () => sep2,
@@ -8416,7 +8228,7 @@ function format2(pathObject) {
   }
   return _format("/", pathObject);
 }
-function parse3(path2) {
+function parse2(path2) {
   assertPath(path2);
   const ret = { root: "", dir: "", base: "", ext: "", name: "" };
   if (path2.length === 0)
@@ -8730,16 +8542,227 @@ function toReqExpArray(glob) {
   return glob.map((x) => x instanceof RegExp ? x : globToRegExp(x));
 }
 
+// dist/dnt/esm/core/fetch_tags.js
+function parseTags(stdout, { match, exclude }) {
+  return stdout.split("\n").filter((x) => x).map((x) => JSON.parse(x)).filter(([, tag]) => (!match.length || match.some((y) => y.test(tag))) && (!exclude.length || !exclude.some((y) => y.test(tag))));
+}
+async function fetchTags({ owner, repo, host, match, exclude }) {
+  const context = {
+    match: toReqExpArray(match),
+    exclude: toReqExpArray(exclude)
+  };
+  const tags = [];
+  const perPage = 100;
+  const jq = ".[] | [.commit.sha, .name]";
+  let page = 0;
+  let count;
+  do {
+    page++;
+    const stdout = await listTags({ owner, repo, perPage, page, host, jq });
+    const tuples = parseTags(stdout, context);
+    count = tags.push(...tuples);
+  } while (count === perPage);
+  return new Map(tags);
+}
+
+// dist/dnt/esm/core/ghrepo.js
+var GitHubRepository = class {
+  constructor(owner, name, host) {
+    Object.defineProperty(this, "owner", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: owner
+    });
+    Object.defineProperty(this, "name", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: name
+    });
+    Object.defineProperty(this, "host", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: host
+    });
+  }
+  toString() {
+    if (this.host) {
+      return `${this.host}/${this.owner}/${this.name}`;
+    } else {
+      return `${this.owner}/${this.name}`;
+    }
+  }
+};
+function parse3(repo) {
+  if (isUrl(repo)) {
+    return parseFromUrl(repo);
+  } else {
+    return parseFromFullName(repo);
+  }
+}
+function isUrl(maybeUrl) {
+  return maybeUrl.startsWith("git@") || maybeUrl.startsWith("ssh:") || maybeUrl.startsWith("git+ssh:") || maybeUrl.startsWith("git:") || maybeUrl.startsWith("http:") || maybeUrl.startsWith("git+https:") || maybeUrl.startsWith("https:");
+}
+function parseFromUrl(rawUrl) {
+  const { host, pathname } = new URL(rawUrl);
+  const [_, owner, rawName] = pathname.split("/", 3);
+  const name = rawName.endsWith(".git") ? rawName.substring(0, rawName.length - 4) : rawName;
+  const maybeHost = host !== "github.com" ? host : void 0;
+  return new GitHubRepository(owner, name, maybeHost);
+}
+function parseFromFullName(fullName) {
+  const parts = fullName.split("/", 4);
+  if (parts.some((p) => p.length <= 0)) {
+    throwFormatError(fullName);
+  }
+  switch (parts.length) {
+    case 2:
+      return new GitHubRepository(parts[0], parts[1]);
+    case 3:
+      return new GitHubRepository(parts[1], parts[2], parts[0]);
+    default:
+      throwFormatError(fullName);
+  }
+  function throwFormatError(invalid) {
+    throw new Error(`"${invalid}" is invalid format. Requires "[HOST/]OWNER/REPO" format.`);
+  }
+}
+
+// dist/dnt/esm/git-wrapper/exec.js
+async function exec2(args) {
+  const process2 = import_shim_deno2.Deno.run({
+    cmd: ["git", ...args],
+    stdout: "piped",
+    stderr: "piped"
+  });
+  const [{ code }, stdout, stderr] = await Promise.all([
+    process2.status(),
+    process2.output(),
+    process2.stderrOutput()
+  ]);
+  if (code === 0) {
+    return new TextDecoder().decode(stdout).trim();
+  } else {
+    throw new GitError(args, code, new TextDecoder().decode(stderr).trim());
+  }
+}
+var GitError = class extends Error {
+  constructor(args, code, stderr) {
+    super(`\`git ${args.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code}
+${stderr}`);
+    Object.defineProperty(this, "args", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: args
+    });
+    Object.defineProperty(this, "code", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: code
+    });
+    Object.defineProperty(this, "stderr", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: stderr
+    });
+  }
+};
+
+// dist/dnt/esm/git-wrapper/list_remotes.js
+function creareArgs({ cwd }) {
+  const args = [];
+  if (cwd)
+    args.push("-C", cwd);
+  args.push("remote", "-v");
+  return args;
+}
+function parseRemotes(stdout) {
+  const lines = stdout.split("\n").map((x) => /(.+)\s+(.+)\s+\((push|fetch)\)/.exec(x) || []).filter((x) => x.length === 4);
+  const remotes = [];
+  let name = void 0;
+  let fetchUrl = void 0;
+  let pushUrl = void 0;
+  for (const [_, lineName, lineUrl, type] of lines) {
+    if (!name) {
+      name = lineName;
+    } else if (name != lineName) {
+      remotes.push({ name, fetchUrl, pushUrl });
+      name = lineName;
+      fetchUrl = pushUrl = void 0;
+    }
+    switch (type) {
+      case "fetch":
+        fetchUrl = lineUrl;
+        break;
+      case "push":
+        pushUrl = lineUrl;
+        break;
+    }
+  }
+  if (name) {
+    remotes.push({ name, fetchUrl, pushUrl });
+  }
+  return remotes;
+}
+async function listRemotes(options = {}) {
+  const args = creareArgs(options);
+  const stdout = await exec2(args);
+  return parseRemotes(stdout);
+}
+
+// dist/dnt/esm/git-wrapper/rev_parse.js
+function creareArgs2({ arg, cwd }) {
+  const args = [];
+  if (cwd)
+    args.push("-C", cwd);
+  args.push("rev-parse", arg);
+  return args;
+}
+async function revParse(options) {
+  const args = creareArgs2(options);
+  return await exec2(args);
+}
+
+// dist/dnt/esm/core/git.js
+async function getOriginRepo() {
+  const remotes = await listRemotes();
+  const { fetchUrl } = remotes.find((x) => x.name === "origin" && x.fetchUrl) || remotes[0];
+  if (!fetchUrl)
+    throw new Error();
+  return parseFromUrl(fetchUrl);
+}
+
+// dist/dnt/esm/core/search_tags.js
+async function searchTag(tags, histories) {
+  if (0 < tags.size) {
+    let distance = 0;
+    for await (const commit of histories) {
+      const tag = tags.get(commit);
+      if (tag) {
+        return { tag, distance };
+      } else {
+        distance++;
+      }
+    }
+  }
+  return null;
+}
+
 // dist/dnt/esm/core/mod.js
 var GhDescribeError = class extends Error {
 };
-async function ghDescribe({ repo, commitish, defaultTag, match, exclude } = {}) {
-  repo = await resolveRepo(repo);
+async function ghDescribe({ repo: maybeRepo, commitish, defaultTag, match, exclude } = {}) {
+  const { owner, name: repo, host } = await resolveRepo(maybeRepo);
   const [tags, { sha, histories }] = await Promise.all([
-    fetchTags(repo, { match, exclude }),
+    fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
-      const sha2 = await fetchSha(repo, commitish);
-      const histories2 = fetchHistory(repo, sha2);
+      const sha2 = await fetchSha({ owner, name: repo, host }, commitish);
+      const histories2 = fetchHistory({ owner, name: repo, host }, sha2);
       return { sha: sha2, histories: histories2 };
     })()
   ]);
@@ -8755,7 +8778,7 @@ async function ghDescribe({ repo, commitish, defaultTag, match, exclude } = {}) 
 }
 async function resolveRepo(repo) {
   if (typeof repo === "string") {
-    return parse(repo);
+    return parse3(repo);
   }
   try {
     return await getOriginRepo();
@@ -8765,21 +8788,6 @@ async function resolveRepo(repo) {
     }
     throw e;
   }
-}
-async function fetchTags({ owner, name, host }, { match: argMatch, exclude: argExclude } = {}) {
-  const match = toReqExpArray(argMatch);
-  const exclude = toReqExpArray(argExclude);
-  const tags = [];
-  const perPage = 100;
-  const jq = ".[] | [.commit.sha, .name]";
-  let page = 0;
-  let count;
-  do {
-    page++;
-    const stdout = await listTags({ owner, repo: name, perPage, page, host, jq });
-    count = tags.push(...stdout.split("\n").filter((x) => !!x).map((x) => JSON.parse(x)).filter(([, tag]) => (!match.length || match.some((y) => y.test(tag))) && (!exclude.length || !exclude.some((y) => y.test(tag)))));
-  } while (count === perPage);
-  return new Map(tags);
 }
 async function fetchSha({ owner, name, host }, sha) {
   if (sha) {
