@@ -9,7 +9,7 @@ console.log("$ dnt");
 await dnt({
   entryPoints: [
     "./actions/main.ts",
-    "./cli/main.ts",
+    "./cli/main.node.ts",
   ],
   outDir: "./dist/dnt",
   shims: {
@@ -53,7 +53,7 @@ await Promise.all([
   }),
   await esbuild({
     bundle: true,
-    entryPoints: ["./dist/dnt/esm/cli/main.js"],
+    entryPoints: ["./dist/dnt/esm/cli/main.node.js"],
     outfile: "./dist/cli.js",
     platform: "node",
     target: "es2021",

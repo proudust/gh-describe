@@ -10424,15 +10424,9 @@ async function ghDescribeCli({ version: version2 }) {
   }).parse(import_shim_deno2.Deno.args);
 }
 
-// dist/dnt/esm/cli/main.js
+// dist/dnt/esm/cli/main.node.js
 async function version() {
-  if (void 0) {
-    return await gitDescribe({ cwd: dirname3(fromFileUrl3(void 0)) });
-  } else if (void 0) {
-    return /v\d+\.\d+\.\d+/.exec(void 0)?.[0] || "unknown";
-  } else {
-    return await gitDescribe({ cwd: dirname3(__filename) });
-  }
+  return await gitDescribe({ cwd: dirname3(__filename) });
 }
 async function run2() {
   ghDescribeCli({
