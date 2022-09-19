@@ -20,7 +20,7 @@ async function version(): Promise<string> {
   }
 }
 
-async function run() {
+export async function ghDescribeCli() {
   return await new Command()
     .name("gh-describe")
     .version(globalThis.version || await version())
@@ -61,5 +61,3 @@ async function run() {
     })
     .parse(Deno.args);
 }
-
-run();

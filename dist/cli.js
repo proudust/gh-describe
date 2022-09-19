@@ -3563,7 +3563,7 @@ var require_run = __commonJS({
     var which_1 = __importDefault(require_which());
     var streams_js_1 = require_streams();
     var errors = __importStar(require_errors());
-    var run3 = function run4(options) {
+    var run2 = function run3(options) {
       const [cmd, ...args] = options.cmd;
       if (options.cwd && !fs_1.default.existsSync(options.cwd)) {
         throw new Error("The directory name is invalid.");
@@ -3586,7 +3586,7 @@ var require_run = __commonJS({
       });
       return new Process(process2);
     };
-    exports.run = run3;
+    exports.run = run2;
     function getStdio(value, kind) {
       if (value === "inherit" || value == null) {
         return "inherit";
@@ -10401,7 +10401,7 @@ function genDescribe(tag, distance2, sha) {
   }
 }
 
-// dist/dnt/esm/cli/main.js
+// dist/dnt/esm/cli/cli.js
 async function version() {
   if (void 0) {
     return await gitDescribe({ cwd: dirname3(fromFileUrl3(void 0)) });
@@ -10411,7 +10411,7 @@ async function version() {
     return await gitDescribe({ cwd: dirname3(__filename) });
   }
 }
-async function run2() {
+async function ghDescribeCli() {
   return await new Command().name("gh-describe").version(await version()).description("Emulate `git describe --tags` in shallow clone repository.").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").option("--match <pattern...:string>", "Only consider tags matching the given glob pattern.").option("--no-match", "Clear and reset list of match pattern.").option("--exclude <pattern...:string>", "Do not consider tags matching the given glob pattern.").option("--no-exclude", "Clear and reset list of exclude pattern.").option("--default <tag:string>", "If the name is not found, use this value.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async ({ repo, default: defaultTag, match, exclude }, commitish) => {
     try {
       const { describe } = await ghDescribe({
@@ -10432,4 +10432,6 @@ async function run2() {
     }
   }).parse(import_shim_deno2.Deno.args);
 }
-run2();
+
+// dist/dnt/esm/cli/main.js
+ghDescribeCli();
