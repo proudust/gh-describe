@@ -7283,6 +7283,22 @@ async function getOriginRepo() {
   return parseFromUrl(fetchUrl);
 }
 
+// dist/dnt/esm/core/search_tags.js
+async function searchTag(tags, histories) {
+  if (0 < tags.size) {
+    let distance = 0;
+    for await (const commit of histories) {
+      const tag = tags.get(commit);
+      if (tag) {
+        return { tag, distance };
+      } else {
+        distance++;
+      }
+    }
+  }
+  return null;
+}
+
 // dist/dnt/esm/deps/deno.land/std@0.148.0/_util/os.js
 var osType = (() => {
   const { Deno: Deno3 } = dntGlobalThis;
@@ -8703,20 +8719,15 @@ function globToRegExp(glob, { extended = true, globstar: globstarOption = true, 
   return new RegExp(regExpString, caseInsensitive ? "i" : "");
 }
 
-// dist/dnt/esm/core/search_tags.js
-async function searchTag(tags, histories) {
-  if (0 < tags.size) {
-    let distance = 0;
-    for await (const commit of histories) {
-      const tag = tags.get(commit);
-      if (tag) {
-        return { tag, distance };
-      } else {
-        distance++;
-      }
-    }
+// dist/dnt/esm/core/to_reqexp_array.js
+function toReqExpArray(glob) {
+  if (!glob) {
+    return [];
   }
-  return null;
+  if (!(glob instanceof Array)) {
+    glob = [glob];
+  }
+  return glob.map((x) => x instanceof RegExp ? x : globToRegExp(x));
 }
 
 // dist/dnt/esm/core/mod.js
@@ -8754,15 +8765,6 @@ async function resolveRepo(repo) {
     }
     throw e;
   }
-}
-function toReqExpArray(glob) {
-  if (!glob) {
-    return [];
-  }
-  if (!(glob instanceof Array)) {
-    glob = [glob];
-  }
-  return glob.map((x) => x instanceof RegExp ? x : globToRegExp(x));
 }
 async function fetchTags({ owner, name, host }, { match: argMatch, exclude: argExclude } = {}) {
   const match = toReqExpArray(argMatch);

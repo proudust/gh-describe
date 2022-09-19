@@ -10340,6 +10340,17 @@ async function searchTag(tags, histories) {
   return null;
 }
 
+// dist/dnt/esm/core/to_reqexp_array.js
+function toReqExpArray(glob) {
+  if (!glob) {
+    return [];
+  }
+  if (!(glob instanceof Array)) {
+    glob = [glob];
+  }
+  return glob.map((x) => x instanceof RegExp ? x : globToRegExp(x));
+}
+
 // dist/dnt/esm/core/mod.js
 var GhDescribeError = class extends Error {
 };
@@ -10375,15 +10386,6 @@ async function resolveRepo(repo) {
     }
     throw e;
   }
-}
-function toReqExpArray(glob) {
-  if (!glob) {
-    return [];
-  }
-  if (!(glob instanceof Array)) {
-    glob = [glob];
-  }
-  return glob.map((x) => x instanceof RegExp ? x : globToRegExp(x));
 }
 async function fetchTags({ owner, name, host }, { match: argMatch, exclude: argExclude } = {}) {
   const match = toReqExpArray(argMatch);

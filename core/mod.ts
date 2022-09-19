@@ -2,8 +2,8 @@ import * as gh from "../gh-wrapper/mod.ts";
 import { parse } from "./ghrepo.ts";
 import { getOriginRepo } from "./git.ts";
 import * as git from "../git-wrapper/mod.ts";
-import { globToRegExp } from "https://deno.land/std@0.148.0/path/glob.ts";
 import { searchTag } from "./search_tags.ts";
+import { toReqExpArray } from "./to_reqexp_array.ts";
 
 export default ghDescribe;
 
@@ -132,18 +132,6 @@ export async function resolveRepo(repo?: string | Repo): Promise<Repo> {
 interface FetchTagsOptions {
   match?: string | RegExp | (string | RegExp)[];
   exclude?: string | RegExp | (string | RegExp)[];
-}
-
-function toReqExpArray(glob?: string | RegExp | (string | RegExp)[]): RegExp[] {
-  if (!glob) {
-    return [];
-  }
-
-  if (!(glob instanceof Array)) {
-    glob = [glob];
-  }
-
-  return glob.map((x) => x instanceof RegExp ? x : globToRegExp(x));
 }
 
 export async function fetchTags(
