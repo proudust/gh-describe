@@ -4,10 +4,6 @@ import { ghDescribeCli } from "./cli.ts";
 
 declare const __filename: string;
 
-declare let globalThis: {
-  version: string | undefined;
-};
-
 async function version(): Promise<string> {
   if (import.meta.url?.startsWith("file:")) {
     return await gitDescribe({ cwd: dirname(fromFileUrl(import.meta.url)) });
@@ -20,7 +16,7 @@ async function version(): Promise<string> {
 
 async function run() {
   ghDescribeCli({
-    version: globalThis.version || await version(),
+    version: await version(),
   });
 }
 

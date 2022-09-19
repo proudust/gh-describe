@@ -8,7 +8,7 @@ const { describe } = await ghDescribe();
 console.log("$ esbuild");
 await esbuild({
   bundle: true,
-  entryPoints: ["./cli/main.ts"],
+  entryPoints: ["./cli/main.compile.ts"],
   outfile: "./dist/cli_deno.js",
   format: "esm",
   target: "es2021",
