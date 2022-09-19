@@ -8703,9 +8703,7 @@ function globToRegExp(glob, { extended = true, globstar: globstarOption = true, 
   return new RegExp(regExpString, caseInsensitive ? "i" : "");
 }
 
-// dist/dnt/esm/core/mod.js
-var GhDescribeError = class extends Error {
-};
+// dist/dnt/esm/core/search_tags.js
 async function searchTag(tags, histories) {
   if (0 < tags.size) {
     let distance = 0;
@@ -8720,6 +8718,10 @@ async function searchTag(tags, histories) {
   }
   return null;
 }
+
+// dist/dnt/esm/core/mod.js
+var GhDescribeError = class extends Error {
+};
 async function ghDescribe({ repo, commitish, defaultTag, match, exclude } = {}) {
   repo = await resolveRepo(repo);
   const [tags, { sha, histories }] = await Promise.all([

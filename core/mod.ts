@@ -3,6 +3,7 @@ import { parse } from "./ghrepo.ts";
 import { getOriginRepo } from "./git.ts";
 import * as git from "../git-wrapper/mod.ts";
 import { globToRegExp } from "https://deno.land/std@0.148.0/path/glob.ts";
+import { searchTag } from "./search_tags.ts";
 
 export default ghDescribe;
 
@@ -44,24 +45,6 @@ interface GhDescribeOutput {
 }
 
 export class GhDescribeError extends Error {}
-
-export async function searchTag(
-  tags: Tags,
-  histories: Histories,
-): Promise<{ distance: number; tag: string } | null> {
-  if (0 < tags.size) {
-    let distance = 0;
-    for await (const commit of histories) {
-      const tag = tags.get(commit);
-      if (tag) {
-        return { tag, distance };
-      } else {
-        distance++;
-      }
-    }
-  }
-  return null;
-}
 
 interface GhDescribeOptions {
   /**

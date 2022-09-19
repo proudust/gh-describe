@@ -1,22 +1,16 @@
 import { assertEquals } from "https://deno.land/std@0.148.0/testing/asserts.ts";
-import { searchTag } from "./mod.ts";
-
-async function* toAsyncGenerator<T>(array: T[]) {
-  for (const item of array) {
-    yield item;
-  }
-}
+import { searchTag } from "./search_tags.ts";
 
 Deno.test("function searchTag(tags, histories)", async (ctx) => {
   await ctx.step("if match, return the tag name and distance", async () => {
     const tags = new Map([
       ["2222222222222222222222222222222222222222", "v0.1.0"],
     ]);
-    const histories = toAsyncGenerator<string>([
+    const histories = [
       "0000000000000000000000000000000000000000",
       "1111111111111111111111111111111111111111",
       "2222222222222222222222222222222222222222",
-    ]);
+    ];
     const result = await searchTag(tags, histories);
     assertEquals(result, {
       distance: 2,
@@ -28,22 +22,22 @@ Deno.test("function searchTag(tags, histories)", async (ctx) => {
     const tags = new Map([
       ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "v0.1.0"],
     ]);
-    const histories = toAsyncGenerator([
+    const histories = [
       "0000000000000000000000000000000000000000",
       "1111111111111111111111111111111111111111",
       "2222222222222222222222222222222222222222",
-    ]);
+    ];
     const result = await searchTag(tags, histories);
     assertEquals(result, null);
   });
 
   await ctx.step("if tags is empty, return null", async () => {
     const tags = new Map<never, never>();
-    const histories = toAsyncGenerator<string>([
+    const histories = [
       "0000000000000000000000000000000000000000",
       "1111111111111111111111111111111111111111",
       "2222222222222222222222222222222222222222",
-    ]);
+    ];
     const result = await searchTag(tags, histories);
     assertEquals(result, null);
   });
@@ -52,7 +46,7 @@ Deno.test("function searchTag(tags, histories)", async (ctx) => {
     const tags = new Map([
       ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "v0.1.0"],
     ]);
-    const histories = toAsyncGenerator([]);
+    const histories = [] as const;
     const result = await searchTag(tags, histories);
     assertEquals(result, null);
   });
