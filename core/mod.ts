@@ -1,4 +1,4 @@
-import { ExecError, graphql, listCommits, listRepositoryTags } from "./gh.ts";
+import * as gh from "../gh-wrapper/mod.ts";
 import { parse } from "./ghrepo.ts";
 import { getHeadSha, getOriginRepo, GitError } from "./git.ts";
 import { globToRegExp } from "https://deno.land/std@0.148.0/path/glob.ts";
@@ -179,7 +179,7 @@ export async function fetchTags(
   let count: number;
   do {
     page++;
-    const stdout = await listRepositoryTags(owner, name, { perPage, page, host, jq });
+    const stdout = await gh.listTags({ owner, repo: name, perPage, page, host, jq });
     count = tags.push(
       ...stdout
         .split("\n")
@@ -199,7 +199,7 @@ export async function fetchSha({ owner, name, host }: Repo, sha?: string): Promi
     try {
       const perPage = 1;
       const jq = ".[].sha";
-      return await listCommits(owner, name, { sha, perPage, host, jq });
+      return await gh.listCommits({ owner, repo: name, sha, perPage, host, jq });
     } catch {
       return sha;
     }
@@ -217,7 +217,7 @@ export async function* fetchHistory(repo: Repo, sha: string): Histories {
     let count: number;
     do {
       page++;
-      const stdout = await listCommits(owner, name, { sha, perPage, page, host, jq });
+      const stdout = await gh.listCommits({ owner, repo: name, sha, perPage, page, host, jq });
       const historySpan = stdout
         .trim()
         .split("\n");
@@ -227,7 +227,7 @@ export async function* fetchHistory(repo: Repo, sha: string): Histories {
       }
     } while (count === perPage);
   } catch (e: unknown) {
-    if (e instanceof ExecError && e.stderr === "gh: Not Found (HTTP 404)") {
+    if (e instanceof gh.GitHubCliError && e.stderr === "gh: Not Found (HTTP 404)") {
       const msg = `ambiguous argument '${sha}': unknown revision or path not in the ${repo} tree.`;
       throw new GhDescribeError(msg);
     }
@@ -236,7 +236,7 @@ export async function* fetchHistory(repo: Repo, sha: string): Histories {
 }
 
 export async function fetchTotalCommit({ owner, name, host }: Repo, sha: string) {
-  const stdout = await graphql({ host })`
+  const stdout = await gh.graphql({ host })`
   {
     repository(owner: "${owner}", name: "${name}") {
       object(expression: "${sha}") {

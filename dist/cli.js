@@ -10207,37 +10207,37 @@ var EnumType = class extends Type {
   }
 };
 
-// dist/dnt/esm/core/gh.js
-async function exec2(cmd) {
+// dist/dnt/esm/gh-wrapper/exec.js
+async function exec2(args) {
   const process2 = import_shim_deno2.Deno.run({
-    cmd,
+    cmd: ["gh", ...args],
     stdout: "piped",
     stderr: "piped"
   });
-  const [status, stdout, stderr] = await Promise.all([
+  const [{ code: code2 }, stdout, stderr] = await Promise.all([
     process2.status(),
     process2.output(),
     process2.stderrOutput()
   ]);
-  if (status.code === 0) {
+  if (code2 === 0) {
     return new TextDecoder().decode(stdout).trim();
   } else {
-    const jqIndex = cmd.indexOf("-q");
+    const jqIndex = args.indexOf("-q");
     if (0 < jqIndex) {
-      await exec2([...cmd.slice(0, jqIndex), ...cmd.slice(jqIndex + 2, cmd.length)]);
+      await exec2([...args.slice(0, jqIndex), ...args.slice(jqIndex + 2, args.length)]);
     }
-    throw new ExecError(cmd, status.code, new TextDecoder().decode(stderr).trim());
+    throw new GitHubCliError(args, code2, new TextDecoder().decode(stderr).trim());
   }
 }
-var ExecError = class extends Error {
-  constructor(cmd, code2, stderr) {
-    super(`\`${cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code2}
+var GitHubCliError = class extends Error {
+  constructor(args, code2, stderr) {
+    super(`\`gh ${args.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code2}
 ${stderr}`);
-    Object.defineProperty(this, "cmd", {
+    Object.defineProperty(this, "args", {
       enumerable: true,
       configurable: true,
       writable: true,
-      value: cmd
+      value: args
     });
     Object.defineProperty(this, "code", {
       enumerable: true,
@@ -10253,7 +10253,9 @@ ${stderr}`);
     });
   }
 };
-async function listCommits(owner, repo, { sha, perPage, page, host, jq } = {}) {
+
+// dist/dnt/esm/gh-wrapper/list_commits.js
+function createUrl({ owner, repo, sha, perPage, page }) {
   const param = new URLSearchParams();
   if (sha)
     param.set("sha", sha);
@@ -10261,25 +10263,33 @@ async function listCommits(owner, repo, { sha, perPage, page, host, jq } = {}) {
     param.set("per_page", String(perPage));
   if (page)
     param.set("page", String(page));
-  const cmd = ["gh", "api", `repos/${owner}/${repo}/commits?${param}`];
-  if (host)
-    cmd.push("--hostname", host);
-  if (jq)
-    cmd.push("-q", jq);
-  return await exec2(cmd);
+  return `repos/${owner}/${repo}/commits?${param}`;
 }
-async function listRepositoryTags(owner, repo, { perPage, page, host, jq } = {}) {
+async function listCommits({ host, jq, ...options }) {
+  const args = ["api", createUrl(options)];
+  if (host)
+    args.push("--hostname", host);
+  if (jq)
+    args.push("-q", jq);
+  return await exec2(args);
+}
+
+// dist/dnt/esm/gh-wrapper/list_tags.js
+function createUrl2({ owner, repo, perPage, page }) {
   const param = new URLSearchParams();
   if (perPage)
     param.set("per_page", String(perPage));
   if (page)
     param.set("page", String(page));
-  const cmd = ["gh", "api", `repos/${owner}/${repo}/tags?${param}`];
+  return `repos/${owner}/${repo}/tags?${param}`;
+}
+async function listTags({ host, jq, ...options }) {
+  const args = ["api", createUrl2(options)];
   if (host)
-    cmd.push("--hostname", host);
+    args.push("--hostname", host);
   if (jq)
-    cmd.push("-q", jq);
-  return await exec2(cmd);
+    args.push("-q", jq);
+  return await exec2(args);
 }
 
 // dist/dnt/esm/core/mod.js
@@ -10351,7 +10361,7 @@ async function fetchTags({ owner, name, host }, { match: argMatch, exclude: argE
   let count;
   do {
     page++;
-    const stdout = await listRepositoryTags(owner, name, { perPage, page, host, jq });
+    const stdout = await listTags({ owner, repo: name, perPage, page, host, jq });
     count = tags.push(...stdout.split("\n").filter((x) => !!x).map((x) => JSON.parse(x)).filter(([, tag]) => (!match.length || match.some((y) => y.test(tag))) && (!exclude.length || !exclude.some((y) => y.test(tag)))));
   } while (count === perPage);
   return new Map(tags);
@@ -10361,7 +10371,7 @@ async function fetchSha({ owner, name, host }, sha) {
     try {
       const perPage = 1;
       const jq = ".[].sha";
-      return await listCommits(owner, name, { sha, perPage, host, jq });
+      return await listCommits({ owner, repo: name, sha, perPage, host, jq });
     } catch {
       return sha;
     }
@@ -10378,7 +10388,7 @@ async function* fetchHistory(repo, sha) {
     let count;
     do {
       page++;
-      const stdout = await listCommits(owner, name, { sha, perPage, page, host, jq });
+      const stdout = await listCommits({ owner, repo: name, sha, perPage, page, host, jq });
       const historySpan = stdout.trim().split("\n");
       count = historySpan.length;
       for (const commitSha of historySpan) {
@@ -10386,7 +10396,7 @@ async function* fetchHistory(repo, sha) {
       }
     } while (count === perPage);
   } catch (e) {
-    if (e instanceof ExecError && e.stderr === "gh: Not Found (HTTP 404)") {
+    if (e instanceof GitHubCliError && e.stderr === "gh: Not Found (HTTP 404)") {
       const msg = `ambiguous argument '${sha}': unknown revision or path not in the ${repo} tree.`;
       throw new GhDescribeError(msg);
     }
