@@ -6412,7 +6412,7 @@ async function revParse(options) {
   return await exec(args);
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/ansi/ansi_escapes.js
 var ansi_escapes_exports = {};
 __export(ansi_escapes_exports, {
   bel: () => bel,
@@ -6445,7 +6445,7 @@ __export(ansi_escapes_exports, {
   scrollUp: () => scrollUp
 });
 
-// dist/dnt/esm/deps/deno.land/std@0.154.0/encoding/base64.js
+// dist/dnt/esm/deps/deno.land/std@0.155.0/encoding/base64.js
 var base64abc = [
   "A",
   "B",
@@ -6536,7 +6536,7 @@ function encode(data) {
   return result;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/ansi/ansi_escapes.js
 var ESC = "\x1B";
 var CSI = `${ESC}[`;
 var OSC = `${ESC}]`;
@@ -6642,7 +6642,7 @@ function image(buffer, options) {
   return ret + ":" + encode(buffer) + bel;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/ansi/ansi.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/ansi/ansi.js
 var ansi = factory();
 function factory() {
   let result = [];
@@ -6692,7 +6692,7 @@ function factory() {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.154.0/fmt/colors.js
+// dist/dnt/esm/deps/deno.land/std@0.155.0/fmt/colors.js
 var colors_exports = {};
 __export(colors_exports, {
   bgBlack: () => bgBlack,
@@ -6930,7 +6930,7 @@ function stripColor(string2) {
   return string2.replace(ANSI_PATTERN, "");
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/ansi/colors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/ansi/colors.js
 var proto = /* @__PURE__ */ Object.create(null);
 var methodNames = Object.keys(colors_exports);
 for (const name of methodNames) {
@@ -6959,7 +6959,7 @@ function factory2(stack = []) {
   return colors2;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/ansi/cursor_position.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/ansi/cursor_position.js
 function getCursorPosition({ stdin = import_shim_deno2.Deno.stdin, stdout = import_shim_deno2.Deno.stdout } = {}) {
   const data = new Uint8Array(8);
   import_shim_deno2.Deno.setRaw(stdin.rid, true);
@@ -6970,7 +6970,7 @@ function getCursorPosition({ stdin = import_shim_deno2.Deno.stdin, stdout = impo
   return { x, y };
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/ansi/tty.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/ansi/tty.js
 var tty = factory3();
 function factory3(options) {
   let result = "";
@@ -7017,7 +7017,7 @@ function factory3(options) {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/_utils/distance.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/_utils/distance.js
 function distance(a, b) {
   if (a.length == 0) {
     return b.length;
@@ -7044,7 +7044,7 @@ function distance(a, b) {
   return matrix[b.length][a.length];
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/flags/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/_utils.js
 function paramCaseToCamelCase(str) {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
@@ -7128,7 +7128,7 @@ function getDefaultValue(option) {
   return typeof option.default === "function" ? option.default() : option.default;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/flags/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/_errors.js
 var FlagsError = class extends Error {
   constructor(message) {
     super(message);
@@ -7232,7 +7232,7 @@ var InvalidTypeError = class extends ValidationError {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/flags/types.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/types.js
 var OptionType;
 (function(OptionType2) {
   OptionType2["STRING"] = "string";
@@ -7241,7 +7241,7 @@ var OptionType;
   OptionType2["BOOLEAN"] = "boolean";
 })(OptionType || (OptionType = {}));
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/_utils.js
 function didYouMeanCommand(command, commands, excludes = []) {
   const commandNames = commands.map((command2) => command2.getName()).filter((command2) => !excludes.includes(command2));
   return didYouMean(" Did you mean command", command, commandNames);
@@ -7324,7 +7324,7 @@ function getDescription(description, short) {
   return short ? description.trim().split("\n", 1)[0] : dedent(description);
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/_errors.js
 var CommandError = class extends Error {
   constructor(message) {
     super(message);
@@ -7465,7 +7465,7 @@ var TooManyArguments = class extends ValidationError2 {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/flags/types/boolean.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/types/boolean.js
 var boolean = (type) => {
   if (~["1", "true"].indexOf(type.value)) {
     return true;
@@ -7476,7 +7476,7 @@ var boolean = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/flags/types/number.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/types/number.js
 var number = (type) => {
   const value = Number(type.value);
   if (Number.isFinite(value)) {
@@ -7485,12 +7485,12 @@ var number = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/flags/types/string.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/types/string.js
 var string = ({ value }) => {
   return value;
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/flags/validate_flags.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/validate_flags.js
 function validateFlags(opts, values, optionNameMap = {}) {
   if (!opts.flags) {
     return;
@@ -7605,7 +7605,7 @@ function isset(flag, values) {
   return typeof values[name] !== "undefined";
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/flags/types/integer.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/types/integer.js
 var integer = (type) => {
   const value = Number(type.value);
   if (Number.isInteger(value)) {
@@ -7614,7 +7614,7 @@ var integer = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/flags/flags.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/flags.js
 var Types = {
   [OptionType.STRING]: string,
   [OptionType.NUMBER]: number,
@@ -7894,11 +7894,11 @@ function parseFlagValue(option, arg, value) {
   });
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/type.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/type.js
 var Type = class {
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/types/boolean.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/boolean.js
 var BooleanType = class extends Type {
   parse(type) {
     return boolean(type);
@@ -7908,28 +7908,28 @@ var BooleanType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/types/string.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/string.js
 var StringType = class extends Type {
   parse(type) {
     return string(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/types/file.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/file.js
 var FileType = class extends StringType {
   constructor() {
     super();
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/types/number.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/number.js
 var NumberType = class extends Type {
   parse(type) {
     return number(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/table/border.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/table/border.js
 var border = {
   top: "\u2500",
   topMid: "\u252C",
@@ -7948,7 +7948,7 @@ var border = {
   middle: "\u2502"
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/table/cell.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/table/cell.js
 var Cell = class {
   constructor(value) {
     Object.defineProperty(this, "value", {
@@ -8024,7 +8024,7 @@ var Cell = class {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/table/row.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/table/row.js
 var Row = class extends Array {
   constructor() {
     super(...arguments);
@@ -8070,7 +8070,7 @@ var Row = class extends Array {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/table/utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/table/utils.js
 function consumeWords(length, content) {
   let consumed = "";
   const words = content.split("\n")[0]?.split(/ /g);
@@ -8112,7 +8112,7 @@ var strLength = (str) => {
   return length;
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/table/layout.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/table/layout.js
 var __classPrivateFieldGet = function(receiver, state, kind, f) {
   if (kind === "a" && !f)
     throw new TypeError("Private accessor was defined without a getter");
@@ -8508,7 +8508,7 @@ _TableLayout_instances = /* @__PURE__ */ new WeakSet(), _TableLayout_getRows = f
   });
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/table/table.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/table/table.js
 var Table = class extends Array {
   constructor() {
     super(...arguments);
@@ -8659,7 +8659,7 @@ Object.defineProperty(Table, "_chars", {
   value: { ...border }
 });
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/help/_help_generator.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/help/_help_generator.js
 var HelpGenerator = class {
   constructor(cmd, options = {}) {
     Object.defineProperty(this, "cmd", {
@@ -8897,14 +8897,14 @@ function highlightArgumentDetails(arg, types = true) {
   return str;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/types/integer.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/integer.js
 var IntegerType = class extends Type {
   parse(type) {
     return integer(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/command.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/command.js
 var Command = class {
   constructor() {
     Object.defineProperty(this, "types", {
@@ -9418,69 +9418,54 @@ var Command = class {
     });
     return this;
   }
-  async parse(args = import_shim_deno2.Deno.args) {
-    try {
-      return await this.parseCommand({ args });
-    } catch (error) {
-      this.throw(error instanceof Error ? error : new Error(`[non-error-thrown] ${error}`));
-    }
+  parse(args = import_shim_deno2.Deno.args) {
+    return this.parseCommand({ args });
   }
   async parseCommand(ctx) {
-    this.reset();
-    this.registerDefaults();
-    this.rawArgs = ctx.args;
-    if (this.isExecutable) {
-      await this.executeExecutable(ctx.args);
-      return { options: {}, args: [], cmd: this, literal: [] };
-    }
-    if (this._useRawArgs) {
-      const env = await this.parseEnvVars(this.envVars);
-      return this.execute(env, ...ctx.args);
-    }
-    let preParseGlobals = false;
-    let subCommand;
-    if (ctx.args.length > 0) {
-      subCommand = this.getCommand(ctx.args[0], true);
-      if (subCommand) {
-        ctx.args = ctx.args.slice(1);
-      } else {
-        const optionName = ctx.args[0].replace(/^-+/, "");
-        preParseGlobals = this.getOption(optionName, true)?.global === true;
-        if (preParseGlobals) {
-          ctx = await this.parseGlobalOptionsAndEnvVars(ctx);
-        }
+    try {
+      this.reset();
+      this.registerDefaults();
+      this.rawArgs = ctx.args;
+      if (this.isExecutable) {
+        await this.executeExecutable(ctx.args);
+        return { options: {}, args: [], cmd: this, literal: [] };
       }
-    } else {
-      preParseGlobals = false;
-    }
-    if (subCommand || ctx.args.length > 0) {
-      if (!subCommand) {
-        subCommand = this.getCommand(ctx.args[0], true);
+      if (this._useRawArgs) {
+        const env = await this.parseEnvVars(this.envVars);
+        return this.execute(env, ...ctx.args);
+      }
+      let subCommand;
+      if (subCommand || ctx.args.length > 0) {
+        if (!subCommand) {
+          subCommand = this.getCommand(ctx.args[0], true);
+          if (subCommand) {
+            ctx.args = ctx.args.slice(1);
+          }
+        }
         if (subCommand) {
-          ctx.args = ctx.args.slice(1);
+          subCommand._globalParent = this;
+          return subCommand.parseCommand(ctx);
         }
       }
-      if (subCommand) {
-        subCommand._globalParent = this;
-        return subCommand.parseCommand(ctx);
+      ctx = await this.parseOptionsAndEnvVars(ctx);
+      this.literalArgs = ctx.literal ?? [];
+      const options = { ...ctx.env, ...ctx.options };
+      const params = this.parseArguments(ctx.args, options);
+      if (ctx.action) {
+        await ctx.action.action.call(this, options, ...params);
+        if (ctx.action.standalone) {
+          return {
+            options,
+            args: params,
+            cmd: this,
+            literal: this.literalArgs
+          };
+        }
       }
+      return this.execute(options, ...params);
+    } catch (error) {
+      this.throw(error instanceof ValidationError ? new ValidationError2(error.message) : error instanceof Error ? error : new Error(`[non-error-thrown] ${error}`));
     }
-    ctx = await this.parseOptionsAndEnvVars(ctx, preParseGlobals);
-    this.literalArgs = ctx.literal ?? [];
-    const options = { ...ctx.env, ...ctx.options };
-    const params = this.parseArguments(ctx.args, options);
-    if (ctx.action) {
-      await ctx.action.action.call(this, options, ...params);
-      if (ctx.action.standalone) {
-        return {
-          options,
-          args: params,
-          cmd: this,
-          literal: this.literalArgs
-        };
-      }
-    }
-    return this.execute(options, ...params);
   }
   async parseGlobalOptionsAndEnvVars(ctx) {
     const envVars = [
@@ -9495,16 +9480,16 @@ var Command = class {
     ];
     return this.parseOptions(ctx, options, env, true);
   }
-  async parseOptionsAndEnvVars(ctx, preParseGlobals) {
-    const envVars = preParseGlobals ? this.envVars.filter((envVar) => !envVar.global) : this.getEnvVars(true);
+  async parseOptionsAndEnvVars(ctx) {
+    const envVars = this.getEnvVars(true);
     const helpOption = this.getHelpOption();
     const isVersionOption = this._versionOption?.flags.includes(ctx.args[0]);
-    const isHelpOption = helpOption && ctx.options?.[helpOption.name] === true;
+    const isHelpOption = helpOption?.flags.includes(ctx.args[0]);
     const env = {
       ...ctx.env,
       ...await this.parseEnvVars(envVars, !isHelpOption && !isVersionOption)
     };
-    const options = preParseGlobals ? this.options.filter((option) => !option.global) : this.getOptions(true);
+    const options = this.getOptions(true);
     return this.parseOptions(ctx, options, env);
   }
   registerDefaults() {
@@ -9596,47 +9581,33 @@ var Command = class {
     }
   }
   parseOptions(ctx, options, env, stopEarly = this._stopEarly) {
-    try {
-      let action;
-      const parseResult = parseFlags(ctx.args, {
-        stopEarly,
-        allowEmpty: this._allowEmpty,
-        flags: options,
-        ignoreDefaults: env,
-        parse: (type) => this.parseType(type),
-        option: (option) => {
-          if (!action && option.action) {
-            action = option;
-          }
+    let action;
+    const parseResult = parseFlags(ctx.args, {
+      stopEarly,
+      allowEmpty: this._allowEmpty,
+      flags: options,
+      ignoreDefaults: env,
+      parse: (type) => this.parseType(type),
+      option: (option) => {
+        if (!action && option.action) {
+          action = option;
         }
-      });
-      return {
-        args: parseResult.unknown,
-        options: { ...ctx.options, ...parseResult.flags },
-        env: { ...ctx.env, ...env },
-        action: ctx.action ?? action,
-        literal: parseResult.literal
-      };
-    } catch (error) {
-      if (error instanceof ValidationError) {
-        throw new ValidationError2(error.message);
       }
-      throw error;
-    }
+    });
+    return {
+      args: parseResult.unknown,
+      options: { ...ctx.options, ...parseResult.flags },
+      env: { ...ctx.env, ...env },
+      action: ctx.action ?? action,
+      literal: parseResult.literal
+    };
   }
   parseType(type) {
     const typeSettings = this.getType(type.type);
     if (!typeSettings) {
       throw new UnknownType(type.type, this.getTypes().map((type2) => type2.name));
     }
-    try {
-      return typeSettings.handler instanceof Type ? typeSettings.handler.parse(type) : typeSettings.handler(type);
-    } catch (error) {
-      if (error instanceof ValidationError) {
-        throw new ValidationError2(error.message);
-      }
-      throw error;
-    }
+    return typeSettings.handler instanceof Type ? typeSettings.handler.parse(type) : typeSettings.handler(type);
   }
   async parseEnvVars(envVars, validate = true) {
     const result = {};
@@ -10117,27 +10088,27 @@ function isUpgradeCommand(command) {
   return command instanceof Command && "getLatestVersion" in command;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/completions/bash.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/completions/bash.js
 var _BashCompletionsCommand_cmd;
 _BashCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/completions/fish.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/completions/fish.js
 var _FishCompletionsCommand_cmd;
 _FishCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/completions/zsh.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/completions/zsh.js
 var _ZshCompletionsCommand_cmd;
 _ZshCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/completions/mod.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/completions/mod.js
 var _CompletionsCommand_cmd;
 _CompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/types/child_command.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/child_command.js
 var _ChildCommandType_cmd;
 _ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.0/command/types/enum.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/enum.js
 var EnumType = class extends Type {
   constructor(values) {
     super();
