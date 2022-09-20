@@ -11,7 +11,7 @@ function creareArgs({ cwd }: GitOptions): string[] {
 /**
  * @see https://git-scm.com/docs/git-describe
  */
-export async function describe(options: GitOptions) {
+export async function describe(options: GitOptions = {}) {
   const args = creareArgs(options);
   return await exec(args);
 }

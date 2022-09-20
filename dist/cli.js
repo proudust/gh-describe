@@ -6352,7 +6352,7 @@ function creareArgs({ cwd }) {
   args.push("describe", "--tags");
   return args;
 }
-async function describe(options) {
+async function describe(options = {}) {
   const args = creareArgs(options);
   return await exec(args);
 }
