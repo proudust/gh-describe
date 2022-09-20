@@ -10165,10 +10165,6 @@ var EnumType = class extends Type {
   }
 };
 
-// dist/dnt/esm/core/gh_describe_error.js
-var GhDescribeError = class extends Error {
-};
-
 // dist/dnt/esm/gh-wrapper/exec.js
 async function exec2(args) {
   const process2 = import_shim_deno2.Deno.run({
@@ -10253,6 +10249,10 @@ async function listTags({ host, jq, ...options }) {
     args.push("-q", jq);
   return await exec2(args);
 }
+
+// dist/dnt/esm/core/gh_describe_error.js
+var GhDescribeError = class extends Error {
+};
 
 // dist/dnt/esm/core/fetch_history.js
 async function* fetchHistory({ owner, repo, host, sha }) {
@@ -10434,9 +10434,16 @@ async function searchTag(tags, histories) {
   return null;
 }
 
-// dist/dnt/esm/core/mod.js
-async function ghDescribe({ repo: maybeRepo, commitish, defaultTag, match, exclude } = {}) {
-  const { owner, repo, host } = await resolveRepo(maybeRepo);
+// dist/dnt/esm/core/gh_describe.js
+function createDescribe(tag, distance2, sha) {
+  if (distance2 === 0) {
+    return tag;
+  } else {
+    return `${tag}-${distance2}-g${sha.substring(0, 7)}`;
+  }
+}
+async function ghDescribe({ repo: repoLike, commitish, defaultTag, match, exclude } = {}) {
+  const { owner, repo, host } = await resolveRepo(repoLike);
   const [tags, { sha, histories }] = await Promise.all([
     fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
@@ -10452,15 +10459,8 @@ async function ghDescribe({ repo: maybeRepo, commitish, defaultTag, match, exclu
   if (!tag) {
     throw new GhDescribeError("No names found, cannot describe anything.");
   }
-  const describe2 = genDescribe(tag, distance2, sha);
+  const describe2 = createDescribe(tag, distance2, sha);
   return { describe: describe2, tag, distance: distance2, sha };
-}
-function genDescribe(tag, distance2, sha) {
-  if (distance2 === 0) {
-    return tag;
-  } else {
-    return `${tag}-${distance2}-g${sha.substring(0, 7)}`;
-  }
 }
 
 // dist/dnt/esm/cli/cli.js

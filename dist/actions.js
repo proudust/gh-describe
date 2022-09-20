@@ -7026,10 +7026,6 @@ function createMergeProxy(baseObj, extObj) {
 // dist/dnt/esm/actions/main.js
 var import_core = __toESM(require_core(), 1);
 
-// dist/dnt/esm/core/gh_describe_error.js
-var GhDescribeError = class extends Error {
-};
-
 // dist/dnt/esm/gh-wrapper/exec.js
 async function exec(args) {
   const process2 = import_shim_deno2.Deno.run({
@@ -7114,6 +7110,10 @@ async function listTags({ host, jq, ...options }) {
     args.push("-q", jq);
   return await exec(args);
 }
+
+// dist/dnt/esm/core/gh_describe_error.js
+var GhDescribeError = class extends Error {
+};
 
 // dist/dnt/esm/core/fetch_history.js
 async function* fetchHistory({ owner, repo, host, sha }) {
@@ -8813,9 +8813,16 @@ async function searchTag(tags, histories) {
   return null;
 }
 
-// dist/dnt/esm/core/mod.js
-async function ghDescribe({ repo: maybeRepo, commitish, defaultTag, match, exclude } = {}) {
-  const { owner, repo, host } = await resolveRepo(maybeRepo);
+// dist/dnt/esm/core/gh_describe.js
+function createDescribe(tag, distance, sha) {
+  if (distance === 0) {
+    return tag;
+  } else {
+    return `${tag}-${distance}-g${sha.substring(0, 7)}`;
+  }
+}
+async function ghDescribe({ repo: repoLike, commitish, defaultTag, match, exclude } = {}) {
+  const { owner, repo, host } = await resolveRepo(repoLike);
   const [tags, { sha, histories }] = await Promise.all([
     fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
@@ -8831,15 +8838,8 @@ async function ghDescribe({ repo: maybeRepo, commitish, defaultTag, match, exclu
   if (!tag) {
     throw new GhDescribeError("No names found, cannot describe anything.");
   }
-  const describe = genDescribe(tag, distance, sha);
+  const describe = createDescribe(tag, distance, sha);
   return { describe, tag, distance, sha };
-}
-function genDescribe(tag, distance, sha) {
-  if (distance === 0) {
-    return tag;
-  } else {
-    return `${tag}-${distance}-g${sha.substring(0, 7)}`;
-  }
 }
 
 // dist/dnt/esm/actions/main.js
