@@ -8773,8 +8773,8 @@ function parseFromFullName(fullName) {
   }
 }
 
-// dist/dnt/esm/core/git.js
-async function getOriginRepo() {
+// dist/dnt/esm/core/get_origin.js
+async function getOrigin() {
   const remotes = await listRemotes();
   const { fetchUrl } = remotes.find((x) => x.name === "origin" && x.fetchUrl) || remotes[0];
   if (!fetchUrl)
@@ -8788,7 +8788,7 @@ async function resolveRepo(repo) {
     return parse3(repo);
   }
   try {
-    return await getOriginRepo();
+    return await getOrigin();
   } catch (e) {
     if (e instanceof GitError && e.stderr === "fatal: not a git repository (or any of the parent directories): .git") {
       throw new GhDescribeError(e.stderr, e);

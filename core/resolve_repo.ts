@@ -1,7 +1,7 @@
 import * as git from "../git-wrapper/mod.ts";
 import { GitHubRepository, parse } from "./ghrepo.ts";
 import { GhDescribeError } from "./gh_describe_error.ts";
-import { getOriginRepo } from "./git.ts";
+import { getOrigin } from "./get_origin.ts";
 
 interface Repo {
   owner: string;
@@ -15,7 +15,7 @@ export async function resolveRepo(repo?: string | Repo): Promise<GitHubRepositor
   }
 
   try {
-    return await getOriginRepo();
+    return await getOrigin();
   } catch (e: unknown) {
     if (
       e instanceof git.GitError &&
