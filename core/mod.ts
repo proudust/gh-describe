@@ -1,4 +1,3 @@
-import * as gh from "../gh-wrapper/mod.ts";
 import { fetchHistory } from "./fetch_history.ts";
 import { fetchSha } from "./fetch_sha.ts";
 import { fetchTags } from "./fetch_tags.ts";
@@ -99,23 +98,6 @@ export async function ghDescribe(
 
   const describe = genDescribe(tag, distance, sha);
   return { describe, tag, distance, sha };
-}
-
-export async function fetchTotalCommit({ owner, repo, host }: Repo, sha: string) {
-  const stdout = await gh.graphql({ host })`
-  {
-    repository(owner: "${owner}", name: "${repo}") {
-      object(expression: "${sha}") {
-        ... on Commit {
-          history(first: 0) {
-            totalCount
-          }
-        }
-      }
-    }
-  }`;
-  const repository = JSON.parse(stdout);
-  return repository.object.history.totalCount;
 }
 
 export function genDescribe(tag: string, distance: number, sha: string) {
