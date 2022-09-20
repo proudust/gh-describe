@@ -8710,18 +8710,18 @@ async function fetchTags({ owner, repo, host, match, exclude }) {
 
 // dist/dnt/esm/core/ghrepo.js
 var GitHubRepository = class {
-  constructor(owner, name, host) {
+  constructor(owner, repo, host) {
     Object.defineProperty(this, "owner", {
       enumerable: true,
       configurable: true,
       writable: true,
       value: owner
     });
-    Object.defineProperty(this, "name", {
+    Object.defineProperty(this, "repo", {
       enumerable: true,
       configurable: true,
       writable: true,
-      value: name
+      value: repo
     });
     Object.defineProperty(this, "host", {
       enumerable: true,
@@ -8732,9 +8732,9 @@ var GitHubRepository = class {
   }
   toString() {
     if (this.host) {
-      return `${this.host}/${this.owner}/${this.name}`;
+      return `${this.host}/${this.owner}/${this.repo}`;
     } else {
-      return `${this.owner}/${this.name}`;
+      return `${this.owner}/${this.repo}`;
     }
   }
 };
@@ -8782,6 +8782,21 @@ async function getOriginRepo() {
   return parseFromUrl(fetchUrl);
 }
 
+// dist/dnt/esm/core/resolve_repo.js
+async function resolveRepo(repo) {
+  if (typeof repo === "string") {
+    return parse3(repo);
+  }
+  try {
+    return await getOriginRepo();
+  } catch (e) {
+    if (e instanceof GitError && e.stderr === "fatal: not a git repository (or any of the parent directories): .git") {
+      throw new GhDescribeError(e.stderr, e);
+    }
+    throw e;
+  }
+}
+
 // dist/dnt/esm/core/search_tags.js
 async function searchTag(tags, histories) {
   if (0 < tags.size) {
@@ -8800,7 +8815,7 @@ async function searchTag(tags, histories) {
 
 // dist/dnt/esm/core/mod.js
 async function ghDescribe({ repo: maybeRepo, commitish, defaultTag, match, exclude } = {}) {
-  const { owner, name: repo, host } = await resolveRepo(maybeRepo);
+  const { owner, repo, host } = await resolveRepo(maybeRepo);
   const [tags, { sha, histories }] = await Promise.all([
     fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
@@ -8818,19 +8833,6 @@ async function ghDescribe({ repo: maybeRepo, commitish, defaultTag, match, exclu
   }
   const describe = genDescribe(tag, distance, sha);
   return { describe, tag, distance, sha };
-}
-async function resolveRepo(repo) {
-  if (typeof repo === "string") {
-    return parse3(repo);
-  }
-  try {
-    return await getOriginRepo();
-  } catch (e) {
-    if (e instanceof GitError && e.stderr === "fatal: not a git repository (or any of the parent directories): .git") {
-      throw new GhDescribeError(e.stderr, e);
-    }
-    throw e;
-  }
 }
 function genDescribe(tag, distance, sha) {
   if (distance === 0) {

@@ -1,15 +1,15 @@
-class GitHubRepository {
+export class GitHubRepository {
   constructor(
     public readonly owner: string,
-    public readonly name: string,
+    public readonly repo: string,
     public readonly host?: string,
   ) {}
 
   public toString() {
     if (this.host) {
-      return `${this.host}/${this.owner}/${this.name}`;
+      return `${this.host}/${this.owner}/${this.repo}`;
     } else {
-      return `${this.owner}/${this.name}`;
+      return `${this.owner}/${this.repo}`;
     }
   }
 }

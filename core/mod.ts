@@ -2,17 +2,15 @@ import * as gh from "../gh-wrapper/mod.ts";
 import { fetchHistory } from "./fetch_history.ts";
 import { fetchSha } from "./fetch_sha.ts";
 import { fetchTags } from "./fetch_tags.ts";
-import { parse } from "./ghrepo.ts";
 import { GhDescribeError } from "./gh_describe_error.ts";
-import { getOriginRepo } from "./git.ts";
-import * as git from "../git-wrapper/mod.ts";
+import { resolveRepo } from "./resolve_repo.ts";
 import { searchTag } from "./search_tags.ts";
 
 export default ghDescribe;
 
 interface Repo {
   owner: string;
-  name: string;
+  repo: string;
   host?: string;
 }
 
@@ -79,7 +77,7 @@ export async function ghDescribe(
     exclude,
   }: GhDescribeOptions = {},
 ): Promise<GhDescribeOutput> {
-  const { owner, name: repo, host } = await resolveRepo(maybeRepo);
+  const { owner, repo, host } = await resolveRepo(maybeRepo);
 
   const [tags, { sha, histories }] = await Promise.all([
     fetchTags({ owner, repo, host, match, exclude }),
@@ -103,28 +101,10 @@ export async function ghDescribe(
   return { describe, tag, distance, sha };
 }
 
-export async function resolveRepo(repo?: string | Repo): Promise<Repo> {
-  if (typeof repo === "string") {
-    return parse(repo);
-  }
-
-  try {
-    return await getOriginRepo();
-  } catch (e: unknown) {
-    if (
-      e instanceof git.GitError &&
-      e.stderr === "fatal: not a git repository (or any of the parent directories): .git"
-    ) {
-      throw new GhDescribeError(e.stderr, e);
-    }
-    throw e;
-  }
-}
-
-export async function fetchTotalCommit({ owner, name, host }: Repo, sha: string) {
+export async function fetchTotalCommit({ owner, repo, host }: Repo, sha: string) {
   const stdout = await gh.graphql({ host })`
   {
-    repository(owner: "${owner}", name: "${name}") {
+    repository(owner: "${owner}", name: "${repo}") {
       object(expression: "${sha}") {
         ... on Commit {
           history(first: 0) {
