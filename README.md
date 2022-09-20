@@ -72,13 +72,13 @@ Require [GitHub CLI](https://github.com/cli/cli#installation) and
 [Deno](https://deno.land/#installation).
 
 ```sh
-deno run --allow-run https://raw.githubusercontent.com/proudust/gh-describe/v1.5.0/cli/main.ts
+deno run --allow-run https://raw.githubusercontent.com/proudust/gh-describe/v1.5.1/cli/main.ts
 ```
 
 or
 
 ```sh
-deno install -n gh-describe --allow-run https://raw.githubusercontent.com/proudust/gh-describe/v1.5.0/cli/main.ts
+deno install -n gh-describe --allow-run https://raw.githubusercontent.com/proudust/gh-describe/v1.5.1/cli/main.ts
 gh-describe
 ```
 
@@ -106,7 +106,7 @@ Mac or Linux:
 ```sh
 $ gh describe --help
   Usage:   gh-describe [commit-ish]
-  Version: v1.5.0
+  Version: v1.5.1
 
   Description:
 
