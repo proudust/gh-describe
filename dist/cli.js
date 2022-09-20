@@ -10279,6 +10279,22 @@ async function* fetchHistory({ owner, repo, host, sha }) {
   }
 }
 
+// dist/dnt/esm/core/fetch_sha.js
+async function fetchSha(args) {
+  const { sha } = args;
+  if (sha) {
+    try {
+      const perPage = 1;
+      const jq = ".[].sha";
+      return await listCommits({ ...args, perPage, jq });
+    } catch {
+      return sha;
+    }
+  } else {
+    return revParse({ arg: "HEAD" });
+  }
+}
+
 // dist/dnt/esm/core/to_reqexp_array.js
 function toReqExpArray(glob) {
   if (!glob) {
@@ -10409,7 +10425,7 @@ async function ghDescribe({ repo: maybeRepo, commitish, defaultTag, match, exclu
   const [tags, { sha, histories }] = await Promise.all([
     fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
-      const sha2 = await fetchSha({ owner, name: repo, host }, commitish);
+      const sha2 = await fetchSha({ owner, repo, host, sha: commitish });
       const histories2 = fetchHistory({ owner, repo, host, sha: sha2 });
       return { sha: sha2, histories: histories2 };
     })()
@@ -10435,19 +10451,6 @@ async function resolveRepo(repo) {
       throw new GhDescribeError(e.stderr, e);
     }
     throw e;
-  }
-}
-async function fetchSha({ owner, name, host }, sha) {
-  if (sha) {
-    try {
-      const perPage = 1;
-      const jq = ".[].sha";
-      return await listCommits({ owner, repo: name, sha, perPage, host, jq });
-    } catch {
-      return sha;
-    }
-  } else {
-    return revParse({ arg: "HEAD" });
   }
 }
 function genDescribe(tag, distance2, sha) {

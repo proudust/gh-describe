@@ -1,5 +1,6 @@
 import * as gh from "../gh-wrapper/mod.ts";
 import { fetchHistory } from "./fetch_history.ts";
+import { fetchSha } from "./fetch_sha.ts";
 import { fetchTags } from "./fetch_tags.ts";
 import { parse } from "./ghrepo.ts";
 import { GhDescribeError } from "./gh_describe_error.ts";
@@ -83,7 +84,7 @@ export async function ghDescribe(
   const [tags, { sha, histories }] = await Promise.all([
     fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
-      const sha = await fetchSha({ owner, name: repo, host }, commitish);
+      const sha = await fetchSha({ owner, repo, host, sha: commitish });
       const histories = fetchHistory({ owner, repo, host, sha });
       return { sha, histories };
     })(),
@@ -117,20 +118,6 @@ export async function resolveRepo(repo?: string | Repo): Promise<Repo> {
       throw new GhDescribeError(e.stderr, e);
     }
     throw e;
-  }
-}
-
-export async function fetchSha({ owner, name, host }: Repo, sha?: string): Promise<string> {
-  if (sha) {
-    try {
-      const perPage = 1;
-      const jq = ".[].sha";
-      return await gh.listCommits({ owner, repo: name, sha, perPage, host, jq });
-    } catch {
-      return sha;
-    }
-  } else {
-    return git.revParse({ arg: "HEAD" });
   }
 }
 

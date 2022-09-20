@@ -7140,6 +7140,120 @@ async function* fetchHistory({ owner, repo, host, sha }) {
   }
 }
 
+// dist/dnt/esm/git-wrapper/exec.js
+async function exec2(args) {
+  const process2 = import_shim_deno2.Deno.run({
+    cmd: ["git", ...args],
+    stdout: "piped",
+    stderr: "piped"
+  });
+  const [{ code }, stdout, stderr] = await Promise.all([
+    process2.status(),
+    process2.output(),
+    process2.stderrOutput()
+  ]);
+  if (code === 0) {
+    return new TextDecoder().decode(stdout).trim();
+  } else {
+    throw new GitError(args, code, new TextDecoder().decode(stderr).trim());
+  }
+}
+var GitError = class extends Error {
+  constructor(args, code, stderr) {
+    super(`\`git ${args.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code}
+${stderr}`);
+    Object.defineProperty(this, "args", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: args
+    });
+    Object.defineProperty(this, "code", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: code
+    });
+    Object.defineProperty(this, "stderr", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: stderr
+    });
+  }
+};
+
+// dist/dnt/esm/git-wrapper/list_remotes.js
+function creareArgs({ cwd }) {
+  const args = [];
+  if (cwd)
+    args.push("-C", cwd);
+  args.push("remote", "-v");
+  return args;
+}
+function parseRemotes(stdout) {
+  const lines = stdout.split("\n").map((x) => /(.+)\s+(.+)\s+\((push|fetch)\)/.exec(x) || []).filter((x) => x.length === 4);
+  const remotes = [];
+  let name = void 0;
+  let fetchUrl = void 0;
+  let pushUrl = void 0;
+  for (const [_, lineName, lineUrl, type] of lines) {
+    if (!name) {
+      name = lineName;
+    } else if (name != lineName) {
+      remotes.push({ name, fetchUrl, pushUrl });
+      name = lineName;
+      fetchUrl = pushUrl = void 0;
+    }
+    switch (type) {
+      case "fetch":
+        fetchUrl = lineUrl;
+        break;
+      case "push":
+        pushUrl = lineUrl;
+        break;
+    }
+  }
+  if (name) {
+    remotes.push({ name, fetchUrl, pushUrl });
+  }
+  return remotes;
+}
+async function listRemotes(options = {}) {
+  const args = creareArgs(options);
+  const stdout = await exec2(args);
+  return parseRemotes(stdout);
+}
+
+// dist/dnt/esm/git-wrapper/rev_parse.js
+function creareArgs2({ arg, cwd }) {
+  const args = [];
+  if (cwd)
+    args.push("-C", cwd);
+  args.push("rev-parse", arg);
+  return args;
+}
+async function revParse(options) {
+  const args = creareArgs2(options);
+  return await exec2(args);
+}
+
+// dist/dnt/esm/core/fetch_sha.js
+async function fetchSha(args) {
+  const { sha } = args;
+  if (sha) {
+    try {
+      const perPage = 1;
+      const jq = ".[].sha";
+      return await listCommits({ ...args, perPage, jq });
+    } catch {
+      return sha;
+    }
+  } else {
+    return revParse({ arg: "HEAD" });
+  }
+}
+
 // dist/dnt/esm/deps/deno.land/std@0.148.0/_util/os.js
 var osType = (() => {
   const { Deno: Deno3 } = dntGlobalThis;
@@ -8659,104 +8773,6 @@ function parseFromFullName(fullName) {
   }
 }
 
-// dist/dnt/esm/git-wrapper/exec.js
-async function exec2(args) {
-  const process2 = import_shim_deno2.Deno.run({
-    cmd: ["git", ...args],
-    stdout: "piped",
-    stderr: "piped"
-  });
-  const [{ code }, stdout, stderr] = await Promise.all([
-    process2.status(),
-    process2.output(),
-    process2.stderrOutput()
-  ]);
-  if (code === 0) {
-    return new TextDecoder().decode(stdout).trim();
-  } else {
-    throw new GitError(args, code, new TextDecoder().decode(stderr).trim());
-  }
-}
-var GitError = class extends Error {
-  constructor(args, code, stderr) {
-    super(`\`git ${args.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code}
-${stderr}`);
-    Object.defineProperty(this, "args", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: args
-    });
-    Object.defineProperty(this, "code", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: code
-    });
-    Object.defineProperty(this, "stderr", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: stderr
-    });
-  }
-};
-
-// dist/dnt/esm/git-wrapper/list_remotes.js
-function creareArgs({ cwd }) {
-  const args = [];
-  if (cwd)
-    args.push("-C", cwd);
-  args.push("remote", "-v");
-  return args;
-}
-function parseRemotes(stdout) {
-  const lines = stdout.split("\n").map((x) => /(.+)\s+(.+)\s+\((push|fetch)\)/.exec(x) || []).filter((x) => x.length === 4);
-  const remotes = [];
-  let name = void 0;
-  let fetchUrl = void 0;
-  let pushUrl = void 0;
-  for (const [_, lineName, lineUrl, type] of lines) {
-    if (!name) {
-      name = lineName;
-    } else if (name != lineName) {
-      remotes.push({ name, fetchUrl, pushUrl });
-      name = lineName;
-      fetchUrl = pushUrl = void 0;
-    }
-    switch (type) {
-      case "fetch":
-        fetchUrl = lineUrl;
-        break;
-      case "push":
-        pushUrl = lineUrl;
-        break;
-    }
-  }
-  if (name) {
-    remotes.push({ name, fetchUrl, pushUrl });
-  }
-  return remotes;
-}
-async function listRemotes(options = {}) {
-  const args = creareArgs(options);
-  const stdout = await exec2(args);
-  return parseRemotes(stdout);
-}
-
-// dist/dnt/esm/git-wrapper/rev_parse.js
-function creareArgs2({ arg, cwd }) {
-  const args = [];
-  if (cwd)
-    args.push("-C", cwd);
-  args.push("rev-parse", arg);
-  return args;
-}
-async function revParse(options) {
-  const args = creareArgs2(options);
-  return await exec2(args);
-}
-
 // dist/dnt/esm/core/git.js
 async function getOriginRepo() {
   const remotes = await listRemotes();
@@ -8788,7 +8804,7 @@ async function ghDescribe({ repo: maybeRepo, commitish, defaultTag, match, exclu
   const [tags, { sha, histories }] = await Promise.all([
     fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
-      const sha2 = await fetchSha({ owner, name: repo, host }, commitish);
+      const sha2 = await fetchSha({ owner, repo, host, sha: commitish });
       const histories2 = fetchHistory({ owner, repo, host, sha: sha2 });
       return { sha: sha2, histories: histories2 };
     })()
@@ -8814,19 +8830,6 @@ async function resolveRepo(repo) {
       throw new GhDescribeError(e.stderr, e);
     }
     throw e;
-  }
-}
-async function fetchSha({ owner, name, host }, sha) {
-  if (sha) {
-    try {
-      const perPage = 1;
-      const jq = ".[].sha";
-      return await listCommits({ owner, repo: name, sha, perPage, host, jq });
-    } catch {
-      return sha;
-    }
-  } else {
-    return revParse({ arg: "HEAD" });
   }
 }
 function genDescribe(tag, distance, sha) {
