@@ -6412,7 +6412,7 @@ async function revParse(options) {
   return await exec(args);
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/ansi/ansi_escapes.js
 var ansi_escapes_exports = {};
 __export(ansi_escapes_exports, {
   bel: () => bel,
@@ -6445,7 +6445,7 @@ __export(ansi_escapes_exports, {
   scrollUp: () => scrollUp
 });
 
-// dist/dnt/esm/deps/deno.land/std@0.155.0/encoding/base64.js
+// dist/dnt/esm/deps/deno.land/std@0.161.0/encoding/base64.js
 var base64abc = [
   "A",
   "B",
@@ -6536,7 +6536,7 @@ function encode(data) {
   return result;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/ansi/ansi_escapes.js
 var ESC = "\x1B";
 var CSI = `${ESC}[`;
 var OSC = `${ESC}]`;
@@ -6642,7 +6642,7 @@ function image(buffer, options) {
   return ret + ":" + encode(buffer) + bel;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/ansi/ansi.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/ansi/ansi.js
 var ansi = factory();
 function factory() {
   let result = [];
@@ -6692,7 +6692,7 @@ function factory() {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.155.0/fmt/colors.js
+// dist/dnt/esm/deps/deno.land/std@0.161.0/fmt/colors.js
 var colors_exports = {};
 __export(colors_exports, {
   bgBlack: () => bgBlack,
@@ -6930,7 +6930,7 @@ function stripColor(string2) {
   return string2.replace(ANSI_PATTERN, "");
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/ansi/colors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/ansi/colors.js
 var proto = /* @__PURE__ */ Object.create(null);
 var methodNames = Object.keys(colors_exports);
 for (const name of methodNames) {
@@ -6959,18 +6959,18 @@ function factory2(stack = []) {
   return colors2;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/ansi/cursor_position.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/ansi/cursor_position.js
 function getCursorPosition({ stdin = import_shim_deno2.Deno.stdin, stdout = import_shim_deno2.Deno.stdout } = {}) {
   const data = new Uint8Array(8);
-  import_shim_deno2.Deno.setRaw(stdin.rid, true);
+  import_shim_deno2.Deno.stdin.setRaw(true);
   stdout.writeSync(new TextEncoder().encode(cursorPosition));
   stdin.readSync(data);
-  import_shim_deno2.Deno.setRaw(stdin.rid, false);
+  import_shim_deno2.Deno.stdin.setRaw(false);
   const [y, x] = new TextDecoder().decode(data).match(/\[(\d+);(\d+)R/)?.slice(1, 3).map(Number) ?? [0, 0];
   return { x, y };
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/ansi/tty.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/ansi/tty.js
 var tty = factory3();
 function factory3(options) {
   let result = "";
@@ -7017,7 +7017,7 @@ function factory3(options) {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/_utils/distance.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/_utils/distance.js
 function distance(a, b) {
   if (a.length == 0) {
     return b.length;
@@ -7044,7 +7044,7 @@ function distance(a, b) {
   return matrix[b.length][a.length];
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/_utils.js
 function paramCaseToCamelCase(str) {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
@@ -7128,29 +7128,29 @@ function getDefaultValue(option) {
   return typeof option.default === "function" ? option.default() : option.default;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/_errors.js
 var FlagsError = class extends Error {
   constructor(message) {
     super(message);
     Object.setPrototypeOf(this, FlagsError.prototype);
   }
 };
-var UnknownRequiredOption = class extends FlagsError {
+var UnknownRequiredOptionError = class extends FlagsError {
   constructor(option, options) {
     super(`Unknown required option "${getFlag(option)}".${didYouMeanOption(option, options)}`);
-    Object.setPrototypeOf(this, UnknownRequiredOption.prototype);
+    Object.setPrototypeOf(this, UnknownRequiredOptionError.prototype);
   }
 };
-var UnknownConflictingOption = class extends FlagsError {
+var UnknownConflictingOptionError = class extends FlagsError {
   constructor(option, options) {
     super(`Unknown conflicting option "${getFlag(option)}".${didYouMeanOption(option, options)}`);
-    Object.setPrototypeOf(this, UnknownConflictingOption.prototype);
+    Object.setPrototypeOf(this, UnknownConflictingOptionError.prototype);
   }
 };
-var UnknownType = class extends FlagsError {
+var UnknownTypeError = class extends FlagsError {
   constructor(type, types) {
     super(`Unknown type "${type}".${didYouMeanType(type, types)}`);
-    Object.setPrototypeOf(this, UnknownType.prototype);
+    Object.setPrototypeOf(this, UnknownTypeError.prototype);
   }
 };
 var ValidationError = class extends FlagsError {
@@ -7159,80 +7159,86 @@ var ValidationError = class extends FlagsError {
     Object.setPrototypeOf(this, ValidationError.prototype);
   }
 };
-var DuplicateOption = class extends ValidationError {
+var DuplicateOptionError = class extends ValidationError {
   constructor(name) {
     super(`Option "${getFlag(name).replace(/^--no-/, "--")}" can only occur once, but was found several times.`);
-    Object.setPrototypeOf(this, DuplicateOption.prototype);
+    Object.setPrototypeOf(this, DuplicateOptionError.prototype);
   }
 };
-var InvalidOption = class extends ValidationError {
+var InvalidOptionError = class extends ValidationError {
   constructor(option, options) {
     super(`Invalid option "${getFlag(option)}".${didYouMeanOption(option, options)}`);
-    Object.setPrototypeOf(this, InvalidOption.prototype);
+    Object.setPrototypeOf(this, InvalidOptionError.prototype);
   }
 };
-var UnknownOption = class extends ValidationError {
+var UnknownOptionError = class extends ValidationError {
   constructor(option, options) {
     super(`Unknown option "${getFlag(option)}".${didYouMeanOption(option, options)}`);
-    Object.setPrototypeOf(this, UnknownOption.prototype);
+    Object.setPrototypeOf(this, UnknownOptionError.prototype);
   }
 };
-var MissingOptionValue = class extends ValidationError {
+var MissingOptionValueError = class extends ValidationError {
   constructor(option) {
     super(`Missing value for option "${getFlag(option)}".`);
-    Object.setPrototypeOf(this, MissingOptionValue.prototype);
+    Object.setPrototypeOf(this, MissingOptionValueError.prototype);
   }
 };
-var InvalidOptionValue = class extends ValidationError {
+var InvalidOptionValueError = class extends ValidationError {
   constructor(option, expected, value) {
     super(`Option "${getFlag(option)}" must be of type "${expected}", but got "${value}".`);
-    Object.setPrototypeOf(this, InvalidOptionValue.prototype);
+    Object.setPrototypeOf(this, InvalidOptionValueError.prototype);
   }
 };
-var OptionNotCombinable = class extends ValidationError {
+var UnexpectedOptionValueError = class extends ValidationError {
+  constructor(option, value) {
+    super(`Option "${getFlag(option)}" doesn't take a value, but got "${value}".`);
+    Object.setPrototypeOf(this, InvalidOptionValueError.prototype);
+  }
+};
+var OptionNotCombinableError = class extends ValidationError {
   constructor(option) {
     super(`Option "${getFlag(option)}" cannot be combined with other options.`);
-    Object.setPrototypeOf(this, OptionNotCombinable.prototype);
+    Object.setPrototypeOf(this, OptionNotCombinableError.prototype);
   }
 };
-var ConflictingOption = class extends ValidationError {
+var ConflictingOptionError = class extends ValidationError {
   constructor(option, conflictingOption) {
     super(`Option "${getFlag(option)}" conflicts with option "${getFlag(conflictingOption)}".`);
-    Object.setPrototypeOf(this, ConflictingOption.prototype);
+    Object.setPrototypeOf(this, ConflictingOptionError.prototype);
   }
 };
-var DependingOption = class extends ValidationError {
+var DependingOptionError = class extends ValidationError {
   constructor(option, dependingOption) {
     super(`Option "${getFlag(option)}" depends on option "${getFlag(dependingOption)}".`);
-    Object.setPrototypeOf(this, DependingOption.prototype);
+    Object.setPrototypeOf(this, DependingOptionError.prototype);
   }
 };
-var MissingRequiredOption = class extends ValidationError {
+var MissingRequiredOptionError = class extends ValidationError {
   constructor(option) {
     super(`Missing required option "${getFlag(option)}".`);
-    Object.setPrototypeOf(this, MissingRequiredOption.prototype);
+    Object.setPrototypeOf(this, MissingRequiredOptionError.prototype);
   }
 };
-var RequiredArgumentFollowsOptionalArgument = class extends ValidationError {
+var UnexpectedRequiredArgumentError = class extends ValidationError {
   constructor(arg) {
     super(`An required argument cannot follow an optional argument, but "${arg}"  is defined as required.`);
-    Object.setPrototypeOf(this, RequiredArgumentFollowsOptionalArgument.prototype);
+    Object.setPrototypeOf(this, UnexpectedRequiredArgumentError.prototype);
   }
 };
-var ArgumentFollowsVariadicArgument = class extends ValidationError {
+var UnexpectedArgumentAfterVariadicArgumentError = class extends ValidationError {
   constructor(arg) {
     super(`An argument cannot follow an variadic argument, but got "${arg}".`);
-    Object.setPrototypeOf(this, ArgumentFollowsVariadicArgument.prototype);
+    Object.setPrototypeOf(this, UnexpectedArgumentAfterVariadicArgumentError.prototype);
   }
 };
 var InvalidTypeError = class extends ValidationError {
   constructor({ label, name, value, type }, expected) {
     super(`${label} "${name}" must be of type "${type}", but got "${value}".` + (expected ? ` Expected values: ${expected.map((value2) => `"${value2}"`).join(", ")}` : ""));
-    Object.setPrototypeOf(this, MissingOptionValue.prototype);
+    Object.setPrototypeOf(this, MissingOptionValueError.prototype);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/types.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/deprecated.js
 var OptionType;
 (function(OptionType2) {
   OptionType2["STRING"] = "string";
@@ -7241,7 +7247,7 @@ var OptionType;
   OptionType2["BOOLEAN"] = "boolean";
 })(OptionType || (OptionType = {}));
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/_utils.js
 function didYouMeanCommand(command, commands, excludes = []) {
   const commandNames = commands.map((command2) => command2.getName()).filter((command2) => !excludes.includes(command2));
   return didYouMean(" Did you mean command", command, commandNames);
@@ -7264,7 +7270,7 @@ function parseArgumentsDefinition(argsDefinition, validate = true, all) {
   const parts = argsDefinition.split(/ +/);
   for (const arg of parts) {
     if (validate && hasVariadic) {
-      throw new ArgumentFollowsVariadicArgument(arg);
+      throw new UnexpectedArgumentAfterVariadicArgumentError(arg);
     }
     const parts2 = arg.split(ARGUMENT_DETAILS_REGEX);
     if (!parts2[1]) {
@@ -7284,7 +7290,7 @@ function parseArgumentsDefinition(argsDefinition, validate = true, all) {
       type
     };
     if (validate && !details.optionalValue && hasOptional) {
-      throw new RequiredArgumentFollowsOptionalArgument(details.name);
+      throw new UnexpectedRequiredArgumentError(details.name);
     }
     if (arg[0] === "[") {
       hasOptional = true;
@@ -7324,7 +7330,7 @@ function getDescription(description, short) {
   return short ? description.trim().split("\n", 1)[0] : dedent(description);
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/_errors.js
 var CommandError = class extends Error {
   constructor(message) {
     super(message);
@@ -7344,128 +7350,128 @@ var ValidationError2 = class extends CommandError {
     this.exitCode = exitCode ?? 1;
   }
 };
-var DuplicateOptionName = class extends CommandError {
+var DuplicateOptionNameError = class extends CommandError {
   constructor(name) {
     super(`Option with name "${getFlag(name)}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateOptionName.prototype);
+    Object.setPrototypeOf(this, DuplicateOptionNameError.prototype);
   }
 };
-var MissingCommandName = class extends CommandError {
+var MissingCommandNameError = class extends CommandError {
   constructor() {
     super("Missing command name.");
-    Object.setPrototypeOf(this, MissingCommandName.prototype);
+    Object.setPrototypeOf(this, MissingCommandNameError.prototype);
   }
 };
-var DuplicateCommandName = class extends CommandError {
+var DuplicateCommandNameError = class extends CommandError {
   constructor(name) {
     super(`Duplicate command name "${name}".`);
-    Object.setPrototypeOf(this, DuplicateCommandName.prototype);
+    Object.setPrototypeOf(this, DuplicateCommandNameError.prototype);
   }
 };
-var DuplicateCommandAlias = class extends CommandError {
+var DuplicateCommandAliasError = class extends CommandError {
   constructor(alias) {
     super(`Duplicate command alias "${alias}".`);
-    Object.setPrototypeOf(this, DuplicateCommandAlias.prototype);
+    Object.setPrototypeOf(this, DuplicateCommandAliasError.prototype);
   }
 };
-var CommandNotFound = class extends CommandError {
+var CommandNotFoundError = class extends CommandError {
   constructor(name, commands, excluded) {
     super(`Unknown command "${name}".${didYouMeanCommand(name, commands, excluded)}`);
-    Object.setPrototypeOf(this, UnknownCommand.prototype);
+    Object.setPrototypeOf(this, CommandNotFoundError.prototype);
   }
 };
-var DuplicateType = class extends CommandError {
+var DuplicateTypeError = class extends CommandError {
   constructor(name) {
     super(`Type with name "${name}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateType.prototype);
+    Object.setPrototypeOf(this, DuplicateTypeError.prototype);
   }
 };
-var DuplicateCompletion = class extends CommandError {
+var DuplicateCompletionError = class extends CommandError {
   constructor(name) {
     super(`Completion with name "${name}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateCompletion.prototype);
+    Object.setPrototypeOf(this, DuplicateCompletionError.prototype);
   }
 };
-var DuplicateExample = class extends CommandError {
+var DuplicateExampleError = class extends CommandError {
   constructor(name) {
     super(`Example with name "${name}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateExample.prototype);
+    Object.setPrototypeOf(this, DuplicateExampleError.prototype);
   }
 };
-var DuplicateEnvironmentVariable = class extends CommandError {
+var DuplicateEnvVarError = class extends CommandError {
   constructor(name) {
     super(`Environment variable with name "${name}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateEnvironmentVariable.prototype);
+    Object.setPrototypeOf(this, DuplicateEnvVarError.prototype);
   }
 };
-var MissingRequiredEnvVar = class extends ValidationError2 {
+var MissingRequiredEnvVarError = class extends ValidationError2 {
   constructor(envVar) {
     super(`Missing required environment variable "${envVar.names[0]}".`);
-    Object.setPrototypeOf(this, MissingRequiredEnvVar.prototype);
+    Object.setPrototypeOf(this, MissingRequiredEnvVarError.prototype);
   }
 };
-var EnvironmentVariableSingleValue = class extends CommandError {
+var TooManyEnvVarValuesError = class extends CommandError {
   constructor(name) {
     super(`An environment variable can only have one value, but "${name}" has more than one.`);
-    Object.setPrototypeOf(this, EnvironmentVariableSingleValue.prototype);
+    Object.setPrototypeOf(this, TooManyEnvVarValuesError.prototype);
   }
 };
-var EnvironmentVariableOptionalValue = class extends CommandError {
+var UnexpectedOptionalEnvVarValueError = class extends CommandError {
   constructor(name) {
     super(`An environment variable cannot have an optional value, but "${name}" is defined as optional.`);
-    Object.setPrototypeOf(this, EnvironmentVariableOptionalValue.prototype);
+    Object.setPrototypeOf(this, UnexpectedOptionalEnvVarValueError.prototype);
   }
 };
-var EnvironmentVariableVariadicValue = class extends CommandError {
+var UnexpectedVariadicEnvVarValueError = class extends CommandError {
   constructor(name) {
     super(`An environment variable cannot have an variadic value, but "${name}" is defined as variadic.`);
-    Object.setPrototypeOf(this, EnvironmentVariableVariadicValue.prototype);
+    Object.setPrototypeOf(this, UnexpectedVariadicEnvVarValueError.prototype);
   }
 };
-var DefaultCommandNotFound = class extends CommandError {
+var DefaultCommandNotFoundError = class extends CommandError {
   constructor(name, commands) {
     super(`Default command "${name}" not found.${didYouMeanCommand(name, commands)}`);
-    Object.setPrototypeOf(this, DefaultCommandNotFound.prototype);
+    Object.setPrototypeOf(this, DefaultCommandNotFoundError.prototype);
   }
 };
-var CommandExecutableNotFound = class extends CommandError {
+var CommandExecutableNotFoundError = class extends CommandError {
   constructor(name) {
     super(`Command executable not found: ${name}`);
-    Object.setPrototypeOf(this, CommandExecutableNotFound.prototype);
+    Object.setPrototypeOf(this, CommandExecutableNotFoundError.prototype);
   }
 };
-var UnknownCommand = class extends ValidationError2 {
+var UnknownCommandError = class extends ValidationError2 {
   constructor(name, commands, excluded) {
     super(`Unknown command "${name}".${didYouMeanCommand(name, commands, excluded)}`);
-    Object.setPrototypeOf(this, UnknownCommand.prototype);
+    Object.setPrototypeOf(this, UnknownCommandError.prototype);
   }
 };
-var NoArgumentsAllowed = class extends ValidationError2 {
+var NoArgumentsAllowedError = class extends ValidationError2 {
   constructor(name) {
     super(`No arguments allowed for command "${name}".`);
-    Object.setPrototypeOf(this, NoArgumentsAllowed.prototype);
+    Object.setPrototypeOf(this, NoArgumentsAllowedError.prototype);
   }
 };
-var MissingArguments = class extends ValidationError2 {
-  constructor(args) {
-    super("Missing argument(s): " + args.join(", "));
-    Object.setPrototypeOf(this, MissingArguments.prototype);
+var MissingArgumentsError = class extends ValidationError2 {
+  constructor(names) {
+    super(`Missing argument(s): ${names.join(", ")}`);
+    Object.setPrototypeOf(this, MissingArgumentsError.prototype);
   }
 };
-var MissingArgument = class extends ValidationError2 {
-  constructor(arg) {
-    super(`Missing argument "${arg}".`);
-    Object.setPrototypeOf(this, MissingArgument.prototype);
+var MissingArgumentError = class extends ValidationError2 {
+  constructor(name) {
+    super(`Missing argument: ${name}`);
+    Object.setPrototypeOf(this, MissingArgumentError.prototype);
   }
 };
-var TooManyArguments = class extends ValidationError2 {
+var TooManyArgumentsError = class extends ValidationError2 {
   constructor(args) {
     super(`Too many arguments: ${args.join(" ")}`);
-    Object.setPrototypeOf(this, TooManyArguments.prototype);
+    Object.setPrototypeOf(this, TooManyArgumentsError.prototype);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/types/boolean.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/types/boolean.js
 var boolean = (type) => {
   if (~["1", "true"].indexOf(type.value)) {
     return true;
@@ -7476,7 +7482,7 @@ var boolean = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/types/number.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/types/number.js
 var number = (type) => {
   const value = Number(type.value);
   if (Number.isFinite(value)) {
@@ -7485,39 +7491,39 @@ var number = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/types/string.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/types/string.js
 var string = ({ value }) => {
   return value;
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/validate_flags.js
-function validateFlags(opts, values, optionNameMap = {}) {
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/_validate_flags.js
+function validateFlags(ctx, opts, options = /* @__PURE__ */ new Map()) {
   if (!opts.flags) {
     return;
   }
-  const defaultValues = setDefaultValues(opts, values, optionNameMap);
-  const optionNames = Object.keys(values);
+  const defaultValues = setDefaultValues(ctx, opts);
+  const optionNames = Object.keys(ctx.flags);
   if (!optionNames.length && opts.allowEmpty) {
     return;
   }
-  const options = optionNames.map((name) => ({
-    name,
-    option: getOption(opts.flags, optionNameMap[name])
-  }));
-  for (const { name, option } of options) {
-    if (!option) {
-      throw new UnknownOption(name, opts.flags);
-    }
-    if (validateStandaloneOption(option, options, optionNames, defaultValues)) {
-      return;
-    }
-    validateConflictingOptions(option, values);
-    validateDependingOptions(option, values, defaultValues);
-    validateRequiredValues(option, values, name);
+  if (ctx.standalone) {
+    validateStandaloneOption(ctx, options, optionNames, defaultValues);
+    return;
   }
-  validateRequiredOptions(options, values, opts);
+  for (const [name, option] of options) {
+    validateUnknownOption(option, opts);
+    validateConflictingOptions(ctx, option);
+    validateDependingOptions(ctx, option, defaultValues);
+    validateRequiredValues(ctx, option, name);
+  }
+  validateRequiredOptions(ctx, options, opts);
 }
-function setDefaultValues(opts, values, optionNameMap = {}) {
+function validateUnknownOption(option, opts) {
+  if (!getOption(opts.flags ?? [], option.name)) {
+    throw new UnknownOptionError(option.name, opts.flags ?? []);
+  }
+}
+function setDefaultValues(ctx, opts) {
   const defaultValues = {};
   if (!opts.flags?.length) {
     return defaultValues;
@@ -7527,7 +7533,7 @@ function setDefaultValues(opts, values, optionNameMap = {}) {
     let defaultValue = void 0;
     if (option.name.startsWith("no-")) {
       const propName = option.name.replace(/^no-/, "");
-      if (propName in values) {
+      if (typeof ctx.flags[propName] !== "undefined") {
         continue;
       }
       const positiveOption = getOption(opts.flags, propName);
@@ -7540,72 +7546,87 @@ function setDefaultValues(opts, values, optionNameMap = {}) {
     if (!name) {
       name = paramCaseToCamelCase(option.name);
     }
-    if (!(name in optionNameMap)) {
-      optionNameMap[name] = option.name;
-    }
-    const hasDefaultValue = (!opts.ignoreDefaults || typeof opts.ignoreDefaults[name] === "undefined") && typeof values[name] === "undefined" && (typeof option.default !== "undefined" || typeof defaultValue !== "undefined");
+    const hasDefaultValue = (!opts.ignoreDefaults || typeof opts.ignoreDefaults[name] === "undefined") && typeof ctx.flags[name] === "undefined" && (typeof option.default !== "undefined" || typeof defaultValue !== "undefined");
     if (hasDefaultValue) {
-      values[name] = getDefaultValue(option) ?? defaultValue;
+      ctx.flags[name] = getDefaultValue(option) ?? defaultValue;
       defaultValues[option.name] = true;
       if (typeof option.value === "function") {
-        values[name] = option.value(values[name]);
+        ctx.flags[name] = option.value(ctx.flags[name]);
       }
     }
   }
   return defaultValues;
 }
-function validateStandaloneOption(option, options, optionNames, defaultValues) {
-  if (!option.standalone) {
-    return false;
+function validateStandaloneOption(ctx, options, optionNames, defaultValues) {
+  if (!ctx.standalone || optionNames.length === 1) {
+    return;
   }
-  if (optionNames.length === 1) {
-    return true;
+  for (const [_, opt] of options) {
+    if (!defaultValues[opt.name] && opt !== ctx.standalone) {
+      throw new OptionNotCombinableError(ctx.standalone.name);
+    }
   }
-  if (options.every((opt) => opt.option && (option === opt.option || defaultValues[opt.option.name]))) {
-    return true;
+}
+function validateConflictingOptions(ctx, option) {
+  if (!option.conflicts?.length) {
+    return;
   }
-  throw new OptionNotCombinable(option.name);
-}
-function validateConflictingOptions(option, values) {
-  option.conflicts?.forEach((flag) => {
-    if (isset(flag, values)) {
-      throw new ConflictingOption(option.name, flag);
+  for (const flag of option.conflicts) {
+    if (isset(flag, ctx.flags)) {
+      throw new ConflictingOptionError(option.name, flag);
     }
-  });
+  }
 }
-function validateDependingOptions(option, values, defaultValues) {
-  option.depends?.forEach((flag) => {
-    if (!isset(flag, values) && !defaultValues[option.name]) {
-      throw new DependingOption(option.name, flag);
+function validateDependingOptions(ctx, option, defaultValues) {
+  if (!option.depends) {
+    return;
+  }
+  for (const flag of option.depends) {
+    if (!isset(flag, ctx.flags) && !defaultValues[option.name]) {
+      throw new DependingOptionError(option.name, flag);
     }
-  });
+  }
 }
-function validateRequiredValues(option, values, name) {
-  const isArray = (option.args?.length || 0) > 1;
-  option.args?.forEach((arg, i) => {
-    if (arg.requiredValue && (typeof values[name] === "undefined" || isArray && typeof values[name][i] === "undefined")) {
-      throw new MissingOptionValue(option.name);
+function validateRequiredValues(ctx, option, name) {
+  if (!option.args) {
+    return;
+  }
+  const isArray = option.args.length > 1;
+  for (let i = 0; i < option.args.length; i++) {
+    const arg = option.args[i];
+    if (!arg.requiredValue) {
+      continue;
     }
-  });
+    const hasValue = isArray ? typeof ctx.flags[name][i] !== "undefined" : typeof ctx.flags[name] !== "undefined";
+    if (!hasValue) {
+      throw new MissingOptionValueError(option.name);
+    }
+  }
 }
-function validateRequiredOptions(options, values, opts) {
+function validateRequiredOptions(ctx, options, opts) {
   if (!opts.flags?.length) {
     return;
   }
+  const optionsValues = [...options.values()];
   for (const option of opts.flags) {
-    if (option.required && !(paramCaseToCamelCase(option.name) in values)) {
-      if ((!option.conflicts || !option.conflicts.find((flag) => !!values[flag])) && !options.find((opt) => opt.option?.conflicts?.find((flag) => flag === option.name))) {
-        throw new MissingRequiredOption(option.name);
-      }
+    if (!option.required || paramCaseToCamelCase(option.name) in ctx.flags) {
+      continue;
     }
+    const conflicts = option.conflicts ?? [];
+    const hasConflict = conflicts.find((flag) => !!ctx.flags[flag]);
+    const hasConflicts = hasConflict || optionsValues.find((opt) => opt.conflicts?.find((flag) => flag === option.name));
+    if (hasConflicts) {
+      continue;
+    }
+    throw new MissingRequiredOptionError(option.name);
   }
 }
-function isset(flag, values) {
-  const name = paramCaseToCamelCase(flag);
-  return typeof values[name] !== "undefined";
+function isset(flagName, flags) {
+  const name = paramCaseToCamelCase(flagName);
+  return typeof flags[name] !== "undefined";
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/types/integer.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/types/integer.js
 var integer = (type) => {
   const value = Number(type.value);
   if (Number.isInteger(value)) {
@@ -7614,194 +7635,234 @@ var integer = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/flags/flags.js
-var Types = {
-  [OptionType.STRING]: string,
-  [OptionType.NUMBER]: number,
-  [OptionType.INTEGER]: integer,
-  [OptionType.BOOLEAN]: boolean
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/flags.js
+var DefaultTypes = {
+  string,
+  number,
+  integer,
+  boolean
 };
-function parseFlags(args, opts = {}) {
+function parseFlags(argsOrCtx, opts = {}) {
+  let args;
+  let ctx;
+  if (Array.isArray(argsOrCtx)) {
+    ctx = {};
+    args = argsOrCtx;
+  } else {
+    ctx = argsOrCtx;
+    args = argsOrCtx.unknown;
+    argsOrCtx.unknown = [];
+  }
   args = args.slice();
-  let inLiteral = false;
-  const flags = {};
-  const optionNameMap = {};
-  let literal = [];
-  let unknown = [];
-  let stopEarly = null;
+  ctx.flags ??= {};
+  ctx.literal ??= [];
+  ctx.unknown ??= [];
+  ctx.stopEarly = false;
+  ctx.stopOnUnknown = false;
+  opts.dotted ??= true;
+  validateOptions(opts);
+  const options = parseArgs(ctx, args, opts);
+  validateFlags(ctx, opts, options);
+  if (opts.dotted) {
+    parseDottedOptions(ctx);
+  }
+  return ctx;
+}
+function validateOptions(opts) {
   opts.flags?.forEach((opt) => {
     opt.depends?.forEach((flag) => {
       if (!opts.flags || !getOption(opts.flags, flag)) {
-        throw new UnknownRequiredOption(flag, opts.flags ?? []);
+        throw new UnknownRequiredOptionError(flag, opts.flags ?? []);
       }
     });
     opt.conflicts?.forEach((flag) => {
       if (!opts.flags || !getOption(opts.flags, flag)) {
-        throw new UnknownConflictingOption(flag, opts.flags ?? []);
+        throw new UnknownConflictingOptionError(flag, opts.flags ?? []);
       }
     });
   });
+}
+function parseArgs(ctx, args, opts) {
+  const optionsMap = /* @__PURE__ */ new Map();
+  let inLiteral = false;
   for (let argsIndex = 0; argsIndex < args.length; argsIndex++) {
+    let parseNext = function(option2) {
+      if (negate) {
+        ctx.flags[propName] = false;
+        return;
+      } else if (!option2.args?.length) {
+        ctx.flags[propName] = void 0;
+        return;
+      }
+      const arg = option2.args[optionArgsIndex];
+      if (!arg) {
+        const flag = next();
+        throw new UnknownOptionError(flag, opts.flags ?? []);
+      }
+      if (!arg.type) {
+        arg.type = OptionType.BOOLEAN;
+      }
+      if (option2.args?.length && !option2.type) {
+        if ((typeof arg.optionalValue === "undefined" || arg.optionalValue === false) && typeof arg.requiredValue === "undefined") {
+          arg.requiredValue = true;
+        }
+      } else {
+        if (arg.type !== OptionType.BOOLEAN && (typeof arg.optionalValue === "undefined" || arg.optionalValue === false) && typeof arg.requiredValue === "undefined") {
+          arg.requiredValue = true;
+        }
+      }
+      if (!arg.requiredValue) {
+        inOptionalArg = true;
+      } else if (inOptionalArg) {
+        throw new UnexpectedRequiredArgumentError(option2.name);
+      }
+      let result;
+      let increase = false;
+      if (arg.list && hasNext(arg)) {
+        const parsed = next().split(arg.separator || ",").map((nextValue) => {
+          const value = parseValue(option2, arg, nextValue);
+          if (typeof value === "undefined") {
+            throw new InvalidOptionValueError(option2.name, arg.type ?? "?", nextValue);
+          }
+          return value;
+        });
+        if (parsed?.length) {
+          result = parsed;
+        }
+      } else {
+        if (hasNext(arg)) {
+          result = parseValue(option2, arg, next());
+        } else if (arg.optionalValue && arg.type === OptionType.BOOLEAN) {
+          result = true;
+        }
+      }
+      if (increase && typeof currentValue === "undefined") {
+        argsIndex++;
+        if (!arg.variadic) {
+          optionArgsIndex++;
+        } else if (option2.args[optionArgsIndex + 1]) {
+          throw new UnexpectedArgumentAfterVariadicArgumentError(next());
+        }
+      }
+      if (typeof result !== "undefined" && (option2.args.length > 1 || arg.variadic)) {
+        if (!ctx.flags[propName]) {
+          ctx.flags[propName] = [];
+        }
+        ctx.flags[propName].push(result);
+        if (hasNext(arg)) {
+          parseNext(option2);
+        }
+      } else {
+        ctx.flags[propName] = result;
+      }
+      function hasNext(arg2) {
+        if (!option2.args?.length) {
+          return false;
+        }
+        const nextValue = currentValue ?? args[argsIndex + 1];
+        if (!nextValue) {
+          return false;
+        }
+        if (option2.args.length > 1 && optionArgsIndex >= option2.args.length) {
+          return false;
+        }
+        if (arg2.requiredValue) {
+          return true;
+        }
+        if (option2.equalsSign && arg2.optionalValue && !arg2.variadic && typeof currentValue === "undefined") {
+          return false;
+        }
+        if (arg2.optionalValue || arg2.variadic) {
+          return nextValue[0] !== "-" || typeof currentValue !== "undefined" || arg2.type === OptionType.NUMBER && !isNaN(Number(nextValue));
+        }
+        return false;
+      }
+      function parseValue(option3, arg2, value) {
+        const result2 = opts.parse ? opts.parse({
+          label: "Option",
+          type: arg2.type || OptionType.STRING,
+          name: `--${option3.name}`,
+          value
+        }) : parseDefaultType(option3, arg2, value);
+        if (typeof result2 !== "undefined") {
+          increase = true;
+        }
+        return result2;
+      }
+    };
     let option;
-    let optionArgs;
     let current = args[argsIndex];
     let currentValue;
     let negate = false;
     if (inLiteral) {
-      literal.push(current);
+      ctx.literal.push(current);
       continue;
-    }
-    if (current === "--") {
+    } else if (current === "--") {
       inLiteral = true;
+      continue;
+    } else if (ctx.stopEarly || ctx.stopOnUnknown) {
+      ctx.unknown.push(current);
       continue;
     }
     const isFlag = current.length > 1 && current[0] === "-";
-    const next = () => currentValue ?? args[argsIndex + 1];
-    if (isFlag) {
-      let parseNext = function(option2, optionArgs2) {
-        const arg = optionArgs2[optionArgsIndex];
-        if (!arg) {
-          const flag = next();
-          throw new UnknownOption(flag, opts.flags ?? []);
-        }
-        if (!arg.type) {
-          arg.type = OptionType.BOOLEAN;
-        }
-        if (option2.args?.length) {
-          if ((typeof arg.optionalValue === "undefined" || arg.optionalValue === false) && typeof arg.requiredValue === "undefined") {
-            arg.requiredValue = true;
-          }
-        } else {
-          if (arg.type !== OptionType.BOOLEAN && (typeof arg.optionalValue === "undefined" || arg.optionalValue === false) && typeof arg.requiredValue === "undefined") {
-            arg.requiredValue = true;
-          }
-        }
-        if (arg.requiredValue) {
-          if (inOptionalArg) {
-            throw new RequiredArgumentFollowsOptionalArgument(option2.name);
-          }
-        } else {
-          inOptionalArg = true;
-        }
-        if (negate) {
-          flags[propName] = false;
-          return;
-        }
-        let result2;
-        let increase = false;
-        if (arg.list && hasNext(arg)) {
-          const parsed = next().split(arg.separator || ",").map((nextValue) => {
-            const value = parseValue(option2, arg, nextValue);
-            if (typeof value === "undefined") {
-              throw new InvalidOptionValue(option2.name, arg.type ?? "?", nextValue);
-            }
-            return value;
-          });
-          if (parsed?.length) {
-            result2 = parsed;
-          }
-        } else {
-          if (hasNext(arg)) {
-            result2 = parseValue(option2, arg, next());
-          } else if (arg.optionalValue && arg.type === OptionType.BOOLEAN) {
-            result2 = true;
-          }
-        }
-        if (increase && typeof currentValue === "undefined") {
-          argsIndex++;
-          if (!arg.variadic) {
-            optionArgsIndex++;
-          } else if (optionArgs2[optionArgsIndex + 1]) {
-            throw new ArgumentFollowsVariadicArgument(next());
-          }
-        }
-        if (typeof result2 !== "undefined" && (optionArgs2.length > 1 || arg.variadic)) {
-          if (!flags[propName]) {
-            flags[propName] = [];
-          }
-          flags[propName].push(result2);
-          if (hasNext(arg)) {
-            parseNext(option2, optionArgs2);
-          }
-        } else {
-          flags[propName] = result2;
-        }
-        function hasNext(arg2) {
-          const nextValue = currentValue ?? args[argsIndex + 1];
-          if (!nextValue) {
-            return false;
-          }
-          if (optionArgs2.length > 1 && optionArgsIndex >= optionArgs2.length) {
-            return false;
-          }
-          if (arg2.requiredValue) {
-            return true;
-          }
-          if (option2.equalsSign && arg2.optionalValue && !arg2.variadic && typeof currentValue === "undefined") {
-            return false;
-          }
-          if (arg2.optionalValue || arg2.variadic) {
-            return nextValue[0] !== "-" || arg2.type === OptionType.NUMBER && !isNaN(Number(nextValue));
-          }
-          return false;
-        }
-        function parseValue(option3, arg2, value) {
-          const type = arg2.type || OptionType.STRING;
-          const result3 = opts.parse ? opts.parse({
-            label: "Option",
-            type,
-            name: `--${option3.name}`,
-            value
-          }) : parseFlagValue(option3, arg2, value);
-          if (typeof result3 !== "undefined") {
-            increase = true;
-          }
-          return result3;
-        }
-      };
-      const isShort = current[1] !== "-";
-      const isLong = isShort ? false : current.length > 3 && current[2] !== "-";
-      if (!isShort && !isLong) {
-        throw new InvalidOption(current, opts.flags ?? []);
+    if (!isFlag) {
+      if (opts.stopEarly) {
+        ctx.stopEarly = true;
       }
-      const equalSignIndex = current.indexOf("=");
-      if (equalSignIndex > -1) {
-        currentValue = current.slice(equalSignIndex + 1) || void 0;
-        current = current.slice(0, equalSignIndex);
-      }
-      if (isShort && current.length > 2 && current[2] !== ".") {
-        args.splice(argsIndex, 1, ...splitFlags(current));
-        current = args[argsIndex];
-      } else if (isLong && current.startsWith("--no-")) {
-        negate = true;
-      }
-      option = opts.flags && getOption(opts.flags, current);
+      ctx.unknown.push(current);
+      continue;
+    }
+    const isShort = current[1] !== "-";
+    const isLong = isShort ? false : current.length > 3 && current[2] !== "-";
+    if (!isShort && !isLong) {
+      throw new InvalidOptionError(current, opts.flags ?? []);
+    }
+    if (isShort && current.length > 2 && current[2] !== ".") {
+      args.splice(argsIndex, 1, ...splitFlags(current));
+      current = args[argsIndex];
+    } else if (isLong && current.startsWith("--no-")) {
+      negate = true;
+    }
+    const equalSignIndex = current.indexOf("=");
+    if (equalSignIndex !== -1) {
+      currentValue = current.slice(equalSignIndex + 1) || void 0;
+      current = current.slice(0, equalSignIndex);
+    }
+    if (opts.flags) {
+      option = getOption(opts.flags, current);
       if (!option) {
-        if (opts.flags?.length) {
-          const name = current.replace(/^-+/g, "");
-          option = matchWildCardOptions(name, opts.flags);
-          if (!option) {
-            throw new UnknownOption(current, opts.flags);
-          }
-        }
+        const name = current.replace(/^-+/, "");
+        option = matchWildCardOptions(name, opts.flags);
         if (!option) {
-          option = {
-            name: current.replace(/^-+/, ""),
-            optionalValue: true,
-            type: OptionType.STRING
-          };
+          if (opts.stopOnUnknown) {
+            ctx.stopOnUnknown = true;
+            ctx.unknown.push(args[argsIndex]);
+            continue;
+          }
+          throw new UnknownOptionError(current, opts.flags);
         }
       }
-      const positiveName = negate ? option.name.replace(/^no-?/, "") : option.name;
-      const propName = paramCaseToCamelCase(positiveName);
-      if (typeof flags[propName] !== "undefined") {
-        if (!opts.flags?.length) {
-          option.collect = true;
-        } else if (!option.collect) {
-          throw new DuplicateOption(current);
-        }
+    } else {
+      option = {
+        name: current.replace(/^-+/, ""),
+        optionalValue: true,
+        type: OptionType.STRING
+      };
+    }
+    if (option.standalone) {
+      ctx.standalone = option;
+    }
+    const positiveName = negate ? option.name.replace(/^no-?/, "") : option.name;
+    const propName = paramCaseToCamelCase(positiveName);
+    if (typeof ctx.flags[propName] !== "undefined") {
+      if (!opts.flags?.length) {
+        option.collect = true;
+      } else if (!option.collect) {
+        throw new DuplicateOptionError(current);
       }
-      optionArgs = option.args?.length ? option.args : [{
+    }
+    if (option.type && !option.args?.length) {
+      option.args = [{
         type: option.type,
         requiredValue: option.requiredValue,
         optionalValue: option.optionalValue,
@@ -7809,67 +7870,58 @@ function parseFlags(args, opts = {}) {
         list: option.list,
         separator: option.separator
       }];
-      let optionArgsIndex = 0;
-      let inOptionalArg = false;
-      const previous = flags[propName];
-      parseNext(option, optionArgs);
-      if (typeof flags[propName] === "undefined") {
-        if (optionArgs[optionArgsIndex].requiredValue) {
-          throw new MissingOptionValue(option.name);
-        } else if (typeof option.default !== "undefined") {
-          flags[propName] = getDefaultValue(option);
-        } else {
-          flags[propName] = true;
-        }
-      }
-      if (option.value) {
-        flags[propName] = option.value(flags[propName], previous);
-      } else if (option.collect) {
-        const value = typeof previous !== "undefined" ? Array.isArray(previous) ? previous : [previous] : [];
-        value.push(flags[propName]);
-        flags[propName] = value;
-      }
-      optionNameMap[propName] = option.name;
-      opts.option?.(option, flags[propName]);
-    } else {
-      if (opts.stopEarly) {
-        stopEarly = current;
-        break;
-      }
-      unknown.push(current);
     }
-  }
-  if (stopEarly) {
-    const stopEarlyArgIndex = args.indexOf(stopEarly);
-    if (stopEarlyArgIndex !== -1) {
-      const doubleDashIndex = args.indexOf("--");
-      unknown = args.slice(stopEarlyArgIndex, doubleDashIndex === -1 ? void 0 : doubleDashIndex);
-      if (doubleDashIndex !== -1) {
-        literal = args.slice(doubleDashIndex + 1);
+    if (opts.flags?.length && !option.args?.length && typeof currentValue !== "undefined") {
+      throw new UnexpectedOptionValueError(option.name, currentValue);
+    }
+    let optionArgsIndex = 0;
+    let inOptionalArg = false;
+    const next = () => currentValue ?? args[argsIndex + 1];
+    const previous = ctx.flags[propName];
+    parseNext(option);
+    if (typeof ctx.flags[propName] === "undefined") {
+      if (option.args?.[optionArgsIndex]?.requiredValue) {
+        throw new MissingOptionValueError(option.name);
+      } else if (typeof option.default !== "undefined") {
+        ctx.flags[propName] = getDefaultValue(option);
+      } else {
+        ctx.flags[propName] = true;
       }
     }
+    if (option.value) {
+      ctx.flags[propName] = option.value(ctx.flags[propName], previous);
+    } else if (option.collect) {
+      const value = typeof previous !== "undefined" ? Array.isArray(previous) ? previous : [previous] : [];
+      value.push(ctx.flags[propName]);
+      ctx.flags[propName] = value;
+    }
+    optionsMap.set(propName, option);
+    opts.option?.(option, ctx.flags[propName]);
   }
-  validateFlags(opts, flags, optionNameMap);
-  const result = Object.keys(flags).reduce((result2, key) => {
+  return optionsMap;
+}
+function parseDottedOptions(ctx) {
+  ctx.flags = Object.keys(ctx.flags).reduce((result, key) => {
     if (~key.indexOf(".")) {
-      key.split(".").reduce((result3, subKey, index, parts) => {
+      key.split(".").reduce((result2, subKey, index, parts) => {
         if (index === parts.length - 1) {
-          result3[subKey] = flags[key];
+          result2[subKey] = ctx.flags[key];
         } else {
-          result3[subKey] = result3[subKey] ?? {};
+          result2[subKey] = result2[subKey] ?? {};
         }
-        return result3[subKey];
-      }, result2);
+        return result2[subKey];
+      }, result);
     } else {
-      result2[key] = flags[key];
+      result[key] = ctx.flags[key];
     }
-    return result2;
+    return result;
   }, {});
-  return { flags: result, unknown, literal };
 }
 function splitFlags(flag) {
+  flag = flag.slice(1);
   const normalized = [];
-  const flags = flag.slice(1).split("");
+  const index = flag.indexOf("=");
+  const flags = (index !== -1 ? flag.slice(0, index) : flag).split("");
   if (isNaN(Number(flag[flag.length - 1]))) {
     flags.forEach((val) => normalized.push(`-${val}`));
   } else {
@@ -7878,13 +7930,16 @@ function splitFlags(flag) {
       normalized.push(flags.join(""));
     }
   }
+  if (index !== -1) {
+    normalized[normalized.length - 1] += flag.slice(index);
+  }
   return normalized;
 }
-function parseFlagValue(option, arg, value) {
+function parseDefaultType(option, arg, value) {
   const type = arg.type || OptionType.STRING;
-  const parseType = Types[type];
+  const parseType = DefaultTypes[type];
   if (!parseType) {
-    throw new UnknownType(type, Object.keys(Types));
+    throw new UnknownTypeError(type, Object.keys(DefaultTypes));
   }
   return parseType({
     label: "Option",
@@ -7894,11 +7949,11 @@ function parseFlagValue(option, arg, value) {
   });
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/type.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/type.js
 var Type = class {
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/boolean.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/boolean.js
 var BooleanType = class extends Type {
   parse(type) {
     return boolean(type);
@@ -7908,28 +7963,28 @@ var BooleanType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/string.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/string.js
 var StringType = class extends Type {
   parse(type) {
     return string(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/file.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/file.js
 var FileType = class extends StringType {
   constructor() {
     super();
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/number.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/number.js
 var NumberType = class extends Type {
   parse(type) {
     return number(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/table/border.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/table/border.js
 var border = {
   top: "\u2500",
   topMid: "\u252C",
@@ -7948,7 +8003,7 @@ var border = {
   middle: "\u2502"
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/table/cell.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/table/cell.js
 var Cell = class {
   constructor(value) {
     Object.defineProperty(this, "value", {
@@ -8024,7 +8079,7 @@ var Cell = class {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/table/row.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/table/row.js
 var Row = class extends Array {
   constructor() {
     super(...arguments);
@@ -8070,7 +8125,7 @@ var Row = class extends Array {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/table/utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/table/utils.js
 function consumeWords(length, content) {
   let consumed = "";
   const words = content.split("\n")[0]?.split(/ /g);
@@ -8112,7 +8167,7 @@ var strLength = (str) => {
   return length;
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/table/layout.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/table/layout.js
 var __classPrivateFieldGet = function(receiver, state, kind, f) {
   if (kind === "a" && !f)
     throw new TypeError("Private accessor was defined without a getter");
@@ -8508,7 +8563,7 @@ _TableLayout_instances = /* @__PURE__ */ new WeakSet(), _TableLayout_getRows = f
   });
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/table/table.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/table/table.js
 var Table = class extends Array {
   constructor() {
     super(...arguments);
@@ -8659,7 +8714,7 @@ Object.defineProperty(Table, "_chars", {
   value: { ...border }
 });
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/help/_help_generator.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/help/_help_generator.js
 var HelpGenerator = class {
   constructor(cmd, options = {}) {
     Object.defineProperty(this, "cmd", {
@@ -8897,14 +8952,14 @@ function highlightArgumentDetails(arg, types = true) {
   return str;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/integer.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/integer.js
 var IntegerType = class extends Type {
   parse(type) {
     return integer(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/command.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/command.js
 var Command = class {
   constructor() {
     Object.defineProperty(this, "types", {
@@ -9152,11 +9207,11 @@ var Command = class {
     const name = result.flags.shift();
     const aliases = result.flags;
     if (!name) {
-      throw new MissingCommandName();
+      throw new MissingCommandNameError();
     }
     if (this.getBaseCommand(name, true)) {
       if (!override) {
-        throw new DuplicateCommandName(name);
+        throw new DuplicateCommandNameError(name);
       }
       this.removeCommand(name);
     }
@@ -9185,7 +9240,7 @@ var Command = class {
   }
   alias(alias) {
     if (this.cmd._name === alias || this.cmd.aliases.includes(alias)) {
-      throw new DuplicateCommandAlias(alias);
+      throw new DuplicateCommandAliasError(alias);
     }
     this.cmd.aliases.push(alias);
     return this;
@@ -9198,7 +9253,7 @@ var Command = class {
   select(name) {
     const cmd = this.getBaseCommand(name, true);
     if (!cmd) {
-      throw new CommandNotFound(name, this.getBaseCommands(true));
+      throw new CommandNotFoundError(name, this.getBaseCommands(true));
     }
     this.cmd = cmd;
     return this;
@@ -9281,9 +9336,13 @@ var Command = class {
   }
   type(name, handler, options) {
     if (this.cmd.types.get(name) && !options?.override) {
-      throw new DuplicateType(name);
+      throw new DuplicateTypeError(name);
     }
-    this.cmd.types.set(name, { ...options, name, handler });
+    this.cmd.types.set(name, {
+      ...options,
+      name,
+      handler
+    });
     if (handler instanceof Type && (typeof handler.complete !== "undefined" || typeof handler.values !== "undefined")) {
       const completeHandler = (cmd, parent) => handler.complete?.(cmd, parent) || [];
       this.complete(name, completeHandler, options);
@@ -9295,7 +9354,7 @@ var Command = class {
   }
   complete(name, complete, options) {
     if (this.cmd.completions.has(name) && !options?.override) {
-      throw new DuplicateCompletion(name);
+      throw new DuplicateCompletionError(name);
     }
     this.cmd.completions.set(name, {
       name,
@@ -9364,7 +9423,7 @@ var Command = class {
         if (opts?.override) {
           this.removeOption(name);
         } else {
-          throw new DuplicateOptionName(name);
+          throw new DuplicateOptionNameError(name);
         }
       }
       if (!option.name && isLong) {
@@ -9384,7 +9443,7 @@ var Command = class {
   }
   example(name, description) {
     if (this.cmd.hasExample(name)) {
-      throw new DuplicateExample(name);
+      throw new DuplicateExampleError(name);
     }
     this.cmd.examples.push({ name, description });
     return this;
@@ -9398,15 +9457,15 @@ var Command = class {
       result.typeDefinition = "<value:boolean>";
     }
     if (result.flags.some((envName) => this.cmd.getBaseEnvVar(envName, true))) {
-      throw new DuplicateEnvironmentVariable(name);
+      throw new DuplicateEnvVarError(name);
     }
     const details = parseArgumentsDefinition(result.typeDefinition);
     if (details.length > 1) {
-      throw new EnvironmentVariableSingleValue(name);
+      throw new TooManyEnvVarValuesError(name);
     } else if (details.length && details[0].optionalValue) {
-      throw new EnvironmentVariableOptionalValue(name);
+      throw new UnexpectedOptionalEnvVarValueError(name);
     } else if (details.length && details[0].variadic) {
-      throw new EnvironmentVariableVariadicValue(name);
+      throw new UnexpectedVariadicEnvVarValueError(name);
     }
     this.cmd.envVars.push({
       name: result.flags[0],
@@ -9419,78 +9478,100 @@ var Command = class {
     return this;
   }
   parse(args = import_shim_deno2.Deno.args) {
-    return this.parseCommand({ args });
+    const ctx = {
+      unknown: args.slice(),
+      flags: {},
+      env: {},
+      literal: [],
+      stopEarly: false,
+      stopOnUnknown: false
+    };
+    return this.parseCommand(ctx);
   }
   async parseCommand(ctx) {
     try {
       this.reset();
       this.registerDefaults();
-      this.rawArgs = ctx.args;
+      this.rawArgs = ctx.unknown.slice();
       if (this.isExecutable) {
-        await this.executeExecutable(ctx.args);
+        await this.executeExecutable(ctx.unknown);
         return { options: {}, args: [], cmd: this, literal: [] };
+      } else if (this._useRawArgs) {
+        await this.parseEnvVars(ctx, this.envVars);
+        return this.execute(ctx.env, ...ctx.unknown);
       }
-      if (this._useRawArgs) {
-        const env = await this.parseEnvVars(this.envVars);
-        return this.execute(env, ...ctx.args);
-      }
+      let preParseGlobals = false;
       let subCommand;
-      if (subCommand || ctx.args.length > 0) {
+      if (ctx.unknown.length > 0) {
+        subCommand = this.getSubCommand(ctx);
         if (!subCommand) {
-          subCommand = this.getCommand(ctx.args[0], true);
-          if (subCommand) {
-            ctx.args = ctx.args.slice(1);
+          const optionName = ctx.unknown[0].replace(/^-+/, "");
+          const option = this.getOption(optionName, true);
+          if (option?.global) {
+            preParseGlobals = true;
+            await this.parseGlobalOptionsAndEnvVars(ctx);
           }
         }
+      }
+      if (subCommand || ctx.unknown.length > 0) {
+        subCommand ??= this.getSubCommand(ctx);
         if (subCommand) {
           subCommand._globalParent = this;
           return subCommand.parseCommand(ctx);
         }
       }
-      ctx = await this.parseOptionsAndEnvVars(ctx);
-      this.literalArgs = ctx.literal ?? [];
-      const options = { ...ctx.env, ...ctx.options };
-      const params = this.parseArguments(ctx.args, options);
+      await this.parseOptionsAndEnvVars(ctx, preParseGlobals);
+      const options = { ...ctx.env, ...ctx.flags };
+      const args = this.parseArguments(ctx, options);
+      this.literalArgs = ctx.literal;
       if (ctx.action) {
-        await ctx.action.action.call(this, options, ...params);
+        await ctx.action.action.call(this, options, ...args);
         if (ctx.action.standalone) {
           return {
             options,
-            args: params,
+            args,
             cmd: this,
             literal: this.literalArgs
           };
         }
       }
-      return this.execute(options, ...params);
+      return this.execute(options, ...args);
     } catch (error) {
       this.throw(error instanceof ValidationError ? new ValidationError2(error.message) : error instanceof Error ? error : new Error(`[non-error-thrown] ${error}`));
     }
   }
+  getSubCommand(ctx) {
+    const subCommand = this.getCommand(ctx.unknown[0], true);
+    if (subCommand) {
+      ctx.unknown.shift();
+    }
+    return subCommand;
+  }
   async parseGlobalOptionsAndEnvVars(ctx) {
+    const isHelpOption = this.getHelpOption()?.flags.includes(ctx.unknown[0]);
     const envVars = [
       ...this.envVars.filter((envVar) => envVar.global),
       ...this.getGlobalEnvVars(true)
     ];
-    const isHelpOption = this.getHelpOption()?.flags.includes(ctx.args[0]);
-    const env = await this.parseEnvVars(envVars, !isHelpOption);
+    await this.parseEnvVars(ctx, envVars, !isHelpOption);
     const options = [
       ...this.options.filter((option) => option.global),
       ...this.getGlobalOptions(true)
     ];
-    return this.parseOptions(ctx, options, env, true);
+    this.parseOptions(ctx, options, {
+      stopEarly: true,
+      stopOnUnknown: true,
+      dotted: false
+    });
   }
-  async parseOptionsAndEnvVars(ctx) {
-    const envVars = this.getEnvVars(true);
+  async parseOptionsAndEnvVars(ctx, preParseGlobals) {
     const helpOption = this.getHelpOption();
-    const isVersionOption = this._versionOption?.flags.includes(ctx.args[0]);
-    const isHelpOption = helpOption?.flags.includes(ctx.args[0]);
-    const env = {
-      ...ctx.env,
-      ...await this.parseEnvVars(envVars, !isHelpOption && !isVersionOption)
-    };
+    const isVersionOption = this._versionOption?.flags.includes(ctx.unknown[0]);
+    const isHelpOption = helpOption && ctx.flags?.[helpOption.name] === true;
+    const envVars = preParseGlobals ? this.envVars.filter((envVar) => !envVar.global) : this.getEnvVars(true);
+    await this.parseEnvVars(ctx, envVars, !isHelpOption && !isVersionOption);
     const options = this.getOptions(true);
-    return this.parseOptions(ctx, options, env);
+    this.parseOptions(ctx, options);
   }
   registerDefaults() {
     if (this.hasDefaults || this.getParent()) {
@@ -9550,10 +9631,10 @@ var Command = class {
     } else if (this.defaultCommand) {
       const cmd = this.getCommand(this.defaultCommand, true);
       if (!cmd) {
-        throw new DefaultCommandNotFound(this.defaultCommand, this.getCommands());
+        throw new DefaultCommandNotFoundError(this.defaultCommand, this.getCommands());
       }
       cmd._globalParent = this;
-      await cmd.execute(options, ...args);
+      return cmd.execute(options, ...args);
     }
     return {
       options,
@@ -9575,71 +9656,59 @@ var Command = class {
       }
     } catch (error) {
       if (error instanceof import_shim_deno2.Deno.errors.NotFound) {
-        throw new CommandExecutableNotFound(command);
+        throw new CommandExecutableNotFoundError(command);
       }
       throw error;
     }
   }
-  parseOptions(ctx, options, env, stopEarly = this._stopEarly) {
-    let action;
-    const parseResult = parseFlags(ctx.args, {
+  parseOptions(ctx, options, { stopEarly = this._stopEarly, stopOnUnknown = false, dotted = true } = {}) {
+    parseFlags(ctx, {
       stopEarly,
+      stopOnUnknown,
+      dotted,
       allowEmpty: this._allowEmpty,
       flags: options,
-      ignoreDefaults: env,
+      ignoreDefaults: ctx.env,
       parse: (type) => this.parseType(type),
       option: (option) => {
-        if (!action && option.action) {
-          action = option;
+        if (!ctx.action && option.action) {
+          ctx.action = option;
         }
       }
     });
-    return {
-      args: parseResult.unknown,
-      options: { ...ctx.options, ...parseResult.flags },
-      env: { ...ctx.env, ...env },
-      action: ctx.action ?? action,
-      literal: parseResult.literal
-    };
   }
   parseType(type) {
     const typeSettings = this.getType(type.type);
     if (!typeSettings) {
-      throw new UnknownType(type.type, this.getTypes().map((type2) => type2.name));
+      throw new UnknownTypeError(type.type, this.getTypes().map((type2) => type2.name));
     }
     return typeSettings.handler instanceof Type ? typeSettings.handler.parse(type) : typeSettings.handler(type);
   }
-  async parseEnvVars(envVars, validate = true) {
-    const result = {};
-    for (const env of envVars) {
-      const found = await this.findEnvVar(env.names);
-      if (found) {
-        const { name, value } = found;
-        const propertyName = underscoreToCamelCase(env.prefix ? env.names[0].replace(new RegExp(`^${env.prefix}`), "") : env.names[0]);
-        if (env.details.list) {
-          const values = value.split(env.details.separator ?? ",");
-          result[propertyName] = values.map((value2) => this.parseType({
+  async parseEnvVars(ctx, envVars, validate = true) {
+    for (const envVar of envVars) {
+      const env = await this.findEnvVar(envVar.names);
+      if (env) {
+        const parseType = (value) => {
+          return this.parseType({
             label: "Environment variable",
-            type: env.type,
-            name,
-            value: value2
-          }));
-        } else {
-          result[propertyName] = this.parseType({
-            label: "Environment variable",
-            type: env.type,
-            name,
+            type: envVar.type,
+            name: env.name,
             value
           });
+        };
+        const propertyName = underscoreToCamelCase(envVar.prefix ? envVar.names[0].replace(new RegExp(`^${envVar.prefix}`), "") : envVar.names[0]);
+        if (envVar.details.list) {
+          ctx.env[propertyName] = env.value.split(envVar.details.separator ?? ",").map(parseType);
+        } else {
+          ctx.env[propertyName] = parseType(env.value);
         }
-        if (env.value && typeof result[propertyName] !== "undefined") {
-          result[propertyName] = env.value(result[propertyName]);
+        if (envVar.value && typeof ctx.env[propertyName] !== "undefined") {
+          ctx.env[propertyName] = envVar.value(ctx.env[propertyName]);
         }
-      } else if (env.required && validate) {
-        throw new MissingRequiredEnvVar(env);
+      } else if (envVar.required && validate) {
+        throw new MissingRequiredEnvVarError(envVar);
       }
     }
-    return result;
   }
   async findEnvVar(names) {
     for (const name of names) {
@@ -9656,15 +9725,19 @@ var Command = class {
     }
     return void 0;
   }
-  parseArguments(args, options) {
+  parseArguments(ctx, options) {
     const params = [];
-    args = args.slice(0);
+    const args = ctx.unknown.slice();
     if (!this.hasArguments()) {
       if (args.length) {
         if (this.hasCommands(true)) {
-          throw new UnknownCommand(args[0], this.getCommands());
+          if (this.hasCommand(args[0], true)) {
+            throw new TooManyArgumentsError(args);
+          } else {
+            throw new UnknownCommandError(args[0], this.getCommands());
+          }
         } else {
-          throw new NoArgumentsAllowed(this.getPath());
+          throw new NoArgumentsAllowedError(this.getPath());
         }
       }
     } else {
@@ -9674,7 +9747,7 @@ var Command = class {
           const optionNames = Object.keys(options);
           const hasStandaloneOption = !!optionNames.find((name) => this.getOption(name, true)?.standalone);
           if (!hasStandaloneOption) {
-            throw new MissingArguments(required);
+            throw new MissingArgumentsError(required);
           }
         }
       } else {
@@ -9683,7 +9756,7 @@ var Command = class {
             if (expectedArg.optionalValue) {
               break;
             }
-            throw new MissingArgument(`Missing argument: ${expectedArg.name}`);
+            throw new MissingArgumentError(expectedArg.name);
           }
           let arg;
           const parseArgValue = (value) => {
@@ -9709,7 +9782,7 @@ var Command = class {
           }
         }
         if (args.length) {
-          throw new TooManyArguments(args);
+          throw new TooManyArgumentsError(args);
         }
       }
     }
@@ -10088,27 +10161,27 @@ function isUpgradeCommand(command) {
   return command instanceof Command && "getLatestVersion" in command;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/completions/bash.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/completions/bash.js
 var _BashCompletionsCommand_cmd;
 _BashCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/completions/fish.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/completions/fish.js
 var _FishCompletionsCommand_cmd;
 _FishCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/completions/zsh.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/completions/zsh.js
 var _ZshCompletionsCommand_cmd;
 _ZshCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/completions/mod.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/completions/mod.js
 var _CompletionsCommand_cmd;
 _CompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/child_command.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/child_command.js
 var _ChildCommandType_cmd;
 _ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.1/command/types/enum.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/enum.js
 var EnumType = class extends Type {
   constructor(values) {
     super();
