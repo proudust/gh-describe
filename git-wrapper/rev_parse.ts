@@ -5,7 +5,7 @@ interface RevParse {
   arg: string;
 }
 
-function creareArgs({ arg, cwd }: RevParse & GitOptions): string[] {
+function createArgs({ arg, cwd }: RevParse & GitOptions): string[] {
   const args = [];
   if (cwd) args.push("-C", cwd);
   args.push("rev-parse", arg);
@@ -16,6 +16,6 @@ function creareArgs({ arg, cwd }: RevParse & GitOptions): string[] {
  * @see https://git-scm.com/docs/git-rev-parse
  */
 export async function revParse(options: RevParse & GitOptions): Promise<string> {
-  const args = creareArgs(options);
+  const args = createArgs(options);
   return await exec(args);
 }

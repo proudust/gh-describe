@@ -7198,7 +7198,7 @@ ${stderr}`);
 };
 
 // dist/dnt/esm/git-wrapper/list_remotes.js
-function creareArgs({ cwd }) {
+function createArgs({ cwd }) {
   const args = [];
   if (cwd)
     args.push("-C", cwd);
@@ -7234,13 +7234,13 @@ function parseRemotes(stdout) {
   return remotes;
 }
 async function listRemotes(options = {}) {
-  const args = creareArgs(options);
+  const args = createArgs(options);
   const stdout = await exec2(args);
   return parseRemotes(stdout);
 }
 
 // dist/dnt/esm/git-wrapper/rev_parse.js
-function creareArgs2({ arg, cwd }) {
+function createArgs2({ arg, cwd }) {
   const args = [];
   if (cwd)
     args.push("-C", cwd);
@@ -7248,7 +7248,7 @@ function creareArgs2({ arg, cwd }) {
   return args;
 }
 async function revParse(options) {
-  const args = creareArgs2(options);
+  const args = createArgs2(options);
   return await exec2(args);
 }
 

@@ -1,7 +1,7 @@
 import { exec } from "./exec.ts";
 import { GitOptions } from "./types.d.ts";
 
-function creareArgs({ cwd }: GitOptions): string[] {
+function createArgs({ cwd }: GitOptions): string[] {
   const args = [];
   if (cwd) args.push("-C", cwd);
   args.push("remote", "-v");
@@ -52,7 +52,7 @@ function parseRemotes(stdout: string): Remote[] {
  * @see https://git-scm.com/docs/git-remote
  */
 export async function listRemotes(options: GitOptions = {}): Promise<Remote[]> {
-  const args = creareArgs(options);
+  const args = createArgs(options);
   const stdout = await exec(args);
   return parseRemotes(stdout);
 }
