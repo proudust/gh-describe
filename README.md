@@ -106,7 +106,7 @@ Mac or Linux:
 ```sh
 $ gh describe --help
   Usage:   gh-describe [commit-ish]
-  Version: v1.5.1
+  Version: v1.5.2
 
   Description:
 
