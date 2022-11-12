@@ -11,7 +11,7 @@ export async function ghDescribeCli({ version }: GhDescribeCliArgs) {
     .name("gh-describe")
     .version(version)
     .description("Emulate `git describe --tags` in shallow clone repository.")
-    .option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO")
+    .group("`git describe` like options")
     .option("--match <pattern...:string>", "Only consider tags matching the given glob pattern.")
     .option("--no-match", "Clear and reset list of match pattern.")
     .option(
@@ -19,6 +19,9 @@ export async function ghDescribeCli({ version }: GhDescribeCliArgs) {
       "Do not consider tags matching the given glob pattern.",
     )
     .option("--no-exclude", "Clear and reset list of exclude pattern.")
+    .group("`gh` options")
+    .option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO")
+    .group("Other options")
     .option("--default <tag:string>", "If the name is not found, use this value.")
     .type("runtime", new EnumType(["deno", "node"]))
     .option(

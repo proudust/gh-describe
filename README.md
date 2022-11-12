@@ -114,15 +114,24 @@ $ gh describe --help
 
   Options:
 
-    -h, --help                   - Show this help.                                                                                     
-    -V, --version                - Show the version number for this program.                                                           
-    -R, --repo     <repo>        - Target repository. Format: OWNER/REPO                                                               
-    --match        <pattern...>  - Only consider tags matching the given glob pattern.                                                 
-    --no-match                   - Clear and reset list of match pattern.                                                              
-    --exclude      <pattern...>  - Do not consider tags matching the given glob pattern.                                               
-    --no-exclude                 - Clear and reset list of exclude pattern.                                                            
-    --default      <tag>         - If the name is not found, use this value.                                                           
-    --runtime      <runtime>     - If installed by `gh extension install`, can specify the execution runtime.  (Values: "deno", "node")
+    -h, --help     - Show this help.                            
+    -V, --version  - Show the version number for this program.  
+
+  `git describe` like options:
+
+    --match       <pattern...>  - Only consider tags matching the given glob pattern.    
+    --no-match                  - Clear and reset list of match pattern.                 
+    --exclude     <pattern...>  - Do not consider tags matching the given glob pattern.  
+    --no-exclude                - Clear and reset list of exclude pattern.               
+
+  `gh` options:
+
+    -R, --repo  <repo>  - Target repository. Format: OWNER/REPO  
+
+  Other options:
+
+    --default  <tag>      - If the name is not found, use this value.                                                           
+    --runtime  <runtime>  - If installed by `gh extension install`, can specify the execution runtime.  (Values: "deno", "node")
 ```
 
 ## License
