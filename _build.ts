@@ -29,7 +29,7 @@ await dnt({
   skipSourceOutput: true,
   package: {
     name: "gh-describe",
-    version: "1.5.0",
+    version: describe,
     description: "`git describe --tags` in shallow clones on GitHub Actions.",
     repository: {
       type: "git",
@@ -55,9 +55,6 @@ await Promise.all([
     outfile: "./dist/actions.js",
     platform: "node",
     target: "es2021",
-    define: {
-      "globalThis.version": `"${describe}"`,
-    },
   }),
   esbuild({
     bundle: true,
@@ -65,10 +62,6 @@ await Promise.all([
     outfile: "./dist/cli.js",
     platform: "node",
     target: "es2021",
-    define: {
-      "globalThis.version": "undefined",
-      "import.meta.url": "undefined",
-    },
   }),
 ]);
 
