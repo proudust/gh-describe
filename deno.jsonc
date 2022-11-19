@@ -21,6 +21,7 @@
   "tasks": {
     "build": "deno run --allow-env --allow-net --allow-read --allow-run --allow-write _build.ts",
     "compile": "deno run --allow-env --allow-net --allow-read --allow-run --allow-write _compile.ts",
+    "lock": "! rm deno.lock && deno cache *.ts **/*.ts",
     "run": "deno task run:deno",
     "run:deno": "deno run --allow-run cli/main.ts",
     "run:node": "deno task build && node dist/cli.js",
