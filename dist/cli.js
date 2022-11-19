@@ -858,6 +858,12 @@ var require_std = __commonJS({
       },
       close() {
         process.stdin.destroy();
+      },
+      setRaw(mode, options) {
+        if (options === null || options === void 0 ? void 0 : options.cbreak) {
+          throw new Error("The cbreak option is not implemented.");
+        }
+        process.stdin.setRawMode(mode);
       }
     };
     exports.stdout = {
@@ -913,8 +919,8 @@ var require_version = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.typescript = exports.deno = void 0;
-    exports.deno = "1.24.1";
-    exports.typescript = "4.7.4";
+    exports.deno = "1.28.1";
+    exports.typescript = "4.8.3";
   }
 });
 
@@ -3693,7 +3699,7 @@ var require_run = __commonJS({
         __classPrivateFieldGet2(this, _Process_process, "f").unref();
         __classPrivateFieldGet2(this, _Process_process, "f").kill();
       }
-      kill(signo) {
+      kill(signo = "SIGTERM") {
         if (__classPrivateFieldGet2(this, _Process_receivedStatus, "f")) {
           throw new errors.NotFound("entity not found");
         }
@@ -8005,6 +8011,16 @@ var border = {
 
 // dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/table/cell.js
 var Cell = class {
+  get length() {
+    return this.toString().length;
+  }
+  static from(value) {
+    const cell = new this(value);
+    if (value instanceof Cell) {
+      cell.options = { ...value.options };
+    }
+    return cell;
+  }
   constructor(value) {
     Object.defineProperty(this, "value", {
       enumerable: true,
@@ -8018,16 +8034,6 @@ var Cell = class {
       writable: true,
       value: {}
     });
-  }
-  get length() {
-    return this.toString().length;
-  }
-  static from(value) {
-    const cell = new this(value);
-    if (value instanceof Cell) {
-      cell.options = { ...value.options };
-    }
-    return cell;
   }
   toString() {
     return this.value.toString();
@@ -8716,6 +8722,9 @@ Object.defineProperty(Table, "_chars", {
 
 // dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/help/_help_generator.js
 var HelpGenerator = class {
+  static generate(cmd, options) {
+    return new HelpGenerator(cmd, options).generate();
+  }
   constructor(cmd, options = {}) {
     Object.defineProperty(this, "cmd", {
       enumerable: true,
@@ -8742,9 +8751,6 @@ var HelpGenerator = class {
       long: false,
       ...options
     };
-  }
-  static generate(cmd, options) {
-    return new HelpGenerator(cmd, options).generate();
   }
   generate() {
     const areColorsEnabled = getColorEnabled();

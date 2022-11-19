@@ -858,6 +858,12 @@ var require_std = __commonJS({
       },
       close() {
         process.stdin.destroy();
+      },
+      setRaw(mode, options) {
+        if (options === null || options === void 0 ? void 0 : options.cbreak) {
+          throw new Error("The cbreak option is not implemented.");
+        }
+        process.stdin.setRawMode(mode);
       }
     };
     exports.stdout = {
@@ -913,8 +919,8 @@ var require_version = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.typescript = exports.deno = void 0;
-    exports.deno = "1.24.1";
-    exports.typescript = "4.7.4";
+    exports.deno = "1.28.1";
+    exports.typescript = "4.8.3";
   }
 });
 
@@ -3693,7 +3699,7 @@ var require_run = __commonJS({
         __classPrivateFieldGet(this, _Process_process, "f").unref();
         __classPrivateFieldGet(this, _Process_process, "f").kill();
       }
-      kill(signo) {
+      kill(signo = "SIGTERM") {
         if (__classPrivateFieldGet(this, _Process_receivedStatus, "f")) {
           throw new errors.NotFound("entity not found");
         }
