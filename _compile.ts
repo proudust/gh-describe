@@ -1,4 +1,4 @@
-import { join } from "https://deno.land/std@0.148.0/path/mod.ts";
+import { join } from "https://deno.land/std@0.165.0/path/mod.ts";
 import { build as esbuild } from "https://deno.land/x/esbuild@v0.15.7/mod.js";
 import { ghDescribe } from "./core/mod.ts";
 
