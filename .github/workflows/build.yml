@@ -78,7 +78,11 @@ jobs:
           path: ./dist/gh-describe-*
 
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
     if: >
       github.event_name == 'push' ||
       github.event.pull_request.head.repo.full_name != github.repository
@@ -115,6 +119,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Test Run on Deno Run
+        shell: bash
         run: deno run --allow-run https://raw.githubusercontent.com/proudust/gh-describe/"${GITHUB_SHA}"/main.ts
         env:
           GITHUB_TOKEN: ${{ github.token }}
