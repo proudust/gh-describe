@@ -8841,8 +8841,9 @@ function createDescribe(tag, distance, sha) {
     return `${tag}-${distance}-g${sha.substring(0, 7)}`;
   }
 }
-async function ghDescribe({ repo: repoLike, commitish, defaultTag, match, exclude } = {}) {
-  const { owner, repo, host } = await resolveRepo(repoLike);
+async function ghDescribe(options) {
+  const { commitish, defaultTag, match, exclude } = options ?? {};
+  const { owner, repo, host } = await resolveRepo(options?.repo);
   const [tags, { sha, histories }] = await Promise.all([
     fetchTags({ owner, repo, host, match, exclude }),
     (async () => {

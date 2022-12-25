@@ -11,11 +11,12 @@ interface Repo {
   host?: string;
 }
 
+/**
+ * Options which can be set when calling {@link ghDescribe}.
+ */
 interface GhDescribeOptions {
   /**
-   * Target repository. Defaults to origin if omitted. Format: OWNER/REPO
-   *
-   * @default
+   * Target repository. Defaults to origin if omitted. Format: [HOST/]OWNER/REPO
    */
   repo?: string | Repo;
 
@@ -40,6 +41,10 @@ interface GhDescribeOptions {
   defaultTag?: string;
 }
 
+/**
+ * The interface returned from calling {@link ghDescribe} which represents the
+ * human readable name based on an available ref.
+ */
 interface GhDescribeOutput {
   /**
    * `git describe --tags` like describe.
@@ -57,7 +62,7 @@ interface GhDescribeOutput {
   distance: number;
 
   /**
-   * 	Object name for the commit itself.
+   * Object name for the commit itself.
    */
   sha: string;
 }
@@ -73,16 +78,14 @@ export function createDescribe(tag: string, distance: number, sha: string) {
 /**
  * Emulate `git describe --tags` in shallow clone repository.
  */
-export async function ghDescribe(
-  {
-    repo: repoLike,
+export async function ghDescribe(options?: GhDescribeOptions): Promise<GhDescribeOutput> {
+  const {
     commitish,
     defaultTag,
     match,
     exclude,
-  }: GhDescribeOptions = {},
-): Promise<GhDescribeOutput> {
-  const { owner, repo, host } = await resolveRepo(repoLike);
+  } = options ?? {};
+  const { owner, repo, host } = await resolveRepo(options?.repo);
 
   const [tags, { sha, histories }] = await Promise.all([
     fetchTags({ owner, repo, host, match, exclude }),
