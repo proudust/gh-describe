@@ -8694,7 +8694,7 @@ function globToRegExp(glob, { extended = true, globstar: globstarOption = true, 
   return new RegExp(regExpString, caseInsensitive ? "i" : "");
 }
 
-// dist/dnt/esm/core/to_reqexp_array.js
+// dist/dnt/esm/core/to_regexp_array.js
 function toReqExpArray(glob) {
   if (!glob) {
     return [];
