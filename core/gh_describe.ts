@@ -14,7 +14,7 @@ interface Repo {
 /**
  * Options which can be set when calling {@link ghDescribe}.
  */
-interface GhDescribeOptions {
+export interface GhDescribeOptions {
   /**
    * Target repository. Defaults to origin if omitted. Format: [HOST/]OWNER/REPO
    */
@@ -45,7 +45,7 @@ interface GhDescribeOptions {
  * The interface returned from calling {@link ghDescribe} which represents the
  * human readable name based on an available ref.
  */
-interface GhDescribeOutput {
+export interface GhDescribeOutput {
   /**
    * `git describe --tags` like describe.
    */
