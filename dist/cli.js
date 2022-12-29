@@ -6418,7 +6418,7 @@ async function revParse(options) {
   return await exec(args);
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/ansi/ansi_escapes.js
 var ansi_escapes_exports = {};
 __export(ansi_escapes_exports, {
   bel: () => bel,
@@ -6451,7 +6451,7 @@ __export(ansi_escapes_exports, {
   scrollUp: () => scrollUp
 });
 
-// dist/dnt/esm/deps/deno.land/std@0.161.0/encoding/base64.js
+// dist/dnt/esm/deps/deno.land/std@0.170.0/encoding/base64.js
 var base64abc = [
   "A",
   "B",
@@ -6542,7 +6542,7 @@ function encode(data) {
   return result;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/ansi/ansi_escapes.js
 var ESC = "\x1B";
 var CSI = `${ESC}[`;
 var OSC = `${ESC}]`;
@@ -6648,7 +6648,7 @@ function image(buffer, options) {
   return ret + ":" + encode(buffer) + bel;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/ansi/ansi.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/ansi/ansi.js
 var ansi = factory();
 function factory() {
   let result = [];
@@ -6698,7 +6698,7 @@ function factory() {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.161.0/fmt/colors.js
+// dist/dnt/esm/deps/deno.land/std@0.170.0/fmt/colors.js
 var colors_exports = {};
 __export(colors_exports, {
   bgBlack: () => bgBlack,
@@ -6936,7 +6936,7 @@ function stripColor(string2) {
   return string2.replace(ANSI_PATTERN, "");
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/ansi/colors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/ansi/colors.js
 var proto = /* @__PURE__ */ Object.create(null);
 var methodNames = Object.keys(colors_exports);
 for (const name of methodNames) {
@@ -6965,7 +6965,7 @@ function factory2(stack = []) {
   return colors2;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/ansi/cursor_position.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/ansi/cursor_position.js
 function getCursorPosition({ stdin = import_shim_deno2.Deno.stdin, stdout = import_shim_deno2.Deno.stdout } = {}) {
   const data = new Uint8Array(8);
   import_shim_deno2.Deno.stdin.setRaw(true);
@@ -6976,7 +6976,7 @@ function getCursorPosition({ stdin = import_shim_deno2.Deno.stdin, stdout = impo
   return { x, y };
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/ansi/tty.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/ansi/tty.js
 var tty = factory3();
 function factory3(options) {
   let result = "";
@@ -7023,7 +7023,7 @@ function factory3(options) {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/_utils/distance.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/_utils/distance.js
 function distance(a, b) {
   if (a.length == 0) {
     return b.length;
@@ -7050,7 +7050,7 @@ function distance(a, b) {
   return matrix[b.length][a.length];
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/_utils.js
 function paramCaseToCamelCase(str) {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
@@ -7134,7 +7134,7 @@ function getDefaultValue(option) {
   return typeof option.default === "function" ? option.default() : option.default;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/_errors.js
 var FlagsError = class extends Error {
   constructor(message) {
     super(message);
@@ -7244,7 +7244,7 @@ var InvalidTypeError = class extends ValidationError {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/deprecated.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/deprecated.js
 var OptionType;
 (function(OptionType2) {
   OptionType2["STRING"] = "string";
@@ -7253,7 +7253,7 @@ var OptionType;
   OptionType2["BOOLEAN"] = "boolean";
 })(OptionType || (OptionType = {}));
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/_utils.js
 function didYouMeanCommand(command, commands, excludes = []) {
   const commandNames = commands.map((command2) => command2.getName()).filter((command2) => !excludes.includes(command2));
   return didYouMean(" Did you mean command", command, commandNames);
@@ -7333,10 +7333,10 @@ function dedent(str) {
   return text.trimEnd();
 }
 function getDescription(description, short) {
-  return short ? description.trim().split("\n", 1)[0] : dedent(description);
+  return short ? description.trim().split("\n", 1)[0].trim() : dedent(description);
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/_errors.js
 var CommandError = class extends Error {
   constructor(message) {
     super(message);
@@ -7347,6 +7347,12 @@ var ValidationError2 = class extends CommandError {
   constructor(message, { exitCode } = {}) {
     super(message);
     Object.defineProperty(this, "exitCode", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: void 0
+    });
+    Object.defineProperty(this, "cmd", {
       enumerable: true,
       configurable: true,
       writable: true,
@@ -7477,7 +7483,7 @@ var TooManyArgumentsError = class extends ValidationError2 {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/types/boolean.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/types/boolean.js
 var boolean = (type) => {
   if (~["1", "true"].indexOf(type.value)) {
     return true;
@@ -7488,7 +7494,7 @@ var boolean = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/types/number.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/types/number.js
 var number = (type) => {
   const value = Number(type.value);
   if (Number.isFinite(value)) {
@@ -7497,12 +7503,12 @@ var number = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/types/string.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/types/string.js
 var string = ({ value }) => {
   return value;
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/_validate_flags.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/_validate_flags.js
 function validateFlags(ctx, opts, options = /* @__PURE__ */ new Map()) {
   if (!opts.flags) {
     return;
@@ -7632,7 +7638,7 @@ function isset(flagName, flags) {
   return typeof flags[name] !== "undefined";
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/types/integer.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/types/integer.js
 var integer = (type) => {
   const value = Number(type.value);
   if (Number.isInteger(value)) {
@@ -7641,7 +7647,7 @@ var integer = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/flags/flags.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/flags.js
 var DefaultTypes = {
   string,
   number,
@@ -7955,11 +7961,11 @@ function parseDefaultType(option, arg, value) {
   });
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/type.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/type.js
 var Type = class {
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/boolean.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/boolean.js
 var BooleanType = class extends Type {
   parse(type) {
     return boolean(type);
@@ -7969,28 +7975,28 @@ var BooleanType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/string.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/string.js
 var StringType = class extends Type {
   parse(type) {
     return string(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/file.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/file.js
 var FileType = class extends StringType {
   constructor() {
     super();
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/number.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/number.js
 var NumberType = class extends Type {
   parse(type) {
     return number(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/table/border.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/table/border.js
 var border = {
   top: "\u2500",
   topMid: "\u252C",
@@ -8009,7 +8015,7 @@ var border = {
   middle: "\u2502"
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/table/cell.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/table/cell.js
 var Cell = class {
   get length() {
     return this.toString().length;
@@ -8085,7 +8091,7 @@ var Cell = class {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/table/row.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/table/row.js
 var Row = class extends Array {
   constructor() {
     super(...arguments);
@@ -8131,7 +8137,7 @@ var Row = class extends Array {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/table/utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/table/utils.js
 function consumeWords(length, content) {
   let consumed = "";
   const words = content.split("\n")[0]?.split(/ /g);
@@ -8173,7 +8179,7 @@ var strLength = (str) => {
   return length;
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/table/layout.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/table/layout.js
 var __classPrivateFieldGet = function(receiver, state, kind, f) {
   if (kind === "a" && !f)
     throw new TypeError("Private accessor was defined without a getter");
@@ -8569,7 +8575,7 @@ _TableLayout_instances = /* @__PURE__ */ new WeakSet(), _TableLayout_getRows = f
   });
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/table/table.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/table/table.js
 var Table = class extends Array {
   constructor() {
     super(...arguments);
@@ -8720,7 +8726,7 @@ Object.defineProperty(Table, "_chars", {
   value: { ...border }
 });
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/help/_help_generator.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/help/_help_generator.js
 var HelpGenerator = class {
   static generate(cmd, options) {
     return new HelpGenerator(cmd, options).generate();
@@ -8958,14 +8964,14 @@ function highlightArgumentDetails(arg, types = true) {
   return str;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/integer.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/integer.js
 var IntegerType = class extends Type {
   parse(type) {
     return integer(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/command.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/command.js
 var Command = class {
   constructor() {
     Object.defineProperty(this, "types", {
@@ -9190,6 +9196,12 @@ var Command = class {
       writable: true,
       value: false
     });
+    Object.defineProperty(this, "errorHandler", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: void 0
+    });
   }
   versionOption(flags, desc, opts) {
     this._versionOptions = flags === false ? flags : {
@@ -9373,6 +9385,13 @@ var Command = class {
     this.cmd.throwOnError = true;
     return this;
   }
+  error(handler) {
+    this.cmd.errorHandler = handler;
+    return this;
+  }
+  getErrorHandler() {
+    return this.errorHandler ?? this._parent?.errorHandler;
+  }
   noExit() {
     this.cmd._shouldExit = false;
     this.throwErrors();
@@ -9541,9 +9560,9 @@ var Command = class {
           };
         }
       }
-      return this.execute(options, ...args);
+      return await this.execute(options, ...args);
     } catch (error) {
-      this.throw(error instanceof ValidationError ? new ValidationError2(error.message) : error instanceof Error ? error : new Error(`[non-error-thrown] ${error}`));
+      this.handleError(error);
     }
   }
   getSubCommand(ctx) {
@@ -9794,7 +9813,14 @@ var Command = class {
     }
     return params;
   }
+  handleError(error) {
+    this.throw(error instanceof ValidationError ? new ValidationError2(error.message) : error instanceof Error ? error : new Error(`[non-error-thrown] ${error}`));
+  }
   throw(error) {
+    if (error instanceof ValidationError2) {
+      error.cmd = this;
+    }
+    this.getErrorHandler()?.(error, this);
     if (this.shouldThrowErrors() || !(error instanceof ValidationError2)) {
       throw error;
     }
@@ -10167,27 +10193,23 @@ function isUpgradeCommand(command) {
   return command instanceof Command && "getLatestVersion" in command;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/completions/bash.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/completions/bash.js
 var _BashCompletionsCommand_cmd;
 _BashCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/completions/fish.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/completions/fish.js
 var _FishCompletionsCommand_cmd;
 _FishCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/completions/zsh.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/completions/zsh.js
 var _ZshCompletionsCommand_cmd;
 _ZshCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/completions/mod.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/completions/mod.js
 var _CompletionsCommand_cmd;
 _CompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/child_command.js
-var _ChildCommandType_cmd;
-_ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.4/command/types/enum.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/enum.js
 var EnumType = class extends Type {
   constructor(values) {
     super();
@@ -10214,6 +10236,10 @@ var EnumType = class extends Type {
     return this.values();
   }
 };
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/child_command.js
+var _ChildCommandType_cmd;
+_ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
 
 // dist/dnt/esm/gh-wrapper/exec.js
 async function exec2(args) {
