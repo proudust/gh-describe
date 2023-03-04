@@ -1,4 +1,4 @@
-import { exec } from "./exec.ts";
+import { exec, execSync } from "./exec.ts";
 import type { GitOptions } from "./types.d.ts";
 
 function createArgs({ cwd }: GitOptions): string[] {
@@ -14,4 +14,12 @@ function createArgs({ cwd }: GitOptions): string[] {
 export async function describe(options: GitOptions = {}) {
   const args = createArgs(options);
   return await exec(args);
+}
+
+/**
+ * @see https://git-scm.com/docs/git-describe
+ */
+export function describeSync(options: GitOptions = {}) {
+  const args = createArgs(options);
+  return execSync(args);
 }
