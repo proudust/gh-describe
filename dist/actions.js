@@ -7286,7 +7286,7 @@ async function fetchSha(args) {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.165.0/_util/os.js
+// dist/dnt/esm/deps/deno.land/std@0.171.0/_util/os.js
 var osType = (() => {
   const { Deno: Deno3 } = dntGlobalThis;
   if (typeof Deno3?.build?.os === "string") {
@@ -7300,7 +7300,7 @@ var osType = (() => {
 })();
 var isWindows = osType === "windows";
 
-// dist/dnt/esm/deps/deno.land/std@0.165.0/path/win32.js
+// dist/dnt/esm/deps/deno.land/std@0.171.0/path/win32.js
 var win32_exports = {};
 __export(win32_exports, {
   basename: () => basename,
@@ -7320,7 +7320,7 @@ __export(win32_exports, {
   toNamespacedPath: () => toNamespacedPath
 });
 
-// dist/dnt/esm/deps/deno.land/std@0.165.0/path/_constants.js
+// dist/dnt/esm/deps/deno.land/std@0.171.0/path/_constants.js
 var CHAR_UPPERCASE_A = 65;
 var CHAR_LOWERCASE_A = 97;
 var CHAR_UPPERCASE_Z = 90;
@@ -7331,7 +7331,7 @@ var CHAR_BACKWARD_SLASH = 92;
 var CHAR_COLON = 58;
 var CHAR_QUESTION_MARK = 63;
 
-// dist/dnt/esm/deps/deno.land/std@0.165.0/path/_util.js
+// dist/dnt/esm/deps/deno.land/std@0.171.0/path/_util.js
 function assertPath(path2) {
   if (typeof path2 !== "string") {
     throw new TypeError(`Path must be a string. Received ${JSON.stringify(path2)}`);
@@ -7430,7 +7430,7 @@ function encodeWhitespace(string) {
   });
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.165.0/_util/asserts.js
+// dist/dnt/esm/deps/deno.land/std@0.171.0/_util/asserts.js
 var DenoStdInternalError = class extends Error {
   constructor(message) {
     super(message);
@@ -7443,7 +7443,7 @@ function assert(expr, msg = "") {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.165.0/path/win32.js
+// dist/dnt/esm/deps/deno.land/std@0.171.0/path/win32.js
 var sep = "\\";
 var delimiter = ";";
 function resolve(...pathSegments) {
@@ -7909,6 +7909,7 @@ function basename(path2, ext = "") {
         if (firstNonSlashEnd === -1) {
           matchedSlash = false;
           firstNonSlashEnd = i + 1;
+          end = firstNonSlashEnd;
         }
         if (extIdx >= 0) {
           if (code === ext.charCodeAt(extIdx)) {
@@ -7917,7 +7918,6 @@ function basename(path2, ext = "") {
             }
           } else {
             extIdx = -1;
-            end = firstNonSlashEnd;
           }
         }
       }
@@ -8119,7 +8119,7 @@ function toFileUrl(path2) {
   return url;
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.165.0/path/posix.js
+// dist/dnt/esm/deps/deno.land/std@0.171.0/path/posix.js
 var posix_exports = {};
 __export(posix_exports, {
   basename: () => basename2,
@@ -8319,7 +8319,7 @@ function basename2(path2, ext = "") {
     let firstNonSlashEnd = -1;
     for (i = path2.length - 1; i >= 0; --i) {
       const code = path2.charCodeAt(i);
-      if (code === CHAR_FORWARD_SLASH) {
+      if (isPosixPathSeparator(code)) {
         if (!matchedSlash) {
           start = i + 1;
           break;
@@ -8328,6 +8328,7 @@ function basename2(path2, ext = "") {
         if (firstNonSlashEnd === -1) {
           matchedSlash = false;
           firstNonSlashEnd = i + 1;
+          end = firstNonSlashEnd;
         }
         if (extIdx >= 0) {
           if (code === ext.charCodeAt(extIdx)) {
@@ -8336,7 +8337,6 @@ function basename2(path2, ext = "") {
             }
           } else {
             extIdx = -1;
-            end = firstNonSlashEnd;
           }
         }
       }
@@ -8348,7 +8348,7 @@ function basename2(path2, ext = "") {
     return path2.slice(start, end);
   } else {
     for (i = path2.length - 1; i >= 0; --i) {
-      if (path2.charCodeAt(i) === CHAR_FORWARD_SLASH) {
+      if (isPosixPathSeparator(path2.charCodeAt(i))) {
         if (!matchedSlash) {
           start = i + 1;
           break;
@@ -8484,7 +8484,7 @@ function toFileUrl2(path2) {
   return url;
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.165.0/path/glob.js
+// dist/dnt/esm/deps/deno.land/std@0.171.0/path/glob.js
 var path = isWindows ? win32_exports : posix_exports;
 var { join: join3, normalize: normalize3 } = path;
 var regExpEscapeChars = [
