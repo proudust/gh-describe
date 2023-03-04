@@ -109,18 +109,24 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Test Run on GitHub CLI Extensions with Deno
-        run: gh describe --runtime deno
+        run: |
+          gh describe --runtime deno --version
+          gh describe --runtime deno
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Test Run on GitHub CLI Extensions with Node.js
-        run: gh describe --runtime node
+        run: |
+          gh describe --runtime node --version
+          gh describe --runtime node
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Test Run on Deno Run
         shell: bash
-        run: deno run --allow-run https://raw.githubusercontent.com/proudust/gh-describe/"${GITHUB_SHA}"/main.ts
+        run: |
+          deno run --allow-run https://raw.githubusercontent.com/proudust/gh-describe/"${GITHUB_SHA}"/main.ts --version
+          deno run --allow-run https://raw.githubusercontent.com/proudust/gh-describe/"${GITHUB_SHA}"/main.ts
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
