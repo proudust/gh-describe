@@ -6418,7 +6418,7 @@ async function revParse(options) {
   return await exec(args);
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/ansi/ansi_escapes.js
 var ansi_escapes_exports = {};
 __export(ansi_escapes_exports, {
   bel: () => bel,
@@ -6542,7 +6542,7 @@ function encode(data) {
   return result;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/ansi/ansi_escapes.js
 var ESC = "\x1B";
 var CSI = `${ESC}[`;
 var OSC = `${ESC}]`;
@@ -6648,7 +6648,7 @@ function image(buffer, options) {
   return ret + ":" + encode(buffer) + bel;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/ansi/ansi.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/ansi/ansi.js
 var ansi = factory();
 function factory() {
   let result = [];
@@ -6936,7 +6936,7 @@ function stripColor(string2) {
   return string2.replace(ANSI_PATTERN, "");
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/ansi/colors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/ansi/colors.js
 var proto = /* @__PURE__ */ Object.create(null);
 var methodNames = Object.keys(colors_exports);
 for (const name of methodNames) {
@@ -6965,7 +6965,7 @@ function factory2(stack = []) {
   return colors2;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/ansi/cursor_position.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/ansi/cursor_position.js
 function getCursorPosition({ stdin = import_shim_deno2.Deno.stdin, stdout = import_shim_deno2.Deno.stdout } = {}) {
   const data = new Uint8Array(8);
   import_shim_deno2.Deno.stdin.setRaw(true);
@@ -6976,7 +6976,7 @@ function getCursorPosition({ stdin = import_shim_deno2.Deno.stdin, stdout = impo
   return { x, y };
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/ansi/tty.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/ansi/tty.js
 var tty = factory3();
 function factory3(options) {
   let result = "";
@@ -7023,7 +7023,7 @@ function factory3(options) {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/_utils/distance.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/_utils/distance.js
 function distance(a, b) {
   if (a.length == 0) {
     return b.length;
@@ -7050,7 +7050,7 @@ function distance(a, b) {
   return matrix[b.length][a.length];
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/_utils.js
 function paramCaseToCamelCase(str) {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
@@ -7134,7 +7134,7 @@ function getDefaultValue(option) {
   return typeof option.default === "function" ? option.default() : option.default;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/_errors.js
 var FlagsError = class extends Error {
   constructor(message) {
     super(message);
@@ -7244,7 +7244,7 @@ var InvalidTypeError = class extends ValidationError {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/deprecated.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/deprecated.js
 var OptionType;
 (function(OptionType2) {
   OptionType2["STRING"] = "string";
@@ -7253,7 +7253,7 @@ var OptionType;
   OptionType2["BOOLEAN"] = "boolean";
 })(OptionType || (OptionType = {}));
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/_utils.js
 function didYouMeanCommand(command, commands, excludes = []) {
   const commandNames = commands.map((command2) => command2.getName()).filter((command2) => !excludes.includes(command2));
   return didYouMean(" Did you mean command", command, commandNames);
@@ -7336,7 +7336,7 @@ function getDescription(description, short) {
   return short ? description.trim().split("\n", 1)[0].trim() : dedent(description);
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/_errors.js
 var CommandError = class extends Error {
   constructor(message) {
     super(message);
@@ -7483,7 +7483,7 @@ var TooManyArgumentsError = class extends ValidationError2 {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/types/boolean.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/types/boolean.js
 var boolean = (type) => {
   if (~["1", "true"].indexOf(type.value)) {
     return true;
@@ -7491,10 +7491,10 @@ var boolean = (type) => {
   if (~["0", "false"].indexOf(type.value)) {
     return false;
   }
-  throw new InvalidTypeError(type);
+  throw new InvalidTypeError(type, ["true", "false", "1", "0"]);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/types/number.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/types/number.js
 var number = (type) => {
   const value = Number(type.value);
   if (Number.isFinite(value)) {
@@ -7503,12 +7503,12 @@ var number = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/types/string.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/types/string.js
 var string = ({ value }) => {
   return value;
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/_validate_flags.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/_validate_flags.js
 function validateFlags(ctx, opts, options = /* @__PURE__ */ new Map()) {
   if (!opts.flags) {
     return;
@@ -7638,7 +7638,7 @@ function isset(flagName, flags) {
   return typeof flags[name] !== "undefined";
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/types/integer.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/types/integer.js
 var integer = (type) => {
   const value = Number(type.value);
   if (Number.isInteger(value)) {
@@ -7647,7 +7647,7 @@ var integer = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/flags/flags.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/flags.js
 var DefaultTypes = {
   string,
   number,
@@ -7961,11 +7961,11 @@ function parseDefaultType(option, arg, value) {
   });
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/type.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/type.js
 var Type = class {
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/boolean.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/boolean.js
 var BooleanType = class extends Type {
   parse(type) {
     return boolean(type);
@@ -7975,28 +7975,28 @@ var BooleanType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/string.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/string.js
 var StringType = class extends Type {
   parse(type) {
     return string(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/file.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/file.js
 var FileType = class extends StringType {
   constructor() {
     super();
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/number.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/number.js
 var NumberType = class extends Type {
   parse(type) {
     return number(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/table/border.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/border.js
 var border = {
   top: "\u2500",
   topMid: "\u252C",
@@ -8015,7 +8015,7 @@ var border = {
   middle: "\u2502"
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/table/cell.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/cell.js
 var Cell = class {
   get length() {
     return this.toString().length;
@@ -8091,7 +8091,7 @@ var Cell = class {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/table/row.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/row.js
 var Row = class extends Array {
   constructor() {
     super(...arguments);
@@ -8137,7 +8137,7 @@ var Row = class extends Array {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/table/utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/utils.js
 function consumeWords(length, content) {
   let consumed = "";
   const words = content.split("\n")[0]?.split(/ /g);
@@ -8179,7 +8179,7 @@ var strLength = (str) => {
   return length;
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/table/layout.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/layout.js
 var __classPrivateFieldGet = function(receiver, state, kind, f) {
   if (kind === "a" && !f)
     throw new TypeError("Private accessor was defined without a getter");
@@ -8575,7 +8575,7 @@ _TableLayout_instances = /* @__PURE__ */ new WeakSet(), _TableLayout_getRows = f
   });
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/table/table.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/table.js
 var Table = class extends Array {
   constructor() {
     super(...arguments);
@@ -8726,7 +8726,7 @@ Object.defineProperty(Table, "_chars", {
   value: { ...border }
 });
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/help/_help_generator.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/help/_help_generator.js
 var HelpGenerator = class {
   static generate(cmd, options) {
     return new HelpGenerator(cmd, options).generate();
@@ -8770,7 +8770,7 @@ var HelpGenerator = class {
     const rows = [
       [
         bold("Usage:"),
-        magenta(this.cmd.getPath() + (usage ? " " + highlightArguments(usage, this.options.types) : ""))
+        brightMagenta(this.cmd.getPath() + (usage ? " " + highlightArguments(usage, this.options.types) : ""))
       ]
     ];
     const version2 = this.cmd.getVersion();
@@ -8837,7 +8837,7 @@ var HelpGenerator = class {
     if (hasTypeDefinitions) {
       return this.label(group.name ?? "Options") + Table.from([
         ...group.options.map((option) => [
-          option.flags.map((flag) => blue(flag)).join(", "),
+          option.flags.map((flag) => brightBlue(flag)).join(", "),
           highlightArguments(option.typeDefinition || "", this.options.types),
           red(bold("-")),
           getDescription(option.description, !this.options.long),
@@ -8847,7 +8847,7 @@ var HelpGenerator = class {
     }
     return this.label(group.name ?? "Options") + Table.from([
       ...group.options.map((option) => [
-        option.flags.map((flag) => blue(flag)).join(", "),
+        option.flags.map((flag) => brightBlue(flag)).join(", "),
         red(bold("-")),
         getDescription(option.description, !this.options.long),
         this.generateHints(option)
@@ -8863,7 +8863,7 @@ var HelpGenerator = class {
     if (hasTypeDefinitions) {
       return this.label("Commands") + Table.from([
         ...commands.map((command) => [
-          [command.getName(), ...command.getAliases()].map((name) => blue(name)).join(", "),
+          [command.getName(), ...command.getAliases()].map((name) => brightBlue(name)).join(", "),
           highlightArguments(command.getArgsDefinition() || "", this.options.types),
           red(bold("-")),
           command.getShortDescription()
@@ -8872,7 +8872,7 @@ var HelpGenerator = class {
     }
     return this.label("Commands") + Table.from([
       ...commands.map((command) => [
-        [command.getName(), ...command.getAliases()].map((name) => blue(name)).join(", "),
+        [command.getName(), ...command.getAliases()].map((name) => brightBlue(name)).join(", "),
         red(bold("-")),
         command.getShortDescription()
       ])
@@ -8885,7 +8885,7 @@ var HelpGenerator = class {
     }
     return this.label("Environment variables") + Table.from([
       ...envVars.map((envVar) => [
-        envVar.names.map((name) => blue(name)).join(", "),
+        envVar.names.map((name) => brightBlue(name)).join(", "),
         highlightArgumentDetails(envVar.details, this.options.types),
         red(bold("-")),
         this.options.long ? dedent(envVar.description) : envVar.description.trim().split("\n", 1)[0],
@@ -8951,7 +8951,7 @@ function highlightArgumentDetails(arg, types = true) {
   if (arg.variadic) {
     name += "...";
   }
-  name = magenta(name);
+  name = brightMagenta(name);
   str += name;
   if (types) {
     str += yellow(":");
@@ -8964,14 +8964,14 @@ function highlightArgumentDetails(arg, types = true) {
   return str;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/integer.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/integer.js
 var IntegerType = class extends Type {
   parse(type) {
     return integer(type);
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/command.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/command.js
 var Command = class {
   constructor() {
     Object.defineProperty(this, "types", {
@@ -9887,8 +9887,8 @@ var Command = class {
     console.log(this.getVersion());
   }
   getLongVersion() {
-    return `${bold(this.getMainCommand().getName())} ${blue(this.getVersion() ?? "")}` + Object.entries(this.getMeta()).map(([k, v]) => `
-${bold(k)} ${blue(v)}`).join("");
+    return `${bold(this.getMainCommand().getName())} ${brightBlue(this.getVersion() ?? "")}` + Object.entries(this.getMeta()).map(([k, v]) => `
+${bold(k)} ${brightBlue(v)}`).join("");
   }
   showLongVersion() {
     console.log(this.getLongVersion());
@@ -10193,23 +10193,23 @@ function isUpgradeCommand(command) {
   return command instanceof Command && "getLatestVersion" in command;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/completions/bash.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/completions/bash.js
 var _BashCompletionsCommand_cmd;
 _BashCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/completions/fish.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/completions/fish.js
 var _FishCompletionsCommand_cmd;
 _FishCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/completions/zsh.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/completions/zsh.js
 var _ZshCompletionsCommand_cmd;
 _ZshCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/completions/mod.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/completions/mod.js
 var _CompletionsCommand_cmd;
 _CompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/enum.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/enum.js
 var EnumType = class extends Type {
   constructor(values) {
     super();
@@ -10237,7 +10237,7 @@ var EnumType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.6/command/types/child_command.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/child_command.js
 var _ChildCommandType_cmd;
 _ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
 
