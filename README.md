@@ -1,13 +1,15 @@
 # gh describe
 
-`git describe --tags` in shallow clones.
+Emulate `git describe --tags` for shallow clone repositories.
 
-[`git describe`](https://git-scm.com/docs/git-describe) command is useful for versioning a
-development build. However, this command requires a history of all tags and branches, which is
-difficult to use in workflows where you often shallow clone. This action gets the history from the
-GitHub API instead of locally and reproduces its behavior.
+The [`git describe`](https://git-scm.com/docs/git-describe) command is a useful tool for versioning
+a development build. However, it requires access to the full history of all tags and branches, which
+can be a problem in workflows where you often work with shallow clones of repositories. This tool,
+`gh-describe`, retrieves the necessary historical information from the GitHub API instead of
+locally, allowing you to use `git describe` as you normally would even in shallow clone
+repositories.
 
-## Usage on GitHub Actions
+## Usage in GitHub Actions
 
 ```yml
 - name: Git describe
@@ -17,7 +19,7 @@ GitHub API instead of locally and reproduces its behavior.
 
 ### Action inputs
 
-All inputs are optional. If not set, sensible defaults will be used.
+All inputs are optional, and sensible defaults will be used if they are not set.
 
 | Name       | Description                                           | Default                                                   |
 | ---------- | ----------------------------------------------------- | --------------------------------------------------------- |
@@ -32,15 +34,15 @@ All inputs are optional. If not set, sensible defaults will be used.
 
 The following outputs can be used by subsequent workflow steps.
 
-| Name     | Description                                            | Example              |
-| -------- | ------------------------------------------------------ | -------------------- |
-| describe | `git describe --tags` like describe.                   | `v1.0.4-14-g2414721` |
-| tag      | Most recent tag.                                       | `v1.0.4`             |
-| distance | The number of additional commits from most recent tag. | `14`                 |
-| sha      | Object name for the commit itself.                     | `2414721`            |
+| Name     | Description                                                | Example              |
+| -------- | ---------------------------------------------------------- | -------------------- |
+| describe | `git describe --tags`-like description.                    | `v1.0.4-14-g2414721` |
+| tag      | The most recent tag.                                       | `v1.0.4`             |
+| distance | The number of additional commits from the most recent tag. | `14`                 |
+| sha      | The object name for the commit itself.                     | `2414721`            |
 
-Step outputs can be accessed as in the following example.\
-Note that in order to read the step outputs the action step must have an id.
+Step outputs can be accessed using the following example.\
+Note that in order to read the step outputs, the action step must have an ID.
 
 ```yml
 - name: Git describe
@@ -110,27 +112,27 @@ $ gh describe --help
 
   Description:
 
-    Emulate `git describe --tags` in shallow clone repository.
+    Emulate `git describe --tags` for shallow clone repositories.
 
   Options:
 
-    -h, --help     - Show this help.                            
-    -V, --version  - Show the version number for this program.  
+    -h, --help     - Show this help.
+    -V, --version  - Show the version number for this program.
 
-  `git describe` like options:
+  Options like `git describe`:
 
-    --match       <pattern...>  - Only consider tags matching the given glob pattern.    
-    --no-match                  - Clear and reset list of match pattern.                 
-    --exclude     <pattern...>  - Do not consider tags matching the given glob pattern.  
-    --no-exclude                - Clear and reset list of exclude pattern.               
+    --match       <pattern...>  - Only consider tags matching the given glob pattern.
+    --no-match                  - Clear and reset the list of match patterns.
+    --exclude     <pattern...>  - Do not consider tags matching the given glob pattern.
+    --no-exclude                - Clear and reset the list of exclude patterns.
 
-  `gh` options:
+  Options for `gh`:
 
-    -R, --repo  <repo>  - Target repository. Format: OWNER/REPO  
+    -R, --repo  <repo>  - Target repository. Format: OWNER/REPO
 
   Other options:
 
-    --default  <tag>      - If the name is not found, use this value.                                                           
+    --default  <tag>      - If the name is not found, use this value.
     --runtime  <runtime>  - If installed by `gh extension install`, can specify the execution runtime.  (Values: "deno", "node")
 ```
 

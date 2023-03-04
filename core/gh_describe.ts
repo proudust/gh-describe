@@ -76,7 +76,7 @@ export function createDescribe(tag: string, distance: number, sha: string) {
 }
 
 /**
- * Emulate `git describe --tags` in shallow clone repository.
+ * Emulate git describe --tags for shallow clone repositories.
  */
 export async function ghDescribe(options?: GhDescribeOptions): Promise<GhDescribeOutput> {
   const {

@@ -10,16 +10,16 @@ export async function ghDescribeCli({ version }: GhDescribeCliArgs) {
   return await new Command()
     .name("gh-describe")
     .version(version)
-    .description("Emulate `git describe --tags` in shallow clone repository.")
-    .group("`git describe` like options")
+    .description("Emulate `git describe --tags` for shallow clone repositories.")
+    .group("Options like `git describe`")
     .option("--match <pattern...:string>", "Only consider tags matching the given glob pattern.")
-    .option("--no-match", "Clear and reset list of match pattern.")
+    .option("--no-match", "Clear and reset the list of match patterns.")
     .option(
       "--exclude <pattern...:string>",
       "Do not consider tags matching the given glob pattern.",
     )
-    .option("--no-exclude", "Clear and reset list of exclude pattern.")
-    .group("`gh` options")
+    .option("--no-exclude", "Clear and reset the list of exclude patterns.")
+    .group("Options for `gh`")
     .option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO")
     .group("Other options")
     .option("--default <tag:string>", "If the name is not found, use this value.")
