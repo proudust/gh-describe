@@ -1,14 +1,5 @@
 export async function exec(args: string[]): Promise<string> {
-  const process = Deno.run({
-    cmd: ["gh", ...args],
-    stdout: "piped",
-    stderr: "piped",
-  });
-  const [{ code }, stdout, stderr] = await Promise.all([
-    process.status(),
-    process.output(),
-    process.stderrOutput(),
-  ]);
+  const { code, stdout, stderr } = await new Deno.Command("gh", { args }).output();
   if (code === 0) {
     return (new TextDecoder().decode(stdout)).trim();
   } else {

@@ -6321,16 +6321,7 @@ var { basename: basename3, delimiter: delimiter3, dirname: dirname3, extname: ex
 
 // dist/dnt/esm/git-wrapper/exec.js
 async function exec(args) {
-  const process2 = import_shim_deno2.Deno.run({
-    cmd: ["git", ...args],
-    stdout: "piped",
-    stderr: "piped"
-  });
-  const [{ code: code2 }, stdout, stderr] = await Promise.all([
-    process2.status(),
-    process2.output(),
-    process2.stderrOutput()
-  ]);
+  const { code: code2, stdout, stderr } = await new import_shim_deno2.Deno.Command("git", { args }).output();
   if (code2 === 0) {
     return new TextDecoder().decode(stdout).trim();
   } else {
@@ -6338,7 +6329,7 @@ async function exec(args) {
   }
 }
 function execSync(args) {
-  const { code: code2, stdout, stderr } = import_shim_deno2.Deno.spawnSync("git", { args });
+  const { code: code2, stdout, stderr } = new import_shim_deno2.Deno.Command("git", { args }).outputSync();
   if (code2 === 0) {
     return new TextDecoder().decode(stdout).trim();
   } else {
@@ -10263,16 +10254,7 @@ _ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
 
 // dist/dnt/esm/gh-wrapper/exec.js
 async function exec2(args) {
-  const process2 = import_shim_deno2.Deno.run({
-    cmd: ["gh", ...args],
-    stdout: "piped",
-    stderr: "piped"
-  });
-  const [{ code: code2 }, stdout, stderr] = await Promise.all([
-    process2.status(),
-    process2.output(),
-    process2.stderrOutput()
-  ]);
+  const { code: code2, stdout, stderr } = await new import_shim_deno2.Deno.Command("gh", { args }).output();
   if (code2 === 0) {
     return new TextDecoder().decode(stdout).trim();
   } else {

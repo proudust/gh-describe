@@ -1,14 +1,5 @@
 export async function exec(args: string[]): Promise<string> {
-  const process = Deno.run({
-    cmd: ["git", ...args],
-    stdout: "piped",
-    stderr: "piped",
-  });
-  const [{ code }, stdout, stderr] = await Promise.all([
-    process.status(),
-    process.output(),
-    process.stderrOutput(),
-  ]);
+  const { code, stdout, stderr } = await new Deno.Command("git", { args }).output();
   if (code === 0) {
     return (new TextDecoder().decode(stdout)).trim();
   } else {
@@ -17,7 +8,7 @@ export async function exec(args: string[]): Promise<string> {
 }
 
 export function execSync(args: string[]): string {
-  const { code, stdout, stderr } = Deno.spawnSync("git", { args });
+  const { code, stdout, stderr } = new Deno.Command("git", { args }).outputSync();
   if (code === 0) {
     return (new TextDecoder().decode(stdout)).trim();
   } else {

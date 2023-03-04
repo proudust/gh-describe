@@ -7060,16 +7060,7 @@ var import_core = __toESM(require_core(), 1);
 
 // dist/dnt/esm/gh-wrapper/exec.js
 async function exec(args) {
-  const process2 = import_shim_deno2.Deno.run({
-    cmd: ["gh", ...args],
-    stdout: "piped",
-    stderr: "piped"
-  });
-  const [{ code }, stdout, stderr] = await Promise.all([
-    process2.status(),
-    process2.output(),
-    process2.stderrOutput()
-  ]);
+  const { code, stdout, stderr } = await new import_shim_deno2.Deno.Command("gh", { args }).output();
   if (code === 0) {
     return new TextDecoder().decode(stdout).trim();
   } else {
@@ -7174,16 +7165,7 @@ async function* fetchHistory({ owner, repo, host, sha }) {
 
 // dist/dnt/esm/git-wrapper/exec.js
 async function exec2(args) {
-  const process2 = import_shim_deno2.Deno.run({
-    cmd: ["git", ...args],
-    stdout: "piped",
-    stderr: "piped"
-  });
-  const [{ code }, stdout, stderr] = await Promise.all([
-    process2.status(),
-    process2.output(),
-    process2.stderrOutput()
-  ]);
+  const { code, stdout, stderr } = await new import_shim_deno2.Deno.Command("git", { args }).output();
   if (code === 0) {
     return new TextDecoder().decode(stdout).trim();
   } else {
