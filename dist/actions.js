@@ -919,8 +919,8 @@ var require_version = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.typescript = exports.deno = void 0;
-    exports.deno = "1.28.1";
-    exports.typescript = "4.8.3";
+    exports.deno = "1.29.2";
+    exports.typescript = "4.9.4";
   }
 });
 
@@ -1316,6 +1316,12 @@ var require_Conn = __commonJS({
       }
       setKeepAlive(enable) {
         __classPrivateFieldGet(this, _Conn_socket, "f").setKeepAlive(enable);
+      }
+      ref() {
+        __classPrivateFieldGet(this, _Conn_socket, "f").ref();
+      }
+      unref() {
+        __classPrivateFieldGet(this, _Conn_socket, "f").unref();
       }
     };
     exports.Conn = Conn;
@@ -4266,12 +4272,12 @@ var require_writeFile = __commonJS({
     var fs = __importStar(require("fs/promises"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var fs_flags_js_1 = require_fs_flags();
-    var writeFile = async function writeFile2(path2, data, { append = false, create = true, mode, signal } = {}) {
+    var writeFile = async function writeFile2(path2, data, { append = false, create = true, createNew = false, mode, signal } = {}) {
       const truncate = create && !append;
-      const flag = (0, fs_flags_js_1.getFsFlag)({ append, create, truncate, write: true });
+      const flag = (0, fs_flags_js_1.getFsFlag)({ append, create, createNew, truncate, write: true });
       try {
         await fs.writeFile(path2, data, { flag, signal });
-        if (mode !== void 0)
+        if (mode != null)
           await fs.chmod(path2, mode);
       } catch (error) {
         throw (0, errorMap_js_1.default)(error);
@@ -4303,7 +4309,13 @@ var require_writeFileSync = __commonJS({
             (0, statSync_js_1.statSync)(path2);
           }
         }
-        const openOptions = options.append ? { write: true, create: true, append: true } : { write: true, create: true, truncate: true };
+        const openOptions = {
+          write: true,
+          create: true,
+          createNew: options.createNew,
+          append: !!options.append,
+          truncate: !options.append
+        };
         const file = (0, openSync_js_1.openSync)(path2, openOptions);
         if (options.mode !== void 0 && options.mode !== null && (0, os_1.platform)() !== "win32") {
           (0, chmodSync_js_1.chmodSync)(path2, options.mode);
