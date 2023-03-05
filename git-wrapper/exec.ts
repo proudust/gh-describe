@@ -16,6 +16,15 @@ export async function exec(args: string[]): Promise<string> {
   }
 }
 
+export function execSync(args: string[]): string {
+  const { code, stdout, stderr } = Deno.spawnSync("git", { args });
+  if (code === 0) {
+    return (new TextDecoder().decode(stdout)).trim();
+  } else {
+    throw new GitError(args, code, (new TextDecoder().decode(stderr)).trim());
+  }
+}
+
 export class GitError extends Error {
   constructor(
     public readonly args: readonly string[],
