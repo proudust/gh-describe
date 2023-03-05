@@ -17,7 +17,7 @@ export async function exec(args: string[]): Promise<string> {
 }
 
 export function execSync(args: string[]): string {
-  const { code, stdout, stderr } = Deno.spawnSync("git", { args });
+  const { code, stdout, stderr } = new Deno.Command("git", { args }).outputSync();
   if (code === 0) {
     return (new TextDecoder().decode(stdout)).trim();
   } else {
