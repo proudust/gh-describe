@@ -3575,7 +3575,7 @@ var require_run = __commonJS({
     var which_1 = __importDefault(require_which());
     var streams_js_1 = require_streams();
     var errors = __importStar(require_errors());
-    var run3 = function run4(options) {
+    var run2 = function run3(options) {
       const [cmd, ...args] = options.cmd;
       if (options.cwd && !fs_1.default.existsSync(options.cwd)) {
         throw new Error("The directory name is invalid.");
@@ -3598,7 +3598,7 @@ var require_run = __commonJS({
       });
       return new Process(process2);
     };
-    exports.run = run3;
+    exports.run = run2;
     function getStdio(value, kind) {
       if (value === "inherit" || value == null) {
         return "inherit";
@@ -6337,6 +6337,14 @@ async function exec(args) {
     throw new GitError(args, code2, new TextDecoder().decode(stderr).trim());
   }
 }
+function execSync(args) {
+  const { code: code2, stdout, stderr } = import_shim_deno2.Deno.spawnSync("git", { args });
+  if (code2 === 0) {
+    return new TextDecoder().decode(stdout).trim();
+  } else {
+    throw new GitError(args, code2, new TextDecoder().decode(stderr).trim());
+  }
+}
 var GitError = class extends Error {
   constructor(args, code2, stderr) {
     super(`\`git ${args.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code2}
@@ -6370,9 +6378,9 @@ function createArgs({ cwd }) {
   args.push("describe", "--tags");
   return args;
 }
-async function describe(options = {}) {
+function describeSync(options = {}) {
   const args = createArgs(options);
-  return await exec(args);
+  return execSync(args);
 }
 
 // dist/dnt/esm/git-wrapper/list_remotes.js
@@ -10548,22 +10556,22 @@ async function ghDescribe(options) {
   if (!tag) {
     throw new GhDescribeError("No names found, cannot describe anything.");
   }
-  const describe2 = createDescribe(tag, distance2, sha);
-  return { describe: describe2, tag, distance: distance2, sha };
+  const describe = createDescribe(tag, distance2, sha);
+  return { describe, tag, distance: distance2, sha };
 }
 
 // dist/dnt/esm/cli/cli.js
 async function ghDescribeCli({ version: version2 }) {
   return await new Command().name("gh-describe").version(version2).description("Emulate `git describe --tags` for shallow clone repositories.").group("Options like `git describe`").option("--match <pattern...:string>", "Only consider tags matching the given glob pattern.").option("--no-match", "Clear and reset the list of match patterns.").option("--exclude <pattern...:string>", "Do not consider tags matching the given glob pattern.").option("--no-exclude", "Clear and reset the list of exclude patterns.").group("Options for `gh`").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").group("Other options").option("--default <tag:string>", "If the name is not found, use this value.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async ({ repo, default: defaultTag, match, exclude }, commitish) => {
     try {
-      const { describe: describe2 } = await ghDescribe({
+      const { describe } = await ghDescribe({
         repo,
         commitish,
         match: match || void 0,
         exclude: exclude || void 0,
         defaultTag
       });
-      console.log(describe2);
+      console.log(describe);
     } catch (e) {
       if (e instanceof GhDescribeError) {
         console.error(`${colors.bold.red("fatal:")} ${e.message}`);
@@ -10576,12 +10584,7 @@ async function ghDescribeCli({ version: version2 }) {
 }
 
 // dist/dnt/esm/cli/main.node.js
-async function version() {
-  return await describe({ cwd: dirname3(__filename) });
+function version() {
+  return describeSync({ cwd: dirname3(__filename) });
 }
-async function run2() {
-  ghDescribeCli({
-    version: await version()
-  });
-}
-run2();
+ghDescribeCli({ version });

@@ -2,18 +2,14 @@ import { dirname, fromFileUrl } from "https://deno.land/std@0.171.0/path/mod.ts"
 import * as git from "../git-wrapper/mod.ts";
 import { ghDescribeCli } from "./cli.ts";
 
-async function version(): Promise<string> {
+function version(): string {
   if (import.meta.url.startsWith("file:")) {
-    return await git.describe({ cwd: dirname(fromFileUrl(import.meta.url)) });
+    const url = fromFileUrl(import.meta.url);
+    const cwd = dirname(url);
+    return git.describeSync({ cwd });
   } else {
     return /v\d+\.\d+\.\d+/.exec(import.meta.url)?.[0] || "unknown";
   }
 }
 
-async function run() {
-  ghDescribeCli({
-    version: await version(),
-  });
-}
-
-run();
+ghDescribeCli({ version });
