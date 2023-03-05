@@ -1,5 +1,5 @@
 name: gh-describe
-description: "`git describe --tags` in shallow clones on GitHub Actions."
+description: "Emulate `git describe --tags` for shallow clone repositories."
 author: Proudust
 
 inputs:
@@ -27,19 +27,19 @@ inputs:
 outputs:
   describe:
     description: >
-      `git describe --tags` like describe.
+      `git describe --tags`-like description.
       ex) v1.0.4-14-g2414721
   tag:
     description: >
-      Most recent tag.
+      The most recent tag.
       ex) v1.0.4
   distance:
     description: >
-      The number of additional commits from most recent tag. ex)
+      The number of additional commits from the most recent tag.
       ex) 14
   sha:
     description: >
-      Object name for the commit itself. ex)
+      The object name for the commit itself.
       ex) 2414721
 
 runs:
