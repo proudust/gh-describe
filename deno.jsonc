@@ -1,22 +1,10 @@
 {
+  "exclude": [
+    "dist",
+    "node_modules"
+  ],
   "fmt": {
-    "files": {
-      "exclude": [
-        "dist",
-        "node_modules"
-      ]
-    },
-    "options": {
-      "lineWidth": 100
-    }
-  },
-  "lint": {
-    "files": {
-      "exclude": [
-        "dist",
-        "node_modules"
-      ]
-    }
+    "lineWidth": 100
   },
   "tasks": {
     "build": "deno run --allow-env --allow-net --allow-read --allow-run --allow-write _build.ts",
