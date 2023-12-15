@@ -34,12 +34,12 @@ All inputs are optional, and sensible defaults will be used if they are not set.
 
 The following outputs can be used by subsequent workflow steps.
 
-| Name     | Description                                                | Example              |
-| -------- | ---------------------------------------------------------- | -------------------- |
-| describe | `git describe --tags`-like description.                    | `v1.0.4-14-g2414721` |
-| tag      | The most recent tag.                                       | `v1.0.4`             |
-| distance | The number of additional commits from the most recent tag. | `14`                 |
-| sha      | The object name for the commit itself.                     | `2414721`            |
+| Name     | Description                                                | Example                                    |
+| -------- | ---------------------------------------------------------- | ------------------------------------------ |
+| describe | `git describe --tags`-like description.                    | `v1.5.4-2-g4fdf9d0`                        |
+| tag      | The most recent tag.                                       | `v1.5.4`                                   |
+| distance | The number of additional commits from the most recent tag. | `2`                                        |
+| sha      | The object name for the commit itself.                     | `4fdf9d0b88fe5f55e465ae947bca6b6b55c39415` |
 
 Step outputs can be accessed using the following example.\
 Note that in order to read the step outputs, the action step must have an ID.
