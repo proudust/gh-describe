@@ -41,6 +41,10 @@ outputs:
     description: >
       The object name for the commit itself.
       ex) 2414721
+  short-sha:
+    description: >
+      The object name for the commit itself.
+      ex) 2414721
 
 runs:
   using: node16

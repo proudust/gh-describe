@@ -25254,7 +25254,13 @@ async function ghDescribe(options) {
     throw new GhDescribeError("No names found, cannot describe anything.");
   }
   const describe = createDescribe(tag, distance, sha);
-  return { describe, tag, distance, sha };
+  return {
+    describe,
+    tag,
+    distance,
+    sha,
+    shortSha: sha.substring(0, 7)
+  };
 }
 
 // dist/dnt/esm/actions/main.js
@@ -25272,7 +25278,7 @@ async function run() {
   (0, import_core.debug)(`input default: ${defaultTag}`);
   try {
     import_shim_deno2.Deno.env.set("GITHUB_TOKEN", token);
-    const { describe, tag, distance, sha } = await ghDescribe({
+    const { describe, tag, distance, sha, shortSha } = await ghDescribe({
       repo,
       commitish,
       defaultTag,
@@ -25284,6 +25290,7 @@ async function run() {
     (0, import_core.setOutput)("tag", tag);
     (0, import_core.setOutput)("distance", distance);
     (0, import_core.setOutput)("sha", sha);
+    (0, import_core.setOutput)("short-sha", shortSha);
   } catch (e) {
     if (e instanceof GhDescribeError) {
       (0, import_core.setFailed)(`fatal: ${e.message}`);

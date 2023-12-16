@@ -10549,7 +10549,13 @@ async function ghDescribe(options) {
     throw new GhDescribeError("No names found, cannot describe anything.");
   }
   const describe2 = createDescribe(tag, distance2, sha);
-  return { describe: describe2, tag, distance: distance2, sha };
+  return {
+    describe: describe2,
+    tag,
+    distance: distance2,
+    sha,
+    shortSha: sha.substring(0, 7)
+  };
 }
 
 // dist/dnt/esm/cli/cli.js

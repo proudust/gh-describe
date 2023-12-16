@@ -65,6 +65,11 @@ export interface GhDescribeOutput {
    * Object name for the commit itself.
    */
   sha: string;
+
+  /**
+   * Abbreviated object name for the commit itself.
+   */
+  shortSha: string;
 }
 
 export function createDescribe(tag: string, distance: number, sha: string) {
@@ -106,5 +111,11 @@ export async function ghDescribe(options?: GhDescribeOptions): Promise<GhDescrib
   }
 
   const describe = createDescribe(tag, distance, sha);
-  return { describe, tag, distance, sha };
+  return {
+    describe,
+    tag,
+    distance,
+    sha,
+    shortSha: sha.substring(0, 7),
+  };
 }

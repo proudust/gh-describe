@@ -16,7 +16,7 @@ async function run() {
 
   try {
     Deno.env.set("GITHUB_TOKEN", token);
-    const { describe, tag, distance, sha } = await ghDescribe({
+    const { describe, tag, distance, sha, shortSha } = await ghDescribe({
       repo,
       commitish,
       defaultTag,
@@ -29,6 +29,7 @@ async function run() {
     setOutput("tag", tag);
     setOutput("distance", distance);
     setOutput("sha", sha);
+    setOutput("short-sha", shortSha);
   } catch (e: unknown) {
     if (e instanceof GhDescribeError) {
       setFailed(`fatal: ${e.message}`);
