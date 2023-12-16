@@ -1,4 +1,4 @@
-import { join } from "https://deno.land/std@0.171.0/path/mod.ts";
+import $ from "https://deno.land/x/dax@0.35.0/mod.ts";
 import { build as esbuild } from "https://deno.land/x/esbuild@v0.15.16/mod.js";
 import { ghDescribe } from "./core/mod.ts";
 
@@ -26,22 +26,11 @@ for (
   ]
 ) {
   console.log(`$ deno compile --target ${target}`);
-  const cmd = [
-    "deno",
-    "compile",
-    "-q",
-    "--allow-run",
-    "-o",
-    join("dist", `gh-describe-${target}`),
-    "--target",
-    target,
-    "./dist/cli_deno.js",
-  ];
-  const process = Deno.run({ cmd });
-  const { code } = await process.status();
+  const output = `dist/gh-describe-${target}`;
+  const cmd = $`deno compile -q --allow-run -o ${output} --target ${target} ./dist/cli_deno.js`;
+  const { code } = await cmd;
   if (code !== 0) {
-    const command = cmd.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ");
-    throw new Error(`\`${command}\` exit code is not zero, ExitCode: ${code}`);
+    throw new Error(`\`deno compile\` exit code is not zero, ExitCode: ${code}`);
   }
 }
 

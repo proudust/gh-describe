@@ -1,4 +1,5 @@
 export async function exec(args: string[]): Promise<string> {
+  // deno-lint-ignore no-deprecated-deno-api
   const process = Deno.run({
     cmd: ["git", ...args],
     stdout: "piped",
