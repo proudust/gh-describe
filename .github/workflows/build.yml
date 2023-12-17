@@ -131,7 +131,16 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Test Run on GitHub Actions
+        id: ghd
         uses: ./
+
+      - name: Check outputs
+        run: |
+          echo "describe  : ${{ steps.ghd.outputs.describe }}"
+          echo "tag       : ${{ steps.ghd.outputs.tag }}"
+          echo "distance  : ${{ steps.ghd.outputs.distance }}"
+          echo "sha       : ${{ steps.ghd.outputs.sha }}"
+          echo "short-sha : ${{ steps.ghd.outputs.short-sha }}"
 
   release:
     runs-on: ubuntu-latest
