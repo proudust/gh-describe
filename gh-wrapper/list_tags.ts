@@ -30,15 +30,20 @@ function createUrl(
   {
     owner,
     repo,
+  }: ListTagsOption,
+): string {
+  return `repos/${owner}/${repo}/tags`;
+}
+function getPageParams(
+  {
     perPage,
     page,
   }: ListTagsOption,
-): string {
-  const param = new URLSearchParams();
-  if (perPage) param.set("per_page", String(perPage));
-  if (page) param.set("page", String(page));
-
-  return `repos/${owner}/${repo}/tags?${param}`;
+): string[] {
+  const params = [];
+  if (perPage) params.push(`-F per_page=${perPage}`);
+  if (page) params.push(`-F page=${page}`);
+  return params;
 }
 
 /**
@@ -51,7 +56,7 @@ export async function listTags(
     ...options
   }: ListTagsOption & GitHubCliOptions,
 ): Promise<string> {
-  const args = ["api", createUrl(options)];
+  const args = ["api", "-XGET", createUrl(options), ...getPageParams(options)];
   if (host) args.push("--hostname", host);
   if (jq) args.push("-q", jq);
 
