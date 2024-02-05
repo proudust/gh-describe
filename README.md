@@ -14,7 +14,7 @@ repositories.
 ```yml
 - name: Git describe
   id: ghd
-  uses: proudust/gh-describe@v1
+  uses: proudust/gh-describe@v2
 ```
 
 ### Action inputs
@@ -48,7 +48,7 @@ Note that in order to read the step outputs, the action step must have an ID.
 ```yml
 - name: Git describe
   id: ghd
-  uses: proudust/gh-describe@v1
+  uses: proudust/gh-describe@v2
 - name: Check outputs
   run: |
     echo "describe  : ${{ steps.ghd.outputs.describe }}"
