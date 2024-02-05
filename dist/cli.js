@@ -20,78 +20,82 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/errors.js
 var require_errors = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/errors.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/errors.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.WriteZero = exports.UnexpectedEof = exports.TimedOut = exports.PermissionDenied = exports.NotFound = exports.NotConnected = exports.InvalidData = exports.Interrupted = exports.Http = exports.ConnectionReset = exports.ConnectionRefused = exports.ConnectionAborted = exports.Busy = exports.BrokenPipe = exports.BadResource = exports.AlreadyExists = exports.AddrNotAvailable = exports.AddrInUse = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.WriteZero = exports2.UnexpectedEof = exports2.TimedOut = exports2.PermissionDenied = exports2.NotFound = exports2.NotConnected = exports2.InvalidData = exports2.Interrupted = exports2.Http = exports2.ConnectionReset = exports2.ConnectionRefused = exports2.ConnectionAborted = exports2.Busy = exports2.BrokenPipe = exports2.BadResource = exports2.AlreadyExists = exports2.AddrNotAvailable = exports2.AddrInUse = void 0;
     var AddrInUse = class extends Error {
     };
-    exports.AddrInUse = AddrInUse;
+    exports2.AddrInUse = AddrInUse;
     var AddrNotAvailable = class extends Error {
     };
-    exports.AddrNotAvailable = AddrNotAvailable;
+    exports2.AddrNotAvailable = AddrNotAvailable;
     var AlreadyExists = class extends Error {
     };
-    exports.AlreadyExists = AlreadyExists;
+    exports2.AlreadyExists = AlreadyExists;
     var BadResource = class extends Error {
     };
-    exports.BadResource = BadResource;
+    exports2.BadResource = BadResource;
     var BrokenPipe = class extends Error {
     };
-    exports.BrokenPipe = BrokenPipe;
+    exports2.BrokenPipe = BrokenPipe;
     var Busy = class extends Error {
     };
-    exports.Busy = Busy;
+    exports2.Busy = Busy;
     var ConnectionAborted = class extends Error {
     };
-    exports.ConnectionAborted = ConnectionAborted;
+    exports2.ConnectionAborted = ConnectionAborted;
     var ConnectionRefused = class extends Error {
     };
-    exports.ConnectionRefused = ConnectionRefused;
+    exports2.ConnectionRefused = ConnectionRefused;
     var ConnectionReset = class extends Error {
     };
-    exports.ConnectionReset = ConnectionReset;
+    exports2.ConnectionReset = ConnectionReset;
     var Http = class extends Error {
     };
-    exports.Http = Http;
+    exports2.Http = Http;
     var Interrupted = class extends Error {
     };
-    exports.Interrupted = Interrupted;
+    exports2.Interrupted = Interrupted;
     var InvalidData = class extends Error {
     };
-    exports.InvalidData = InvalidData;
+    exports2.InvalidData = InvalidData;
     var NotConnected = class extends Error {
     };
-    exports.NotConnected = NotConnected;
+    exports2.NotConnected = NotConnected;
     var NotFound = class extends Error {
     };
-    exports.NotFound = NotFound;
+    exports2.NotFound = NotFound;
     var PermissionDenied = class extends Error {
     };
-    exports.PermissionDenied = PermissionDenied;
+    exports2.PermissionDenied = PermissionDenied;
     var TimedOut = class extends Error {
     };
-    exports.TimedOut = TimedOut;
+    exports2.TimedOut = TimedOut;
     var UnexpectedEof = class extends Error {
     };
-    exports.UnexpectedEof = UnexpectedEof;
+    exports2.UnexpectedEof = UnexpectedEof;
     var WriteZero = class extends Error {
     };
-    exports.WriteZero = WriteZero;
+    exports2.WriteZero = WriteZero;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/errorMap.js
 var require_errorMap = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/errorMap.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/errorMap.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -106,12 +110,12 @@ var require_errorMap = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -123,7 +127,7 @@ var require_errorMap = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
+    Object.defineProperty(exports2, "__esModule", { value: true });
     var errors = __importStar(require_errors());
     var mapper = (Ctor) => (err) => Object.assign(new Ctor(err.message), {
       stack: err.stack
@@ -141,19 +145,19 @@ var require_errorMap = __commonJS({
         return e;
       return ((_a = map[e.code]) === null || _a === void 0 ? void 0 : _a.call(map, e)) || e;
     }
-    exports.default = mapError;
+    exports2.default = mapError;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/stat.js
 var require_stat = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/stat.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/stat.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.stat = exports.denoifyFileInfo = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.stat = exports2.denoifyFileInfo = void 0;
     var promises_1 = require("fs/promises");
     var errorMap_js_1 = __importDefault(require_errorMap());
     function denoifyFileInfo(s) {
@@ -176,7 +180,7 @@ var require_stat = __commonJS({
         uid: s.uid
       };
     }
-    exports.denoifyFileInfo = denoifyFileInfo;
+    exports2.denoifyFileInfo = denoifyFileInfo;
     var stat = async (path3) => {
       try {
         return denoifyFileInfo(await (0, promises_1.stat)(path3));
@@ -184,15 +188,15 @@ var require_stat = __commonJS({
         throw (0, errorMap_js_1.default)(e);
       }
     };
-    exports.stat = stat;
+    exports2.stat = stat;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstat.js
 var require_fstat = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstat.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstat.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -207,12 +211,12 @@ var require_fstat = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -224,8 +228,8 @@ var require_fstat = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.fstat = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.fstat = void 0;
     var fs = __importStar(require("fs"));
     var util_1 = require("util");
     var stat_js_1 = require_stat();
@@ -233,55 +237,55 @@ var require_fstat = __commonJS({
     var fstat = async function(fd) {
       return (0, stat_js_1.denoifyFileInfo)(await nodeFstat(fd));
     };
-    exports.fstat = fstat;
+    exports2.fstat = fstat;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstatSync.js
 var require_fstatSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstatSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstatSync.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.fstatSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.fstatSync = void 0;
     var fs_1 = require("fs");
     var stat_js_1 = require_stat();
     var fstatSync = function fstatSync2(fd) {
       return (0, stat_js_1.denoifyFileInfo)((0, fs_1.fstatSync)(fd));
     };
-    exports.fstatSync = fstatSync;
+    exports2.fstatSync = fstatSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncate.js
 var require_ftruncate = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncate.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncate.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.ftruncate = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.ftruncate = void 0;
     var fs_1 = require("fs");
     var util_1 = require("util");
     var _ftruncate = (0, util_1.promisify)(fs_1.ftruncate);
-    exports.ftruncate = _ftruncate;
+    exports2.ftruncate = _ftruncate;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncateSync.js
 var require_ftruncateSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncateSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/ftruncateSync.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.ftruncateSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.ftruncateSync = void 0;
     var fs_1 = require("fs");
-    exports.ftruncateSync = fs_1.ftruncateSync;
+    exports2.ftruncateSync = fs_1.ftruncateSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/read.js
 var require_read = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/read.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/read.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.read = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.read = void 0;
     var util_1 = require("util");
     var fs_1 = require("fs");
     var _read = (0, util_1.promisify)(fs_1.read);
@@ -295,15 +299,15 @@ var require_read = __commonJS({
       const { bytesRead } = await _read(rid, buffer, 0, buffer.length, null);
       return bytesRead === 0 ? null : bytesRead;
     };
-    exports.read = read;
+    exports2.read = read;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readSync.js
 var require_readSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -318,12 +322,12 @@ var require_readSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -335,22 +339,22 @@ var require_readSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.readSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.readSync = void 0;
     var fs = __importStar(require("fs"));
     var readSync = (fd, buffer) => {
       const bytesRead = fs.readSync(fd, buffer);
       return bytesRead === 0 ? null : bytesRead;
     };
-    exports.readSync = readSync;
+    exports2.readSync = readSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/write.js
 var require_write = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/write.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/write.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -365,12 +369,12 @@ var require_write = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -382,8 +386,8 @@ var require_write = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.write = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.write = void 0;
     var fs = __importStar(require("fs"));
     var util_1 = require("util");
     var nodeWrite = (0, util_1.promisify)(fs.write);
@@ -391,15 +395,15 @@ var require_write = __commonJS({
       const { bytesWritten } = await nodeWrite(fd, data);
       return bytesWritten;
     };
-    exports.write = write;
+    exports2.write = write;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeSync.js
 var require_writeSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -414,12 +418,12 @@ var require_writeSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -431,18 +435,18 @@ var require_writeSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.writeSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.writeSync = void 0;
     var fs = __importStar(require("fs"));
-    exports.writeSync = fs.writeSync;
+    exports2.writeSync = fs.writeSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/FsFile.js
 var require_FsFile = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/FsFile.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/FsFile.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -457,12 +461,12 @@ var require_FsFile = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -474,8 +478,8 @@ var require_FsFile = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.File = exports.FsFile = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.File = exports2.FsFile = void 0;
     var fs = __importStar(require("fs"));
     var fstat_js_1 = require_fstat();
     var fstatSync_js_1 = require_fstatSync();
@@ -529,39 +533,40 @@ var require_FsFile = __commonJS({
         throw new Error("Not implemented.");
       }
     };
-    exports.FsFile = FsFile;
+    exports2.FsFile = FsFile;
     var File = FsFile;
-    exports.File = File;
+    exports2.File = File;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/PermissionStatus.js
 var require_PermissionStatus = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/PermissionStatus.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/PermissionStatus.js"(exports2) {
     "use strict";
     var _a;
     var _b;
     var _c;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.PermissionStatus = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.PermissionStatus = void 0;
     (_a = (_c = globalThis).EventTarget) !== null && _a !== void 0 ? _a : _c.EventTarget = (_b = require("events").EventTarget) !== null && _b !== void 0 ? _b : null;
     var PermissionStatus = class extends EventTarget {
+      /** @internal */
       constructor(state) {
         super();
         this.state = state;
         this.onchange = null;
       }
     };
-    exports.PermissionStatus = PermissionStatus;
+    exports2.PermissionStatus = PermissionStatus;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/Permissions.js
 var require_Permissions = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/Permissions.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes/Permissions.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Permissions = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.Permissions = void 0;
     var PermissionStatus_js_1 = require_PermissionStatus();
     var Permissions = class {
       query(_desc) {
@@ -574,29 +579,29 @@ var require_Permissions = __commonJS({
         return this.query(desc);
       }
     };
-    exports.Permissions = Permissions;
+    exports2.Permissions = Permissions;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes.js
 var require_classes = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/classes.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.PermissionStatus = exports.Permissions = exports.FsFile = exports.File = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.PermissionStatus = exports2.Permissions = exports2.FsFile = exports2.File = void 0;
     var FsFile_js_1 = require_FsFile();
-    Object.defineProperty(exports, "File", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "File", { enumerable: true, get: function() {
       return FsFile_js_1.File;
     } });
-    Object.defineProperty(exports, "FsFile", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "FsFile", { enumerable: true, get: function() {
       return FsFile_js_1.FsFile;
     } });
     var Permissions_js_1 = require_Permissions();
-    Object.defineProperty(exports, "Permissions", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "Permissions", { enumerable: true, get: function() {
       return Permissions_js_1.Permissions;
     } });
     var PermissionStatus_js_1 = require_PermissionStatus();
-    Object.defineProperty(exports, "PermissionStatus", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "PermissionStatus", { enumerable: true, get: function() {
       return PermissionStatus_js_1.PermissionStatus;
     } });
   }
@@ -604,27 +609,27 @@ var require_classes = __commonJS({
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/enums/SeekMode.js
 var require_SeekMode = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/enums/SeekMode.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/enums/SeekMode.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.SeekMode = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.SeekMode = void 0;
     var SeekMode;
     (function(SeekMode2) {
       SeekMode2[SeekMode2["Start"] = 0] = "Start";
       SeekMode2[SeekMode2["Current"] = 1] = "Current";
       SeekMode2[SeekMode2["End"] = 2] = "End";
-    })(SeekMode = exports.SeekMode || (exports.SeekMode = {}));
+    })(SeekMode = exports2.SeekMode || (exports2.SeekMode = {}));
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/enums.js
 var require_enums = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/enums.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/enums.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.SeekMode = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.SeekMode = void 0;
     var SeekMode_js_1 = require_SeekMode();
-    Object.defineProperty(exports, "SeekMode", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "SeekMode", { enumerable: true, get: function() {
       return SeekMode_js_1.SeekMode;
     } });
   }
@@ -632,9 +637,9 @@ var require_enums = __commonJS({
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/build.js
 var require_build = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/build.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/build.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -649,12 +654,12 @@ var require_build = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -666,35 +671,35 @@ var require_build = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.build = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.build = void 0;
     var os = __importStar(require("os"));
-    exports.build = {
+    exports2.build = {
       arch: "x86_64",
-      os: ((p) => p === "win32" ? "windows" : p === "darwin" ? "darwin" : "linux")(os.platform()),
+      os: /* @__PURE__ */ ((p) => p === "win32" ? "windows" : p === "darwin" ? "darwin" : "linux")(os.platform()),
       vendor: "pc",
-      target: ((p) => p === "win32" ? "x86_64-pc-windows-msvc" : p === "darwin" ? "x86_64-apple-darwin" : "x86_64-unknown-linux-gnu")(os.platform())
+      target: /* @__PURE__ */ ((p) => p === "win32" ? "x86_64-pc-windows-msvc" : p === "darwin" ? "x86_64-apple-darwin" : "x86_64-unknown-linux-gnu")(os.platform())
     };
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/customInspect.js
 var require_customInspect = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/customInspect.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/customInspect.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.customInspect = void 0;
-    exports.customInspect = Symbol.for("nodejs.util.inspect.custom");
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.customInspect = void 0;
+    exports2.customInspect = Symbol.for("nodejs.util.inspect.custom");
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/env.js
 var require_env = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/env.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/env.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.env = void 0;
-    exports.env = {
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.env = void 0;
+    exports2.env = {
       get(key) {
         return process.env[key];
       },
@@ -704,6 +709,7 @@ var require_env = __commonJS({
       delete(key) {
         delete process.env[key];
       },
+      // @ts-expect-error https://github.com/denoland/deno/issues/10267
       toObject() {
         return { ...process.env };
       }
@@ -713,24 +719,24 @@ var require_env = __commonJS({
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/mainModule.js
 var require_mainModule = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/mainModule.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/mainModule.js"(exports2) {
     "use strict";
     var _a;
     var _b;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.mainModule = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.mainModule = void 0;
     var path_1 = require("path");
     var url_1 = require("url");
-    exports.mainModule = (0, url_1.pathToFileURL)((_b = (_a = require.main) === null || _a === void 0 ? void 0 : _a.filename) !== null && _b !== void 0 ? _b : (0, path_1.join)(__dirname, "$deno$repl.ts")).href;
+    exports2.mainModule = (0, url_1.pathToFileURL)((_b = (_a = require.main) === null || _a === void 0 ? void 0 : _a.filename) !== null && _b !== void 0 ? _b : (0, path_1.join)(__dirname, "$deno$repl.ts")).href;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/metrics.js
 var require_metrics = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/metrics.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/metrics.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.metrics = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.metrics = void 0;
     var metrics = function metrics2() {
       return {
         opsDispatched: 0,
@@ -747,57 +753,57 @@ var require_metrics = __commonJS({
         ops: {}
       };
     };
-    exports.metrics = metrics;
+    exports2.metrics = metrics;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/noColor.js
 var require_noColor = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/noColor.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/noColor.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.noColor = void 0;
-    exports.noColor = process.env.NO_COLOR !== void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.noColor = void 0;
+    exports2.noColor = process.env.NO_COLOR !== void 0;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/permissions.js
 var require_permissions = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/permissions.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/permissions.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.permissions = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.permissions = void 0;
     var Permissions_js_1 = require_Permissions();
-    exports.permissions = new Permissions_js_1.Permissions();
+    exports2.permissions = new Permissions_js_1.Permissions();
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/pid.js
 var require_pid = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/pid.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/pid.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.pid = void 0;
-    exports.pid = process.pid;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.pid = void 0;
+    exports2.pid = process.pid;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/ppid.js
 var require_ppid = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/ppid.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/ppid.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.ppid = void 0;
-    exports.ppid = process.ppid;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.ppid = void 0;
+    exports2.ppid = process.ppid;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/resources.js
 var require_resources = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/resources.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/resources.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.resources = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.resources = void 0;
     var resources = function resources2() {
       console.warn([
         "Deno.resources() shim returns a dummy object that does not update.",
@@ -805,16 +811,16 @@ var require_resources = __commonJS({
       ].join("\n"));
       return {};
     };
-    exports.resources = resources;
+    exports2.resources = resources;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/std.js
 var require_std = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/std.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/std.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.stderr = exports.stdout = exports.stdin = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.stderr = exports2.stdout = exports2.stdin = void 0;
     function chain(fn, cleanup) {
       let prev;
       return function _fn(...args) {
@@ -827,7 +833,7 @@ var require_std = __commonJS({
         return prev = curr;
       };
     }
-    exports.stdin = {
+    exports2.stdin = {
       rid: 0,
       read: chain((p) => {
         return new Promise((resolve4, reject) => {
@@ -866,7 +872,7 @@ var require_std = __commonJS({
         process.stdin.setRawMode(mode);
       }
     };
-    exports.stdout = {
+    exports2.stdout = {
       rid: 1,
       write: chain((p) => {
         return new Promise((resolve4) => {
@@ -888,7 +894,7 @@ var require_std = __commonJS({
         process.stdout.destroy();
       }
     };
-    exports.stderr = {
+    exports2.stderr = {
       rid: 2,
       write: chain((p) => {
         return new Promise((resolve4) => {
@@ -915,23 +921,23 @@ var require_std = __commonJS({
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/version.js
 var require_version = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/version.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/version.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.typescript = exports.deno = void 0;
-    exports.deno = "1.29.2";
-    exports.typescript = "4.9.4";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.typescript = exports2.deno = void 0;
+    exports2.deno = "1.29.2";
+    exports2.typescript = "4.9.4";
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/version.js
 var require_version2 = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/version.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/version.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.version = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.version = void 0;
     var version_js_1 = require_version();
-    exports.version = {
+    exports2.version = {
       deno: version_js_1.deno,
       typescript: version_js_1.typescript,
       v8: process.versions.v8
@@ -941,9 +947,9 @@ var require_version2 = __commonJS({
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables.js
 var require_variables = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -958,12 +964,12 @@ var require_variables = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -975,57 +981,57 @@ var require_variables = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __exportStar = exports && exports.__exportStar || function(m, exports2) {
+    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
       for (var p in m)
-        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
-          __createBinding(exports2, m, p);
+        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p))
+          __createBinding(exports3, m, p);
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.version = exports.resources = exports.ppid = exports.pid = exports.permissions = exports.noColor = exports.metrics = exports.mainModule = exports.errors = exports.env = exports.customInspect = exports.build = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.version = exports2.resources = exports2.ppid = exports2.pid = exports2.permissions = exports2.noColor = exports2.metrics = exports2.mainModule = exports2.errors = exports2.env = exports2.customInspect = exports2.build = void 0;
     var build_js_1 = require_build();
-    Object.defineProperty(exports, "build", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "build", { enumerable: true, get: function() {
       return build_js_1.build;
     } });
     var customInspect_js_1 = require_customInspect();
-    Object.defineProperty(exports, "customInspect", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "customInspect", { enumerable: true, get: function() {
       return customInspect_js_1.customInspect;
     } });
     var env_js_1 = require_env();
-    Object.defineProperty(exports, "env", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "env", { enumerable: true, get: function() {
       return env_js_1.env;
     } });
-    exports.errors = __importStar(require_errors());
+    exports2.errors = __importStar(require_errors());
     var mainModule_js_1 = require_mainModule();
-    Object.defineProperty(exports, "mainModule", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "mainModule", { enumerable: true, get: function() {
       return mainModule_js_1.mainModule;
     } });
     var metrics_js_1 = require_metrics();
-    Object.defineProperty(exports, "metrics", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "metrics", { enumerable: true, get: function() {
       return metrics_js_1.metrics;
     } });
     var noColor_js_1 = require_noColor();
-    Object.defineProperty(exports, "noColor", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "noColor", { enumerable: true, get: function() {
       return noColor_js_1.noColor;
     } });
     var permissions_js_1 = require_permissions();
-    Object.defineProperty(exports, "permissions", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "permissions", { enumerable: true, get: function() {
       return permissions_js_1.permissions;
     } });
     var pid_js_1 = require_pid();
-    Object.defineProperty(exports, "pid", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "pid", { enumerable: true, get: function() {
       return pid_js_1.pid;
     } });
     var ppid_js_1 = require_ppid();
-    Object.defineProperty(exports, "ppid", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "ppid", { enumerable: true, get: function() {
       return ppid_js_1.ppid;
     } });
     var resources_js_1 = require_resources();
-    Object.defineProperty(exports, "resources", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "resources", { enumerable: true, get: function() {
       return resources_js_1.resources;
     } });
-    __exportStar(require_std(), exports);
+    __exportStar(require_std(), exports2);
     var version_js_1 = require_version2();
-    Object.defineProperty(exports, "version", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "version", { enumerable: true, get: function() {
       return version_js_1.version;
     } });
   }
@@ -1033,13 +1039,13 @@ var require_variables = __commonJS({
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chdir.js
 var require_chdir = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chdir.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chdir.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.chdir = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.chdir = void 0;
     var url_1 = require("url");
     var errorMap_js_1 = __importDefault(require_errorMap());
     var variables_js_1 = require_variables();
@@ -1053,15 +1059,15 @@ var require_chdir = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.chdir = chdir;
+    exports2.chdir = chdir;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmod.js
 var require_chmod = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmod.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmod.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -1076,12 +1082,12 @@ var require_chmod = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -1093,18 +1099,18 @@ var require_chmod = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.chmod = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.chmod = void 0;
     var fs = __importStar(require("fs/promises"));
-    exports.chmod = fs.chmod;
+    exports2.chmod = fs.chmod;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmodSync.js
 var require_chmodSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmodSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chmodSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -1119,12 +1125,12 @@ var require_chmodSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -1136,18 +1142,18 @@ var require_chmodSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.chmodSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.chmodSync = void 0;
     var fs = __importStar(require("fs"));
-    exports.chmodSync = fs.chmodSync;
+    exports2.chmodSync = fs.chmodSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chown.js
 var require_chown = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chown.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chown.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -1162,12 +1168,12 @@ var require_chown = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -1179,19 +1185,19 @@ var require_chown = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.chown = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.chown = void 0;
     var fs = __importStar(require("fs/promises"));
     var chown = async (path3, uid, gid) => await fs.chown(path3, uid !== null && uid !== void 0 ? uid : -1, gid !== null && gid !== void 0 ? gid : -1);
-    exports.chown = chown;
+    exports2.chown = chown;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chownSync.js
 var require_chownSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chownSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/chownSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -1206,12 +1212,12 @@ var require_chownSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -1223,19 +1229,19 @@ var require_chownSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.chownSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.chownSync = void 0;
     var fs = __importStar(require("fs"));
     var chownSync = (path3, uid, gid) => fs.chownSync(path3, uid !== null && uid !== void 0 ? uid : -1, gid !== null && gid !== void 0 ? gid : -1);
-    exports.chownSync = chownSync;
+    exports2.chownSync = chownSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/close.js
 var require_close = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/close.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/close.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -1250,12 +1256,12 @@ var require_close = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -1267,18 +1273,18 @@ var require_close = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.close = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.close = void 0;
     var fs = __importStar(require("fs"));
-    exports.close = fs.closeSync;
+    exports2.close = fs.closeSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/Conn.js
 var require_Conn = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/Conn.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/Conn.js"(exports2) {
     "use strict";
-    var __classPrivateFieldSet = exports && exports.__classPrivateFieldSet || function(receiver, state, value, kind, f) {
+    var __classPrivateFieldSet = exports2 && exports2.__classPrivateFieldSet || function(receiver, state, value, kind, f) {
       if (kind === "m")
         throw new TypeError("Private method is not writable");
       if (kind === "a" && !f)
@@ -1287,7 +1293,7 @@ var require_Conn = __commonJS({
         throw new TypeError("Cannot write private member to an object whose class did not declare it");
       return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
     };
-    var __classPrivateFieldGet2 = exports && exports.__classPrivateFieldGet || function(receiver, state, kind, f) {
+    var __classPrivateFieldGet2 = exports2 && exports2.__classPrivateFieldGet || function(receiver, state, kind, f) {
       if (kind === "a" && !f)
         throw new TypeError("Private accessor was defined without a getter");
       if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
@@ -1295,8 +1301,8 @@ var require_Conn = __commonJS({
       return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
     };
     var _Conn_socket;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.TlsConn = exports.Conn = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.TlsConn = exports2.Conn = void 0;
     var net_1 = require("net");
     var FsFile_js_1 = require_FsFile();
     var Conn = class extends FsFile_js_1.FsFile {
@@ -1324,7 +1330,7 @@ var require_Conn = __commonJS({
         __classPrivateFieldGet2(this, _Conn_socket, "f").unref();
       }
     };
-    exports.Conn = Conn;
+    exports2.Conn = Conn;
     _Conn_socket = /* @__PURE__ */ new WeakMap();
     var TlsConn = class extends Conn {
       handshake() {
@@ -1334,16 +1340,16 @@ var require_Conn = __commonJS({
         });
       }
     };
-    exports.TlsConn = TlsConn;
+    exports2.TlsConn = TlsConn;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/connect.js
 var require_connect = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/connect.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/connect.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.connect = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.connect = void 0;
     var net_1 = require("net");
     var Conn_js_1 = require_Conn();
     var connect = function connect2(options) {
@@ -1360,11 +1366,13 @@ var require_connect = __commonJS({
         socket.once("connect", () => {
           const rid = socket._handle.fd;
           const localAddr = {
+            // cannot be undefined while socket is connected
             hostname: socket.localAddress,
             port: socket.localPort,
             transport: "tcp"
           };
           const remoteAddr = {
+            // cannot be undefined while socket is connected
             hostname: socket.remoteAddress,
             port: socket.remotePort,
             transport: "tcp"
@@ -1373,19 +1381,19 @@ var require_connect = __commonJS({
         });
       });
     };
-    exports.connect = connect;
+    exports2.connect = connect;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFile.js
 var require_readTextFile = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFile.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFile.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.readTextFile = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.readTextFile = void 0;
     var promises_1 = require("fs/promises");
     var errorMap_js_1 = __importDefault(require_errorMap());
     var readTextFile = async (path3, { signal } = {}) => {
@@ -1395,16 +1403,16 @@ var require_readTextFile = __commonJS({
         throw (0, errorMap_js_1.default)(e);
       }
     };
-    exports.readTextFile = readTextFile;
+    exports2.readTextFile = readTextFile;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/connectTls.js
 var require_connectTls = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/connectTls.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/connectTls.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.connectTls = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.connectTls = void 0;
     var tls_1 = require("tls");
     var Conn_js_1 = require_Conn();
     var readTextFile_js_1 = require_readTextFile();
@@ -1415,11 +1423,13 @@ var require_connectTls = __commonJS({
         socket.on("connect", () => {
           const rid = socket._handle.fd;
           const localAddr = {
+            // cannot be undefined while socket is connected
             hostname: socket.localAddress,
             port: socket.localPort,
             transport: "tcp"
           };
           const remoteAddr = {
+            // cannot be undefined while socket is connected
             hostname: socket.remoteAddress,
             port: socket.remotePort,
             transport: "tcp"
@@ -1428,26 +1438,26 @@ var require_connectTls = __commonJS({
         });
       });
     };
-    exports.connectTls = connectTls;
+    exports2.connectTls = connectTls;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/consts.js
 var require_consts = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/consts.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/consts.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.DEFAULT_BUFFER_SIZE = void 0;
-    exports.DEFAULT_BUFFER_SIZE = 32 * 1024;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.DEFAULT_BUFFER_SIZE = void 0;
+    exports2.DEFAULT_BUFFER_SIZE = 32 * 1024;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copy.js
 var require_copy = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copy.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copy.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.copy = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.copy = void 0;
     var consts_js_1 = require_consts();
     var copy = async function copy2(src, dst, options) {
       var _a;
@@ -1469,15 +1479,15 @@ var require_copy = __commonJS({
       }
       return n;
     };
-    exports.copy = copy;
+    exports2.copy = copy;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFile.js
 var require_copyFile = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFile.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFile.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -1492,12 +1502,12 @@ var require_copyFile = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -1509,11 +1519,11 @@ var require_copyFile = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.copyFile = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.copyFile = void 0;
     var fs = __importStar(require("fs/promises"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var errors = __importStar(require_errors());
@@ -1527,15 +1537,15 @@ var require_copyFile = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.copyFile = copyFile;
+    exports2.copyFile = copyFile;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFileSync.js
 var require_copyFileSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFileSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/copyFileSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -1550,12 +1560,12 @@ var require_copyFileSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -1567,11 +1577,11 @@ var require_copyFileSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.copyFileSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.copyFileSync = void 0;
     var fs = __importStar(require("fs"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var errors = __importStar(require_errors());
@@ -1585,15 +1595,15 @@ var require_copyFileSync = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.copyFileSync = copyFileSync;
+    exports2.copyFileSync = copyFileSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/fs_flags.js
 var require_fs_flags = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/fs_flags.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/fs_flags.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -1608,12 +1618,12 @@ var require_fs_flags = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -1625,11 +1635,11 @@ var require_fs_flags = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.getFsFlag = exports.getCreationFlag = exports.getAccessFlag = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.getFsFlag = exports2.getCreationFlag = exports2.getAccessFlag = void 0;
     var errors = __importStar(require_errors());
     var fs_1 = require("fs");
     var os_1 = __importDefault(require("os"));
@@ -1650,7 +1660,7 @@ var require_fs_flags = __commonJS({
       }
       throw new errors.BadResource("EINVAL: Invalid fs flags.");
     }
-    exports.getAccessFlag = getAccessFlag;
+    exports2.getAccessFlag = getAccessFlag;
     function getCreationFlag(opts) {
       if (!opts.write && !opts.append) {
         if (opts.truncate || opts.create || opts.createNew) {
@@ -1680,23 +1690,23 @@ var require_fs_flags = __commonJS({
         return O_CREAT | O_EXCL;
       throw new errors.BadResource("EINVAL: Invalid fs flags.");
     }
-    exports.getCreationFlag = getCreationFlag;
+    exports2.getCreationFlag = getCreationFlag;
     function getFsFlag(flags) {
       return getAccessFlag(flags) | getCreationFlag(flags);
     }
-    exports.getFsFlag = getFsFlag;
+    exports2.getFsFlag = getFsFlag;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/open.js
 var require_open = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/open.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/open.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.open = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.open = void 0;
     var fs_1 = require("fs");
     var util_1 = require("util");
     var FsFile_js_1 = require_FsFile();
@@ -1721,33 +1731,33 @@ var require_open = __commonJS({
         throw (0, errorMap_js_1.default)(err);
       }
     };
-    exports.open = open;
+    exports2.open = open;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/create.js
 var require_create = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/create.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/create.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.create = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.create = void 0;
     var open_js_1 = require_open();
     var create = async function create2(path3) {
       return await (0, open_js_1.open)(path3, { write: true, create: true, truncate: true });
     };
-    exports.create = create;
+    exports2.create = create;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/openSync.js
 var require_openSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/openSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/openSync.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.openSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.openSync = void 0;
     var fs_1 = require("fs");
     var FsFile_js_1 = require_FsFile();
     var fs_flags_js_1 = require_fs_flags();
@@ -1770,16 +1780,16 @@ var require_openSync = __commonJS({
         throw (0, errorMap_js_1.default)(err);
       }
     };
-    exports.openSync = openSync;
+    exports2.openSync = openSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/createSync.js
 var require_createSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/createSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/createSync.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.createSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.createSync = void 0;
     var openSync_js_1 = require_openSync();
     var createSync = function createSync2(path3) {
       return (0, openSync_js_1.openSync)(path3, {
@@ -1789,23 +1799,23 @@ var require_createSync = __commonJS({
         write: true
       });
     };
-    exports.createSync = createSync;
+    exports2.createSync = createSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/cwd.js
 var require_cwd = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/cwd.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/cwd.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.cwd = void 0;
-    exports.cwd = process.cwd;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.cwd = void 0;
+    exports2.cwd = process.cwd;
   }
 });
 
 // dist/dnt/node_modules/isexe/windows.js
 var require_windows = __commonJS({
-  "dist/dnt/node_modules/isexe/windows.js"(exports, module2) {
+  "dist/dnt/node_modules/isexe/windows.js"(exports2, module2) {
     module2.exports = isexe;
     isexe.sync = sync;
     var fs = require("fs");
@@ -1845,7 +1855,7 @@ var require_windows = __commonJS({
 
 // dist/dnt/node_modules/isexe/mode.js
 var require_mode = __commonJS({
-  "dist/dnt/node_modules/isexe/mode.js"(exports, module2) {
+  "dist/dnt/node_modules/isexe/mode.js"(exports2, module2) {
     module2.exports = isexe;
     isexe.sync = sync;
     var fs = require("fs");
@@ -1878,7 +1888,7 @@ var require_mode = __commonJS({
 
 // dist/dnt/node_modules/isexe/index.js
 var require_isexe = __commonJS({
-  "dist/dnt/node_modules/isexe/index.js"(exports, module2) {
+  "dist/dnt/node_modules/isexe/index.js"(exports2, module2) {
     var fs = require("fs");
     var core;
     if (process.platform === "win32" || global.TESTING_WINDOWS) {
@@ -1933,7 +1943,7 @@ var require_isexe = __commonJS({
 
 // dist/dnt/node_modules/which/which.js
 var require_which = __commonJS({
-  "dist/dnt/node_modules/which/which.js"(exports, module2) {
+  "dist/dnt/node_modules/which/which.js"(exports2, module2) {
     var isWindows2 = process.platform === "win32" || process.env.OSTYPE === "cygwin" || process.env.OSTYPE === "msys";
     var path3 = require("path");
     var COLON = isWindows2 ? ";" : ":";
@@ -1942,8 +1952,10 @@ var require_which = __commonJS({
     var getPathInfo = (cmd, opt) => {
       const colon = opt.colon || COLON;
       const pathEnv = cmd.match(/\//) || isWindows2 && cmd.match(/\\/) ? [""] : [
+        // windows always checks the cwd first
         ...isWindows2 ? [process.cwd()] : [],
-        ...(opt.path || process.env.PATH || "").split(colon)
+        ...(opt.path || process.env.PATH || /* istanbul ignore next: very unusual */
+        "").split(colon)
       ];
       const pathExtExe = isWindows2 ? opt.pathExt || process.env.PATHEXT || ".EXE;.CMD;.BAT;.COM" : "";
       const pathExt = isWindows2 ? pathExtExe.split(colon) : [""];
@@ -2027,90 +2039,90 @@ var require_which = __commonJS({
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/execPath.js
 var require_execPath = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/execPath.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/execPath.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.execPath = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.execPath = void 0;
     var which_1 = __importDefault(require_which());
     var execPath = () => which_1.default.sync("deno");
-    exports.execPath = execPath;
+    exports2.execPath = execPath;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/exit.js
 var require_exit = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/exit.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/exit.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.exit = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.exit = void 0;
     var exit = function exit2(code2) {
       return process.exit(code2);
     };
-    exports.exit = exit;
+    exports2.exit = exit;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasync.js
 var require_fdatasync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasync.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.fdatasync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.fdatasync = void 0;
     var fs_1 = require("fs");
     var util_1 = require("util");
     var _fdatasync = (0, util_1.promisify)(fs_1.fdatasync);
-    exports.fdatasync = _fdatasync;
+    exports2.fdatasync = _fdatasync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasyncSync.js
 var require_fdatasyncSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasyncSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasyncSync.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.fdatasyncSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.fdatasyncSync = void 0;
     var fs_1 = require("fs");
-    exports.fdatasyncSync = fs_1.fdatasyncSync;
+    exports2.fdatasyncSync = fs_1.fdatasyncSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsync.js
 var require_fsync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsync.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.fsync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.fsync = void 0;
     var fs_1 = require("fs");
     var util_1 = require("util");
     var fsync = function fsync2(rid) {
       return (0, util_1.promisify)(fs_1.fsync)(rid);
     };
-    exports.fsync = fsync;
+    exports2.fsync = fsync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsyncSync.js
 var require_fsyncSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsyncSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fsyncSync.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.fsyncSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.fsyncSync = void 0;
     var fs_1 = require("fs");
     var fsyncSync = function fsyncSync2(rid) {
       return (0, fs_1.fsyncSync)(rid);
     };
-    exports.fsyncSync = fsyncSync;
+    exports2.fsyncSync = fsyncSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/inspect.js
 var require_inspect = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/inspect.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/inspect.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -2125,12 +2137,12 @@ var require_inspect = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -2142,23 +2154,23 @@ var require_inspect = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.inspect = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.inspect = void 0;
     var util = __importStar(require("util"));
     var inspect2 = (value, options = {}) => util.inspect(value, options);
-    exports.inspect = inspect2;
+    exports2.inspect = inspect2;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/kill.js
 var require_kill = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/kill.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/kill.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.kill = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.kill = void 0;
     var os_1 = __importDefault(require("os"));
     var process_1 = __importDefault(require("process"));
     var kill = function(pid, signo) {
@@ -2167,15 +2179,15 @@ var require_kill = __commonJS({
       }
       process_1.default.kill(pid, signo);
     };
-    exports.kill = kill;
+    exports2.kill = kill;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/link.js
 var require_link = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/link.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/link.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -2190,12 +2202,12 @@ var require_link = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -2207,18 +2219,18 @@ var require_link = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.link = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.link = void 0;
     var fs = __importStar(require("fs/promises"));
-    exports.link = fs.link;
+    exports2.link = fs.link;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/linkSync.js
 var require_linkSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/linkSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/linkSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -2233,12 +2245,12 @@ var require_linkSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -2250,18 +2262,18 @@ var require_linkSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.linkSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.linkSync = void 0;
     var fs = __importStar(require("fs"));
-    exports.linkSync = fs.linkSync;
+    exports2.linkSync = fs.linkSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/Listener.js
 var require_Listener = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/Listener.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/Listener.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -2276,12 +2288,12 @@ var require_Listener = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -2293,7 +2305,7 @@ var require_Listener = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __classPrivateFieldSet = exports && exports.__classPrivateFieldSet || function(receiver, state, value, kind, f) {
+    var __classPrivateFieldSet = exports2 && exports2.__classPrivateFieldSet || function(receiver, state, value, kind, f) {
       if (kind === "m")
         throw new TypeError("Private method is not writable");
       if (kind === "a" && !f)
@@ -2302,7 +2314,7 @@ var require_Listener = __commonJS({
         throw new TypeError("Cannot write private member to an object whose class did not declare it");
       return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
     };
-    var __classPrivateFieldGet2 = exports && exports.__classPrivateFieldGet || function(receiver, state, kind, f) {
+    var __classPrivateFieldGet2 = exports2 && exports2.__classPrivateFieldGet || function(receiver, state, kind, f) {
       if (kind === "a" && !f)
         throw new TypeError("Private accessor was defined without a getter");
       if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
@@ -2310,8 +2322,8 @@ var require_Listener = __commonJS({
       return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
     };
     var _Listener_listener;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Listener = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.Listener = void 0;
     var close_js_1 = require_close();
     var errors = __importStar(require_errors());
     var Listener = class {
@@ -2360,16 +2372,16 @@ var require_Listener = __commonJS({
         return this;
       }
     };
-    exports.Listener = Listener;
+    exports2.Listener = Listener;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/listen.js
 var require_listen = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/listen.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/listen.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.listen = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.listen = void 0;
     var net_1 = require("net");
     var Conn_js_1 = require_Conn();
     var Listener_js_1 = require_Listener();
@@ -2380,11 +2392,13 @@ var require_listen = __commonJS({
           socket.on("error", (err) => console.error(err));
           const rid = socket._handle.fd;
           const localAddr = {
+            // cannot be undefined while socket is connected
             hostname: socket.localAddress,
             port: socket.localPort,
             transport: "tcp"
           };
           const remoteAddr = {
+            // cannot be undefined while socket is connected
             hostname: socket.remoteAddress,
             port: socket.remotePort,
             transport: "tcp"
@@ -2402,7 +2416,10 @@ var require_listen = __commonJS({
         throw new Error("Deno.listen is only implemented for transport: tcp");
       }
       const server = (0, net_1.createServer)();
-      const waitFor = new Promise((resolve4) => server.listen(port, hostname, resolve4));
+      const waitFor = new Promise((resolve4) => (
+        // server._handle.fd is assigned immediately on .listen()
+        server.listen(port, hostname, resolve4)
+      ));
       const listener = new Listener_js_1.Listener(server._handle.fd, {
         hostname,
         port,
@@ -2410,15 +2427,15 @@ var require_listen = __commonJS({
       }, _listen(server, waitFor));
       return listener;
     };
-    exports.listen = listen;
+    exports2.listen = listen;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFileSync.js
 var require_readTextFileSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFileSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readTextFileSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -2433,12 +2450,12 @@ var require_readTextFileSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -2450,11 +2467,11 @@ var require_readTextFileSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.readTextFileSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.readTextFileSync = void 0;
     var fs = __importStar(require("fs"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var readTextFileSync = function(path3) {
@@ -2464,16 +2481,16 @@ var require_readTextFileSync = __commonJS({
         throw (0, errorMap_js_1.default)(e);
       }
     };
-    exports.readTextFileSync = readTextFileSync;
+    exports2.readTextFileSync = readTextFileSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/listenTls.js
 var require_listenTls = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/listenTls.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/listenTls.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.listenTls = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.listenTls = void 0;
     var tls_1 = require("tls");
     var Conn_js_1 = require_Conn();
     var Listener_js_1 = require_Listener();
@@ -2485,11 +2502,13 @@ var require_listenTls = __commonJS({
           socket.on("error", (err) => console.error(err));
           const rid = socket._handle.fd;
           const localAddr = {
+            // cannot be undefined while socket is connected
             hostname: socket.localAddress,
             port: socket.localPort,
             transport: "tcp"
           };
           const remoteAddr = {
+            // cannot be undefined while socket is connected
             hostname: socket.remoteAddress,
             port: socket.remotePort,
             transport: "tcp"
@@ -2504,7 +2523,10 @@ var require_listenTls = __commonJS({
       }
       const [cert, key] = [certFile, keyFile].map((f) => f == null ? void 0 : (0, readTextFileSync_js_1.readTextFileSync)(f));
       const server = (0, tls_1.createServer)({ cert, key });
-      const waitFor = new Promise((resolve4) => server.listen(port, hostname, resolve4));
+      const waitFor = new Promise((resolve4) => (
+        // server._handle.fd is assigned immediately on .listen()
+        server.listen(port, hostname, resolve4)
+      ));
       const listener = new Listener_js_1.Listener(server._handle.fd, {
         hostname,
         port,
@@ -2512,15 +2534,15 @@ var require_listenTls = __commonJS({
       }, _listen(server, waitFor));
       return listener;
     };
-    exports.listenTls = listenTls;
+    exports2.listenTls = listenTls;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstat.js
 var require_lstat = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstat.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstat.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -2535,12 +2557,12 @@ var require_lstat = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -2552,11 +2574,11 @@ var require_lstat = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.lstat = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.lstat = void 0;
     var fs = __importStar(require("fs/promises"));
     var stat_js_1 = require_stat();
     var errorMap_js_1 = __importDefault(require_errorMap());
@@ -2567,15 +2589,15 @@ var require_lstat = __commonJS({
         throw (0, errorMap_js_1.default)(e);
       }
     };
-    exports.lstat = lstat;
+    exports2.lstat = lstat;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstatSync.js
 var require_lstatSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstatSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstatSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -2590,12 +2612,12 @@ var require_lstatSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -2607,66 +2629,66 @@ var require_lstatSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.lstatSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.lstatSync = void 0;
     var fs = __importStar(require("fs"));
     var stat_js_1 = require_stat();
     var lstatSync = (path3) => (0, stat_js_1.denoifyFileInfo)(fs.lstatSync(path3));
-    exports.lstatSync = lstatSync;
+    exports2.lstatSync = lstatSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDir.js
 var require_makeTempDir = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDir.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDir.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.makeTempDir = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.makeTempDir = void 0;
     var promises_1 = require("fs/promises");
     var path_1 = require("path");
     var os_1 = require("os");
     var makeTempDir = function makeTempDir2({ prefix = "" } = {}) {
       return (0, promises_1.mkdtemp)((0, path_1.join)((0, os_1.tmpdir)(), prefix || "/"));
     };
-    exports.makeTempDir = makeTempDir;
+    exports2.makeTempDir = makeTempDir;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDirSync.js
 var require_makeTempDirSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDirSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempDirSync.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.makeTempDirSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.makeTempDirSync = void 0;
     var fs_1 = require("fs");
     var path_1 = require("path");
     var os_1 = require("os");
     var makeTempDirSync = function makeTempDirSync2({ prefix = "" } = {}) {
       return (0, fs_1.mkdtempSync)((0, path_1.join)((0, os_1.tmpdir)(), prefix || "/"));
     };
-    exports.makeTempDirSync = makeTempDirSync;
+    exports2.makeTempDirSync = makeTempDirSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/random_id.js
 var require_random_id = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/random_id.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/random_id.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.randomId = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.randomId = void 0;
     var randomId = () => {
       const n = (Math.random() * 1048575 * 1e6).toString(16);
       return "" + n.slice(0, 6);
     };
-    exports.randomId = randomId;
+    exports2.randomId = randomId;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFile.js
 var require_writeTextFile = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFile.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFile.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -2681,12 +2703,12 @@ var require_writeTextFile = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -2698,11 +2720,11 @@ var require_writeTextFile = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.writeTextFile = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.writeTextFile = void 0;
     var fs = __importStar(require("fs/promises"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var fs_flags_js_1 = require_fs_flags();
@@ -2717,16 +2739,16 @@ var require_writeTextFile = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.writeTextFile = writeTextFile;
+    exports2.writeTextFile = writeTextFile;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFile.js
 var require_makeTempFile = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFile.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFile.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.makeTempFile = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.makeTempFile = void 0;
     var os_1 = require("os");
     var path_1 = require("path");
     var random_id_js_1 = require_random_id();
@@ -2736,15 +2758,15 @@ var require_makeTempFile = __commonJS({
       await (0, writeTextFile_js_1.writeTextFile)(name, "");
       return name;
     };
-    exports.makeTempFile = makeTempFile;
+    exports2.makeTempFile = makeTempFile;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFileSync.js
 var require_writeTextFileSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFileSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeTextFileSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -2759,12 +2781,12 @@ var require_writeTextFileSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -2776,11 +2798,11 @@ var require_writeTextFileSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.writeTextFileSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.writeTextFileSync = void 0;
     var fs = __importStar(require("fs"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var writeTextFileSync = (path3, data, { append = false, create = true, mode } = {}) => {
@@ -2793,16 +2815,16 @@ var require_writeTextFileSync = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.writeTextFileSync = writeTextFileSync;
+    exports2.writeTextFileSync = writeTextFileSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFileSync.js
 var require_makeTempFileSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFileSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/makeTempFileSync.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.makeTempFileSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.makeTempFileSync = void 0;
     var os_1 = require("os");
     var path_1 = require("path");
     var random_id_js_1 = require_random_id();
@@ -2812,29 +2834,29 @@ var require_makeTempFileSync = __commonJS({
       (0, writeTextFileSync_js_1.writeTextFileSync)(name, "");
       return name;
     };
-    exports.makeTempFileSync = makeTempFileSync;
+    exports2.makeTempFileSync = makeTempFileSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/memoryUsage.js
 var require_memoryUsage = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/memoryUsage.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/memoryUsage.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.memoryUsage = void 0;
-    exports.memoryUsage = process.memoryUsage;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.memoryUsage = void 0;
+    exports2.memoryUsage = process.memoryUsage;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdir.js
 var require_mkdir = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdir.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdir.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.mkdir = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.mkdir = void 0;
     var promises_1 = require("fs/promises");
     var errorMap_js_1 = __importDefault(require_errorMap());
     var variables_js_1 = require_variables();
@@ -2848,15 +2870,15 @@ var require_mkdir = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.mkdir = mkdir;
+    exports2.mkdir = mkdir;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdirSync.js
 var require_mkdirSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdirSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/mkdirSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -2871,12 +2893,12 @@ var require_mkdirSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -2888,11 +2910,11 @@ var require_mkdirSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.mkdirSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.mkdirSync = void 0;
     var fs = __importStar(require("fs"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var variables_js_1 = require_variables();
@@ -2906,19 +2928,19 @@ var require_mkdirSync = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.mkdirSync = mkdirSync;
+    exports2.mkdirSync = mkdirSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDir.js
 var require_readDir = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDir.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDir.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.readDir = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.readDir = void 0;
     var promises_1 = require("fs/promises");
     var errorMap_js_1 = __importDefault(require_errorMap());
     var readDir = async function* readDir2(path3) {
@@ -2936,19 +2958,19 @@ var require_readDir = __commonJS({
         throw (0, errorMap_js_1.default)(e);
       }
     };
-    exports.readDir = readDir;
+    exports2.readDir = readDir;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDirSync.js
 var require_readDirSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDirSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readDirSync.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.readDirSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.readDirSync = void 0;
     var fs_1 = require("fs");
     var errorMap_js_1 = __importDefault(require_errorMap());
     var readDirSync = function* readDir(path3) {
@@ -2966,19 +2988,19 @@ var require_readDirSync = __commonJS({
         throw (0, errorMap_js_1.default)(e);
       }
     };
-    exports.readDirSync = readDirSync;
+    exports2.readDirSync = readDirSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFile.js
 var require_readFile = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFile.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFile.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.readFile = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.readFile = void 0;
     var promises_1 = require("fs/promises");
     var errorMap_js_1 = __importDefault(require_errorMap());
     var readFile = async function readFile2(path3, { signal } = {}) {
@@ -2989,19 +3011,19 @@ var require_readFile = __commonJS({
         throw (0, errorMap_js_1.default)(e);
       }
     };
-    exports.readFile = readFile;
+    exports2.readFile = readFile;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFileSync.js
 var require_readFileSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFileSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readFileSync.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.readFileSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.readFileSync = void 0;
     var fs_1 = require("fs");
     var errorMap_js_1 = __importDefault(require_errorMap());
     var readFileSync = function readFileSync2(path3) {
@@ -3012,15 +3034,15 @@ var require_readFileSync = __commonJS({
         throw (0, errorMap_js_1.default)(e);
       }
     };
-    exports.readFileSync = readFileSync;
+    exports2.readFileSync = readFileSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLink.js
 var require_readLink = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLink.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLink.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -3035,12 +3057,12 @@ var require_readLink = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -3052,18 +3074,18 @@ var require_readLink = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.readLink = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.readLink = void 0;
     var fs = __importStar(require("fs/promises"));
-    exports.readLink = fs.readlink;
+    exports2.readLink = fs.readlink;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLinkSync.js
 var require_readLinkSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLinkSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/readLinkSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -3078,12 +3100,12 @@ var require_readLinkSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -3095,18 +3117,18 @@ var require_readLinkSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.readLinkSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.readLinkSync = void 0;
     var fs = __importStar(require("fs"));
-    exports.readLinkSync = fs.readlinkSync;
+    exports2.readLinkSync = fs.readlinkSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPath.js
 var require_realPath = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPath.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPath.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -3121,12 +3143,12 @@ var require_realPath = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -3138,18 +3160,18 @@ var require_realPath = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.realPath = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.realPath = void 0;
     var fs = __importStar(require("fs/promises"));
-    exports.realPath = fs.realpath;
+    exports2.realPath = fs.realpath;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPathSync.js
 var require_realPathSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPathSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/realPathSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -3164,12 +3186,12 @@ var require_realPathSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -3181,19 +3203,19 @@ var require_realPathSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.realPathSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.realPathSync = void 0;
     var fs = __importStar(require("fs"));
-    exports.realPathSync = fs.realpathSync;
+    exports2.realPathSync = fs.realpathSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/remove.js
 var require_remove = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/remove.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/remove.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.remove = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.remove = void 0;
     var promises_1 = require("fs/promises");
     var remove = async function remove2(path3, options = {}) {
       const innerOptions = options.recursive ? { recursive: true, force: true } : {};
@@ -3207,15 +3229,15 @@ var require_remove = __commonJS({
         }
       }
     };
-    exports.remove = remove;
+    exports2.remove = remove;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/removeSync.js
 var require_removeSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/removeSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/removeSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -3230,12 +3252,12 @@ var require_removeSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -3247,8 +3269,8 @@ var require_removeSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.removeSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.removeSync = void 0;
     var fs = __importStar(require("fs"));
     var removeSync = (path3, options = {}) => {
       const innerOptions = options.recursive ? { recursive: true, force: true } : {};
@@ -3262,29 +3284,29 @@ var require_removeSync = __commonJS({
         }
       }
     };
-    exports.removeSync = removeSync;
+    exports2.removeSync = removeSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/rename.js
 var require_rename = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/rename.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/rename.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.rename = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.rename = void 0;
     var promises_1 = require("fs/promises");
     var rename = function rename2(oldpath, newpath) {
       return (0, promises_1.rename)(oldpath, newpath);
     };
-    exports.rename = rename;
+    exports2.rename = rename;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/renameSync.js
 var require_renameSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/renameSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/renameSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -3299,12 +3321,12 @@ var require_renameSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -3316,22 +3338,22 @@ var require_renameSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.renameSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.renameSync = void 0;
     var fs = __importStar(require("fs"));
-    exports.renameSync = fs.renameSync;
+    exports2.renameSync = fs.renameSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/resolveDns.js
 var require_resolveDns = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/resolveDns.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/resolveDns.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.resolveDns = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.resolveDns = void 0;
     var dns_1 = __importDefault(require("dns"));
     var resolveDns = function resolveDns2(query, recordType, options) {
       if (options) {
@@ -3363,15 +3385,15 @@ var require_resolveDns = __commonJS({
           throw Error(`resolveDns type ${recordType} not implemnted yet`);
       }
     };
-    exports.resolveDns = resolveDns;
+    exports2.resolveDns = resolveDns;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/streams.js
 var require_streams = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/streams.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/streams.js"(exports2) {
     "use strict";
-    var __classPrivateFieldSet = exports && exports.__classPrivateFieldSet || function(receiver, state, value, kind, f) {
+    var __classPrivateFieldSet = exports2 && exports2.__classPrivateFieldSet || function(receiver, state, value, kind, f) {
       if (kind === "m")
         throw new TypeError("Private method is not writable");
       if (kind === "a" && !f)
@@ -3380,7 +3402,7 @@ var require_streams = __commonJS({
         throw new TypeError("Cannot write private member to an object whose class did not declare it");
       return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
     };
-    var __classPrivateFieldGet2 = exports && exports.__classPrivateFieldGet || function(receiver, state, kind, f) {
+    var __classPrivateFieldGet2 = exports2 && exports2.__classPrivateFieldGet || function(receiver, state, kind, f) {
       if (kind === "a" && !f)
         throw new TypeError("Private accessor was defined without a getter");
       if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
@@ -3394,8 +3416,8 @@ var require_streams = __commonJS({
     var _BufferStreamReader_pendingActions;
     var _BufferStreamReader_runPendingActions;
     var _StreamWriter_stream;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.StreamWriter = exports.BufferStreamReader = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.StreamWriter = exports2.BufferStreamReader = void 0;
     var BufferStreamReader = class {
       constructor(stream) {
         _BufferStreamReader_instances.add(this);
@@ -3462,7 +3484,7 @@ var require_streams = __commonJS({
         });
       }
     };
-    exports.BufferStreamReader = BufferStreamReader;
+    exports2.BufferStreamReader = BufferStreamReader;
     _BufferStreamReader_stream = /* @__PURE__ */ new WeakMap(), _BufferStreamReader_error = /* @__PURE__ */ new WeakMap(), _BufferStreamReader_ended = /* @__PURE__ */ new WeakMap(), _BufferStreamReader_pendingActions = /* @__PURE__ */ new WeakMap(), _BufferStreamReader_instances = /* @__PURE__ */ new WeakSet(), _BufferStreamReader_runPendingActions = function _BufferStreamReader_runPendingActions2() {
       const errors = [];
       for (const action of __classPrivateFieldGet2(this, _BufferStreamReader_pendingActions, "f").splice(0)) {
@@ -3493,16 +3515,16 @@ var require_streams = __commonJS({
         });
       }
     };
-    exports.StreamWriter = StreamWriter;
+    exports2.StreamWriter = StreamWriter;
     _StreamWriter_stream = /* @__PURE__ */ new WeakMap();
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/run.js
 var require_run = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/run.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/run.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -3517,12 +3539,12 @@ var require_run = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -3534,7 +3556,7 @@ var require_run = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __classPrivateFieldSet = exports && exports.__classPrivateFieldSet || function(receiver, state, value, kind, f) {
+    var __classPrivateFieldSet = exports2 && exports2.__classPrivateFieldSet || function(receiver, state, value, kind, f) {
       if (kind === "m")
         throw new TypeError("Private method is not writable");
       if (kind === "a" && !f)
@@ -3543,14 +3565,14 @@ var require_run = __commonJS({
         throw new TypeError("Cannot write private member to an object whose class did not declare it");
       return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
     };
-    var __classPrivateFieldGet2 = exports && exports.__classPrivateFieldGet || function(receiver, state, kind, f) {
+    var __classPrivateFieldGet2 = exports2 && exports2.__classPrivateFieldGet || function(receiver, state, kind, f) {
       if (kind === "a" && !f)
         throw new TypeError("Private accessor was defined without a getter");
       if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
         throw new TypeError("Cannot read private member from an object whose class did not declare it");
       return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
     };
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
     var _Process_process;
@@ -3565,8 +3587,8 @@ var require_run = __commonJS({
     var _ProcessWriteStream_stream;
     var _ProcessWriteStream_streamWriter;
     var _ProcessWriteStream_closed;
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Process = exports.run = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.Process = exports2.run = void 0;
     var child_process_1 = __importDefault(require("child_process"));
     var fs_1 = __importDefault(require("fs"));
     var os_1 = __importDefault(require("os"));
@@ -3598,7 +3620,7 @@ var require_run = __commonJS({
       });
       return new Process(process2);
     };
-    exports.run = run3;
+    exports2.run = run3;
     function getStdio(value, kind) {
       if (value === "inherit" || value == null) {
         return "inherit";
@@ -3648,6 +3670,7 @@ var require_run = __commonJS({
       return env;
     }
     var Process = class {
+      /** @internal */
       constructor(process2) {
         var _a, _b, _c;
         _Process_process.set(this, void 0);
@@ -3712,9 +3735,9 @@ var require_run = __commonJS({
         __classPrivateFieldGet2(this, _Process_process, "f").kill(signo);
       }
     };
-    exports.Process = Process;
+    exports2.Process = Process;
     _Process_process = /* @__PURE__ */ new WeakMap(), _Process_stderr = /* @__PURE__ */ new WeakMap(), _Process_stdout = /* @__PURE__ */ new WeakMap(), _Process_stdin = /* @__PURE__ */ new WeakMap(), _Process_status = /* @__PURE__ */ new WeakMap(), _Process_receivedStatus = /* @__PURE__ */ new WeakMap();
-    var ProcessReadStream = class {
+    var ProcessReadStream = class _ProcessReadStream {
       constructor(stream) {
         _ProcessReadStream_stream.set(this, void 0);
         _ProcessReadStream_bufferStreamReader.set(this, void 0);
@@ -3723,7 +3746,7 @@ var require_run = __commonJS({
         __classPrivateFieldSet(this, _ProcessReadStream_bufferStreamReader, new streams_js_1.BufferStreamReader(stream), "f");
       }
       static fromNullable(stream) {
-        return stream ? new ProcessReadStream(stream) : void 0;
+        return stream ? new _ProcessReadStream(stream) : void 0;
       }
       readAll() {
         if (__classPrivateFieldGet2(this, _ProcessReadStream_closed, "f")) {
@@ -3751,7 +3774,7 @@ var require_run = __commonJS({
       }
     };
     _ProcessReadStream_stream = /* @__PURE__ */ new WeakMap(), _ProcessReadStream_bufferStreamReader = /* @__PURE__ */ new WeakMap(), _ProcessReadStream_closed = /* @__PURE__ */ new WeakMap();
-    var ProcessWriteStream = class {
+    var ProcessWriteStream = class _ProcessWriteStream {
       constructor(stream) {
         _ProcessWriteStream_stream.set(this, void 0);
         _ProcessWriteStream_streamWriter.set(this, void 0);
@@ -3760,7 +3783,7 @@ var require_run = __commonJS({
         __classPrivateFieldSet(this, _ProcessWriteStream_streamWriter, new streams_js_1.StreamWriter(stream), "f");
       }
       static fromNullable(stream) {
-        return stream ? new ProcessWriteStream(stream) : void 0;
+        return stream ? new _ProcessWriteStream(stream) : void 0;
       }
       write(p) {
         if (__classPrivateFieldGet2(this, _ProcessWriteStream_closed, "f")) {
@@ -3780,23 +3803,23 @@ var require_run = __commonJS({
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/shutdown.js
 var require_shutdown = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/shutdown.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/shutdown.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.shutdown = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.shutdown = void 0;
     var net_1 = require("net");
     var shutdown = async function shutdown2(rid) {
       await new Promise((resolve4) => new net_1.Socket({ fd: rid }).end(resolve4));
     };
-    exports.shutdown = shutdown;
+    exports2.shutdown = shutdown;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/statSync.js
 var require_statSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/statSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/statSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -3811,12 +3834,12 @@ var require_statSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -3828,20 +3851,20 @@ var require_statSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.statSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.statSync = void 0;
     var fs = __importStar(require("fs"));
     var stat_js_1 = require_stat();
     var statSync = (path3) => (0, stat_js_1.denoifyFileInfo)(fs.statSync(path3));
-    exports.statSync = statSync;
+    exports2.statSync = statSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlink.js
 var require_symlink = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlink.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlink.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -3856,12 +3879,12 @@ var require_symlink = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -3873,19 +3896,19 @@ var require_symlink = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.symlink = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.symlink = void 0;
     var fs = __importStar(require("fs/promises"));
     var symlink = async (oldpath, newpath, options) => await fs.symlink(oldpath, newpath, options === null || options === void 0 ? void 0 : options.type);
-    exports.symlink = symlink;
+    exports2.symlink = symlink;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlinkSync.js
 var require_symlinkSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlinkSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/symlinkSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -3900,12 +3923,12 @@ var require_symlinkSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -3917,30 +3940,30 @@ var require_symlinkSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.symlinkSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.symlinkSync = void 0;
     var fs = __importStar(require("fs"));
     var symlinkSync = (oldpath, newpath, options) => fs.symlinkSync(oldpath, newpath, options === null || options === void 0 ? void 0 : options.type);
-    exports.symlinkSync = symlinkSync;
+    exports2.symlinkSync = symlinkSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno-test/dist/definitions.js
 var require_definitions = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno-test/dist/definitions.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno-test/dist/definitions.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.testDefinitions = void 0;
-    exports.testDefinitions = [];
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.testDefinitions = void 0;
+    exports2.testDefinitions = [];
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno-test/dist/test.js
 var require_test = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno-test/dist/test.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno-test/dist/test.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.test = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.test = void 0;
     var definitions_js_1 = require_definitions();
     var test = function test2() {
       var _a, _b;
@@ -3999,15 +4022,15 @@ var require_test = __commonJS({
       }
       definitions_js_1.testDefinitions.push(testDef);
     };
-    exports.test = test;
+    exports2.test = test;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno-test/dist/index.js
 var require_dist = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno-test/dist/index.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno-test/dist/index.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -4022,17 +4045,17 @@ var require_dist = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __exportStar = exports && exports.__exportStar || function(m, exports2) {
+    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
       for (var p in m)
-        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
-          __createBinding(exports2, m, p);
+        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p))
+          __createBinding(exports3, m, p);
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.testDefinitions = exports.Deno = void 0;
-    exports.Deno = require_test();
-    __exportStar(require_test(), exports);
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.testDefinitions = exports2.Deno = void 0;
+    exports2.Deno = require_test();
+    __exportStar(require_test(), exports2);
     var definitions_js_1 = require_definitions();
-    Object.defineProperty(exports, "testDefinitions", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "testDefinitions", { enumerable: true, get: function() {
       return definitions_js_1.testDefinitions;
     } });
   }
@@ -4040,12 +4063,12 @@ var require_dist = __commonJS({
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/test.js
 var require_test2 = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/test.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/test.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.test = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.test = void 0;
     var shim_deno_test_1 = require_dist();
-    Object.defineProperty(exports, "test", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "test", { enumerable: true, get: function() {
       return shim_deno_test_1.test;
     } });
   }
@@ -4053,9 +4076,9 @@ var require_test2 = __commonJS({
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncate.js
 var require_truncate = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncate.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncate.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -4070,12 +4093,12 @@ var require_truncate = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -4087,11 +4110,11 @@ var require_truncate = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.truncate = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.truncate = void 0;
     var fs = __importStar(require("fs/promises"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var variables_js_1 = require_variables();
@@ -4105,15 +4128,15 @@ var require_truncate = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.truncate = truncate;
+    exports2.truncate = truncate;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncateSync.js
 var require_truncateSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncateSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/truncateSync.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -4128,12 +4151,12 @@ var require_truncateSync = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -4145,11 +4168,11 @@ var require_truncateSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.truncateSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.truncateSync = void 0;
     var fs = __importStar(require("fs"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var variables_js_1 = require_variables();
@@ -4163,28 +4186,28 @@ var require_truncateSync = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.truncateSync = truncateSync;
+    exports2.truncateSync = truncateSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/iterutil.js
 var require_iterutil = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/iterutil.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/iterutil.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.merge = exports.mapAsync = exports.map = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.merge = exports2.mapAsync = exports2.map = void 0;
     function* map(iter, f) {
       for (const i of iter) {
         yield f(i);
       }
     }
-    exports.map = map;
+    exports2.map = map;
     async function* mapAsync(iter, f) {
       for await (const i of iter) {
         yield f(i);
       }
     }
-    exports.mapAsync = mapAsync;
+    exports2.mapAsync = mapAsync;
     async function* merge(iterables) {
       const racers = new Map(map(map(iterables, (iter) => iter[Symbol.asyncIterator]()), (iter) => [iter, iter.next()]));
       while (racers.size > 0) {
@@ -4197,16 +4220,16 @@ var require_iterutil = __commonJS({
         }
       }
     }
-    exports.merge = merge;
+    exports2.merge = merge;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/watchFs.js
 var require_watchFs = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/watchFs.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/watchFs.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.watchFs = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.watchFs = void 0;
     var promises_1 = require("fs/promises");
     var path_1 = require("path");
     var iterutil_js_1 = require_iterutil();
@@ -4224,15 +4247,15 @@ var require_watchFs = __commonJS({
       }
       return Object.assign(masterWatcher, { rid, close });
     };
-    exports.watchFs = watchFs;
+    exports2.watchFs = watchFs;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFile.js
 var require_writeFile = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFile.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFile.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -4247,12 +4270,12 @@ var require_writeFile = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -4264,11 +4287,11 @@ var require_writeFile = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.writeFile = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.writeFile = void 0;
     var fs = __importStar(require("fs/promises"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var fs_flags_js_1 = require_fs_flags();
@@ -4283,19 +4306,19 @@ var require_writeFile = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.writeFile = writeFile;
+    exports2.writeFile = writeFile;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFileSync.js
 var require_writeFileSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFileSync.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/writeFileSync.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.writeFileSync = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.writeFileSync = void 0;
     var os_1 = require("os");
     var openSync_js_1 = require_openSync();
     var errorMap_js_1 = __importDefault(require_errorMap());
@@ -4329,332 +4352,332 @@ var require_writeFileSync = __commonJS({
         throw (0, errorMap_js_1.default)(e);
       }
     };
-    exports.writeFileSync = writeFileSync;
+    exports2.writeFileSync = writeFileSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/args.js
 var require_args = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/args.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/args.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.args = void 0;
-    exports.args = process.argv.slice(2);
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.args = void 0;
+    exports2.args = process.argv.slice(2);
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions.js
 var require_functions = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.readSync = exports.readLinkSync = exports.readLink = exports.readFileSync = exports.readFile = exports.readDirSync = exports.readDir = exports.read = exports.openSync = exports.open = exports.mkdirSync = exports.mkdir = exports.memoryUsage = exports.makeTempFileSync = exports.makeTempFile = exports.makeTempDirSync = exports.makeTempDir = exports.lstatSync = exports.lstat = exports.listenTls = exports.listen = exports.linkSync = exports.link = exports.kill = exports.inspect = exports.ftruncateSync = exports.ftruncate = exports.fsyncSync = exports.fsync = exports.fstatSync = exports.fstat = exports.fdatasyncSync = exports.fdatasync = exports.exit = exports.execPath = exports.cwd = exports.createSync = exports.create = exports.copyFileSync = exports.copyFile = exports.copy = exports.connectTls = exports.connect = exports.close = exports.chownSync = exports.chown = exports.chmodSync = exports.chmod = exports.chdir = exports.isatty = void 0;
-    exports.args = exports.writeTextFileSync = exports.writeTextFile = exports.writeSync = exports.writeFileSync = exports.writeFile = exports.write = exports.watchFs = exports.truncateSync = exports.truncate = exports.test = exports.symlinkSync = exports.symlink = exports.statSync = exports.stat = exports.shutdown = exports.run = exports.Process = exports.resolveDns = exports.renameSync = exports.rename = exports.removeSync = exports.remove = exports.realPathSync = exports.realPath = exports.readTextFileSync = exports.readTextFile = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.readSync = exports2.readLinkSync = exports2.readLink = exports2.readFileSync = exports2.readFile = exports2.readDirSync = exports2.readDir = exports2.read = exports2.openSync = exports2.open = exports2.mkdirSync = exports2.mkdir = exports2.memoryUsage = exports2.makeTempFileSync = exports2.makeTempFile = exports2.makeTempDirSync = exports2.makeTempDir = exports2.lstatSync = exports2.lstat = exports2.listenTls = exports2.listen = exports2.linkSync = exports2.link = exports2.kill = exports2.inspect = exports2.ftruncateSync = exports2.ftruncate = exports2.fsyncSync = exports2.fsync = exports2.fstatSync = exports2.fstat = exports2.fdatasyncSync = exports2.fdatasync = exports2.exit = exports2.execPath = exports2.cwd = exports2.createSync = exports2.create = exports2.copyFileSync = exports2.copyFile = exports2.copy = exports2.connectTls = exports2.connect = exports2.close = exports2.chownSync = exports2.chown = exports2.chmodSync = exports2.chmod = exports2.chdir = exports2.isatty = void 0;
+    exports2.args = exports2.writeTextFileSync = exports2.writeTextFile = exports2.writeSync = exports2.writeFileSync = exports2.writeFile = exports2.write = exports2.watchFs = exports2.truncateSync = exports2.truncate = exports2.test = exports2.symlinkSync = exports2.symlink = exports2.statSync = exports2.stat = exports2.shutdown = exports2.run = exports2.Process = exports2.resolveDns = exports2.renameSync = exports2.rename = exports2.removeSync = exports2.remove = exports2.realPathSync = exports2.realPath = exports2.readTextFileSync = exports2.readTextFile = void 0;
     var tty_1 = require("tty");
-    Object.defineProperty(exports, "isatty", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "isatty", { enumerable: true, get: function() {
       return tty_1.isatty;
     } });
     var chdir_js_1 = require_chdir();
-    Object.defineProperty(exports, "chdir", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "chdir", { enumerable: true, get: function() {
       return chdir_js_1.chdir;
     } });
     var chmod_js_1 = require_chmod();
-    Object.defineProperty(exports, "chmod", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "chmod", { enumerable: true, get: function() {
       return chmod_js_1.chmod;
     } });
     var chmodSync_js_1 = require_chmodSync();
-    Object.defineProperty(exports, "chmodSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "chmodSync", { enumerable: true, get: function() {
       return chmodSync_js_1.chmodSync;
     } });
     var chown_js_1 = require_chown();
-    Object.defineProperty(exports, "chown", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "chown", { enumerable: true, get: function() {
       return chown_js_1.chown;
     } });
     var chownSync_js_1 = require_chownSync();
-    Object.defineProperty(exports, "chownSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "chownSync", { enumerable: true, get: function() {
       return chownSync_js_1.chownSync;
     } });
     var close_js_1 = require_close();
-    Object.defineProperty(exports, "close", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "close", { enumerable: true, get: function() {
       return close_js_1.close;
     } });
     var connect_js_1 = require_connect();
-    Object.defineProperty(exports, "connect", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "connect", { enumerable: true, get: function() {
       return connect_js_1.connect;
     } });
     var connectTls_js_1 = require_connectTls();
-    Object.defineProperty(exports, "connectTls", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "connectTls", { enumerable: true, get: function() {
       return connectTls_js_1.connectTls;
     } });
     var copy_js_1 = require_copy();
-    Object.defineProperty(exports, "copy", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "copy", { enumerable: true, get: function() {
       return copy_js_1.copy;
     } });
     var copyFile_js_1 = require_copyFile();
-    Object.defineProperty(exports, "copyFile", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "copyFile", { enumerable: true, get: function() {
       return copyFile_js_1.copyFile;
     } });
     var copyFileSync_js_1 = require_copyFileSync();
-    Object.defineProperty(exports, "copyFileSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "copyFileSync", { enumerable: true, get: function() {
       return copyFileSync_js_1.copyFileSync;
     } });
     var create_js_1 = require_create();
-    Object.defineProperty(exports, "create", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "create", { enumerable: true, get: function() {
       return create_js_1.create;
     } });
     var createSync_js_1 = require_createSync();
-    Object.defineProperty(exports, "createSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "createSync", { enumerable: true, get: function() {
       return createSync_js_1.createSync;
     } });
     var cwd_js_1 = require_cwd();
-    Object.defineProperty(exports, "cwd", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "cwd", { enumerable: true, get: function() {
       return cwd_js_1.cwd;
     } });
     var execPath_js_1 = require_execPath();
-    Object.defineProperty(exports, "execPath", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "execPath", { enumerable: true, get: function() {
       return execPath_js_1.execPath;
     } });
     var exit_js_1 = require_exit();
-    Object.defineProperty(exports, "exit", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "exit", { enumerable: true, get: function() {
       return exit_js_1.exit;
     } });
     var fdatasync_js_1 = require_fdatasync();
-    Object.defineProperty(exports, "fdatasync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "fdatasync", { enumerable: true, get: function() {
       return fdatasync_js_1.fdatasync;
     } });
     var fdatasyncSync_js_1 = require_fdatasyncSync();
-    Object.defineProperty(exports, "fdatasyncSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "fdatasyncSync", { enumerable: true, get: function() {
       return fdatasyncSync_js_1.fdatasyncSync;
     } });
     var fstat_js_1 = require_fstat();
-    Object.defineProperty(exports, "fstat", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "fstat", { enumerable: true, get: function() {
       return fstat_js_1.fstat;
     } });
     var fstatSync_js_1 = require_fstatSync();
-    Object.defineProperty(exports, "fstatSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "fstatSync", { enumerable: true, get: function() {
       return fstatSync_js_1.fstatSync;
     } });
     var fsync_js_1 = require_fsync();
-    Object.defineProperty(exports, "fsync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "fsync", { enumerable: true, get: function() {
       return fsync_js_1.fsync;
     } });
     var fsyncSync_js_1 = require_fsyncSync();
-    Object.defineProperty(exports, "fsyncSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "fsyncSync", { enumerable: true, get: function() {
       return fsyncSync_js_1.fsyncSync;
     } });
     var ftruncate_js_1 = require_ftruncate();
-    Object.defineProperty(exports, "ftruncate", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "ftruncate", { enumerable: true, get: function() {
       return ftruncate_js_1.ftruncate;
     } });
     var ftruncateSync_js_1 = require_ftruncateSync();
-    Object.defineProperty(exports, "ftruncateSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "ftruncateSync", { enumerable: true, get: function() {
       return ftruncateSync_js_1.ftruncateSync;
     } });
     var inspect_js_1 = require_inspect();
-    Object.defineProperty(exports, "inspect", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "inspect", { enumerable: true, get: function() {
       return inspect_js_1.inspect;
     } });
     var kill_js_1 = require_kill();
-    Object.defineProperty(exports, "kill", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "kill", { enumerable: true, get: function() {
       return kill_js_1.kill;
     } });
     var link_js_1 = require_link();
-    Object.defineProperty(exports, "link", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "link", { enumerable: true, get: function() {
       return link_js_1.link;
     } });
     var linkSync_js_1 = require_linkSync();
-    Object.defineProperty(exports, "linkSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "linkSync", { enumerable: true, get: function() {
       return linkSync_js_1.linkSync;
     } });
     var listen_js_1 = require_listen();
-    Object.defineProperty(exports, "listen", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "listen", { enumerable: true, get: function() {
       return listen_js_1.listen;
     } });
     var listenTls_js_1 = require_listenTls();
-    Object.defineProperty(exports, "listenTls", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "listenTls", { enumerable: true, get: function() {
       return listenTls_js_1.listenTls;
     } });
     var lstat_js_1 = require_lstat();
-    Object.defineProperty(exports, "lstat", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "lstat", { enumerable: true, get: function() {
       return lstat_js_1.lstat;
     } });
     var lstatSync_js_1 = require_lstatSync();
-    Object.defineProperty(exports, "lstatSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "lstatSync", { enumerable: true, get: function() {
       return lstatSync_js_1.lstatSync;
     } });
     var makeTempDir_js_1 = require_makeTempDir();
-    Object.defineProperty(exports, "makeTempDir", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "makeTempDir", { enumerable: true, get: function() {
       return makeTempDir_js_1.makeTempDir;
     } });
     var makeTempDirSync_js_1 = require_makeTempDirSync();
-    Object.defineProperty(exports, "makeTempDirSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "makeTempDirSync", { enumerable: true, get: function() {
       return makeTempDirSync_js_1.makeTempDirSync;
     } });
     var makeTempFile_js_1 = require_makeTempFile();
-    Object.defineProperty(exports, "makeTempFile", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "makeTempFile", { enumerable: true, get: function() {
       return makeTempFile_js_1.makeTempFile;
     } });
     var makeTempFileSync_js_1 = require_makeTempFileSync();
-    Object.defineProperty(exports, "makeTempFileSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "makeTempFileSync", { enumerable: true, get: function() {
       return makeTempFileSync_js_1.makeTempFileSync;
     } });
     var memoryUsage_js_1 = require_memoryUsage();
-    Object.defineProperty(exports, "memoryUsage", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "memoryUsage", { enumerable: true, get: function() {
       return memoryUsage_js_1.memoryUsage;
     } });
     var mkdir_js_1 = require_mkdir();
-    Object.defineProperty(exports, "mkdir", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "mkdir", { enumerable: true, get: function() {
       return mkdir_js_1.mkdir;
     } });
     var mkdirSync_js_1 = require_mkdirSync();
-    Object.defineProperty(exports, "mkdirSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "mkdirSync", { enumerable: true, get: function() {
       return mkdirSync_js_1.mkdirSync;
     } });
     var open_js_1 = require_open();
-    Object.defineProperty(exports, "open", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "open", { enumerable: true, get: function() {
       return open_js_1.open;
     } });
     var openSync_js_1 = require_openSync();
-    Object.defineProperty(exports, "openSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "openSync", { enumerable: true, get: function() {
       return openSync_js_1.openSync;
     } });
     var read_js_1 = require_read();
-    Object.defineProperty(exports, "read", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "read", { enumerable: true, get: function() {
       return read_js_1.read;
     } });
     var readDir_js_1 = require_readDir();
-    Object.defineProperty(exports, "readDir", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "readDir", { enumerable: true, get: function() {
       return readDir_js_1.readDir;
     } });
     var readDirSync_js_1 = require_readDirSync();
-    Object.defineProperty(exports, "readDirSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "readDirSync", { enumerable: true, get: function() {
       return readDirSync_js_1.readDirSync;
     } });
     var readFile_js_1 = require_readFile();
-    Object.defineProperty(exports, "readFile", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "readFile", { enumerable: true, get: function() {
       return readFile_js_1.readFile;
     } });
     var readFileSync_js_1 = require_readFileSync();
-    Object.defineProperty(exports, "readFileSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "readFileSync", { enumerable: true, get: function() {
       return readFileSync_js_1.readFileSync;
     } });
     var readLink_js_1 = require_readLink();
-    Object.defineProperty(exports, "readLink", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "readLink", { enumerable: true, get: function() {
       return readLink_js_1.readLink;
     } });
     var readLinkSync_js_1 = require_readLinkSync();
-    Object.defineProperty(exports, "readLinkSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "readLinkSync", { enumerable: true, get: function() {
       return readLinkSync_js_1.readLinkSync;
     } });
     var readSync_js_1 = require_readSync();
-    Object.defineProperty(exports, "readSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "readSync", { enumerable: true, get: function() {
       return readSync_js_1.readSync;
     } });
     var readTextFile_js_1 = require_readTextFile();
-    Object.defineProperty(exports, "readTextFile", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "readTextFile", { enumerable: true, get: function() {
       return readTextFile_js_1.readTextFile;
     } });
     var readTextFileSync_js_1 = require_readTextFileSync();
-    Object.defineProperty(exports, "readTextFileSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "readTextFileSync", { enumerable: true, get: function() {
       return readTextFileSync_js_1.readTextFileSync;
     } });
     var realPath_js_1 = require_realPath();
-    Object.defineProperty(exports, "realPath", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "realPath", { enumerable: true, get: function() {
       return realPath_js_1.realPath;
     } });
     var realPathSync_js_1 = require_realPathSync();
-    Object.defineProperty(exports, "realPathSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "realPathSync", { enumerable: true, get: function() {
       return realPathSync_js_1.realPathSync;
     } });
     var remove_js_1 = require_remove();
-    Object.defineProperty(exports, "remove", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "remove", { enumerable: true, get: function() {
       return remove_js_1.remove;
     } });
     var removeSync_js_1 = require_removeSync();
-    Object.defineProperty(exports, "removeSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "removeSync", { enumerable: true, get: function() {
       return removeSync_js_1.removeSync;
     } });
     var rename_js_1 = require_rename();
-    Object.defineProperty(exports, "rename", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "rename", { enumerable: true, get: function() {
       return rename_js_1.rename;
     } });
     var renameSync_js_1 = require_renameSync();
-    Object.defineProperty(exports, "renameSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "renameSync", { enumerable: true, get: function() {
       return renameSync_js_1.renameSync;
     } });
     var resolveDns_js_1 = require_resolveDns();
-    Object.defineProperty(exports, "resolveDns", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "resolveDns", { enumerable: true, get: function() {
       return resolveDns_js_1.resolveDns;
     } });
     var run_js_1 = require_run();
-    Object.defineProperty(exports, "Process", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "Process", { enumerable: true, get: function() {
       return run_js_1.Process;
     } });
-    Object.defineProperty(exports, "run", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "run", { enumerable: true, get: function() {
       return run_js_1.run;
     } });
     var shutdown_js_1 = require_shutdown();
-    Object.defineProperty(exports, "shutdown", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "shutdown", { enumerable: true, get: function() {
       return shutdown_js_1.shutdown;
     } });
     var stat_js_1 = require_stat();
-    Object.defineProperty(exports, "stat", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "stat", { enumerable: true, get: function() {
       return stat_js_1.stat;
     } });
     var statSync_js_1 = require_statSync();
-    Object.defineProperty(exports, "statSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "statSync", { enumerable: true, get: function() {
       return statSync_js_1.statSync;
     } });
     var symlink_js_1 = require_symlink();
-    Object.defineProperty(exports, "symlink", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "symlink", { enumerable: true, get: function() {
       return symlink_js_1.symlink;
     } });
     var symlinkSync_js_1 = require_symlinkSync();
-    Object.defineProperty(exports, "symlinkSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "symlinkSync", { enumerable: true, get: function() {
       return symlinkSync_js_1.symlinkSync;
     } });
     var test_js_1 = require_test2();
-    Object.defineProperty(exports, "test", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "test", { enumerable: true, get: function() {
       return test_js_1.test;
     } });
     var truncate_js_1 = require_truncate();
-    Object.defineProperty(exports, "truncate", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "truncate", { enumerable: true, get: function() {
       return truncate_js_1.truncate;
     } });
     var truncateSync_js_1 = require_truncateSync();
-    Object.defineProperty(exports, "truncateSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "truncateSync", { enumerable: true, get: function() {
       return truncateSync_js_1.truncateSync;
     } });
     var watchFs_js_1 = require_watchFs();
-    Object.defineProperty(exports, "watchFs", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "watchFs", { enumerable: true, get: function() {
       return watchFs_js_1.watchFs;
     } });
     var write_js_1 = require_write();
-    Object.defineProperty(exports, "write", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "write", { enumerable: true, get: function() {
       return write_js_1.write;
     } });
     var writeFile_js_1 = require_writeFile();
-    Object.defineProperty(exports, "writeFile", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "writeFile", { enumerable: true, get: function() {
       return writeFile_js_1.writeFile;
     } });
     var writeFileSync_js_1 = require_writeFileSync();
-    Object.defineProperty(exports, "writeFileSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "writeFileSync", { enumerable: true, get: function() {
       return writeFileSync_js_1.writeFileSync;
     } });
     var writeSync_js_1 = require_writeSync();
-    Object.defineProperty(exports, "writeSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "writeSync", { enumerable: true, get: function() {
       return writeSync_js_1.writeSync;
     } });
     var writeTextFile_js_1 = require_writeTextFile();
-    Object.defineProperty(exports, "writeTextFile", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "writeTextFile", { enumerable: true, get: function() {
       return writeTextFile_js_1.writeTextFile;
     } });
     var writeTextFileSync_js_1 = require_writeTextFileSync();
-    Object.defineProperty(exports, "writeTextFileSync", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "writeTextFileSync", { enumerable: true, get: function() {
       return writeTextFileSync_js_1.writeTextFileSync;
     } });
     var args_js_1 = require_args();
-    Object.defineProperty(exports, "args", { enumerable: true, get: function() {
+    Object.defineProperty(exports2, "args", { enumerable: true, get: function() {
       return args_js_1.args;
     } });
   }
@@ -4662,17 +4685,17 @@ var require_functions = __commonJS({
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/types.js
 var require_types = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/types.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/types.js"(exports2) {
     "use strict";
-    Object.defineProperty(exports, "__esModule", { value: true });
+    Object.defineProperty(exports2, "__esModule", { value: true });
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/main.js
 var require_main = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/main.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/main.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -4687,29 +4710,29 @@ var require_main = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __exportStar = exports && exports.__exportStar || function(m, exports2) {
+    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
       for (var p in m)
-        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
-          __createBinding(exports2, m, p);
+        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p))
+          __createBinding(exports3, m, p);
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    __exportStar(require_classes(), exports);
-    __exportStar(require_enums(), exports);
-    __exportStar(require_functions(), exports);
-    __exportStar(require_types(), exports);
-    __exportStar(require_variables(), exports);
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    __exportStar(require_classes(), exports2);
+    __exportStar(require_enums(), exports2);
+    __exportStar(require_functions(), exports2);
+    __exportStar(require_types(), exports2);
+    __exportStar(require_variables(), exports2);
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/unstable/main.js
 var require_main2 = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/unstable/main.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/unstable/main.js"(exports2) {
     "use strict";
-    var __importDefault = exports && exports.__importDefault || function(mod) {
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.utimeSync = exports.utime = exports.futimeSync = exports.futime = void 0;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.utimeSync = exports2.utime = exports2.futimeSync = exports2.futime = void 0;
     var fs_1 = __importDefault(require("fs"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var variables_js_1 = require_variables();
@@ -4728,7 +4751,7 @@ var require_main2 = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.futime = futime;
+    exports2.futime = futime;
     var futimeSync = function(rid, atime, mtime) {
       try {
         fs_1.default.futimesSync(rid, atime, mtime);
@@ -4736,7 +4759,7 @@ var require_main2 = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.futimeSync = futimeSync;
+    exports2.futimeSync = futimeSync;
     var utime = async function(path3, atime, mtime) {
       try {
         await fs_1.default.promises.utimes(path3, atime, mtime);
@@ -4747,7 +4770,7 @@ var require_main2 = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.utime = utime;
+    exports2.utime = utime;
     var utimeSync = function(path3, atime, mtime) {
       try {
         fs_1.default.utimesSync(path3, atime, mtime);
@@ -4758,15 +4781,15 @@ var require_main2 = __commonJS({
         throw (0, errorMap_js_1.default)(error);
       }
     };
-    exports.utimeSync = utimeSync;
+    exports2.utimeSync = utimeSync;
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno.js
 var require_deno = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -4781,22 +4804,22 @@ var require_deno = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __exportStar = exports && exports.__exportStar || function(m, exports2) {
+    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
       for (var p in m)
-        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports2, p))
-          __createBinding(exports2, m, p);
+        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p))
+          __createBinding(exports3, m, p);
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    __exportStar(require_main(), exports);
-    __exportStar(require_main2(), exports);
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    __exportStar(require_main(), exports2);
+    __exportStar(require_main2(), exports2);
   }
 });
 
 // dist/dnt/node_modules/@deno/shim-deno/dist/index.js
 var require_dist2 = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/index.js"(exports) {
+  "dist/dnt/node_modules/@deno/shim-deno/dist/index.js"(exports2) {
     "use strict";
-    var __createBinding = exports && exports.__createBinding || (Object.create ? function(o, m, k, k2) {
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0)
         k2 = k;
       var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -4811,12 +4834,12 @@ var require_dist2 = __commonJS({
         k2 = k;
       o[k2] = m[k];
     });
-    var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? function(o, v) {
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
       Object.defineProperty(o, "default", { enumerable: true, value: v });
     } : function(o, v) {
       o["default"] = v;
     });
-    var __importStar = exports && exports.__importStar || function(mod) {
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
       if (mod && mod.__esModule)
         return mod;
       var result = {};
@@ -4828,9 +4851,9 @@ var require_dist2 = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
-    Object.defineProperty(exports, "__esModule", { value: true });
-    exports.Deno = void 0;
-    exports.Deno = __importStar(require_deno());
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.Deno = void 0;
+    exports2.Deno = __importStar(require_deno());
   }
 });
 
@@ -5586,7 +5609,9 @@ function extname(path3) {
       preDotState = -1;
     }
   }
-  if (startDot === -1 || end === -1 || preDotState === 0 || preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+  if (startDot === -1 || end === -1 || // We saw a non-dot character immediately before the dot
+  preDotState === 0 || // The (right-most) trimmed path component is exactly '..'
+  preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
     return "";
   }
   return path3.slice(startDot, end);
@@ -5686,7 +5711,9 @@ function parse(path3) {
       preDotState = -1;
     }
   }
-  if (startDot === -1 || end === -1 || preDotState === 0 || preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+  if (startDot === -1 || end === -1 || // We saw a non-dot character immediately before the dot
+  preDotState === 0 || // The (right-most) trimmed path component is exactly '..'
+  preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
     if (end !== -1) {
       ret.base = ret.name = path3.slice(startPart, end);
     }
@@ -6001,7 +6028,9 @@ function extname2(path3) {
       preDotState = -1;
     }
   }
-  if (startDot === -1 || end === -1 || preDotState === 0 || preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+  if (startDot === -1 || end === -1 || // We saw a non-dot character immediately before the dot
+  preDotState === 0 || // The (right-most) trimmed path component is exactly '..'
+  preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
     return "";
   }
   return path3.slice(startDot, end);
@@ -6053,7 +6082,9 @@ function parse2(path3) {
       preDotState = -1;
     }
   }
-  if (startDot === -1 || end === -1 || preDotState === 0 || preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
+  if (startDot === -1 || end === -1 || // We saw a non-dot character immediately before the dot
+  preDotState === 0 || // The (right-most) trimmed path component is exactly '..'
+  preDotState === 1 && startDot === end - 1 && startDot === startPart + 1) {
     if (end !== -1) {
       if (startPart === 0 && isAbsolute4) {
         ret.base = ret.name = path3.slice(1, end);
@@ -7147,64 +7178,64 @@ function getDefaultValue(option) {
 }
 
 // dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/_errors.js
-var FlagsError = class extends Error {
+var FlagsError = class _FlagsError extends Error {
   constructor(message) {
     super(message);
-    Object.setPrototypeOf(this, FlagsError.prototype);
+    Object.setPrototypeOf(this, _FlagsError.prototype);
   }
 };
-var UnknownRequiredOptionError = class extends FlagsError {
+var UnknownRequiredOptionError = class _UnknownRequiredOptionError extends FlagsError {
   constructor(option, options) {
     super(`Unknown required option "${getFlag(option)}".${didYouMeanOption(option, options)}`);
-    Object.setPrototypeOf(this, UnknownRequiredOptionError.prototype);
+    Object.setPrototypeOf(this, _UnknownRequiredOptionError.prototype);
   }
 };
-var UnknownConflictingOptionError = class extends FlagsError {
+var UnknownConflictingOptionError = class _UnknownConflictingOptionError extends FlagsError {
   constructor(option, options) {
     super(`Unknown conflicting option "${getFlag(option)}".${didYouMeanOption(option, options)}`);
-    Object.setPrototypeOf(this, UnknownConflictingOptionError.prototype);
+    Object.setPrototypeOf(this, _UnknownConflictingOptionError.prototype);
   }
 };
-var UnknownTypeError = class extends FlagsError {
+var UnknownTypeError = class _UnknownTypeError extends FlagsError {
   constructor(type, types) {
     super(`Unknown type "${type}".${didYouMeanType(type, types)}`);
-    Object.setPrototypeOf(this, UnknownTypeError.prototype);
+    Object.setPrototypeOf(this, _UnknownTypeError.prototype);
   }
 };
-var ValidationError = class extends FlagsError {
+var ValidationError = class _ValidationError extends FlagsError {
   constructor(message) {
     super(message);
-    Object.setPrototypeOf(this, ValidationError.prototype);
+    Object.setPrototypeOf(this, _ValidationError.prototype);
   }
 };
-var DuplicateOptionError = class extends ValidationError {
+var DuplicateOptionError = class _DuplicateOptionError extends ValidationError {
   constructor(name) {
     super(`Option "${getFlag(name).replace(/^--no-/, "--")}" can only occur once, but was found several times.`);
-    Object.setPrototypeOf(this, DuplicateOptionError.prototype);
+    Object.setPrototypeOf(this, _DuplicateOptionError.prototype);
   }
 };
-var InvalidOptionError = class extends ValidationError {
+var InvalidOptionError = class _InvalidOptionError extends ValidationError {
   constructor(option, options) {
     super(`Invalid option "${getFlag(option)}".${didYouMeanOption(option, options)}`);
-    Object.setPrototypeOf(this, InvalidOptionError.prototype);
+    Object.setPrototypeOf(this, _InvalidOptionError.prototype);
   }
 };
-var UnknownOptionError = class extends ValidationError {
+var UnknownOptionError = class _UnknownOptionError extends ValidationError {
   constructor(option, options) {
     super(`Unknown option "${getFlag(option)}".${didYouMeanOption(option, options)}`);
-    Object.setPrototypeOf(this, UnknownOptionError.prototype);
+    Object.setPrototypeOf(this, _UnknownOptionError.prototype);
   }
 };
-var MissingOptionValueError = class extends ValidationError {
+var MissingOptionValueError = class _MissingOptionValueError extends ValidationError {
   constructor(option) {
     super(`Missing value for option "${getFlag(option)}".`);
-    Object.setPrototypeOf(this, MissingOptionValueError.prototype);
+    Object.setPrototypeOf(this, _MissingOptionValueError.prototype);
   }
 };
-var InvalidOptionValueError = class extends ValidationError {
+var InvalidOptionValueError = class _InvalidOptionValueError extends ValidationError {
   constructor(option, expected, value) {
     super(`Option "${getFlag(option)}" must be of type "${expected}", but got "${value}".`);
-    Object.setPrototypeOf(this, InvalidOptionValueError.prototype);
+    Object.setPrototypeOf(this, _InvalidOptionValueError.prototype);
   }
 };
 var UnexpectedOptionValueError = class extends ValidationError {
@@ -7213,40 +7244,40 @@ var UnexpectedOptionValueError = class extends ValidationError {
     Object.setPrototypeOf(this, InvalidOptionValueError.prototype);
   }
 };
-var OptionNotCombinableError = class extends ValidationError {
+var OptionNotCombinableError = class _OptionNotCombinableError extends ValidationError {
   constructor(option) {
     super(`Option "${getFlag(option)}" cannot be combined with other options.`);
-    Object.setPrototypeOf(this, OptionNotCombinableError.prototype);
+    Object.setPrototypeOf(this, _OptionNotCombinableError.prototype);
   }
 };
-var ConflictingOptionError = class extends ValidationError {
+var ConflictingOptionError = class _ConflictingOptionError extends ValidationError {
   constructor(option, conflictingOption) {
     super(`Option "${getFlag(option)}" conflicts with option "${getFlag(conflictingOption)}".`);
-    Object.setPrototypeOf(this, ConflictingOptionError.prototype);
+    Object.setPrototypeOf(this, _ConflictingOptionError.prototype);
   }
 };
-var DependingOptionError = class extends ValidationError {
+var DependingOptionError = class _DependingOptionError extends ValidationError {
   constructor(option, dependingOption) {
     super(`Option "${getFlag(option)}" depends on option "${getFlag(dependingOption)}".`);
-    Object.setPrototypeOf(this, DependingOptionError.prototype);
+    Object.setPrototypeOf(this, _DependingOptionError.prototype);
   }
 };
-var MissingRequiredOptionError = class extends ValidationError {
+var MissingRequiredOptionError = class _MissingRequiredOptionError extends ValidationError {
   constructor(option) {
     super(`Missing required option "${getFlag(option)}".`);
-    Object.setPrototypeOf(this, MissingRequiredOptionError.prototype);
+    Object.setPrototypeOf(this, _MissingRequiredOptionError.prototype);
   }
 };
-var UnexpectedRequiredArgumentError = class extends ValidationError {
+var UnexpectedRequiredArgumentError = class _UnexpectedRequiredArgumentError extends ValidationError {
   constructor(arg) {
     super(`An required argument cannot follow an optional argument, but "${arg}"  is defined as required.`);
-    Object.setPrototypeOf(this, UnexpectedRequiredArgumentError.prototype);
+    Object.setPrototypeOf(this, _UnexpectedRequiredArgumentError.prototype);
   }
 };
-var UnexpectedArgumentAfterVariadicArgumentError = class extends ValidationError {
+var UnexpectedArgumentAfterVariadicArgumentError = class _UnexpectedArgumentAfterVariadicArgumentError extends ValidationError {
   constructor(arg) {
     super(`An argument cannot follow an variadic argument, but got "${arg}".`);
-    Object.setPrototypeOf(this, UnexpectedArgumentAfterVariadicArgumentError.prototype);
+    Object.setPrototypeOf(this, _UnexpectedArgumentAfterVariadicArgumentError.prototype);
   }
 };
 var InvalidTypeError = class extends ValidationError {
@@ -7349,13 +7380,13 @@ function getDescription(description, short) {
 }
 
 // dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/_errors.js
-var CommandError = class extends Error {
+var CommandError = class _CommandError extends Error {
   constructor(message) {
     super(message);
-    Object.setPrototypeOf(this, CommandError.prototype);
+    Object.setPrototypeOf(this, _CommandError.prototype);
   }
 };
-var ValidationError2 = class extends CommandError {
+var ValidationError2 = class _ValidationError extends CommandError {
   constructor(message, { exitCode } = {}) {
     super(message);
     Object.defineProperty(this, "exitCode", {
@@ -7370,128 +7401,128 @@ var ValidationError2 = class extends CommandError {
       writable: true,
       value: void 0
     });
-    Object.setPrototypeOf(this, ValidationError2.prototype);
+    Object.setPrototypeOf(this, _ValidationError.prototype);
     this.exitCode = exitCode ?? 1;
   }
 };
-var DuplicateOptionNameError = class extends CommandError {
+var DuplicateOptionNameError = class _DuplicateOptionNameError extends CommandError {
   constructor(name) {
     super(`Option with name "${getFlag(name)}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateOptionNameError.prototype);
+    Object.setPrototypeOf(this, _DuplicateOptionNameError.prototype);
   }
 };
-var MissingCommandNameError = class extends CommandError {
+var MissingCommandNameError = class _MissingCommandNameError extends CommandError {
   constructor() {
     super("Missing command name.");
-    Object.setPrototypeOf(this, MissingCommandNameError.prototype);
+    Object.setPrototypeOf(this, _MissingCommandNameError.prototype);
   }
 };
-var DuplicateCommandNameError = class extends CommandError {
+var DuplicateCommandNameError = class _DuplicateCommandNameError extends CommandError {
   constructor(name) {
     super(`Duplicate command name "${name}".`);
-    Object.setPrototypeOf(this, DuplicateCommandNameError.prototype);
+    Object.setPrototypeOf(this, _DuplicateCommandNameError.prototype);
   }
 };
-var DuplicateCommandAliasError = class extends CommandError {
+var DuplicateCommandAliasError = class _DuplicateCommandAliasError extends CommandError {
   constructor(alias) {
     super(`Duplicate command alias "${alias}".`);
-    Object.setPrototypeOf(this, DuplicateCommandAliasError.prototype);
+    Object.setPrototypeOf(this, _DuplicateCommandAliasError.prototype);
   }
 };
-var CommandNotFoundError = class extends CommandError {
+var CommandNotFoundError = class _CommandNotFoundError extends CommandError {
   constructor(name, commands, excluded) {
     super(`Unknown command "${name}".${didYouMeanCommand(name, commands, excluded)}`);
-    Object.setPrototypeOf(this, CommandNotFoundError.prototype);
+    Object.setPrototypeOf(this, _CommandNotFoundError.prototype);
   }
 };
-var DuplicateTypeError = class extends CommandError {
+var DuplicateTypeError = class _DuplicateTypeError extends CommandError {
   constructor(name) {
     super(`Type with name "${name}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateTypeError.prototype);
+    Object.setPrototypeOf(this, _DuplicateTypeError.prototype);
   }
 };
-var DuplicateCompletionError = class extends CommandError {
+var DuplicateCompletionError = class _DuplicateCompletionError extends CommandError {
   constructor(name) {
     super(`Completion with name "${name}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateCompletionError.prototype);
+    Object.setPrototypeOf(this, _DuplicateCompletionError.prototype);
   }
 };
-var DuplicateExampleError = class extends CommandError {
+var DuplicateExampleError = class _DuplicateExampleError extends CommandError {
   constructor(name) {
     super(`Example with name "${name}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateExampleError.prototype);
+    Object.setPrototypeOf(this, _DuplicateExampleError.prototype);
   }
 };
-var DuplicateEnvVarError = class extends CommandError {
+var DuplicateEnvVarError = class _DuplicateEnvVarError extends CommandError {
   constructor(name) {
     super(`Environment variable with name "${name}" already exists.`);
-    Object.setPrototypeOf(this, DuplicateEnvVarError.prototype);
+    Object.setPrototypeOf(this, _DuplicateEnvVarError.prototype);
   }
 };
-var MissingRequiredEnvVarError = class extends ValidationError2 {
+var MissingRequiredEnvVarError = class _MissingRequiredEnvVarError extends ValidationError2 {
   constructor(envVar) {
     super(`Missing required environment variable "${envVar.names[0]}".`);
-    Object.setPrototypeOf(this, MissingRequiredEnvVarError.prototype);
+    Object.setPrototypeOf(this, _MissingRequiredEnvVarError.prototype);
   }
 };
-var TooManyEnvVarValuesError = class extends CommandError {
+var TooManyEnvVarValuesError = class _TooManyEnvVarValuesError extends CommandError {
   constructor(name) {
     super(`An environment variable can only have one value, but "${name}" has more than one.`);
-    Object.setPrototypeOf(this, TooManyEnvVarValuesError.prototype);
+    Object.setPrototypeOf(this, _TooManyEnvVarValuesError.prototype);
   }
 };
-var UnexpectedOptionalEnvVarValueError = class extends CommandError {
+var UnexpectedOptionalEnvVarValueError = class _UnexpectedOptionalEnvVarValueError extends CommandError {
   constructor(name) {
     super(`An environment variable cannot have an optional value, but "${name}" is defined as optional.`);
-    Object.setPrototypeOf(this, UnexpectedOptionalEnvVarValueError.prototype);
+    Object.setPrototypeOf(this, _UnexpectedOptionalEnvVarValueError.prototype);
   }
 };
-var UnexpectedVariadicEnvVarValueError = class extends CommandError {
+var UnexpectedVariadicEnvVarValueError = class _UnexpectedVariadicEnvVarValueError extends CommandError {
   constructor(name) {
     super(`An environment variable cannot have an variadic value, but "${name}" is defined as variadic.`);
-    Object.setPrototypeOf(this, UnexpectedVariadicEnvVarValueError.prototype);
+    Object.setPrototypeOf(this, _UnexpectedVariadicEnvVarValueError.prototype);
   }
 };
-var DefaultCommandNotFoundError = class extends CommandError {
+var DefaultCommandNotFoundError = class _DefaultCommandNotFoundError extends CommandError {
   constructor(name, commands) {
     super(`Default command "${name}" not found.${didYouMeanCommand(name, commands)}`);
-    Object.setPrototypeOf(this, DefaultCommandNotFoundError.prototype);
+    Object.setPrototypeOf(this, _DefaultCommandNotFoundError.prototype);
   }
 };
-var CommandExecutableNotFoundError = class extends CommandError {
+var CommandExecutableNotFoundError = class _CommandExecutableNotFoundError extends CommandError {
   constructor(name) {
     super(`Command executable not found: ${name}`);
-    Object.setPrototypeOf(this, CommandExecutableNotFoundError.prototype);
+    Object.setPrototypeOf(this, _CommandExecutableNotFoundError.prototype);
   }
 };
-var UnknownCommandError = class extends ValidationError2 {
+var UnknownCommandError = class _UnknownCommandError extends ValidationError2 {
   constructor(name, commands, excluded) {
     super(`Unknown command "${name}".${didYouMeanCommand(name, commands, excluded)}`);
-    Object.setPrototypeOf(this, UnknownCommandError.prototype);
+    Object.setPrototypeOf(this, _UnknownCommandError.prototype);
   }
 };
-var NoArgumentsAllowedError = class extends ValidationError2 {
+var NoArgumentsAllowedError = class _NoArgumentsAllowedError extends ValidationError2 {
   constructor(name) {
     super(`No arguments allowed for command "${name}".`);
-    Object.setPrototypeOf(this, NoArgumentsAllowedError.prototype);
+    Object.setPrototypeOf(this, _NoArgumentsAllowedError.prototype);
   }
 };
-var MissingArgumentsError = class extends ValidationError2 {
+var MissingArgumentsError = class _MissingArgumentsError extends ValidationError2 {
   constructor(names) {
     super(`Missing argument(s): ${names.join(", ")}`);
-    Object.setPrototypeOf(this, MissingArgumentsError.prototype);
+    Object.setPrototypeOf(this, _MissingArgumentsError.prototype);
   }
 };
-var MissingArgumentError = class extends ValidationError2 {
+var MissingArgumentError = class _MissingArgumentError extends ValidationError2 {
   constructor(name) {
     super(`Missing argument: ${name}`);
-    Object.setPrototypeOf(this, MissingArgumentError.prototype);
+    Object.setPrototypeOf(this, _MissingArgumentError.prototype);
   }
 };
-var TooManyArgumentsError = class extends ValidationError2 {
+var TooManyArgumentsError = class _TooManyArgumentsError extends ValidationError2 {
   constructor(args) {
     super(`Too many arguments: ${args.join(" ")}`);
-    Object.setPrototypeOf(this, TooManyArgumentsError.prototype);
+    Object.setPrototypeOf(this, _TooManyArgumentsError.prototype);
   }
 };
 
@@ -7979,9 +8010,11 @@ var Type = class {
 
 // dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/boolean.js
 var BooleanType = class extends Type {
+  /** Parse boolean type. */
   parse(type) {
     return boolean(type);
   }
+  /** Complete boolean type. */
   complete() {
     return ["true", "false"];
   }
@@ -7989,6 +8022,7 @@ var BooleanType = class extends Type {
 
 // dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/string.js
 var StringType = class extends Type {
+  /** Complete string type. */
   parse(type) {
     return string(type);
   }
@@ -8003,6 +8037,7 @@ var FileType = class extends StringType {
 
 // dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/number.js
 var NumberType = class extends Type {
+  /** Parse number type. */
   parse(type) {
     return number(type);
   }
@@ -8028,17 +8063,27 @@ var border = {
 };
 
 // dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/cell.js
-var Cell = class {
+var Cell = class _Cell {
+  /** Get cell length. */
   get length() {
     return this.toString().length;
   }
+  /**
+   * Create a new cell. If value is a cell, the value and all options of the cell
+   * will be copied to the new cell.
+   * @param value Cell or cell value.
+   */
   static from(value) {
     const cell = new this(value);
-    if (value instanceof Cell) {
+    if (value instanceof _Cell) {
       cell.options = { ...value.options };
     }
     return cell;
   }
+  /**
+   * Cell constructor.
+   * @param value Cell value.
+   */
   constructor(value) {
     Object.defineProperty(this, "value", {
       enumerable: true,
@@ -8053,58 +8098,97 @@ var Cell = class {
       value: {}
     });
   }
+  /** Get cell value. */
   toString() {
     return this.value.toString();
   }
+  /**
+   * Set cell value.
+   * @param value Cell or cell value.
+   */
   setValue(value) {
     this.value = value;
     return this;
   }
+  /**
+   * Clone cell with all options.
+   * @param value Cell or cell value.
+   */
   clone(value) {
-    const cell = new Cell(value ?? this);
+    const cell = new _Cell(value ?? this);
     cell.options = { ...this.options };
     return cell;
   }
+  /**
+   * Setter:
+   */
+  /**
+   * Enable/disable cell border.
+   * @param enable    Enable/disable cell border.
+   * @param override  Override existing value.
+   */
   border(enable, override = true) {
     if (override || typeof this.options.border === "undefined") {
       this.options.border = enable;
     }
     return this;
   }
+  /**
+   * Set col span.
+   * @param span      Number of cols to span.
+   * @param override  Override existing value.
+   */
   colSpan(span, override = true) {
     if (override || typeof this.options.colSpan === "undefined") {
       this.options.colSpan = span;
     }
     return this;
   }
+  /**
+   * Set row span.
+   * @param span      Number of rows to span.
+   * @param override  Override existing value.
+   */
   rowSpan(span, override = true) {
     if (override || typeof this.options.rowSpan === "undefined") {
       this.options.rowSpan = span;
     }
     return this;
   }
+  /**
+   * Align cell content.
+   * @param direction Align direction.
+   * @param override  Override existing value.
+   */
   align(direction, override = true) {
     if (override || typeof this.options.align === "undefined") {
       this.options.align = direction;
     }
     return this;
   }
+  /**
+   * Getter:
+   */
+  /** Check if cell has border. */
   getBorder() {
     return this.options.border === true;
   }
+  /** Get col span. */
   getColSpan() {
     return typeof this.options.colSpan === "number" && this.options.colSpan > 0 ? this.options.colSpan : 1;
   }
+  /** Get row span. */
   getRowSpan() {
     return typeof this.options.rowSpan === "number" && this.options.rowSpan > 0 ? this.options.rowSpan : 1;
   }
+  /** Get row span. */
   getAlign() {
     return this.options.align ?? "left";
   }
 };
 
 // dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/row.js
-var Row = class extends Array {
+var Row = class _Row extends Array {
   constructor() {
     super(...arguments);
     Object.defineProperty(this, "options", {
@@ -8114,36 +8198,61 @@ var Row = class extends Array {
       value: {}
     });
   }
+  /**
+   * Create a new row. If cells is a row, all cells and options of the row will
+   * be copied to the new row.
+   * @param cells Cells or row.
+   */
   static from(cells) {
     const row = new this(...cells);
-    if (cells instanceof Row) {
+    if (cells instanceof _Row) {
       row.options = { ...cells.options };
     }
     return row;
   }
+  /** Clone row recursively with all options. */
   clone() {
-    const row = new Row(...this.map((cell) => cell instanceof Cell ? cell.clone() : cell));
+    const row = new _Row(...this.map((cell) => cell instanceof Cell ? cell.clone() : cell));
     row.options = { ...this.options };
     return row;
   }
+  /**
+   * Setter:
+   */
+  /**
+   * Enable/disable cell border.
+   * @param enable    Enable/disable cell border.
+   * @param override  Override existing value.
+   */
   border(enable, override = true) {
     if (override || typeof this.options.border === "undefined") {
       this.options.border = enable;
     }
     return this;
   }
+  /**
+   * Align row content.
+   * @param direction Align direction.
+   * @param override  Override existing value.
+   */
   align(direction, override = true) {
     if (override || typeof this.options.align === "undefined") {
       this.options.align = direction;
     }
     return this;
   }
+  /**
+   * Getter:
+   */
+  /** Check if row has border. */
   getBorder() {
     return this.options.border === true;
   }
+  /** Check if row or any child cell has border. */
   hasBorder() {
     return this.getBorder() || this.some((cell) => cell instanceof Cell && cell.getBorder());
   }
+  /** Get row alignment. */
   getAlign() {
     return this.options.align ?? "left";
   }
@@ -8202,6 +8311,11 @@ var __classPrivateFieldGet = function(receiver, state, kind, f) {
 var _TableLayout_instances;
 var _TableLayout_getRows;
 var TableLayout = class {
+  /**
+   * Table layout constructor.
+   * @param table   Table instance.
+   * @param options Render options.
+   */
   constructor(table, options) {
     _TableLayout_instances.add(this);
     Object.defineProperty(this, "table", {
@@ -8217,10 +8331,16 @@ var TableLayout = class {
       value: options
     });
   }
+  /** Generate table string. */
   toString() {
     const opts = this.createLayout();
     return opts.rows.length ? this.renderRows(opts) : "";
   }
+  /**
+   * Generates table layout including row and col span, converts all none
+   * Cell/Row values to Cells and Rows and returns the layout rendering
+   * settings.
+   */
   createLayout() {
     Object.keys(this.options.chars).forEach((key) => {
       if (typeof this.options.chars[key] !== "string") {
@@ -8260,6 +8380,10 @@ var TableLayout = class {
       hasHeaderBorder
     };
   }
+  /**
+   * Fills rows and cols by specified row/col span with a reference of the
+   * original cell.
+   */
   spanRows(rows) {
     const rowSpan = [];
     let colSpan = 1;
@@ -8297,12 +8421,25 @@ var TableLayout = class {
   getDeleteCount(rows, rowIndex, colIndex) {
     return colIndex <= rows[rowIndex].length - 1 && typeof rows[rowIndex][colIndex] === "undefined" ? 1 : 0;
   }
+  /**
+   * Create a new row from existing row or cell array.
+   * @param row Original row.
+   */
   createRow(row) {
     return Row.from(row).border(this.table.getBorder(), false).align(this.table.getAlign(), false);
   }
+  /**
+   * Create a new cell from existing cell or cell value.
+   * @param cell  Original cell.
+   * @param row   Parent row.
+   */
   createCell(cell, row) {
     return Cell.from(cell ?? "").border(row.getBorder(), false).align(row.getAlign(), false);
   }
+  /**
+   * Render table layout.
+   * @param opts Render options.
+   */
   renderRows(opts) {
     let result = "";
     const rowSpan = new Array(opts.columns).fill(1);
@@ -8311,6 +8448,13 @@ var TableLayout = class {
     }
     return result.slice(0, -1);
   }
+  /**
+   * Render row.
+   * @param rowSpan     Current row span.
+   * @param rowIndex    Current row index.
+   * @param opts        Render options.
+   * @param isMultiline Is multiline row.
+   */
   renderRow(rowSpan, rowIndex, opts, isMultiline) {
     const row = opts.rows[rowIndex];
     const prevRow = opts.rows[rowIndex - 1];
@@ -8360,6 +8504,13 @@ var TableLayout = class {
     }
     return result;
   }
+  /**
+   * Render cell.
+   * @param colIndex  Current col index.
+   * @param row       Current row.
+   * @param opts      Render options.
+   * @param noBorder  Disable border.
+   */
   renderCell(colIndex, row, opts, noBorder) {
     let result = "";
     const prevCell = row[colIndex - 1];
@@ -8400,6 +8551,12 @@ var TableLayout = class {
     }
     return result;
   }
+  /**
+   * Render specified length of cell. Returns the rendered value and a new cell
+   * with the rest value.
+   * @param cell      Cell to render.
+   * @param maxLength Max length of content to render.
+   */
   renderCellValue(cell, maxLength) {
     const length = Math.min(maxLength, strLength(cell.toString()));
     let words = consumeWords(length, cell.toString());
@@ -8427,6 +8584,13 @@ var TableLayout = class {
       next: cell.clone(next)
     };
   }
+  /**
+   * Render border row.
+   * @param prevRow Previous row.
+   * @param nextRow Next row.
+   * @param rowSpan Current row span.
+   * @param opts    Render options.
+   */
   renderBorderRow(prevRow, nextRow, rowSpan, opts) {
     let result = "";
     let colSpan = 1;
@@ -8445,6 +8609,14 @@ var TableLayout = class {
     }
     return result.length ? " ".repeat(this.options.indent) + result + "\n" : "";
   }
+  /**
+   * Render border cell.
+   * @param colIndex  Current index.
+   * @param prevRow   Previous row.
+   * @param nextRow   Next row.
+   * @param rowSpan   Current row span.
+   * @param opts      Render options.
+   */
   renderBorderCell(colIndex, prevRow, nextRow, rowSpan, opts) {
     const a1 = prevRow?.[colIndex - 1];
     const a2 = nextRow?.[colIndex - 1];
@@ -8588,7 +8760,7 @@ _TableLayout_instances = /* @__PURE__ */ new WeakSet(), _TableLayout_getRows = f
 };
 
 // dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/table.js
-var Table = class extends Array {
+var Table = class _Table extends Array {
   constructor() {
     super(...arguments);
     Object.defineProperty(this, "options", {
@@ -8601,7 +8773,7 @@ var Table = class extends Array {
         maxColWidth: Infinity,
         minColWidth: 0,
         padding: 1,
-        chars: { ...Table._chars }
+        chars: { ..._Table._chars }
       }
     });
     Object.defineProperty(this, "headerRow", {
@@ -8611,122 +8783,201 @@ var Table = class extends Array {
       value: void 0
     });
   }
+  /**
+   * Create a new table. If rows is a table, all rows and options of the table
+   * will be copied to the new table.
+   * @param rows
+   */
   static from(rows) {
     const table = new this(...rows);
-    if (rows instanceof Table) {
+    if (rows instanceof _Table) {
       table.options = { ...rows.options };
       table.headerRow = rows.headerRow ? Row.from(rows.headerRow) : void 0;
     }
     return table;
   }
+  /**
+   * Create a new table from an array of json objects. An object represents a
+   * row and each property a column.
+   * @param rows Array of objects.
+   */
   static fromJson(rows) {
     return new this().fromJson(rows);
   }
+  /**
+   * Set global default border characters.
+   * @param chars Border options.
+   */
   static chars(chars) {
     Object.assign(this._chars, chars);
     return this;
   }
+  /**
+   * Write table or rows to stdout.
+   * @param rows Table or rows.
+   */
   static render(rows) {
-    Table.from(rows).render();
+    _Table.from(rows).render();
   }
+  /**
+   * Read data from an array of json objects. An object represents a
+   * row and each property a column.
+   * @param rows Array of objects.
+   */
   fromJson(rows) {
     this.header(Object.keys(rows[0]));
     this.body(rows.map((row) => Object.values(row)));
     return this;
   }
+  /**
+   * Set table header.
+   * @param header Header row or cells.
+   */
   header(header) {
     this.headerRow = header instanceof Row ? header : Row.from(header);
     return this;
   }
+  /**
+   * Set table body.
+   * @param rows Table rows.
+   */
   body(rows) {
     this.length = 0;
     this.push(...rows);
     return this;
   }
+  /** Clone table recursively with header and options. */
   clone() {
-    const table = new Table(...this.map((row) => row instanceof Row ? row.clone() : Row.from(row).clone()));
+    const table = new _Table(...this.map((row) => row instanceof Row ? row.clone() : Row.from(row).clone()));
     table.options = { ...this.options };
     table.headerRow = this.headerRow?.clone();
     return table;
   }
+  /** Generate table string. */
   toString() {
     return new TableLayout(this, this.options).toString();
   }
+  /** Write table to stdout. */
   render() {
     console.log(this.toString());
     return this;
   }
+  /**
+   * Set max col with.
+   * @param width     Max col width.
+   * @param override  Override existing value.
+   */
   maxColWidth(width, override = true) {
     if (override || typeof this.options.maxColWidth === "undefined") {
       this.options.maxColWidth = width;
     }
     return this;
   }
+  /**
+   * Set min col width.
+   * @param width     Min col width.
+   * @param override  Override existing value.
+   */
   minColWidth(width, override = true) {
     if (override || typeof this.options.minColWidth === "undefined") {
       this.options.minColWidth = width;
     }
     return this;
   }
+  /**
+   * Set table indentation.
+   * @param width     Indent width.
+   * @param override  Override existing value.
+   */
   indent(width, override = true) {
     if (override || typeof this.options.indent === "undefined") {
       this.options.indent = width;
     }
     return this;
   }
+  /**
+   * Set cell padding.
+   * @param padding   Cell padding.
+   * @param override  Override existing value.
+   */
   padding(padding, override = true) {
     if (override || typeof this.options.padding === "undefined") {
       this.options.padding = padding;
     }
     return this;
   }
+  /**
+   * Enable/disable cell border.
+   * @param enable    Enable/disable cell border.
+   * @param override  Override existing value.
+   */
   border(enable, override = true) {
     if (override || typeof this.options.border === "undefined") {
       this.options.border = enable;
     }
     return this;
   }
+  /**
+   * Align table content.
+   * @param direction Align direction.
+   * @param override  Override existing value.
+   */
   align(direction, override = true) {
     if (override || typeof this.options.align === "undefined") {
       this.options.align = direction;
     }
     return this;
   }
+  /**
+   * Set border characters.
+   * @param chars Border options.
+   */
   chars(chars) {
     Object.assign(this.options.chars, chars);
     return this;
   }
+  /** Get table header. */
   getHeader() {
     return this.headerRow;
   }
+  /** Get table body. */
   getBody() {
     return [...this];
   }
+  /** Get mac col widrth. */
   getMaxColWidth() {
     return this.options.maxColWidth;
   }
+  /** Get min col width. */
   getMinColWidth() {
     return this.options.minColWidth;
   }
+  /** Get table indentation. */
   getIndent() {
     return this.options.indent;
   }
+  /** Get cell padding. */
   getPadding() {
     return this.options.padding;
   }
+  /** Check if table has border. */
   getBorder() {
     return this.options.border === true;
   }
+  /** Check if header row has border. */
   hasHeaderBorder() {
     const hasBorder = this.headerRow?.hasBorder();
     return hasBorder === true || this.getBorder() && hasBorder !== false;
   }
+  /** Check if table bordy has border. */
   hasBodyBorder() {
     return this.getBorder() || this.some((row) => row instanceof Row ? row.hasBorder() : row.some((cell) => cell instanceof Cell ? cell.getBorder : false));
   }
+  /** Check if table header or body has border. */
   hasBorder() {
     return this.hasHeaderBorder() || this.hasBodyBorder();
   }
+  /** Get table alignment. */
   getAlign() {
     return this.options.align ?? "left";
   }
@@ -8739,9 +8990,10 @@ Object.defineProperty(Table, "_chars", {
 });
 
 // dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/help/_help_generator.js
-var HelpGenerator = class {
+var HelpGenerator = class _HelpGenerator {
+  /** Generate help text for given command. */
   static generate(cmd, options) {
-    return new HelpGenerator(cmd, options).generate();
+    return new _HelpGenerator(cmd, options).generate();
   }
   constructor(cmd, options = {}) {
     Object.defineProperty(this, "cmd", {
@@ -8946,6 +9198,7 @@ function capitalize(string2) {
 function inspect(value, colors2) {
   return import_shim_deno2.Deno.inspect(
     value,
+    // deno < 1.4.3 doesn't support the colors property.
     { depth: 1, colors: colors2, trailingComma: false }
   );
 }
@@ -8978,13 +9231,14 @@ function highlightArgumentDetails(arg, types = true) {
 
 // dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/integer.js
 var IntegerType = class extends Type {
+  /** Parse integer type. */
   parse(type) {
     return integer(type);
   }
 };
 
 // dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/command.js
-var Command = class {
+var Command = class _Command {
   constructor() {
     Object.defineProperty(this, "types", {
       enumerable: true,
@@ -9231,6 +9485,12 @@ var Command = class {
     };
     return this;
   }
+  /**
+   * Add new sub-command.
+   * @param nameAndArguments  Command definition. E.g: `my-command <input-file:string> <output-file:string>`
+   * @param cmdOrDescription  The description of the new child command.
+   * @param override          Override existing child command.
+   */
   command(nameAndArguments, cmdOrDescription, override) {
     this.reset();
     const result = splitArguments(nameAndArguments);
@@ -9250,10 +9510,10 @@ var Command = class {
     if (typeof cmdOrDescription === "string") {
       description = cmdOrDescription;
     }
-    if (cmdOrDescription instanceof Command) {
+    if (cmdOrDescription instanceof _Command) {
       cmd = cmdOrDescription.reset();
     } else {
-      cmd = new Command();
+      cmd = new _Command();
     }
     cmd._name = name;
     cmd._parent = this;
@@ -9268,6 +9528,10 @@ var Command = class {
     this.select(name);
     return this;
   }
+  /**
+   * Add new command alias.
+   * @param alias Tha name of the alias.
+   */
   alias(alias) {
     if (this.cmd._name === alias || this.cmd.aliases.includes(alias)) {
       throw new DuplicateCommandAliasError(alias);
@@ -9275,11 +9539,16 @@ var Command = class {
     this.cmd.aliases.push(alias);
     return this;
   }
+  /** Reset internal command reference to main command. */
   reset() {
     this._groupName = void 0;
     this.cmd = this;
     return this;
   }
+  /**
+   * Set internal command pointer to child command with given name.
+   * @param name The name of the command to select.
+   */
   select(name) {
     const cmd = this.getBaseCommand(name, true);
     if (!cmd) {
@@ -9288,10 +9557,18 @@ var Command = class {
     this.cmd = cmd;
     return this;
   }
+  /*****************************************************************************
+   **** SUB HANDLER ************************************************************
+   *****************************************************************************/
+  /** Set command name. */
   name(name) {
     this.cmd._name = name;
     return this;
   }
+  /**
+   * Set command version.
+   * @param version Semantic version string string or method that returns the version string.
+   */
   version(version2) {
     if (typeof version2 === "string") {
       this.cmd.ver = () => version2;
@@ -9307,6 +9584,10 @@ var Command = class {
   getMeta(name) {
     return typeof name === "undefined" ? this._meta : this._meta[name];
   }
+  /**
+   * Set command help.
+   * @param help Help string, method, or config for generator that returns the help string.
+   */
   help(help) {
     if (typeof help === "string") {
       this.cmd._help = () => help;
@@ -9317,46 +9598,113 @@ var Command = class {
     }
     return this;
   }
+  /**
+   * Set the long command description.
+   * @param description The command description.
+   */
   description(description) {
     this.cmd.desc = description;
     return this;
   }
+  /**
+   * Set the command usage. Defaults to arguments.
+   * @param usage The command usage.
+   */
   usage(usage) {
     this.cmd._usage = usage;
     return this;
   }
+  /**
+   * Hide command from help, completions, etc.
+   */
   hidden() {
     this.cmd.isHidden = true;
     return this;
   }
+  /** Make command globally available. */
   global() {
     this.cmd.isGlobal = true;
     return this;
   }
+  /** Make command executable. */
   executable() {
     this.cmd.isExecutable = true;
     return this;
   }
+  /**
+   * Set command arguments:
+   *
+   *   <requiredArg:string> [optionalArg: number] [...restArgs:string]
+   */
   arguments(args) {
     this.cmd.argsDefinition = args;
     return this;
   }
+  /**
+   * Set command callback method.
+   * @param fn Command action handler.
+   */
   action(fn) {
     this.cmd.fn = fn;
     return this;
   }
+  /**
+   * Don't throw an error if the command was called without arguments.
+   * @param allowEmpty Enable/disable allow empty.
+   */
+  // public allowEmpty<TAllowEmpty extends boolean | undefined = undefined>(
+  //   allowEmpty?: TAllowEmpty,
+  // ): false extends TAllowEmpty ? this
+  //   : Command<
+  //     Partial<TParentCommandGlobals>,
+  //     TParentCommandTypes,
+  //     Partial<TCommandOptions>,
+  //     TCommandArguments,
+  //     TCommandGlobals,
+  //     TCommandTypes,
+  //     TCommandGlobalTypes,
+  //     TParentCommand
+  //   > {
+  //   this.cmd._allowEmpty = allowEmpty !== false;
+  //   return this;
+  // }
   allowEmpty(allowEmpty) {
     this.cmd._allowEmpty = allowEmpty !== false;
     return this;
   }
+  /**
+   * Enable stop early. If enabled, all arguments starting from the first non
+   * option argument will be passed as arguments with type string to the command
+   * action handler.
+   *
+   * For example:
+   *     `command --debug-level warning server --port 80`
+   *
+   * Will result in:
+   *     - options: `{debugLevel: 'warning'}`
+   *     - args: `['server', '--port', '80']`
+   *
+   * @param stopEarly Enable/disable stop early.
+   */
   stopEarly(stopEarly = true) {
     this.cmd._stopEarly = stopEarly;
     return this;
   }
+  /**
+   * Disable parsing arguments. If enabled the raw arguments will be passed to
+   * the action handler. This has no effect for parent or child commands. Only
+   * for the command on which this method was called.
+   * @param useRawArgs Enable/disable raw arguments.
+   */
   useRawArgs(useRawArgs = true) {
     this.cmd._useRawArgs = useRawArgs;
     return this;
   }
+  /**
+   * Set default command. The default command is executed when the program
+   * was called without any argument and if no action handler is registered.
+   * @param name Name of the default command.
+   */
   default(name) {
     this.cmd.defaultCommand = name;
     return this;
@@ -9364,6 +9712,12 @@ var Command = class {
   globalType(name, handler, options) {
     return this.type(name, handler, { ...options, global: true });
   }
+  /**
+   * Register custom type.
+   * @param name    The name of the type.
+   * @param handler The callback method to parse the type.
+   * @param options Type options.
+   */
   type(name, handler, options) {
     if (this.cmd.types.get(name) && !options?.override) {
       throw new DuplicateTypeError(name);
@@ -9393,6 +9747,33 @@ var Command = class {
     });
     return this;
   }
+  /**
+   * Throw validation errors instead of calling `Deno.exit()` to handle
+   * validation errors manually.
+   *
+   * A validation error is thrown when the command is wrongly used by the user.
+   * For example: If the user passes some invalid options or arguments to the
+   * command.
+   *
+   * This has no effect for parent commands. Only for the command on which this
+   * method was called and all child commands.
+   *
+   * **Example:**
+   *
+   * ```
+   * try {
+   *   cmd.parse();
+   * } catch(error) {
+   *   if (error instanceof ValidationError) {
+   *     cmd.showHelp();
+   *     Deno.exit(1);
+   *   }
+   *   throw error;
+   * }
+   * ```
+   *
+   * @see ValidationError
+   */
   throwErrors() {
     this.cmd.throwOnError = true;
     return this;
@@ -9404,18 +9785,28 @@ var Command = class {
   getErrorHandler() {
     return this.errorHandler ?? this._parent?.errorHandler;
   }
+  /**
+   * Same as `.throwErrors()` but also prevents calling `Deno.exit` after
+   * printing help or version with the --help and --version option.
+   */
   noExit() {
     this.cmd._shouldExit = false;
     this.throwErrors();
     return this;
   }
+  /**
+   * Disable inheriting global commands, options and environment variables from
+   * parent commands.
+   */
   noGlobals() {
     this.cmd._noGlobals = true;
     return this;
   }
+  /** Check whether the command should throw errors or exit. */
   shouldThrowErrors() {
     return this.throwOnError || !!this._parent?.shouldThrowErrors();
   }
+  /** Check whether the command should exit after printing help or version. */
   shouldExit() {
     return this._shouldExit ?? this._parent?.shouldExit() ?? true;
   }
@@ -9425,6 +9816,14 @@ var Command = class {
     }
     return this.option(flags, desc, { ...opts, global: true });
   }
+  /**
+   * Enable grouping of options and set the name of the group.
+   * All option which are added after calling the `.group()` method will be
+   * grouped in the help output. If the `.group()` method can be use multiple
+   * times to create more groups.
+   *
+   * @param name The name of the option group.
+   */
   group(name) {
     this.cmd._groupName = name;
     return this;
@@ -9478,6 +9877,11 @@ var Command = class {
     }
     return this;
   }
+  /**
+   * Add new command example.
+   * @param name          Name of the example.
+   * @param description   The content of the example.
+   */
   example(name, description) {
     if (this.cmd.hasExample(name)) {
       throw new DuplicateExampleError(name);
@@ -9514,6 +9918,13 @@ var Command = class {
     });
     return this;
   }
+  /*****************************************************************************
+   **** MAIN HANDLER ***********************************************************
+   *****************************************************************************/
+  /**
+   * Parse command line arguments and execute matched command.
+   * @param args Command line args to parse. Ex: `cmd.parse( Deno.args )`
+   */
   parse(args = import_shim_deno2.Deno.args) {
     const ctx = {
       unknown: args.slice(),
@@ -9610,6 +10021,7 @@ var Command = class {
     const options = this.getOptions(true);
     this.parseOptions(ctx, options);
   }
+  /** Register default options like `--version` and `--help`. */
   registerDefaults() {
     if (this.hasDefaults || this.getParent()) {
       return this;
@@ -9662,6 +10074,11 @@ var Command = class {
     }
     return this;
   }
+  /**
+   * Execute command.
+   * @param options A map of options.
+   * @param args Command arguments.
+   */
   async execute(options, ...args) {
     if (this.fn) {
       await this.fn(options, ...args);
@@ -9680,6 +10097,10 @@ var Command = class {
       literal: this.literalArgs
     };
   }
+  /**
+   * Execute external sub-command.
+   * @param args Raw command line arguments.
+   */
   async executeExecutable(args) {
     const command = this.getPath().replace(/\s+/g, "-");
     await import_shim_deno2.Deno.permissions.request({ name: "run", command });
@@ -9698,6 +10119,7 @@ var Command = class {
       throw error;
     }
   }
+  /** Parse raw command line arguments. */
   parseOptions(ctx, options, { stopEarly = this._stopEarly, stopOnUnknown = false, dotted = true } = {}) {
     parseFlags(ctx, {
       stopEarly,
@@ -9714,6 +10136,7 @@ var Command = class {
       }
     });
   }
+  /** Parse argument type. */
   parseType(type) {
     const typeSettings = this.getType(type.type);
     if (!typeSettings) {
@@ -9721,6 +10144,12 @@ var Command = class {
     }
     return typeSettings.handler instanceof Type ? typeSettings.handler.parse(type) : typeSettings.handler(type);
   }
+  /**
+   * Read and validate environment variables.
+   * @param ctx Parse context.
+   * @param envVars env vars defined by the command.
+   * @param validate when true, throws an error if a required env var is missing.
+   */
   async parseEnvVars(ctx, envVars, validate = true) {
     for (const envVar of envVars) {
       const env = await this.findEnvVar(envVar.names);
@@ -9762,6 +10191,11 @@ var Command = class {
     }
     return void 0;
   }
+  /**
+   * Parse command-line arguments.
+   * @param ctx     Parse context.
+   * @param options Parsed command line options.
+   */
   parseArguments(ctx, options) {
     const params = [];
     const args = ctx.unknown.slice();
@@ -9828,6 +10262,13 @@ var Command = class {
   handleError(error) {
     this.throw(error instanceof ValidationError ? new ValidationError2(error.message) : error instanceof Error ? error : new Error(`[non-error-thrown] ${error}`));
   }
+  /**
+   * Handle error. If `throwErrors` is enabled the error will be thrown,
+   * otherwise a formatted error message will be printed and `Deno.exit(1)`
+   * will be called. This will also trigger registered error handlers.
+   *
+   * @param error The error to handle.
+   */
   throw(error) {
     if (error instanceof ValidationError2) {
       error.cmd = this;
@@ -9841,77 +10282,109 @@ var Command = class {
 `));
     import_shim_deno2.Deno.exit(error instanceof ValidationError2 ? error.exitCode : 1);
   }
+  /*****************************************************************************
+   **** GETTER *****************************************************************
+   *****************************************************************************/
+  /** Get command name. */
   getName() {
     return this._name;
   }
+  /** Get parent command. */
   getParent() {
     return this._parent;
   }
+  /**
+   * Get parent command from global executed command.
+   * Be sure, to call this method only inside an action handler. Unless this or any child command was executed,
+   * this method returns always undefined.
+   */
   getGlobalParent() {
     return this._globalParent;
   }
+  /** Get main command. */
   getMainCommand() {
     return this._parent?.getMainCommand() ?? this;
   }
+  /** Get command name aliases. */
   getAliases() {
     return this.aliases;
   }
+  /** Get full command path. */
   getPath() {
     return this._parent ? this._parent.getPath() + " " + this._name : this._name;
   }
+  /** Get arguments definition. E.g: <input-file:string> <output-file:string> */
   getArgsDefinition() {
     return this.argsDefinition;
   }
+  /**
+   * Get argument by name.
+   * @param name Name of the argument.
+   */
   getArgument(name) {
     return this.getArguments().find((arg) => arg.name === name);
   }
+  /** Get arguments. */
   getArguments() {
     if (!this.args.length && this.argsDefinition) {
       this.args = parseArgumentsDefinition(this.argsDefinition);
     }
     return this.args;
   }
+  /** Check if command has arguments. */
   hasArguments() {
     return !!this.argsDefinition;
   }
+  /** Get command version. */
   getVersion() {
     return this.getVersionHandler()?.call(this, this);
   }
+  /** Get help handler method. */
   getVersionHandler() {
     return this.ver ?? this._parent?.getVersionHandler();
   }
+  /** Get command description. */
   getDescription() {
     return typeof this.desc === "function" ? this.desc = this.desc() : this.desc;
   }
   getUsage() {
     return this._usage ?? this.getArgsDefinition();
   }
+  /** Get short command description. This is the first line of the description. */
   getShortDescription() {
     return getDescription(this.getDescription(), true);
   }
+  /** Get original command-line arguments. */
   getRawArgs() {
     return this.rawArgs;
   }
+  /** Get all arguments defined after the double dash. */
   getLiteralArgs() {
     return this.literalArgs;
   }
+  /** Output generated help without exiting. */
   showVersion() {
     console.log(this.getVersion());
   }
+  /** Returns command name, version and meta data. */
   getLongVersion() {
     return `${bold(this.getMainCommand().getName())} ${brightBlue(this.getVersion() ?? "")}` + Object.entries(this.getMeta()).map(([k, v]) => `
 ${bold(k)} ${brightBlue(v)}`).join("");
   }
+  /** Outputs command name, version and meta data. */
   showLongVersion() {
     console.log(this.getLongVersion());
   }
+  /** Output generated help without exiting. */
   showHelp(options) {
     console.log(this.getHelp(options));
   }
+  /** Get generated help. */
   getHelp(options) {
     this.registerDefaults();
     return this.getHelpHandler().call(this, this, options ?? {});
   }
+  /** Get help handler method. */
   getHelpHandler() {
     return this._help ?? this._parent?.getHelpHandler();
   }
@@ -9920,6 +10393,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
       import_shim_deno2.Deno.exit(code2);
     }
   }
+  /** Check if new version is available and add hint to version. */
   async checkVersion() {
     const mainCommand = this.getMainCommand();
     const upgradeCommand = mainCommand.getCommand("upgrade");
@@ -9934,18 +10408,37 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     const versionHelpText = `(New version available: ${latestVersion}. Run '${mainCommand.getName()} upgrade' to upgrade to the latest version!)`;
     mainCommand.version(`${currentVersion}  ${bold(yellow(versionHelpText))}`);
   }
+  /*****************************************************************************
+   **** Options GETTER *********************************************************
+   *****************************************************************************/
+  /**
+   * Checks whether the command has options or not.
+   * @param hidden Include hidden options.
+   */
   hasOptions(hidden2) {
     return this.getOptions(hidden2).length > 0;
   }
+  /**
+   * Get options.
+   * @param hidden Include hidden options.
+   */
   getOptions(hidden2) {
     return this.getGlobalOptions(hidden2).concat(this.getBaseOptions(hidden2));
   }
+  /**
+   * Get base options.
+   * @param hidden Include hidden options.
+   */
   getBaseOptions(hidden2) {
     if (!this.options.length) {
       return [];
     }
     return hidden2 ? this.options.slice(0) : this.options.filter((opt) => !opt.hidden);
   }
+  /**
+   * Get global options.
+   * @param hidden Include hidden options.
+   */
   getGlobalOptions(hidden2) {
     const helpOption = this.getHelpOption();
     const getGlobals = (cmd, noGlobals, options = [], names = []) => {
@@ -9964,16 +10457,36 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     };
     return this._parent ? getGlobals(this._parent, this._noGlobals) : [];
   }
+  /**
+   * Checks whether the command has an option with given name or not.
+   * @param name Name of the option. Must be in param-case.
+   * @param hidden Include hidden options.
+   */
   hasOption(name, hidden2) {
     return !!this.getOption(name, hidden2);
   }
+  /**
+   * Get option by name.
+   * @param name Name of the option. Must be in param-case.
+   * @param hidden Include hidden options.
+   */
   getOption(name, hidden2) {
     return this.getBaseOption(name, hidden2) ?? this.getGlobalOption(name, hidden2);
   }
+  /**
+   * Get base option by name.
+   * @param name Name of the option. Must be in param-case.
+   * @param hidden Include hidden options.
+   */
   getBaseOption(name, hidden2) {
     const option = this.options.find((option2) => option2.name === name || option2.aliases?.includes(name));
     return option && (hidden2 || !option.hidden) ? option : void 0;
   }
+  /**
+   * Get global option from parent commands by name.
+   * @param name Name of the option. Must be in param-case.
+   * @param hidden Include hidden options.
+   */
   getGlobalOption(name, hidden2) {
     const helpOption = this.getHelpOption();
     const getGlobalOption = (parent, noGlobals) => {
@@ -9988,6 +10501,10 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     };
     return this._parent && getGlobalOption(this._parent, this._noGlobals);
   }
+  /**
+   * Remove option by name.
+   * @param name Name of the option. Must be in param-case.
+   */
   removeOption(name) {
     const index = this.options.findIndex((option) => option.name === name);
     if (index === -1) {
@@ -9995,16 +10512,32 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     }
     return this.options.splice(index, 1)[0];
   }
+  /**
+   * Checks whether the command has sub-commands or not.
+   * @param hidden Include hidden commands.
+   */
   hasCommands(hidden2) {
     return this.getCommands(hidden2).length > 0;
   }
+  /**
+   * Get commands.
+   * @param hidden Include hidden commands.
+   */
   getCommands(hidden2) {
     return this.getGlobalCommands(hidden2).concat(this.getBaseCommands(hidden2));
   }
+  /**
+   * Get base commands.
+   * @param hidden Include hidden commands.
+   */
   getBaseCommands(hidden2) {
     const commands = Array.from(this.commands.values());
     return hidden2 ? commands : commands.filter((cmd) => !cmd.isHidden);
   }
+  /**
+   * Get global commands.
+   * @param hidden Include hidden commands.
+   */
   getGlobalCommands(hidden2) {
     const getCommands = (command, noGlobals, commands = [], names = []) => {
       if (command.commands.size) {
@@ -10022,12 +10555,27 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     };
     return this._parent ? getCommands(this._parent, this._noGlobals) : [];
   }
+  /**
+   * Checks whether a child command exists by given name or alias.
+   * @param name Name or alias of the command.
+   * @param hidden Include hidden commands.
+   */
   hasCommand(name, hidden2) {
     return !!this.getCommand(name, hidden2);
   }
+  /**
+   * Get command by name or alias.
+   * @param name Name or alias of the command.
+   * @param hidden Include hidden commands.
+   */
   getCommand(name, hidden2) {
     return this.getBaseCommand(name, hidden2) ?? this.getGlobalCommand(name, hidden2);
   }
+  /**
+   * Get base command by name or alias.
+   * @param name Name or alias of the command.
+   * @param hidden Include hidden commands.
+   */
   getBaseCommand(name, hidden2) {
     for (const cmd of this.commands.values()) {
       if (cmd._name === name || cmd.aliases.includes(name)) {
@@ -10035,6 +10583,11 @@ ${bold(k)} ${brightBlue(v)}`).join("");
       }
     }
   }
+  /**
+   * Get global command by name or alias.
+   * @param name Name or alias of the command.
+   * @param hidden Include hidden commands.
+   */
   getGlobalCommand(name, hidden2) {
     const getGlobalCommand = (parent, noGlobals) => {
       const cmd = parent.getBaseCommand(name, hidden2);
@@ -10048,6 +10601,10 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     };
     return this._parent && getGlobalCommand(this._parent, this._noGlobals);
   }
+  /**
+   * Remove sub-command by name or alias.
+   * @param name Name or alias of the command.
+   */
   removeCommand(name) {
     const command = this.getBaseCommand(name, true);
     if (command) {
@@ -10055,12 +10612,15 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     }
     return command;
   }
+  /** Get types. */
   getTypes() {
     return this.getGlobalTypes().concat(this.getBaseTypes());
   }
+  /** Get base types. */
   getBaseTypes() {
     return Array.from(this.types.values());
   }
+  /** Get global types. */
   getGlobalTypes() {
     const getTypes = (cmd, types = [], names = []) => {
       if (cmd) {
@@ -10078,12 +10638,24 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     };
     return getTypes(this._parent);
   }
+  /**
+   * Get type by name.
+   * @param name Name of the type.
+   */
   getType(name) {
     return this.getBaseType(name) ?? this.getGlobalType(name);
   }
+  /**
+   * Get base type by name.
+   * @param name Name of the type.
+   */
   getBaseType(name) {
     return this.types.get(name);
   }
+  /**
+   * Get global type by name.
+   * @param name Name of the type.
+   */
   getGlobalType(name) {
     if (!this._parent) {
       return;
@@ -10094,12 +10666,15 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     }
     return cmd;
   }
+  /** Get completions. */
   getCompletions() {
     return this.getGlobalCompletions().concat(this.getBaseCompletions());
   }
+  /** Get base completions. */
   getBaseCompletions() {
     return Array.from(this.completions.values());
   }
+  /** Get global completions. */
   getGlobalCompletions() {
     const getCompletions = (cmd, completions = [], names = []) => {
       if (cmd) {
@@ -10117,12 +10692,24 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     };
     return getCompletions(this._parent);
   }
+  /**
+   * Get completion by name.
+   * @param name Name of the completion.
+   */
   getCompletion(name) {
     return this.getBaseCompletion(name) ?? this.getGlobalCompletion(name);
   }
+  /**
+   * Get base completion by name.
+   * @param name Name of the completion.
+   */
   getBaseCompletion(name) {
     return this.completions.get(name);
   }
+  /**
+   * Get global completions by name.
+   * @param name Name of the completion.
+   */
   getGlobalCompletion(name) {
     if (!this._parent) {
       return;
@@ -10133,18 +10720,34 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     }
     return completion;
   }
+  /**
+   * Checks whether the command has environment variables or not.
+   * @param hidden Include hidden environment variable.
+   */
   hasEnvVars(hidden2) {
     return this.getEnvVars(hidden2).length > 0;
   }
+  /**
+   * Get environment variables.
+   * @param hidden Include hidden environment variable.
+   */
   getEnvVars(hidden2) {
     return this.getGlobalEnvVars(hidden2).concat(this.getBaseEnvVars(hidden2));
   }
+  /**
+   * Get base environment variables.
+   * @param hidden Include hidden environment variable.
+   */
   getBaseEnvVars(hidden2) {
     if (!this.envVars.length) {
       return [];
     }
     return hidden2 ? this.envVars.slice(0) : this.envVars.filter((env) => !env.hidden);
   }
+  /**
+   * Get global environment variables.
+   * @param hidden Include hidden environment variable.
+   */
   getGlobalEnvVars(hidden2) {
     if (this._noGlobals) {
       return [];
@@ -10165,16 +10768,36 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     };
     return getEnvVars(this._parent);
   }
+  /**
+   * Checks whether the command has an environment variable with given name or not.
+   * @param name Name of the environment variable.
+   * @param hidden Include hidden environment variable.
+   */
   hasEnvVar(name, hidden2) {
     return !!this.getEnvVar(name, hidden2);
   }
+  /**
+   * Get environment variable by name.
+   * @param name Name of the environment variable.
+   * @param hidden Include hidden environment variable.
+   */
   getEnvVar(name, hidden2) {
     return this.getBaseEnvVar(name, hidden2) ?? this.getGlobalEnvVar(name, hidden2);
   }
+  /**
+   * Get base environment variable by name.
+   * @param name Name of the environment variable.
+   * @param hidden Include hidden environment variable.
+   */
   getBaseEnvVar(name, hidden2) {
     const envVar = this.envVars.find((env) => env.names.indexOf(name) !== -1);
     return envVar && (hidden2 || !envVar.hidden) ? envVar : void 0;
   }
+  /**
+   * Get global environment variable by name.
+   * @param name Name of the environment variable.
+   * @param hidden Include hidden environment variable.
+   */
   getGlobalEnvVar(name, hidden2) {
     if (!this._parent || this._noGlobals) {
       return;
@@ -10185,15 +10808,19 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     }
     return envVar;
   }
+  /** Checks whether the command has examples or not. */
   hasExamples() {
     return this.examples.length > 0;
   }
+  /** Get all examples. */
   getExamples() {
     return this.examples;
   }
+  /** Checks whether the command has an example with given name or not. */
   hasExample(name) {
     return !!this.getExample(name);
   }
+  /** Get example with given name. */
   getExample(name) {
     return this.examples.find((example) => example.name === name);
   }
