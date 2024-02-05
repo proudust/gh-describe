@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.171.0/testing/asserts.ts";
+import { assertEquals } from "https://deno.land/std@0.213.0/testing/asserts.ts";
 import { searchTag } from "./search_tags.ts";
 
 Deno.test("function searchTag(tags, histories)", async (ctx) => {
