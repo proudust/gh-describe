@@ -47,7 +47,7 @@ outputs:
       ex) 2414721
 
 runs:
-  using: node16
+  using: node20
   main: dist/actions.js
 
 branding:
