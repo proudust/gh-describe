@@ -105,6 +105,10 @@ var require_errors = __commonJS({
     };
     exports2.NotConnected = NotConnected;
     var NotFound = class extends Error {
+      constructor() {
+        super(...arguments);
+        this.code = "ENOENT";
+      }
     };
     exports2.NotFound = NotFound;
     var PermissionDenied = class extends Error {
@@ -165,7 +169,8 @@ var require_errorMap = __commonJS({
     });
     var map = {
       EEXIST: mapper(errors.AlreadyExists),
-      ENOENT: mapper(errors.NotFound)
+      ENOENT: mapper(errors.NotFound),
+      EBADF: mapper(errors.BadResource)
     };
     var isNodeErr = (e) => {
       return e instanceof Error && "code" in e;
@@ -184,31 +189,69 @@ var require_errorMap = __commonJS({
 var require_stat = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/stat.js"(exports2) {
     "use strict";
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
+    } : function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      o[k2] = m[k];
+    });
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
+      Object.defineProperty(o, "default", { enumerable: true, value: v });
+    } : function(o, v) {
+      o["default"] = v;
+    });
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
+      if (mod && mod.__esModule)
+        return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k in mod)
+          if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+            __createBinding(result, mod, k);
+      }
+      __setModuleDefault(result, mod);
+      return result;
+    };
     var __importDefault = exports2 && exports2.__importDefault || function(mod) {
       return mod && mod.__esModule ? mod : { "default": mod };
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.stat = exports2.denoifyFileInfo = void 0;
     var promises_1 = require("fs/promises");
+    var os = __importStar(require("os"));
     var errorMap_js_1 = __importDefault(require_errorMap());
+    var isWindows2 = os.platform() === "win32";
     function denoifyFileInfo(s) {
       return {
         atime: s.atime,
         birthtime: s.birthtime,
-        blksize: s.blksize,
-        blocks: s.blocks,
+        blksize: isWindows2 ? null : s.blksize,
+        blocks: isWindows2 ? null : s.blocks,
         dev: s.dev,
-        gid: s.gid,
-        ino: s.ino,
+        gid: isWindows2 ? null : s.gid,
+        ino: isWindows2 ? null : s.ino,
         isDirectory: s.isDirectory(),
         isFile: s.isFile(),
         isSymlink: s.isSymbolicLink(),
-        mode: s.mode,
+        isBlockDevice: isWindows2 ? null : s.isBlockDevice(),
+        isCharDevice: isWindows2 ? null : s.isCharacterDevice(),
+        isFifo: isWindows2 ? null : s.isFIFO(),
+        isSocket: isWindows2 ? null : s.isSocket(),
+        mode: isWindows2 ? null : s.mode,
         mtime: s.mtime,
-        nlink: s.nlink,
-        rdev: s.rdev,
+        nlink: isWindows2 ? null : s.nlink,
+        rdev: isWindows2 ? null : s.rdev,
         size: s.size,
-        uid: s.uid
+        uid: isWindows2 ? null : s.uid
       };
     }
     exports2.denoifyFileInfo = denoifyFileInfo;
@@ -259,14 +302,22 @@ var require_fstat = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.fstat = void 0;
     var fs = __importStar(require("fs"));
     var util_1 = require("util");
     var stat_js_1 = require_stat();
+    var errorMap_js_1 = __importDefault(require_errorMap());
     var nodeFstat = (0, util_1.promisify)(fs.fstat);
     var fstat = async function(fd) {
-      return (0, stat_js_1.denoifyFileInfo)(await nodeFstat(fd));
+      try {
+        return (0, stat_js_1.denoifyFileInfo)(await nodeFstat(fd));
+      } catch (err) {
+        throw (0, errorMap_js_1.default)(err);
+      }
     };
     exports2.fstat = fstat;
   }
@@ -276,12 +327,20 @@ var require_fstat = __commonJS({
 var require_fstatSync = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fstatSync.js"(exports2) {
     "use strict";
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.fstatSync = void 0;
     var fs_1 = require("fs");
     var stat_js_1 = require_stat();
+    var errorMap_js_1 = __importDefault(require_errorMap());
     var fstatSync = function fstatSync2(fd) {
-      return (0, stat_js_1.denoifyFileInfo)((0, fs_1.fstatSync)(fd));
+      try {
+        return (0, stat_js_1.denoifyFileInfo)((0, fs_1.fstatSync)(fd));
+      } catch (err) {
+        throw (0, errorMap_js_1.default)(err);
+      }
     };
     exports2.fstatSync = fstatSync;
   }
@@ -308,6 +367,30 @@ var require_ftruncateSync = __commonJS({
     exports2.ftruncateSync = void 0;
     var fs_1 = require("fs");
     exports2.ftruncateSync = fs_1.ftruncateSync;
+  }
+});
+
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasync.js
+var require_fdatasync = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasync.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.fdatasync = void 0;
+    var fs_1 = require("fs");
+    var util_1 = require("util");
+    var _fdatasync = (0, util_1.promisify)(fs_1.fdatasync);
+    exports2.fdatasync = _fdatasync;
+  }
+});
+
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasyncSync.js
+var require_fdatasyncSync = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasyncSync.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.fdatasyncSync = void 0;
+    var fs_1 = require("fs");
+    exports2.fdatasyncSync = fs_1.fdatasyncSync;
   }
 });
 
@@ -509,20 +592,56 @@ var require_FsFile = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
+    var __classPrivateFieldGet = exports2 && exports2.__classPrivateFieldGet || function(receiver, state, kind, f) {
+      if (kind === "a" && !f)
+        throw new TypeError("Private accessor was defined without a getter");
+      if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+        throw new TypeError("Cannot read private member from an object whose class did not declare it");
+      return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+    };
+    var __classPrivateFieldSet = exports2 && exports2.__classPrivateFieldSet || function(receiver, state, value, kind, f) {
+      if (kind === "m")
+        throw new TypeError("Private method is not writable");
+      if (kind === "a" && !f)
+        throw new TypeError("Private accessor was defined without a setter");
+      if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+        throw new TypeError("Cannot write private member to an object whose class did not declare it");
+      return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
+    };
+    var _a;
+    var _b;
+    var _c;
+    var _d;
+    var _FsFile_closed;
+    var _FsFile_readableStream;
+    var _FsFile_writableStream;
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.File = exports2.FsFile = void 0;
     var fs = __importStar(require("fs"));
+    var stream = __importStar(require("stream"));
     var fstat_js_1 = require_fstat();
     var fstatSync_js_1 = require_fstatSync();
     var ftruncate_js_1 = require_ftruncate();
     var ftruncateSync_js_1 = require_ftruncateSync();
+    var fdatasync_js_1 = require_fdatasync();
+    var fdatasyncSync_js_1 = require_fdatasyncSync();
     var read_js_1 = require_read();
     var readSync_js_1 = require_readSync();
     var write_js_1 = require_write();
     var writeSync_js_1 = require_writeSync();
+    (_a = (_c = Symbol).dispose) !== null && _a !== void 0 ? _a : _c.dispose = Symbol("Symbol.dispose");
+    (_b = (_d = Symbol).asyncDispose) !== null && _b !== void 0 ? _b : _d.asyncDispose = Symbol("Symbol.asyncDispose");
     var FsFile = class {
       constructor(rid) {
         this.rid = rid;
+        _FsFile_closed.set(this, false);
+        _FsFile_readableStream.set(this, void 0);
+        _FsFile_writableStream.set(this, void 0);
+      }
+      [(_FsFile_closed = /* @__PURE__ */ new WeakMap(), _FsFile_readableStream = /* @__PURE__ */ new WeakMap(), _FsFile_writableStream = /* @__PURE__ */ new WeakMap(), Symbol.dispose)]() {
+        if (!__classPrivateFieldGet(this, _FsFile_closed, "f")) {
+          this.close();
+        }
       }
       async write(p) {
         return await (0, write_js_1.write)(this.rid, p);
@@ -554,14 +673,47 @@ var require_FsFile = __commonJS({
       statSync() {
         return (0, fstatSync_js_1.fstatSync)(this.rid);
       }
+      sync() {
+        throw new Error("Method not implemented.");
+      }
+      syncSync() {
+        throw new Error("Method not implemented.");
+      }
+      syncData() {
+        return (0, fdatasync_js_1.fdatasync)(this.rid);
+      }
+      syncDataSync() {
+        return (0, fdatasyncSync_js_1.fdatasyncSync)(this.rid);
+      }
+      utime(_atime, _mtime) {
+        throw new Error("Method not implemented.");
+      }
+      utimeSync(_atime, _mtime) {
+        throw new Error("Method not implemented.");
+      }
       close() {
+        __classPrivateFieldSet(this, _FsFile_closed, true, "f");
         fs.closeSync(this.rid);
       }
       get readable() {
-        throw new Error("Not implemented.");
+        if (__classPrivateFieldGet(this, _FsFile_readableStream, "f") == null) {
+          const nodeStream = fs.createReadStream(null, {
+            fd: this.rid,
+            autoClose: false
+          });
+          __classPrivateFieldSet(this, _FsFile_readableStream, stream.Readable.toWeb(nodeStream), "f");
+        }
+        return __classPrivateFieldGet(this, _FsFile_readableStream, "f");
       }
       get writable() {
-        throw new Error("Not implemented.");
+        if (__classPrivateFieldGet(this, _FsFile_writableStream, "f") == null) {
+          const nodeStream = fs.createWriteStream(null, {
+            fd: this.rid,
+            autoClose: false
+          });
+          __classPrivateFieldSet(this, _FsFile_writableStream, stream.Writable.toWeb(nodeStream), "f");
+        }
+        return __classPrivateFieldGet(this, _FsFile_writableStream, "f");
       }
     };
     exports2.FsFile = FsFile;
@@ -586,6 +738,7 @@ var require_PermissionStatus = __commonJS({
         super();
         this.state = state;
         this.onchange = null;
+        this.partial = false;
       }
     };
     exports2.PermissionStatus = PermissionStatus;
@@ -600,14 +753,23 @@ var require_Permissions = __commonJS({
     exports2.Permissions = void 0;
     var PermissionStatus_js_1 = require_PermissionStatus();
     var Permissions = class {
-      query(_desc) {
-        return Promise.resolve(new PermissionStatus_js_1.PermissionStatus("granted"));
+      query(desc) {
+        return Promise.resolve(this.querySync(desc));
       }
-      revoke(_desc) {
-        return Promise.resolve(new PermissionStatus_js_1.PermissionStatus("denied"));
+      querySync(_desc) {
+        return new PermissionStatus_js_1.PermissionStatus("granted");
+      }
+      revoke(desc) {
+        return Promise.resolve(this.revokeSync(desc));
+      }
+      revokeSync(_desc) {
+        return new PermissionStatus_js_1.PermissionStatus("denied");
       }
       request(desc) {
         return this.query(desc);
+      }
+      requestSync(desc) {
+        return this.querySync(desc);
       }
     };
     exports2.Permissions = Permissions;
@@ -649,7 +811,7 @@ var require_SeekMode = __commonJS({
       SeekMode2[SeekMode2["Start"] = 0] = "Start";
       SeekMode2[SeekMode2["Current"] = 1] = "Current";
       SeekMode2[SeekMode2["End"] = 2] = "End";
-    })(SeekMode = exports2.SeekMode || (exports2.SeekMode = {}));
+    })(SeekMode || (exports2.SeekMode = SeekMode = {}));
   }
 });
 
@@ -732,12 +894,20 @@ var require_env = __commonJS({
     exports2.env = void 0;
     exports2.env = {
       get(key) {
+        assertValidKey(key);
         return process.env[key];
       },
       set(key, value) {
+        assertValidKey(key);
+        assertValidValue(value);
         process.env[key] = value;
       },
+      has(key) {
+        assertValidKey(key);
+        return key in process.env;
+      },
       delete(key) {
+        assertValidKey(key);
         delete process.env[key];
       },
       // @ts-expect-error https://github.com/denoland/deno/issues/10267
@@ -745,6 +915,26 @@ var require_env = __commonJS({
         return { ...process.env };
       }
     };
+    var invalidKeyChars = ["=", "\0"].map((c) => c.charCodeAt(0));
+    var invalidValueChar = "\0".charCodeAt(0);
+    function assertValidKey(key) {
+      if (key.length === 0) {
+        throw new TypeError("Key is an empty string.");
+      }
+      for (let i = 0; i < key.length; i++) {
+        if (invalidKeyChars.includes(key.charCodeAt(i))) {
+          const char = key.charCodeAt(i) === "\0".charCodeAt(0) ? "\\0" : key[i];
+          throw new TypeError(`Key contains invalid characters: "${char}"`);
+        }
+      }
+    }
+    function assertValidValue(value) {
+      for (let i = 0; i < value.length; i++) {
+        if (value.charCodeAt(i) === invalidValueChar) {
+          throw new TypeError('Value contains invalid characters: "\\0"');
+        }
+      }
+    }
   }
 });
 
@@ -850,8 +1040,15 @@ var require_resources = __commonJS({
 var require_std = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/variables/std.js"(exports2) {
     "use strict";
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.stderr = exports2.stdout = exports2.stdin = void 0;
+    var node_stream_1 = __importDefault(require("stream"));
+    var node_tty_1 = __importDefault(require("tty"));
+    var readSync_js_1 = require_readSync();
+    var writeSync_js_1 = require_writeSync();
     function chain(fn, cleanup) {
       let prev;
       return function _fn(...args) {
@@ -864,8 +1061,12 @@ var require_std = __commonJS({
         return prev = curr;
       };
     }
+    var stdinReadable;
     exports2.stdin = {
       rid: 0,
+      isTerminal() {
+        return node_tty_1.default.isatty(this.rid);
+      },
       read: chain((p) => {
         return new Promise((resolve3, reject) => {
           process.stdin.resume();
@@ -888,10 +1089,13 @@ var require_std = __commonJS({
         });
       }, () => process.stdin.pause()),
       get readable() {
-        throw new Error("Not implemented.");
+        if (stdinReadable == null) {
+          stdinReadable = node_stream_1.default.Readable.toWeb(process.stdin);
+        }
+        return stdinReadable;
       },
-      readSync() {
-        throw new Error("Not implemented.");
+      readSync(buffer) {
+        return (0, readSync_js_1.readSync)(this.rid, buffer);
       },
       close() {
         process.stdin.destroy();
@@ -903,8 +1107,12 @@ var require_std = __commonJS({
         process.stdin.setRawMode(mode);
       }
     };
+    var stdoutWritable;
     exports2.stdout = {
       rid: 1,
+      isTerminal() {
+        return node_tty_1.default.isatty(this.rid);
+      },
       write: chain((p) => {
         return new Promise((resolve3) => {
           const result = process.stdout.write(p);
@@ -916,17 +1124,24 @@ var require_std = __commonJS({
         });
       }),
       get writable() {
-        throw new Error("Not implemented.");
+        if (stdoutWritable == null) {
+          stdoutWritable = node_stream_1.default.Writable.toWeb(process.stdout);
+        }
+        return stdoutWritable;
       },
-      writeSync() {
-        throw new Error("Not implemented");
+      writeSync(data) {
+        return (0, writeSync_js_1.writeSync)(this.rid, data);
       },
       close() {
         process.stdout.destroy();
       }
     };
+    var stderrWritable;
     exports2.stderr = {
       rid: 2,
+      isTerminal() {
+        return node_tty_1.default.isatty(this.rid);
+      },
       write: chain((p) => {
         return new Promise((resolve3) => {
           const result = process.stderr.write(p);
@@ -938,10 +1153,13 @@ var require_std = __commonJS({
         });
       }),
       get writable() {
-        throw new Error("Not implemented.");
+        if (stderrWritable == null) {
+          stderrWritable = node_stream_1.default.Writable.toWeb(process.stderr);
+        }
+        return stderrWritable;
       },
-      writeSync() {
-        throw new Error("Not implemented");
+      writeSync(data) {
+        return (0, writeSync_js_1.writeSync)(this.rid, data);
       },
       close() {
         process.stderr.destroy();
@@ -956,8 +1174,8 @@ var require_version = __commonJS({
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.typescript = exports2.deno = void 0;
-    exports2.deno = "1.29.2";
-    exports2.typescript = "4.9.4";
+    exports2.deno = "1.40.3";
+    exports2.typescript = "5.3.3";
   }
 });
 
@@ -1065,6 +1283,29 @@ var require_variables = __commonJS({
     Object.defineProperty(exports2, "version", { enumerable: true, get: function() {
       return version_js_1.version;
     } });
+  }
+});
+
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/addSignalListener.js
+var require_addSignalListener = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/addSignalListener.js"(exports2) {
+    "use strict";
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.addSignalListener = void 0;
+    var process_1 = __importDefault(require("process"));
+    function denoSignalToNodeJs(signal) {
+      if (signal === "SIGEMT") {
+        throw new Error("SIGEMT is not supported");
+      }
+      return signal;
+    }
+    var addSignalListener = (signal, handler) => {
+      process_1.default.addListener(denoSignalToNodeJs(signal), handler);
+    };
+    exports2.addSignalListener = addSignalListener;
   }
 });
 
@@ -1345,6 +1586,9 @@ var require_Conn = __commonJS({
         _Conn_socket.set(this, void 0);
         __classPrivateFieldSet(this, _Conn_socket, socket || new net_1.Socket({ fd: rid }), "f");
       }
+      [(_Conn_socket = /* @__PURE__ */ new WeakMap(), Symbol.dispose)]() {
+        this.close();
+      }
       async closeWrite() {
         await new Promise((resolve3) => __classPrivateFieldGet(this, _Conn_socket, "f").end(resolve3));
       }
@@ -1362,7 +1606,6 @@ var require_Conn = __commonJS({
       }
     };
     exports2.Conn = Conn;
-    _Conn_socket = /* @__PURE__ */ new WeakMap();
     var TlsConn = class extends Conn {
       handshake() {
         console.warn("@deno/shim-deno: Handshake is not supported.");
@@ -1470,6 +1713,26 @@ var require_connectTls = __commonJS({
       });
     };
     exports2.connectTls = connectTls;
+  }
+});
+
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/consoleSize.js
+var require_consoleSize = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/consoleSize.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.consoleSize = void 0;
+    var consoleSize = function consoleSize2() {
+      const pipes = [process.stderr, process.stdout];
+      for (const pipe of pipes) {
+        if (pipe.columns != null) {
+          const { columns, rows } = pipe;
+          return { columns, rows };
+        }
+      }
+      throw new Error("The handle is invalid.");
+    };
+    exports2.consoleSize = consoleSize;
   }
 });
 
@@ -1844,223 +2107,254 @@ var require_cwd = __commonJS({
   }
 });
 
-// dist/dnt/node_modules/isexe/windows.js
-var require_windows = __commonJS({
-  "dist/dnt/node_modules/isexe/windows.js"(exports2, module2) {
-    module2.exports = isexe;
-    isexe.sync = sync;
-    var fs = require("fs");
-    function checkPathExt(path2, options) {
-      var pathext = options.pathExt !== void 0 ? options.pathExt : process.env.PATHEXT;
-      if (!pathext) {
+// dist/dnt/node_modules/isexe/dist/cjs/posix.js
+var require_posix = __commonJS({
+  "dist/dnt/node_modules/isexe/dist/cjs/posix.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.sync = exports2.isexe = void 0;
+    var fs_1 = require("fs");
+    var promises_1 = require("fs/promises");
+    var isexe = async (path2, options = {}) => {
+      const { ignoreErrors = false } = options;
+      try {
+        return checkStat(await (0, promises_1.stat)(path2), options);
+      } catch (e) {
+        const er = e;
+        if (ignoreErrors || er.code === "EACCES")
+          return false;
+        throw er;
+      }
+    };
+    exports2.isexe = isexe;
+    var sync = (path2, options = {}) => {
+      const { ignoreErrors = false } = options;
+      try {
+        return checkStat((0, fs_1.statSync)(path2), options);
+      } catch (e) {
+        const er = e;
+        if (ignoreErrors || er.code === "EACCES")
+          return false;
+        throw er;
+      }
+    };
+    exports2.sync = sync;
+    var checkStat = (stat, options) => stat.isFile() && checkMode(stat, options);
+    var checkMode = (stat, options) => {
+      const myUid = options.uid ?? process.getuid?.();
+      const myGroups = options.groups ?? process.getgroups?.() ?? [];
+      const myGid = options.gid ?? process.getgid?.() ?? myGroups[0];
+      if (myUid === void 0 || myGid === void 0) {
+        throw new Error("cannot get uid or gid");
+      }
+      const groups = /* @__PURE__ */ new Set([myGid, ...myGroups]);
+      const mod = stat.mode;
+      const uid = stat.uid;
+      const gid = stat.gid;
+      const u = parseInt("100", 8);
+      const g = parseInt("010", 8);
+      const o = parseInt("001", 8);
+      const ug = u | g;
+      return !!(mod & o || mod & g && groups.has(gid) || mod & u && uid === myUid || mod & ug && myUid === 0);
+    };
+  }
+});
+
+// dist/dnt/node_modules/isexe/dist/cjs/win32.js
+var require_win32 = __commonJS({
+  "dist/dnt/node_modules/isexe/dist/cjs/win32.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.sync = exports2.isexe = void 0;
+    var fs_1 = require("fs");
+    var promises_1 = require("fs/promises");
+    var isexe = async (path2, options = {}) => {
+      const { ignoreErrors = false } = options;
+      try {
+        return checkStat(await (0, promises_1.stat)(path2), path2, options);
+      } catch (e) {
+        const er = e;
+        if (ignoreErrors || er.code === "EACCES")
+          return false;
+        throw er;
+      }
+    };
+    exports2.isexe = isexe;
+    var sync = (path2, options = {}) => {
+      const { ignoreErrors = false } = options;
+      try {
+        return checkStat((0, fs_1.statSync)(path2), path2, options);
+      } catch (e) {
+        const er = e;
+        if (ignoreErrors || er.code === "EACCES")
+          return false;
+        throw er;
+      }
+    };
+    exports2.sync = sync;
+    var checkPathExt = (path2, options) => {
+      const { pathExt = process.env.PATHEXT || "" } = options;
+      const peSplit = pathExt.split(";");
+      if (peSplit.indexOf("") !== -1) {
         return true;
       }
-      pathext = pathext.split(";");
-      if (pathext.indexOf("") !== -1) {
-        return true;
-      }
-      for (var i = 0; i < pathext.length; i++) {
-        var p = pathext[i].toLowerCase();
-        if (p && path2.substr(-p.length).toLowerCase() === p) {
+      for (let i = 0; i < peSplit.length; i++) {
+        const p = peSplit[i].toLowerCase();
+        const ext = path2.substring(path2.length - p.length).toLowerCase();
+        if (p && ext === p) {
           return true;
         }
       }
       return false;
-    }
-    function checkStat(stat, path2, options) {
-      if (!stat.isSymbolicLink() && !stat.isFile()) {
-        return false;
-      }
-      return checkPathExt(path2, options);
-    }
-    function isexe(path2, options, cb) {
-      fs.stat(path2, function(er, stat) {
-        cb(er, er ? false : checkStat(stat, path2, options));
-      });
-    }
-    function sync(path2, options) {
-      return checkStat(fs.statSync(path2), path2, options);
-    }
+    };
+    var checkStat = (stat, path2, options) => stat.isFile() && checkPathExt(path2, options);
   }
 });
 
-// dist/dnt/node_modules/isexe/mode.js
-var require_mode = __commonJS({
-  "dist/dnt/node_modules/isexe/mode.js"(exports2, module2) {
-    module2.exports = isexe;
-    isexe.sync = sync;
-    var fs = require("fs");
-    function isexe(path2, options, cb) {
-      fs.stat(path2, function(er, stat) {
-        cb(er, er ? false : checkStat(stat, options));
-      });
-    }
-    function sync(path2, options) {
-      return checkStat(fs.statSync(path2), options);
-    }
-    function checkStat(stat, options) {
-      return stat.isFile() && checkMode(stat, options);
-    }
-    function checkMode(stat, options) {
-      var mod = stat.mode;
-      var uid = stat.uid;
-      var gid = stat.gid;
-      var myUid = options.uid !== void 0 ? options.uid : process.getuid && process.getuid();
-      var myGid = options.gid !== void 0 ? options.gid : process.getgid && process.getgid();
-      var u = parseInt("100", 8);
-      var g = parseInt("010", 8);
-      var o = parseInt("001", 8);
-      var ug = u | g;
-      var ret = mod & o || mod & g && gid === myGid || mod & u && uid === myUid || mod & ug && myUid === 0;
-      return ret;
-    }
+// dist/dnt/node_modules/isexe/dist/cjs/options.js
+var require_options = __commonJS({
+  "dist/dnt/node_modules/isexe/dist/cjs/options.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
   }
 });
 
-// dist/dnt/node_modules/isexe/index.js
-var require_isexe = __commonJS({
-  "dist/dnt/node_modules/isexe/index.js"(exports2, module2) {
-    var fs = require("fs");
-    var core;
-    if (process.platform === "win32" || global.TESTING_WINDOWS) {
-      core = require_windows();
-    } else {
-      core = require_mode();
-    }
-    module2.exports = isexe;
-    isexe.sync = sync;
-    function isexe(path2, options, cb) {
-      if (typeof options === "function") {
-        cb = options;
-        options = {};
+// dist/dnt/node_modules/isexe/dist/cjs/index.js
+var require_cjs = __commonJS({
+  "dist/dnt/node_modules/isexe/dist/cjs/index.js"(exports2) {
+    "use strict";
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
       }
-      if (!cb) {
-        if (typeof Promise !== "function") {
-          throw new TypeError("callback not provided");
-        }
-        return new Promise(function(resolve3, reject) {
-          isexe(path2, options || {}, function(er, is) {
-            if (er) {
-              reject(er);
-            } else {
-              resolve3(is);
-            }
-          });
-        });
+      Object.defineProperty(o, k2, desc);
+    } : function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      o[k2] = m[k];
+    });
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
+      Object.defineProperty(o, "default", { enumerable: true, value: v });
+    } : function(o, v) {
+      o["default"] = v;
+    });
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
+      if (mod && mod.__esModule)
+        return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k in mod)
+          if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+            __createBinding(result, mod, k);
       }
-      core(path2, options || {}, function(er, is) {
-        if (er) {
-          if (er.code === "EACCES" || options && options.ignoreErrors) {
-            er = null;
-            is = false;
-          }
-        }
-        cb(er, is);
-      });
-    }
-    function sync(path2, options) {
-      try {
-        return core.sync(path2, options || {});
-      } catch (er) {
-        if (options && options.ignoreErrors || er.code === "EACCES") {
-          return false;
-        } else {
-          throw er;
-        }
-      }
-    }
+      __setModuleDefault(result, mod);
+      return result;
+    };
+    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
+      for (var p in m)
+        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p))
+          __createBinding(exports3, m, p);
+    };
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.sync = exports2.isexe = exports2.posix = exports2.win32 = void 0;
+    var posix = __importStar(require_posix());
+    exports2.posix = posix;
+    var win32 = __importStar(require_win32());
+    exports2.win32 = win32;
+    __exportStar(require_options(), exports2);
+    var platform = process.env._ISEXE_TEST_PLATFORM_ || process.platform;
+    var impl = platform === "win32" ? win32 : posix;
+    exports2.isexe = impl.isexe;
+    exports2.sync = impl.sync;
   }
 });
 
-// dist/dnt/node_modules/which/which.js
-var require_which = __commonJS({
-  "dist/dnt/node_modules/which/which.js"(exports2, module2) {
-    var isWindows2 = process.platform === "win32" || process.env.OSTYPE === "cygwin" || process.env.OSTYPE === "msys";
-    var path2 = require("path");
-    var COLON = isWindows2 ? ";" : ":";
-    var isexe = require_isexe();
+// dist/dnt/node_modules/which/lib/index.js
+var require_lib = __commonJS({
+  "dist/dnt/node_modules/which/lib/index.js"(exports2, module2) {
+    var { isexe, sync: isexeSync } = require_cjs();
+    var { join: join4, delimiter: delimiter3, sep: sep3, posix } = require("path");
+    var isWindows2 = process.platform === "win32";
+    var rSlash = new RegExp(`[${posix.sep}${sep3 === posix.sep ? "" : sep3}]`.replace(/(\\)/g, "\\$1"));
+    var rRel = new RegExp(`^\\.${rSlash.source}`);
     var getNotFoundError = (cmd) => Object.assign(new Error(`not found: ${cmd}`), { code: "ENOENT" });
-    var getPathInfo = (cmd, opt) => {
-      const colon = opt.colon || COLON;
-      const pathEnv = cmd.match(/\//) || isWindows2 && cmd.match(/\\/) ? [""] : [
+    var getPathInfo = (cmd, {
+      path: optPath = process.env.PATH,
+      pathExt: optPathExt = process.env.PATHEXT,
+      delimiter: optDelimiter = delimiter3
+    }) => {
+      const pathEnv = cmd.match(rSlash) ? [""] : [
         // windows always checks the cwd first
         ...isWindows2 ? [process.cwd()] : [],
-        ...(opt.path || process.env.PATH || /* istanbul ignore next: very unusual */
-        "").split(colon)
+        ...(optPath || /* istanbul ignore next: very unusual */
+        "").split(optDelimiter)
       ];
-      const pathExtExe = isWindows2 ? opt.pathExt || process.env.PATHEXT || ".EXE;.CMD;.BAT;.COM" : "";
-      const pathExt = isWindows2 ? pathExtExe.split(colon) : [""];
       if (isWindows2) {
-        if (cmd.indexOf(".") !== -1 && pathExt[0] !== "")
+        const pathExtExe = optPathExt || [".EXE", ".CMD", ".BAT", ".COM"].join(optDelimiter);
+        const pathExt = pathExtExe.split(optDelimiter).flatMap((item) => [item, item.toLowerCase()]);
+        if (cmd.includes(".") && pathExt[0] !== "") {
           pathExt.unshift("");
+        }
+        return { pathEnv, pathExt, pathExtExe };
       }
-      return {
-        pathEnv,
-        pathExt,
-        pathExtExe
-      };
+      return { pathEnv, pathExt: [""] };
     };
-    var which = (cmd, opt, cb) => {
-      if (typeof opt === "function") {
-        cb = opt;
-        opt = {};
-      }
-      if (!opt)
-        opt = {};
+    var getPathPart = (raw, cmd) => {
+      const pathPart = /^".*"$/.test(raw) ? raw.slice(1, -1) : raw;
+      const prefix = !pathPart && rRel.test(cmd) ? cmd.slice(0, 2) : "";
+      return prefix + join4(pathPart, cmd);
+    };
+    var which = async (cmd, opt = {}) => {
       const { pathEnv, pathExt, pathExtExe } = getPathInfo(cmd, opt);
       const found = [];
-      const step = (i) => new Promise((resolve3, reject) => {
-        if (i === pathEnv.length)
-          return opt.all && found.length ? resolve3(found) : reject(getNotFoundError(cmd));
-        const ppRaw = pathEnv[i];
-        const pathPart = /^".*"$/.test(ppRaw) ? ppRaw.slice(1, -1) : ppRaw;
-        const pCmd = path2.join(pathPart, cmd);
-        const p = !pathPart && /^\.[\\\/]/.test(cmd) ? cmd.slice(0, 2) + pCmd : pCmd;
-        resolve3(subStep(p, i, 0));
-      });
-      const subStep = (p, i, ii) => new Promise((resolve3, reject) => {
-        if (ii === pathExt.length)
-          return resolve3(step(i + 1));
-        const ext = pathExt[ii];
-        isexe(p + ext, { pathExt: pathExtExe }, (er, is) => {
-          if (!er && is) {
-            if (opt.all)
-              found.push(p + ext);
-            else
-              return resolve3(p + ext);
-          }
-          return resolve3(subStep(p, i, ii + 1));
-        });
-      });
-      return cb ? step(0).then((res) => cb(null, res), cb) : step(0);
-    };
-    var whichSync = (cmd, opt) => {
-      opt = opt || {};
-      const { pathEnv, pathExt, pathExtExe } = getPathInfo(cmd, opt);
-      const found = [];
-      for (let i = 0; i < pathEnv.length; i++) {
-        const ppRaw = pathEnv[i];
-        const pathPart = /^".*"$/.test(ppRaw) ? ppRaw.slice(1, -1) : ppRaw;
-        const pCmd = path2.join(pathPart, cmd);
-        const p = !pathPart && /^\.[\\\/]/.test(cmd) ? cmd.slice(0, 2) + pCmd : pCmd;
-        for (let j = 0; j < pathExt.length; j++) {
-          const cur = p + pathExt[j];
-          try {
-            const is = isexe.sync(cur, { pathExt: pathExtExe });
-            if (is) {
-              if (opt.all)
-                found.push(cur);
-              else
-                return cur;
+      for (const envPart of pathEnv) {
+        const p = getPathPart(envPart, cmd);
+        for (const ext of pathExt) {
+          const withExt = p + ext;
+          const is = await isexe(withExt, { pathExt: pathExtExe, ignoreErrors: true });
+          if (is) {
+            if (!opt.all) {
+              return withExt;
             }
-          } catch (ex) {
+            found.push(withExt);
           }
         }
       }
-      if (opt.all && found.length)
+      if (opt.all && found.length) {
         return found;
-      if (opt.nothrow)
+      }
+      if (opt.nothrow) {
         return null;
+      }
+      throw getNotFoundError(cmd);
+    };
+    var whichSync = (cmd, opt = {}) => {
+      const { pathEnv, pathExt, pathExtExe } = getPathInfo(cmd, opt);
+      const found = [];
+      for (const pathEnvPart of pathEnv) {
+        const p = getPathPart(pathEnvPart, cmd);
+        for (const ext of pathExt) {
+          const withExt = p + ext;
+          const is = isexeSync(withExt, { pathExt: pathExtExe, ignoreErrors: true });
+          if (is) {
+            if (!opt.all) {
+              return withExt;
+            }
+            found.push(withExt);
+          }
+        }
+      }
+      if (opt.all && found.length) {
+        return found;
+      }
+      if (opt.nothrow) {
+        return null;
+      }
       throw getNotFoundError(cmd);
     };
     module2.exports = which;
@@ -2077,7 +2371,7 @@ var require_execPath = __commonJS({
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.execPath = void 0;
-    var which_1 = __importDefault(require_which());
+    var which_1 = __importDefault(require_lib());
     var execPath = () => which_1.default.sync("deno");
     exports2.execPath = execPath;
   }
@@ -2093,30 +2387,6 @@ var require_exit = __commonJS({
       return process.exit(code);
     };
     exports2.exit = exit;
-  }
-});
-
-// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasync.js
-var require_fdatasync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasync.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.fdatasync = void 0;
-    var fs_1 = require("fs");
-    var util_1 = require("util");
-    var _fdatasync = (0, util_1.promisify)(fs_1.fdatasync);
-    exports2.fdatasync = _fdatasync;
-  }
-});
-
-// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasyncSync.js
-var require_fdatasyncSync = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/fdatasyncSync.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.fdatasyncSync = void 0;
-    var fs_1 = require("fs");
-    exports2.fdatasyncSync = fs_1.fdatasyncSync;
   }
 });
 
@@ -2146,6 +2416,67 @@ var require_fsyncSync = __commonJS({
       return (0, fs_1.fsyncSync)(rid);
     };
     exports2.fsyncSync = fsyncSync;
+  }
+});
+
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/gid.js
+var require_gid = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/gid.js"(exports2) {
+    "use strict";
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
+    var _a;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.gid = void 0;
+    var process_1 = __importDefault(require("process"));
+    exports2.gid = (_a = process_1.default.getgid) !== null && _a !== void 0 ? _a : () => null;
+  }
+});
+
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/hostname.js
+var require_hostname = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/hostname.js"(exports2) {
+    "use strict";
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
+    } : function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      o[k2] = m[k];
+    });
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
+      Object.defineProperty(o, "default", { enumerable: true, value: v });
+    } : function(o, v) {
+      o["default"] = v;
+    });
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
+      if (mod && mod.__esModule)
+        return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k in mod)
+          if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+            __createBinding(result, mod, k);
+      }
+      __setModuleDefault(result, mod);
+      return result;
+    };
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.hostname = void 0;
+    var os = __importStar(require("os"));
+    var hostname = function hostname2() {
+      return os.hostname();
+    };
+    exports2.hostname = hostname;
   }
 });
 
@@ -2364,6 +2695,9 @@ var require_Listener = __commonJS({
         _Listener_listener.set(this, void 0);
         __classPrivateFieldSet(this, _Listener_listener, listener, "f");
       }
+      [(_Listener_listener = /* @__PURE__ */ new WeakMap(), Symbol.dispose)]() {
+        this.close();
+      }
       async accept() {
         if (!__classPrivateFieldGet(this, _Listener_listener, "f")) {
           throw new errors.BadResource("Listener not initialised");
@@ -2399,7 +2733,7 @@ var require_Listener = __commonJS({
       unref() {
         throw new Error("Not implemented");
       }
-      [(_Listener_listener = /* @__PURE__ */ new WeakMap(), Symbol.asyncIterator)]() {
+      [Symbol.asyncIterator]() {
         return this;
       }
     };
@@ -2569,6 +2903,52 @@ var require_listenTls = __commonJS({
   }
 });
 
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/loadavg.js
+var require_loadavg = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/loadavg.js"(exports2) {
+    "use strict";
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
+    } : function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      o[k2] = m[k];
+    });
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
+      Object.defineProperty(o, "default", { enumerable: true, value: v });
+    } : function(o, v) {
+      o["default"] = v;
+    });
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
+      if (mod && mod.__esModule)
+        return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k in mod)
+          if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+            __createBinding(result, mod, k);
+      }
+      __setModuleDefault(result, mod);
+      return result;
+    };
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.loadavg = void 0;
+    var os = __importStar(require("os"));
+    var loadavg = function loadavg2() {
+      return os.loadavg();
+    };
+    exports2.loadavg = loadavg;
+  }
+});
+
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstat.js
 var require_lstat = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/lstat.js"(exports2) {
@@ -2660,11 +3040,21 @@ var require_lstatSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.lstatSync = void 0;
     var fs = __importStar(require("fs"));
     var stat_js_1 = require_stat();
-    var lstatSync = (path2) => (0, stat_js_1.denoifyFileInfo)(fs.lstatSync(path2));
+    var errorMap_js_1 = __importDefault(require_errorMap());
+    var lstatSync = (path2) => {
+      try {
+        return (0, stat_js_1.denoifyFileInfo)(fs.lstatSync(path2));
+      } catch (err) {
+        throw (0, errorMap_js_1.default)(err);
+      }
+    };
     exports2.lstatSync = lstatSync;
   }
 });
@@ -2759,9 +3149,15 @@ var require_writeTextFile = __commonJS({
     var fs = __importStar(require("fs/promises"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var fs_flags_js_1 = require_fs_flags();
-    var writeTextFile = async function writeTextFile2(path2, data, { append = false, create = true, mode, signal } = {}) {
+    var writeTextFile = async function writeTextFile2(path2, data, { append = false, create = true, createNew = false, mode, signal } = {}) {
       const truncate = create && !append;
-      const flag = (0, fs_flags_js_1.getFsFlag)({ append, create, truncate, write: true });
+      const flag = (0, fs_flags_js_1.getFsFlag)({
+        append,
+        create,
+        createNew,
+        truncate,
+        write: true
+      });
       try {
         await fs.writeFile(path2, data, { flag, mode, signal });
         if (mode !== void 0)
@@ -2960,6 +3356,34 @@ var require_mkdirSync = __commonJS({
       }
     };
     exports2.mkdirSync = mkdirSync;
+  }
+});
+
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/osRelease.js
+var require_osRelease = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/osRelease.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.osRelease = void 0;
+    var os_1 = require("os");
+    var osRelease = function osRelease2() {
+      return (0, os_1.release)();
+    };
+    exports2.osRelease = osRelease;
+  }
+});
+
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/osUptime.js
+var require_osUptime = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/osUptime.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.osUptime = void 0;
+    var os_1 = require("os");
+    var osUptime = function osUptime2() {
+      return (0, os_1.uptime)();
+    };
+    exports2.osUptime = osUptime;
   }
 });
 
@@ -3264,6 +3688,23 @@ var require_remove = __commonJS({
   }
 });
 
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/removeSignalListener.js
+var require_removeSignalListener = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/removeSignalListener.js"(exports2) {
+    "use strict";
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.removeSignalListener = void 0;
+    var process_1 = __importDefault(require("process"));
+    var removeSignalListener = (signal, handler) => {
+      process_1.default.removeListener(signal, handler);
+    };
+    exports2.removeSignalListener = removeSignalListener;
+  }
+});
+
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/removeSync.js
 var require_removeSync = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/removeSync.js"(exports2) {
@@ -3526,7 +3967,7 @@ var require_streams = __commonJS({
         }
       }
       if (errors.length > 0) {
-        throw errors.length > 1 ? new AggregateError(errors) : errors[0];
+        throw errors.length > 1 ? new globalThis.AggregateError(errors) : errors[0];
       }
     };
     var StreamWriter = class {
@@ -3625,7 +4066,7 @@ var require_run = __commonJS({
     var os_1 = __importDefault(require("os"));
     var url_1 = __importDefault(require("url"));
     var events_1 = require("events");
-    var which_1 = __importDefault(require_which());
+    var which_1 = __importDefault(require_lib());
     var streams_js_1 = require_streams();
     var errors = __importStar(require_errors());
     var run2 = function run3(options) {
@@ -3882,11 +4323,21 @@ var require_statSync = __commonJS({
       __setModuleDefault(result, mod);
       return result;
     };
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.statSync = void 0;
     var fs = __importStar(require("fs"));
     var stat_js_1 = require_stat();
-    var statSync = (path2) => (0, stat_js_1.denoifyFileInfo)(fs.statSync(path2));
+    var errorMap_js_1 = __importDefault(require_errorMap());
+    var statSync = (path2) => {
+      try {
+        return (0, stat_js_1.denoifyFileInfo)(fs.statSync(path2));
+      } catch (err) {
+        throw (0, errorMap_js_1.default)(err);
+      }
+    };
     exports2.statSync = statSync;
   }
 });
@@ -3996,12 +4447,22 @@ var require_test = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.test = void 0;
     var definitions_js_1 = require_definitions();
-    var test = function test2() {
+    exports2.test = Object.assign(function test() {
+      handleDefinition(arguments);
+    }, {
+      ignore() {
+        handleDefinition(arguments, { ignore: true });
+      },
+      only() {
+        handleDefinition(arguments, { only: true });
+      }
+    });
+    function handleDefinition(args, additional) {
       var _a, _b;
       let testDef;
-      const firstArg = arguments[0];
-      const secondArg = arguments[1];
-      const thirdArg = arguments[2];
+      const firstArg = args[0];
+      const secondArg = args[1];
+      const thirdArg = args[2];
       if (typeof firstArg === "string") {
         if (typeof secondArg === "object") {
           if (typeof thirdArg === "function") {
@@ -4051,9 +4512,14 @@ var require_test = __commonJS({
       if (((_b = (_a = testDef.name) === null || _a === void 0 ? void 0 : _a.length) !== null && _b !== void 0 ? _b : 0) === 0) {
         throw new TypeError("The test name can't be empty");
       }
+      if (additional === null || additional === void 0 ? void 0 : additional.ignore) {
+        testDef.ignore = true;
+      }
+      if (additional === null || additional === void 0 ? void 0 : additional.only) {
+        testDef.only = true;
+      }
       definitions_js_1.testDefinitions.push(testDef);
-    };
-    exports2.test = test;
+    }
   }
 });
 
@@ -4221,12 +4687,27 @@ var require_truncateSync = __commonJS({
   }
 });
 
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/uid.js
+var require_uid = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions/uid.js"(exports2) {
+    "use strict";
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
+    var _a;
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.uid = void 0;
+    var process_1 = __importDefault(require("process"));
+    exports2.uid = (_a = process_1.default.getuid) !== null && _a !== void 0 ? _a : () => null;
+  }
+});
+
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/iterutil.js
 var require_iterutil = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/internal/iterutil.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.merge = exports2.mapAsync = exports2.map = void 0;
+    exports2.merge = exports2.filterAsync = exports2.mapAsync = exports2.map = void 0;
     function* map(iter, f) {
       for (const i of iter) {
         yield f(i);
@@ -4239,6 +4720,14 @@ var require_iterutil = __commonJS({
       }
     }
     exports2.mapAsync = mapAsync;
+    async function* filterAsync(iter, filter) {
+      for await (const i of iter) {
+        if (filter(i)) {
+          yield i;
+        }
+      }
+    }
+    exports2.filterAsync = filterAsync;
     async function* merge(iterables) {
       const racers = new Map(map(map(iterables, (iter) => iter[Symbol.asyncIterator]()), (iter) => [iter, iter.next()]));
       while (racers.size > 0) {
@@ -4269,14 +4758,18 @@ var require_watchFs = __commonJS({
       const ac = new AbortController();
       const { signal } = ac;
       const rid = -1;
-      const masterWatcher = (0, iterutil_js_1.merge)(paths.map((path2) => (0, iterutil_js_1.mapAsync)((0, promises_1.watch)(path2, { recursive: options === null || options === void 0 ? void 0 : options.recursive, signal }), (info2) => ({
+      const masterWatcher = (0, iterutil_js_1.merge)(paths.map((path2) => (0, iterutil_js_1.mapAsync)((0, iterutil_js_1.filterAsync)((0, promises_1.watch)(path2, { recursive: options === null || options === void 0 ? void 0 : options.recursive, signal }), (info2) => info2.filename != null), (info2) => ({
         kind: "modify",
         paths: [(0, path_1.resolve)(path2, info2.filename)]
       }))));
       function close() {
         ac.abort();
       }
-      return Object.assign(masterWatcher, { rid, close });
+      return Object.assign(masterWatcher, {
+        rid,
+        close,
+        [Symbol.dispose]: close
+      });
     };
     exports2.watchFs = watchFs;
   }
@@ -4401,12 +4894,22 @@ var require_args = __commonJS({
 var require_functions = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/functions.js"(exports2) {
     "use strict";
+    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
+      return mod && mod.__esModule ? mod : { "default": mod };
+    };
     Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.readSync = exports2.readLinkSync = exports2.readLink = exports2.readFileSync = exports2.readFile = exports2.readDirSync = exports2.readDir = exports2.read = exports2.openSync = exports2.open = exports2.mkdirSync = exports2.mkdir = exports2.memoryUsage = exports2.makeTempFileSync = exports2.makeTempFile = exports2.makeTempDirSync = exports2.makeTempDir = exports2.lstatSync = exports2.lstat = exports2.listenTls = exports2.listen = exports2.linkSync = exports2.link = exports2.kill = exports2.inspect = exports2.ftruncateSync = exports2.ftruncate = exports2.fsyncSync = exports2.fsync = exports2.fstatSync = exports2.fstat = exports2.fdatasyncSync = exports2.fdatasync = exports2.exit = exports2.execPath = exports2.cwd = exports2.createSync = exports2.create = exports2.copyFileSync = exports2.copyFile = exports2.copy = exports2.connectTls = exports2.connect = exports2.close = exports2.chownSync = exports2.chown = exports2.chmodSync = exports2.chmod = exports2.chdir = exports2.isatty = void 0;
-    exports2.args = exports2.writeTextFileSync = exports2.writeTextFile = exports2.writeSync = exports2.writeFileSync = exports2.writeFile = exports2.write = exports2.watchFs = exports2.truncateSync = exports2.truncate = exports2.test = exports2.symlinkSync = exports2.symlink = exports2.statSync = exports2.stat = exports2.shutdown = exports2.run = exports2.Process = exports2.resolveDns = exports2.renameSync = exports2.rename = exports2.removeSync = exports2.remove = exports2.realPathSync = exports2.realPath = exports2.readTextFileSync = exports2.readTextFile = void 0;
+    exports2.read = exports2.osUptime = exports2.osRelease = exports2.openSync = exports2.open = exports2.mkdirSync = exports2.mkdir = exports2.memoryUsage = exports2.makeTempFileSync = exports2.makeTempFile = exports2.makeTempDirSync = exports2.makeTempDir = exports2.lstatSync = exports2.lstat = exports2.loadavg = exports2.listenTls = exports2.listen = exports2.linkSync = exports2.link = exports2.kill = exports2.inspect = exports2.hostname = exports2.gid = exports2.ftruncateSync = exports2.ftruncate = exports2.fsyncSync = exports2.fsync = exports2.fstatSync = exports2.fstat = exports2.fdatasyncSync = exports2.fdatasync = exports2.exit = exports2.execPath = exports2.cwd = exports2.createSync = exports2.create = exports2.copyFileSync = exports2.copyFile = exports2.copy = exports2.consoleSize = exports2.connectTls = exports2.connect = exports2.close = exports2.chownSync = exports2.chown = exports2.chmodSync = exports2.chmod = exports2.chdir = exports2.addSignalListener = exports2.isatty = void 0;
+    exports2.utimeSync = exports2.utime = exports2.futimeSync = exports2.futime = exports2.args = exports2.writeTextFileSync = exports2.writeTextFile = exports2.writeSync = exports2.writeFileSync = exports2.writeFile = exports2.write = exports2.watchFs = exports2.uid = exports2.truncateSync = exports2.truncate = exports2.test = exports2.symlinkSync = exports2.symlink = exports2.statSync = exports2.stat = exports2.shutdown = exports2.run = exports2.Process = exports2.resolveDns = exports2.renameSync = exports2.rename = exports2.removeSync = exports2.removeSignalListener = exports2.remove = exports2.realPathSync = exports2.realPath = exports2.readTextFileSync = exports2.readTextFile = exports2.readSync = exports2.readLinkSync = exports2.readLink = exports2.readFileSync = exports2.readFile = exports2.readDirSync = exports2.readDir = void 0;
+    var fs_1 = __importDefault(require("fs"));
+    var errorMap_js_1 = __importDefault(require_errorMap());
+    var variables_js_1 = require_variables();
     var tty_1 = require("tty");
     Object.defineProperty(exports2, "isatty", { enumerable: true, get: function() {
       return tty_1.isatty;
+    } });
+    var addSignalListener_js_1 = require_addSignalListener();
+    Object.defineProperty(exports2, "addSignalListener", { enumerable: true, get: function() {
+      return addSignalListener_js_1.addSignalListener;
     } });
     var chdir_js_1 = require_chdir();
     Object.defineProperty(exports2, "chdir", { enumerable: true, get: function() {
@@ -4439,6 +4942,10 @@ var require_functions = __commonJS({
     var connectTls_js_1 = require_connectTls();
     Object.defineProperty(exports2, "connectTls", { enumerable: true, get: function() {
       return connectTls_js_1.connectTls;
+    } });
+    var consoleSize_js_1 = require_consoleSize();
+    Object.defineProperty(exports2, "consoleSize", { enumerable: true, get: function() {
+      return consoleSize_js_1.consoleSize;
     } });
     var copy_js_1 = require_copy();
     Object.defineProperty(exports2, "copy", { enumerable: true, get: function() {
@@ -4504,6 +5011,14 @@ var require_functions = __commonJS({
     Object.defineProperty(exports2, "ftruncateSync", { enumerable: true, get: function() {
       return ftruncateSync_js_1.ftruncateSync;
     } });
+    var gid_js_1 = require_gid();
+    Object.defineProperty(exports2, "gid", { enumerable: true, get: function() {
+      return gid_js_1.gid;
+    } });
+    var hostname_js_1 = require_hostname();
+    Object.defineProperty(exports2, "hostname", { enumerable: true, get: function() {
+      return hostname_js_1.hostname;
+    } });
     var inspect_js_1 = require_inspect();
     Object.defineProperty(exports2, "inspect", { enumerable: true, get: function() {
       return inspect_js_1.inspect;
@@ -4527,6 +5042,10 @@ var require_functions = __commonJS({
     var listenTls_js_1 = require_listenTls();
     Object.defineProperty(exports2, "listenTls", { enumerable: true, get: function() {
       return listenTls_js_1.listenTls;
+    } });
+    var loadavg_js_1 = require_loadavg();
+    Object.defineProperty(exports2, "loadavg", { enumerable: true, get: function() {
+      return loadavg_js_1.loadavg;
     } });
     var lstat_js_1 = require_lstat();
     Object.defineProperty(exports2, "lstat", { enumerable: true, get: function() {
@@ -4571,6 +5090,14 @@ var require_functions = __commonJS({
     var openSync_js_1 = require_openSync();
     Object.defineProperty(exports2, "openSync", { enumerable: true, get: function() {
       return openSync_js_1.openSync;
+    } });
+    var osRelease_js_1 = require_osRelease();
+    Object.defineProperty(exports2, "osRelease", { enumerable: true, get: function() {
+      return osRelease_js_1.osRelease;
+    } });
+    var osUptime_js_1 = require_osUptime();
+    Object.defineProperty(exports2, "osUptime", { enumerable: true, get: function() {
+      return osUptime_js_1.osUptime;
     } });
     var read_js_1 = require_read();
     Object.defineProperty(exports2, "read", { enumerable: true, get: function() {
@@ -4623,6 +5150,10 @@ var require_functions = __commonJS({
     var remove_js_1 = require_remove();
     Object.defineProperty(exports2, "remove", { enumerable: true, get: function() {
       return remove_js_1.remove;
+    } });
+    var removeSignalListener_js_1 = require_removeSignalListener();
+    Object.defineProperty(exports2, "removeSignalListener", { enumerable: true, get: function() {
+      return removeSignalListener_js_1.removeSignalListener;
     } });
     var removeSync_js_1 = require_removeSync();
     Object.defineProperty(exports2, "removeSync", { enumerable: true, get: function() {
@@ -4679,6 +5210,10 @@ var require_functions = __commonJS({
     Object.defineProperty(exports2, "truncateSync", { enumerable: true, get: function() {
       return truncateSync_js_1.truncateSync;
     } });
+    var uid_js_1 = require_uid();
+    Object.defineProperty(exports2, "uid", { enumerable: true, get: function() {
+      return uid_js_1.uid;
+    } });
     var watchFs_js_1 = require_watchFs();
     Object.defineProperty(exports2, "watchFs", { enumerable: true, get: function() {
       return watchFs_js_1.watchFs;
@@ -4711,62 +5246,6 @@ var require_functions = __commonJS({
     Object.defineProperty(exports2, "args", { enumerable: true, get: function() {
       return args_js_1.args;
     } });
-  }
-});
-
-// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/types.js
-var require_types = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/types.js"(exports2) {
-    "use strict";
-    Object.defineProperty(exports2, "__esModule", { value: true });
-  }
-});
-
-// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/main.js
-var require_main = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/main.js"(exports2) {
-    "use strict";
-    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
-          return m[k];
-        } };
-      }
-      Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0)
-        k2 = k;
-      o[k2] = m[k];
-    });
-    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
-      for (var p in m)
-        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p))
-          __createBinding(exports3, m, p);
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    __exportStar(require_classes(), exports2);
-    __exportStar(require_enums(), exports2);
-    __exportStar(require_functions(), exports2);
-    __exportStar(require_types(), exports2);
-    __exportStar(require_variables(), exports2);
-  }
-});
-
-// dist/dnt/node_modules/@deno/shim-deno/dist/deno/unstable/main.js
-var require_main2 = __commonJS({
-  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/unstable/main.js"(exports2) {
-    "use strict";
-    var __importDefault = exports2 && exports2.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
-    Object.defineProperty(exports2, "__esModule", { value: true });
-    exports2.utimeSync = exports2.utime = exports2.futimeSync = exports2.futime = void 0;
-    var fs_1 = __importDefault(require("fs"));
-    var errorMap_js_1 = __importDefault(require_errorMap());
-    var variables_js_1 = require_variables();
     var futime = async function(rid, atime, mtime) {
       try {
         await new Promise((resolve3, reject) => {
@@ -4816,6 +5295,47 @@ var require_main2 = __commonJS({
   }
 });
 
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/types.js
+var require_types = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/types.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+  }
+});
+
+// dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/main.js
+var require_main = __commonJS({
+  "dist/dnt/node_modules/@deno/shim-deno/dist/deno/stable/main.js"(exports2) {
+    "use strict";
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      var desc = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc);
+    } : function(o, m, k, k2) {
+      if (k2 === void 0)
+        k2 = k;
+      o[k2] = m[k];
+    });
+    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
+      for (var p in m)
+        if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p))
+          __createBinding(exports3, m, p);
+    };
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    __exportStar(require_classes(), exports2);
+    __exportStar(require_enums(), exports2);
+    __exportStar(require_functions(), exports2);
+    __exportStar(require_types(), exports2);
+    __exportStar(require_variables(), exports2);
+  }
+});
+
 // dist/dnt/node_modules/@deno/shim-deno/dist/deno.js
 var require_deno = __commonJS({
   "dist/dnt/node_modules/@deno/shim-deno/dist/deno.js"(exports2) {
@@ -4842,7 +5362,6 @@ var require_deno = __commonJS({
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     __exportStar(require_main(), exports2);
-    __exportStar(require_main2(), exports2);
   }
 });
 
@@ -8371,7 +8890,7 @@ var require_urlencoded = __commonJS({
 });
 
 // dist/dnt/node_modules/@fastify/busboy/lib/main.js
-var require_main3 = __commonJS({
+var require_main2 = __commonJS({
   "dist/dnt/node_modules/@fastify/busboy/lib/main.js"(exports2, module2) {
     "use strict";
     var WritableStream = require("stream").Writable;
@@ -10266,7 +10785,7 @@ var require_formdata = __commonJS({
 var require_body = __commonJS({
   "dist/dnt/node_modules/undici/lib/fetch/body.js"(exports2, module2) {
     "use strict";
-    var Busboy = require_main3();
+    var Busboy = require_main2();
     var util = require_util();
     var {
       ReadableStreamFrom,
@@ -22344,7 +22863,7 @@ var require_undici = __commonJS({
 });
 
 // dist/dnt/node_modules/@actions/http-client/lib/index.js
-var require_lib = __commonJS({
+var require_lib2 = __commonJS({
   "dist/dnt/node_modules/@actions/http-client/lib/index.js"(exports2) {
     "use strict";
     var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
@@ -23107,7 +23626,7 @@ var require_oidc_utils = __commonJS({
     };
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.OidcClient = void 0;
-    var http_client_1 = require_lib();
+    var http_client_1 = require_lib2();
     var auth_1 = require_auth();
     var core_1 = require_core();
     var OidcClient = class _OidcClient {
