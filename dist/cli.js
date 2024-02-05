@@ -6980,7 +6980,7 @@ async function revParse(options) {
   return await exec(args);
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/ansi/ansi_escapes.js
 var ansi_escapes_exports = {};
 __export(ansi_escapes_exports, {
   bel: () => bel,
@@ -7013,7 +7013,7 @@ __export(ansi_escapes_exports, {
   scrollUp: () => scrollUp
 });
 
-// dist/dnt/esm/deps/deno.land/std@0.170.0/encoding/base64.js
+// dist/dnt/esm/deps/deno.land/std@0.196.0/encoding/base64.js
 var base64abc = [
   "A",
   "B",
@@ -7104,7 +7104,7 @@ function encode(data) {
   return result;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/ansi/ansi_escapes.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/ansi/ansi_escapes.js
 var ESC = "\x1B";
 var CSI = `${ESC}[`;
 var OSC = `${ESC}]`;
@@ -7210,8 +7210,9 @@ function image(buffer, options) {
   return ret + ":" + encode(buffer) + bel;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/ansi/ansi.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/ansi/ansi.js
 var ansi = factory();
+var encoder = new TextEncoder();
 function factory() {
   let result = [];
   let stack = [];
@@ -7229,14 +7230,17 @@ function factory() {
     stack.push([text, []]);
     return this;
   };
-  ansi2.toString = function() {
+  ansi2.toArray = function() {
     update();
-    const str = result.join("");
+    const ret = result;
     result = [];
-    return str;
+    return ret;
   };
-  ansi2.toBuffer = function() {
-    return new TextEncoder().encode(this.toString());
+  ansi2.toString = function() {
+    return this.toArray().join("");
+  };
+  ansi2.bytes = function() {
+    return encoder.encode(this.toString());
   };
   const methodList = Object.entries(ansi_escapes_exports);
   for (const [name, method] of methodList) {
@@ -7260,7 +7264,7 @@ function factory() {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.170.0/fmt/colors.js
+// dist/dnt/esm/deps/deno.land/std@0.196.0/fmt/colors.js
 var colors_exports = {};
 __export(colors_exports, {
   bgBlack: () => bgBlack,
@@ -7313,10 +7317,10 @@ __export(colors_exports, {
   yellow: () => yellow
 });
 var { Deno: Deno3 } = dntGlobalThis;
-var noColor = typeof Deno3?.noColor === "boolean" ? Deno3.noColor : true;
+var noColor = typeof Deno3?.noColor === "boolean" ? Deno3.noColor : false;
 var enabled = !noColor;
 function setColorEnabled(value) {
-  if (noColor) {
+  if (Deno3?.noColor) {
     return;
   }
   enabled = value;
@@ -7498,7 +7502,7 @@ function stripColor(string2) {
   return string2.replace(ANSI_PATTERN, "");
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/ansi/colors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/ansi/colors.js
 var proto = /* @__PURE__ */ Object.create(null);
 var methodNames = Object.keys(colors_exports);
 for (const name of methodNames) {
@@ -7514,7 +7518,7 @@ for (const name of methodNames) {
 var colors = factory2();
 function factory2(stack = []) {
   const colors2 = function(str, ...args) {
-    if (str) {
+    if (typeof str !== "undefined") {
       const lastIndex = stack.length - 1;
       return stack.reduce((str2, name, index) => index === lastIndex ? colors_exports[name](str2, ...args) : colors_exports[name](str2), str);
     }
@@ -7527,28 +7531,31 @@ function factory2(stack = []) {
   return colors2;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/ansi/cursor_position.js
-function getCursorPosition({ stdin = import_shim_deno2.Deno.stdin, stdout = import_shim_deno2.Deno.stdout } = {}) {
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/ansi/cursor_position.js
+var encoder2 = new TextEncoder();
+var decoder = new TextDecoder();
+function getCursorPosition({ reader = import_shim_deno2.Deno.stdin, writer = import_shim_deno2.Deno.stdout } = {}) {
   const data = new Uint8Array(8);
-  import_shim_deno2.Deno.stdin.setRaw(true);
-  stdout.writeSync(new TextEncoder().encode(cursorPosition));
-  stdin.readSync(data);
-  import_shim_deno2.Deno.stdin.setRaw(false);
-  const [y, x] = new TextDecoder().decode(data).match(/\[(\d+);(\d+)R/)?.slice(1, 3).map(Number) ?? [0, 0];
+  reader.setRaw(true);
+  writer.writeSync(encoder2.encode(cursorPosition));
+  reader.readSync(data);
+  reader.setRaw(false);
+  const [y, x] = decoder.decode(data).match(/\[(\d+);(\d+)R/)?.slice(1, 3).map(Number) ?? [0, 0];
   return { x, y };
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/ansi/tty.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/ansi/tty.js
 var tty = factory3();
+var encoder3 = new TextEncoder();
 function factory3(options) {
   let result = "";
   let stack = [];
-  const stdout = options?.stdout ?? import_shim_deno2.Deno.stdout;
-  const stdin = options?.stdin ?? import_shim_deno2.Deno.stdin;
+  const writer = options?.writer ?? import_shim_deno2.Deno.stdout;
+  const reader = options?.reader ?? import_shim_deno2.Deno.stdin;
   const tty2 = function(...args) {
     if (this) {
       update(args);
-      stdout.writeSync(new TextEncoder().encode(result));
+      writer.writeSync(encoder3.encode(result));
       return this;
     }
     return factory3(args[0] ?? options);
@@ -7556,10 +7563,10 @@ function factory3(options) {
   tty2.text = function(text) {
     stack.push([text, []]);
     update();
-    stdout.writeSync(new TextEncoder().encode(result));
+    writer.writeSync(encoder3.encode(result));
     return this;
   };
-  tty2.getCursorPosition = () => getCursorPosition({ stdout, stdin });
+  tty2.getCursorPosition = () => getCursorPosition({ writer, reader });
   const methodList = Object.entries(ansi_escapes_exports);
   for (const [name, method] of methodList) {
     if (name === "cursorPosition") {
@@ -7585,7 +7592,7 @@ function factory3(options) {
   }
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/_utils/distance.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/_utils/distance.js
 function distance(a, b) {
   if (a.length == 0) {
     return b.length;
@@ -7612,7 +7619,7 @@ function distance(a, b) {
   return matrix[b.length][a.length];
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/_utils.js
 function paramCaseToCamelCase(str) {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
@@ -7696,7 +7703,7 @@ function getDefaultValue(option) {
   return typeof option.default === "function" ? option.default() : option.default;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/_errors.js
 var FlagsError = class _FlagsError extends Error {
   constructor(message) {
     super(message);
@@ -7806,7 +7813,7 @@ var InvalidTypeError = class extends ValidationError {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/deprecated.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/deprecated.js
 var OptionType;
 (function(OptionType2) {
   OptionType2["STRING"] = "string";
@@ -7815,7 +7822,483 @@ var OptionType;
   OptionType2["BOOLEAN"] = "boolean";
 })(OptionType || (OptionType = {}));
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/_utils.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/types/boolean.js
+var boolean = (type) => {
+  if (~["1", "true"].indexOf(type.value)) {
+    return true;
+  }
+  if (~["0", "false"].indexOf(type.value)) {
+    return false;
+  }
+  throw new InvalidTypeError(type, ["true", "false", "1", "0"]);
+};
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/types/number.js
+var number = (type) => {
+  const value = Number(type.value);
+  if (Number.isFinite(value)) {
+    return value;
+  }
+  throw new InvalidTypeError(type);
+};
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/types/string.js
+var string = ({ value }) => {
+  return value;
+};
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/_validate_flags.js
+function validateFlags(ctx, opts, options = /* @__PURE__ */ new Map()) {
+  if (!opts.flags) {
+    return;
+  }
+  setDefaultValues(ctx, opts);
+  const optionNames = Object.keys(ctx.flags);
+  if (!optionNames.length && opts.allowEmpty) {
+    return;
+  }
+  if (ctx.standalone) {
+    validateStandaloneOption(ctx, options, optionNames);
+    return;
+  }
+  for (const [name, option] of options) {
+    validateUnknownOption(option, opts);
+    validateConflictingOptions(ctx, option);
+    validateDependingOptions(ctx, option);
+    validateRequiredValues(ctx, option, name);
+  }
+  validateRequiredOptions(ctx, options, opts);
+}
+function validateUnknownOption(option, opts) {
+  if (!getOption(opts.flags ?? [], option.name)) {
+    throw new UnknownOptionError(option.name, opts.flags ?? []);
+  }
+}
+function setDefaultValues(ctx, opts) {
+  if (!opts.flags?.length) {
+    return;
+  }
+  for (const option of opts.flags) {
+    let name;
+    let defaultValue = void 0;
+    if (option.name.startsWith("no-")) {
+      const propName = option.name.replace(/^no-/, "");
+      if (typeof ctx.flags[propName] !== "undefined") {
+        continue;
+      }
+      const positiveOption = getOption(opts.flags, propName);
+      if (positiveOption) {
+        continue;
+      }
+      name = paramCaseToCamelCase(propName);
+      defaultValue = true;
+    }
+    if (!name) {
+      name = paramCaseToCamelCase(option.name);
+    }
+    const hasDefaultValue = (!opts.ignoreDefaults || typeof opts.ignoreDefaults[name] === "undefined") && typeof ctx.flags[name] === "undefined" && (typeof option.default !== "undefined" || typeof defaultValue !== "undefined");
+    if (hasDefaultValue) {
+      ctx.flags[name] = getDefaultValue(option) ?? defaultValue;
+      ctx.defaults[option.name] = true;
+      if (typeof option.value === "function") {
+        ctx.flags[name] = option.value(ctx.flags[name]);
+      }
+    }
+  }
+}
+function validateStandaloneOption(ctx, options, optionNames) {
+  if (!ctx.standalone || optionNames.length === 1) {
+    return;
+  }
+  for (const [_, opt] of options) {
+    if (!ctx.defaults[opt.name] && opt !== ctx.standalone) {
+      throw new OptionNotCombinableError(ctx.standalone.name);
+    }
+  }
+}
+function validateConflictingOptions(ctx, option) {
+  if (!option.conflicts?.length) {
+    return;
+  }
+  for (const flag of option.conflicts) {
+    if (isset(flag, ctx.flags)) {
+      throw new ConflictingOptionError(option.name, flag);
+    }
+  }
+}
+function validateDependingOptions(ctx, option) {
+  if (!option.depends) {
+    return;
+  }
+  for (const flag of option.depends) {
+    if (!isset(flag, ctx.flags) && !ctx.defaults[option.name]) {
+      throw new DependingOptionError(option.name, flag);
+    }
+  }
+}
+function validateRequiredValues(ctx, option, name) {
+  if (!option.args) {
+    return;
+  }
+  const isArray = option.args.length > 1;
+  for (let i = 0; i < option.args.length; i++) {
+    const arg = option.args[i];
+    if (arg.optional) {
+      continue;
+    }
+    const hasValue = isArray ? typeof ctx.flags[name][i] !== "undefined" : typeof ctx.flags[name] !== "undefined";
+    if (!hasValue) {
+      throw new MissingOptionValueError(option.name);
+    }
+  }
+}
+function validateRequiredOptions(ctx, options, opts) {
+  if (!opts.flags?.length) {
+    return;
+  }
+  const optionsValues = [...options.values()];
+  for (const option of opts.flags) {
+    if (!option.required || paramCaseToCamelCase(option.name) in ctx.flags) {
+      continue;
+    }
+    const conflicts = option.conflicts ?? [];
+    const hasConflict = conflicts.find((flag) => !!ctx.flags[flag]);
+    const hasConflicts = hasConflict || optionsValues.find((opt) => opt.conflicts?.find((flag) => flag === option.name));
+    if (hasConflicts) {
+      continue;
+    }
+    throw new MissingRequiredOptionError(option.name);
+  }
+}
+function isset(flagName, flags) {
+  const name = paramCaseToCamelCase(flagName);
+  return typeof flags[name] !== "undefined";
+}
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/types/integer.js
+var integer = (type) => {
+  const value = Number(type.value);
+  if (Number.isInteger(value)) {
+    return value;
+  }
+  throw new InvalidTypeError(type);
+};
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/flags.js
+var DefaultTypes = {
+  string,
+  number,
+  integer,
+  boolean
+};
+function parseFlags(argsOrCtx, opts = {}) {
+  let args;
+  let ctx;
+  if (Array.isArray(argsOrCtx)) {
+    ctx = {};
+    args = argsOrCtx;
+  } else {
+    ctx = argsOrCtx;
+    args = argsOrCtx.unknown;
+    argsOrCtx.unknown = [];
+  }
+  args = args.slice();
+  ctx.flags ??= {};
+  ctx.literal ??= [];
+  ctx.unknown ??= [];
+  ctx.stopEarly = false;
+  ctx.stopOnUnknown = false;
+  ctx.defaults ??= {};
+  opts.dotted ??= true;
+  validateOptions(opts);
+  const options = parseArgs(ctx, args, opts);
+  validateFlags(ctx, opts, options);
+  if (opts.dotted) {
+    parseDottedOptions(ctx);
+  }
+  return ctx;
+}
+function validateOptions(opts) {
+  opts.flags?.forEach((opt) => {
+    opt.depends?.forEach((flag) => {
+      if (!opts.flags || !getOption(opts.flags, flag)) {
+        throw new UnknownRequiredOptionError(flag, opts.flags ?? []);
+      }
+    });
+    opt.conflicts?.forEach((flag) => {
+      if (!opts.flags || !getOption(opts.flags, flag)) {
+        throw new UnknownConflictingOptionError(flag, opts.flags ?? []);
+      }
+    });
+  });
+}
+function parseArgs(ctx, args, opts) {
+  const optionsMap = /* @__PURE__ */ new Map();
+  let inLiteral = false;
+  for (let argsIndex = 0; argsIndex < args.length; argsIndex++) {
+    let parseNext = function(option2) {
+      if (negate) {
+        setFlagValue(false);
+        return;
+      } else if (!option2.args?.length) {
+        setFlagValue(void 0);
+        return;
+      }
+      const arg = option2.args[optionArgsIndex];
+      if (!arg) {
+        const flag = next();
+        throw new UnknownOptionError(flag, opts.flags ?? []);
+      }
+      if (!arg.type) {
+        arg.type = OptionType.BOOLEAN;
+      }
+      if (!option2.args?.length && arg.type === OptionType.BOOLEAN && arg.optional === void 0) {
+        arg.optional = true;
+      }
+      if (arg.optional) {
+        inOptionalArg = true;
+      } else if (inOptionalArg) {
+        throw new UnexpectedRequiredArgumentError(option2.name);
+      }
+      let result;
+      let increase = false;
+      if (arg.list && hasNext(arg)) {
+        const parsed = next().split(arg.separator || ",").map((nextValue) => {
+          const value = parseValue(option2, arg, nextValue);
+          if (typeof value === "undefined") {
+            throw new InvalidOptionValueError(option2.name, arg.type ?? "?", nextValue);
+          }
+          return value;
+        });
+        if (parsed?.length) {
+          result = parsed;
+        }
+      } else {
+        if (hasNext(arg)) {
+          result = parseValue(option2, arg, next());
+        } else if (arg.optional && arg.type === OptionType.BOOLEAN) {
+          result = true;
+        }
+      }
+      if (increase && typeof currentValue === "undefined") {
+        argsIndex++;
+        if (!arg.variadic) {
+          optionArgsIndex++;
+        } else if (option2.args[optionArgsIndex + 1]) {
+          throw new UnexpectedArgumentAfterVariadicArgumentError(next());
+        }
+      }
+      if (typeof result !== "undefined" && (option2.args.length > 1 || arg.variadic)) {
+        if (!ctx.flags[propName]) {
+          setFlagValue([]);
+        }
+        ctx.flags[propName].push(result);
+        if (hasNext(arg)) {
+          parseNext(option2);
+        }
+      } else {
+        setFlagValue(result);
+      }
+      function hasNext(arg2) {
+        if (!option2.args?.length) {
+          return false;
+        }
+        const nextValue = currentValue ?? args[argsIndex + 1];
+        if (!nextValue) {
+          return false;
+        }
+        if (option2.args.length > 1 && optionArgsIndex >= option2.args.length) {
+          return false;
+        }
+        if (!arg2.optional) {
+          return true;
+        }
+        if (option2.equalsSign && arg2.optional && !arg2.variadic && typeof currentValue === "undefined") {
+          return false;
+        }
+        if (arg2.optional || arg2.variadic) {
+          return nextValue[0] !== "-" || typeof currentValue !== "undefined" || arg2.type === OptionType.NUMBER && !isNaN(Number(nextValue));
+        }
+        return false;
+      }
+      function parseValue(option3, arg2, value) {
+        const result2 = opts.parse ? opts.parse({
+          label: "Option",
+          type: arg2.type || OptionType.STRING,
+          name: `--${option3.name}`,
+          value
+        }) : parseDefaultType(option3, arg2, value);
+        if (typeof result2 !== "undefined") {
+          increase = true;
+        }
+        return result2;
+      }
+    }, setFlagValue = function(value) {
+      ctx.flags[propName] = value;
+      if (ctx.defaults[propName]) {
+        delete ctx.defaults[propName];
+      }
+    };
+    let option;
+    let current = args[argsIndex];
+    let currentValue;
+    let negate = false;
+    if (inLiteral) {
+      ctx.literal.push(current);
+      continue;
+    } else if (current === "--") {
+      inLiteral = true;
+      continue;
+    } else if (ctx.stopEarly || ctx.stopOnUnknown) {
+      ctx.unknown.push(current);
+      continue;
+    }
+    const isFlag = current.length > 1 && current[0] === "-";
+    if (!isFlag) {
+      if (opts.stopEarly) {
+        ctx.stopEarly = true;
+      }
+      ctx.unknown.push(current);
+      continue;
+    }
+    const isShort = current[1] !== "-";
+    const isLong = isShort ? false : current.length > 3 && current[2] !== "-";
+    if (!isShort && !isLong) {
+      throw new InvalidOptionError(current, opts.flags ?? []);
+    }
+    if (isShort && current.length > 2 && current[2] !== ".") {
+      args.splice(argsIndex, 1, ...splitFlags(current));
+      current = args[argsIndex];
+    } else if (isLong && current.startsWith("--no-")) {
+      negate = true;
+    }
+    const equalSignIndex = current.indexOf("=");
+    if (equalSignIndex !== -1) {
+      currentValue = current.slice(equalSignIndex + 1) || void 0;
+      current = current.slice(0, equalSignIndex);
+    }
+    if (opts.flags) {
+      option = getOption(opts.flags, current);
+      if (!option) {
+        const name = current.replace(/^-+/, "");
+        option = matchWildCardOptions(name, opts.flags);
+        if (!option) {
+          if (opts.stopOnUnknown) {
+            ctx.stopOnUnknown = true;
+            ctx.unknown.push(args[argsIndex]);
+            continue;
+          }
+          throw new UnknownOptionError(current, opts.flags);
+        }
+      }
+    } else {
+      option = {
+        name: current.replace(/^-+/, ""),
+        optionalValue: true,
+        type: OptionType.STRING
+      };
+    }
+    if (option.standalone) {
+      ctx.standalone = option;
+    }
+    const positiveName = negate ? option.name.replace(/^no-?/, "") : option.name;
+    const propName = paramCaseToCamelCase(positiveName);
+    if (typeof ctx.flags[propName] !== "undefined") {
+      if (!opts.flags?.length) {
+        option.collect = true;
+      } else if (!option.collect && !ctx.defaults[option.name]) {
+        throw new DuplicateOptionError(current);
+      }
+    }
+    if (option.type && !option.args?.length) {
+      option.args = [{
+        type: option.type,
+        optional: option.optionalValue,
+        variadic: option.variadic,
+        list: option.list,
+        separator: option.separator
+      }];
+    }
+    if (opts.flags?.length && !option.args?.length && typeof currentValue !== "undefined") {
+      throw new UnexpectedOptionValueError(option.name, currentValue);
+    }
+    let optionArgsIndex = 0;
+    let inOptionalArg = false;
+    const next = () => currentValue ?? args[argsIndex + 1];
+    const previous = ctx.flags[propName];
+    parseNext(option);
+    if (typeof ctx.flags[propName] === "undefined") {
+      if (option.args?.length && !option.args?.[optionArgsIndex].optional) {
+        throw new MissingOptionValueError(option.name);
+      } else if (typeof option.default !== "undefined" && (option.type || option.value || option.args?.length)) {
+        ctx.flags[propName] = getDefaultValue(option);
+      } else {
+        setFlagValue(true);
+      }
+    }
+    if (option.value) {
+      const value = option.value(ctx.flags[propName], previous);
+      setFlagValue(value);
+    } else if (option.collect) {
+      const value = typeof previous !== "undefined" ? Array.isArray(previous) ? previous : [previous] : [];
+      value.push(ctx.flags[propName]);
+      setFlagValue(value);
+    }
+    optionsMap.set(propName, option);
+    opts.option?.(option, ctx.flags[propName]);
+  }
+  return optionsMap;
+}
+function parseDottedOptions(ctx) {
+  ctx.flags = Object.keys(ctx.flags).reduce((result, key) => {
+    if (~key.indexOf(".")) {
+      key.split(".").reduce((result2, subKey, index, parts) => {
+        if (index === parts.length - 1) {
+          result2[subKey] = ctx.flags[key];
+        } else {
+          result2[subKey] = result2[subKey] ?? {};
+        }
+        return result2[subKey];
+      }, result);
+    } else {
+      result[key] = ctx.flags[key];
+    }
+    return result;
+  }, {});
+}
+function splitFlags(flag) {
+  flag = flag.slice(1);
+  const normalized = [];
+  const index = flag.indexOf("=");
+  const flags = (index !== -1 ? flag.slice(0, index) : flag).split("");
+  if (isNaN(Number(flag[flag.length - 1]))) {
+    flags.forEach((val) => normalized.push(`-${val}`));
+  } else {
+    normalized.push(`-${flags.shift()}`);
+    if (flags.length) {
+      normalized.push(flags.join(""));
+    }
+  }
+  if (index !== -1) {
+    normalized[normalized.length - 1] += flag.slice(index);
+  }
+  return normalized;
+}
+function parseDefaultType(option, arg, value) {
+  const type = arg.type || OptionType.STRING;
+  const parseType = DefaultTypes[type];
+  if (!parseType) {
+    throw new UnknownTypeError(type, Object.keys(DefaultTypes));
+  }
+  return parseType({
+    label: "Option",
+    type,
+    name: `--${option.name}`,
+    value
+  });
+}
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/_utils.js
 function didYouMeanCommand(command, commands, excludes = []) {
   const commandNames = commands.map((command2) => command2.getName()).filter((command2) => !excludes.includes(command2));
   return didYouMean(" Did you mean command", command, commandNames);
@@ -7849,15 +8332,14 @@ function parseArgumentsDefinition(argsDefinition, validate = true, all) {
     }
     const type = parts2[2] || OptionType.STRING;
     const details = {
-      optionalValue: arg[0] === "[",
-      requiredValue: arg[0] === "<",
+      optional: arg[0] === "[",
       name: parts2[1],
       action: parts2[3] || type,
       variadic: false,
       list: type ? arg.indexOf(type + "[]") !== -1 : false,
       type
     };
-    if (validate && !details.optionalValue && hasOptional) {
+    if (validate && !details.optional && hasOptional) {
       throw new UnexpectedRequiredArgumentError(details.name);
     }
     if (arg[0] === "[") {
@@ -7898,7 +8380,7 @@ function getDescription(description, short) {
   return short ? description.trim().split("\n", 1)[0].trim() : dedent(description);
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/_errors.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/_errors.js
 var CommandError = class _CommandError extends Error {
   constructor(message) {
     super(message);
@@ -7921,12 +8403,12 @@ var ValidationError2 = class _ValidationError extends CommandError {
       value: void 0
     });
     Object.setPrototypeOf(this, _ValidationError.prototype);
-    this.exitCode = exitCode ?? 1;
+    this.exitCode = exitCode ?? 2;
   }
 };
 var DuplicateOptionNameError = class _DuplicateOptionNameError extends CommandError {
-  constructor(name) {
-    super(`Option with name "${getFlag(name)}" already exists.`);
+  constructor(optionName, commandName) {
+    super(`An option with name '${bold(getFlag(optionName))}' is already registered on command '${bold(commandName)}'. If it is intended to override the option, set the '${bold("override")}' option of the '${bold("option")}' method to true.`);
     Object.setPrototypeOf(this, _DuplicateOptionNameError.prototype);
   }
 };
@@ -8045,489 +8527,11 @@ var TooManyArgumentsError = class _TooManyArgumentsError extends ValidationError
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/types/boolean.js
-var boolean = (type) => {
-  if (~["1", "true"].indexOf(type.value)) {
-    return true;
-  }
-  if (~["0", "false"].indexOf(type.value)) {
-    return false;
-  }
-  throw new InvalidTypeError(type, ["true", "false", "1", "0"]);
-};
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/types/number.js
-var number = (type) => {
-  const value = Number(type.value);
-  if (Number.isFinite(value)) {
-    return value;
-  }
-  throw new InvalidTypeError(type);
-};
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/types/string.js
-var string = ({ value }) => {
-  return value;
-};
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/_validate_flags.js
-function validateFlags(ctx, opts, options = /* @__PURE__ */ new Map()) {
-  if (!opts.flags) {
-    return;
-  }
-  const defaultValues = setDefaultValues(ctx, opts);
-  const optionNames = Object.keys(ctx.flags);
-  if (!optionNames.length && opts.allowEmpty) {
-    return;
-  }
-  if (ctx.standalone) {
-    validateStandaloneOption(ctx, options, optionNames, defaultValues);
-    return;
-  }
-  for (const [name, option] of options) {
-    validateUnknownOption(option, opts);
-    validateConflictingOptions(ctx, option);
-    validateDependingOptions(ctx, option, defaultValues);
-    validateRequiredValues(ctx, option, name);
-  }
-  validateRequiredOptions(ctx, options, opts);
-}
-function validateUnknownOption(option, opts) {
-  if (!getOption(opts.flags ?? [], option.name)) {
-    throw new UnknownOptionError(option.name, opts.flags ?? []);
-  }
-}
-function setDefaultValues(ctx, opts) {
-  const defaultValues = {};
-  if (!opts.flags?.length) {
-    return defaultValues;
-  }
-  for (const option of opts.flags) {
-    let name;
-    let defaultValue = void 0;
-    if (option.name.startsWith("no-")) {
-      const propName = option.name.replace(/^no-/, "");
-      if (typeof ctx.flags[propName] !== "undefined") {
-        continue;
-      }
-      const positiveOption = getOption(opts.flags, propName);
-      if (positiveOption) {
-        continue;
-      }
-      name = paramCaseToCamelCase(propName);
-      defaultValue = true;
-    }
-    if (!name) {
-      name = paramCaseToCamelCase(option.name);
-    }
-    const hasDefaultValue = (!opts.ignoreDefaults || typeof opts.ignoreDefaults[name] === "undefined") && typeof ctx.flags[name] === "undefined" && (typeof option.default !== "undefined" || typeof defaultValue !== "undefined");
-    if (hasDefaultValue) {
-      ctx.flags[name] = getDefaultValue(option) ?? defaultValue;
-      defaultValues[option.name] = true;
-      if (typeof option.value === "function") {
-        ctx.flags[name] = option.value(ctx.flags[name]);
-      }
-    }
-  }
-  return defaultValues;
-}
-function validateStandaloneOption(ctx, options, optionNames, defaultValues) {
-  if (!ctx.standalone || optionNames.length === 1) {
-    return;
-  }
-  for (const [_, opt] of options) {
-    if (!defaultValues[opt.name] && opt !== ctx.standalone) {
-      throw new OptionNotCombinableError(ctx.standalone.name);
-    }
-  }
-}
-function validateConflictingOptions(ctx, option) {
-  if (!option.conflicts?.length) {
-    return;
-  }
-  for (const flag of option.conflicts) {
-    if (isset(flag, ctx.flags)) {
-      throw new ConflictingOptionError(option.name, flag);
-    }
-  }
-}
-function validateDependingOptions(ctx, option, defaultValues) {
-  if (!option.depends) {
-    return;
-  }
-  for (const flag of option.depends) {
-    if (!isset(flag, ctx.flags) && !defaultValues[option.name]) {
-      throw new DependingOptionError(option.name, flag);
-    }
-  }
-}
-function validateRequiredValues(ctx, option, name) {
-  if (!option.args) {
-    return;
-  }
-  const isArray = option.args.length > 1;
-  for (let i = 0; i < option.args.length; i++) {
-    const arg = option.args[i];
-    if (!arg.requiredValue) {
-      continue;
-    }
-    const hasValue = isArray ? typeof ctx.flags[name][i] !== "undefined" : typeof ctx.flags[name] !== "undefined";
-    if (!hasValue) {
-      throw new MissingOptionValueError(option.name);
-    }
-  }
-}
-function validateRequiredOptions(ctx, options, opts) {
-  if (!opts.flags?.length) {
-    return;
-  }
-  const optionsValues = [...options.values()];
-  for (const option of opts.flags) {
-    if (!option.required || paramCaseToCamelCase(option.name) in ctx.flags) {
-      continue;
-    }
-    const conflicts = option.conflicts ?? [];
-    const hasConflict = conflicts.find((flag) => !!ctx.flags[flag]);
-    const hasConflicts = hasConflict || optionsValues.find((opt) => opt.conflicts?.find((flag) => flag === option.name));
-    if (hasConflicts) {
-      continue;
-    }
-    throw new MissingRequiredOptionError(option.name);
-  }
-}
-function isset(flagName, flags) {
-  const name = paramCaseToCamelCase(flagName);
-  return typeof flags[name] !== "undefined";
-}
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/types/integer.js
-var integer = (type) => {
-  const value = Number(type.value);
-  if (Number.isInteger(value)) {
-    return value;
-  }
-  throw new InvalidTypeError(type);
-};
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/flags/flags.js
-var DefaultTypes = {
-  string,
-  number,
-  integer,
-  boolean
-};
-function parseFlags(argsOrCtx, opts = {}) {
-  let args;
-  let ctx;
-  if (Array.isArray(argsOrCtx)) {
-    ctx = {};
-    args = argsOrCtx;
-  } else {
-    ctx = argsOrCtx;
-    args = argsOrCtx.unknown;
-    argsOrCtx.unknown = [];
-  }
-  args = args.slice();
-  ctx.flags ??= {};
-  ctx.literal ??= [];
-  ctx.unknown ??= [];
-  ctx.stopEarly = false;
-  ctx.stopOnUnknown = false;
-  opts.dotted ??= true;
-  validateOptions(opts);
-  const options = parseArgs(ctx, args, opts);
-  validateFlags(ctx, opts, options);
-  if (opts.dotted) {
-    parseDottedOptions(ctx);
-  }
-  return ctx;
-}
-function validateOptions(opts) {
-  opts.flags?.forEach((opt) => {
-    opt.depends?.forEach((flag) => {
-      if (!opts.flags || !getOption(opts.flags, flag)) {
-        throw new UnknownRequiredOptionError(flag, opts.flags ?? []);
-      }
-    });
-    opt.conflicts?.forEach((flag) => {
-      if (!opts.flags || !getOption(opts.flags, flag)) {
-        throw new UnknownConflictingOptionError(flag, opts.flags ?? []);
-      }
-    });
-  });
-}
-function parseArgs(ctx, args, opts) {
-  const optionsMap = /* @__PURE__ */ new Map();
-  let inLiteral = false;
-  for (let argsIndex = 0; argsIndex < args.length; argsIndex++) {
-    let parseNext = function(option2) {
-      if (negate) {
-        ctx.flags[propName] = false;
-        return;
-      } else if (!option2.args?.length) {
-        ctx.flags[propName] = void 0;
-        return;
-      }
-      const arg = option2.args[optionArgsIndex];
-      if (!arg) {
-        const flag = next();
-        throw new UnknownOptionError(flag, opts.flags ?? []);
-      }
-      if (!arg.type) {
-        arg.type = OptionType.BOOLEAN;
-      }
-      if (option2.args?.length && !option2.type) {
-        if ((typeof arg.optionalValue === "undefined" || arg.optionalValue === false) && typeof arg.requiredValue === "undefined") {
-          arg.requiredValue = true;
-        }
-      } else {
-        if (arg.type !== OptionType.BOOLEAN && (typeof arg.optionalValue === "undefined" || arg.optionalValue === false) && typeof arg.requiredValue === "undefined") {
-          arg.requiredValue = true;
-        }
-      }
-      if (!arg.requiredValue) {
-        inOptionalArg = true;
-      } else if (inOptionalArg) {
-        throw new UnexpectedRequiredArgumentError(option2.name);
-      }
-      let result;
-      let increase = false;
-      if (arg.list && hasNext(arg)) {
-        const parsed = next().split(arg.separator || ",").map((nextValue) => {
-          const value = parseValue(option2, arg, nextValue);
-          if (typeof value === "undefined") {
-            throw new InvalidOptionValueError(option2.name, arg.type ?? "?", nextValue);
-          }
-          return value;
-        });
-        if (parsed?.length) {
-          result = parsed;
-        }
-      } else {
-        if (hasNext(arg)) {
-          result = parseValue(option2, arg, next());
-        } else if (arg.optionalValue && arg.type === OptionType.BOOLEAN) {
-          result = true;
-        }
-      }
-      if (increase && typeof currentValue === "undefined") {
-        argsIndex++;
-        if (!arg.variadic) {
-          optionArgsIndex++;
-        } else if (option2.args[optionArgsIndex + 1]) {
-          throw new UnexpectedArgumentAfterVariadicArgumentError(next());
-        }
-      }
-      if (typeof result !== "undefined" && (option2.args.length > 1 || arg.variadic)) {
-        if (!ctx.flags[propName]) {
-          ctx.flags[propName] = [];
-        }
-        ctx.flags[propName].push(result);
-        if (hasNext(arg)) {
-          parseNext(option2);
-        }
-      } else {
-        ctx.flags[propName] = result;
-      }
-      function hasNext(arg2) {
-        if (!option2.args?.length) {
-          return false;
-        }
-        const nextValue = currentValue ?? args[argsIndex + 1];
-        if (!nextValue) {
-          return false;
-        }
-        if (option2.args.length > 1 && optionArgsIndex >= option2.args.length) {
-          return false;
-        }
-        if (arg2.requiredValue) {
-          return true;
-        }
-        if (option2.equalsSign && arg2.optionalValue && !arg2.variadic && typeof currentValue === "undefined") {
-          return false;
-        }
-        if (arg2.optionalValue || arg2.variadic) {
-          return nextValue[0] !== "-" || typeof currentValue !== "undefined" || arg2.type === OptionType.NUMBER && !isNaN(Number(nextValue));
-        }
-        return false;
-      }
-      function parseValue(option3, arg2, value) {
-        const result2 = opts.parse ? opts.parse({
-          label: "Option",
-          type: arg2.type || OptionType.STRING,
-          name: `--${option3.name}`,
-          value
-        }) : parseDefaultType(option3, arg2, value);
-        if (typeof result2 !== "undefined") {
-          increase = true;
-        }
-        return result2;
-      }
-    };
-    let option;
-    let current = args[argsIndex];
-    let currentValue;
-    let negate = false;
-    if (inLiteral) {
-      ctx.literal.push(current);
-      continue;
-    } else if (current === "--") {
-      inLiteral = true;
-      continue;
-    } else if (ctx.stopEarly || ctx.stopOnUnknown) {
-      ctx.unknown.push(current);
-      continue;
-    }
-    const isFlag = current.length > 1 && current[0] === "-";
-    if (!isFlag) {
-      if (opts.stopEarly) {
-        ctx.stopEarly = true;
-      }
-      ctx.unknown.push(current);
-      continue;
-    }
-    const isShort = current[1] !== "-";
-    const isLong = isShort ? false : current.length > 3 && current[2] !== "-";
-    if (!isShort && !isLong) {
-      throw new InvalidOptionError(current, opts.flags ?? []);
-    }
-    if (isShort && current.length > 2 && current[2] !== ".") {
-      args.splice(argsIndex, 1, ...splitFlags(current));
-      current = args[argsIndex];
-    } else if (isLong && current.startsWith("--no-")) {
-      negate = true;
-    }
-    const equalSignIndex = current.indexOf("=");
-    if (equalSignIndex !== -1) {
-      currentValue = current.slice(equalSignIndex + 1) || void 0;
-      current = current.slice(0, equalSignIndex);
-    }
-    if (opts.flags) {
-      option = getOption(opts.flags, current);
-      if (!option) {
-        const name = current.replace(/^-+/, "");
-        option = matchWildCardOptions(name, opts.flags);
-        if (!option) {
-          if (opts.stopOnUnknown) {
-            ctx.stopOnUnknown = true;
-            ctx.unknown.push(args[argsIndex]);
-            continue;
-          }
-          throw new UnknownOptionError(current, opts.flags);
-        }
-      }
-    } else {
-      option = {
-        name: current.replace(/^-+/, ""),
-        optionalValue: true,
-        type: OptionType.STRING
-      };
-    }
-    if (option.standalone) {
-      ctx.standalone = option;
-    }
-    const positiveName = negate ? option.name.replace(/^no-?/, "") : option.name;
-    const propName = paramCaseToCamelCase(positiveName);
-    if (typeof ctx.flags[propName] !== "undefined") {
-      if (!opts.flags?.length) {
-        option.collect = true;
-      } else if (!option.collect) {
-        throw new DuplicateOptionError(current);
-      }
-    }
-    if (option.type && !option.args?.length) {
-      option.args = [{
-        type: option.type,
-        requiredValue: option.requiredValue,
-        optionalValue: option.optionalValue,
-        variadic: option.variadic,
-        list: option.list,
-        separator: option.separator
-      }];
-    }
-    if (opts.flags?.length && !option.args?.length && typeof currentValue !== "undefined") {
-      throw new UnexpectedOptionValueError(option.name, currentValue);
-    }
-    let optionArgsIndex = 0;
-    let inOptionalArg = false;
-    const next = () => currentValue ?? args[argsIndex + 1];
-    const previous = ctx.flags[propName];
-    parseNext(option);
-    if (typeof ctx.flags[propName] === "undefined") {
-      if (option.args?.[optionArgsIndex]?.requiredValue) {
-        throw new MissingOptionValueError(option.name);
-      } else if (typeof option.default !== "undefined") {
-        ctx.flags[propName] = getDefaultValue(option);
-      } else {
-        ctx.flags[propName] = true;
-      }
-    }
-    if (option.value) {
-      ctx.flags[propName] = option.value(ctx.flags[propName], previous);
-    } else if (option.collect) {
-      const value = typeof previous !== "undefined" ? Array.isArray(previous) ? previous : [previous] : [];
-      value.push(ctx.flags[propName]);
-      ctx.flags[propName] = value;
-    }
-    optionsMap.set(propName, option);
-    opts.option?.(option, ctx.flags[propName]);
-  }
-  return optionsMap;
-}
-function parseDottedOptions(ctx) {
-  ctx.flags = Object.keys(ctx.flags).reduce((result, key) => {
-    if (~key.indexOf(".")) {
-      key.split(".").reduce((result2, subKey, index, parts) => {
-        if (index === parts.length - 1) {
-          result2[subKey] = ctx.flags[key];
-        } else {
-          result2[subKey] = result2[subKey] ?? {};
-        }
-        return result2[subKey];
-      }, result);
-    } else {
-      result[key] = ctx.flags[key];
-    }
-    return result;
-  }, {});
-}
-function splitFlags(flag) {
-  flag = flag.slice(1);
-  const normalized = [];
-  const index = flag.indexOf("=");
-  const flags = (index !== -1 ? flag.slice(0, index) : flag).split("");
-  if (isNaN(Number(flag[flag.length - 1]))) {
-    flags.forEach((val) => normalized.push(`-${val}`));
-  } else {
-    normalized.push(`-${flags.shift()}`);
-    if (flags.length) {
-      normalized.push(flags.join(""));
-    }
-  }
-  if (index !== -1) {
-    normalized[normalized.length - 1] += flag.slice(index);
-  }
-  return normalized;
-}
-function parseDefaultType(option, arg, value) {
-  const type = arg.type || OptionType.STRING;
-  const parseType = DefaultTypes[type];
-  if (!parseType) {
-    throw new UnknownTypeError(type, Object.keys(DefaultTypes));
-  }
-  return parseType({
-    label: "Option",
-    type,
-    name: `--${option.name}`,
-    value
-  });
-}
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/type.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/type.js
 var Type = class {
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/boolean.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/boolean.js
 var BooleanType = class extends Type {
   /** Parse boolean type. */
   parse(type) {
@@ -8539,7 +8543,7 @@ var BooleanType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/string.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/string.js
 var StringType = class extends Type {
   /** Complete string type. */
   parse(type) {
@@ -8547,14 +8551,22 @@ var StringType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/file.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/file.js
 var FileType = class extends StringType {
   constructor() {
     super();
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/number.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/integer.js
+var IntegerType = class extends Type {
+  /** Parse integer type. */
+  parse(type) {
+    return integer(type);
+  }
+};
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/number.js
 var NumberType = class extends Type {
   /** Parse number type. */
   parse(type) {
@@ -8562,7 +8574,7 @@ var NumberType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/border.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/border.js
 var border = {
   top: "\u2500",
   topMid: "\u252C",
@@ -8581,7 +8593,7 @@ var border = {
   middle: "\u2502"
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/cell.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/cell.js
 var Cell = class _Cell {
   /** Get cell length. */
   get length() {
@@ -8590,17 +8602,22 @@ var Cell = class _Cell {
   /**
    * Create a new cell. If value is a cell, the value and all options of the cell
    * will be copied to the new cell.
+   *
    * @param value Cell or cell value.
    */
   static from(value) {
-    const cell = new this(value);
+    let cell;
     if (value instanceof _Cell) {
+      cell = new this(value.getValue());
       cell.options = { ...value.options };
+    } else {
+      cell = new this(value);
     }
     return cell;
   }
   /**
    * Cell constructor.
+   *
    * @param value Cell value.
    */
   constructor(value) {
@@ -8617,12 +8634,17 @@ var Cell = class _Cell {
       value: {}
     });
   }
-  /** Get cell value. */
+  /** Get cell string value. */
   toString() {
     return this.value.toString();
   }
+  /** Get cell value. */
+  getValue() {
+    return this.value;
+  }
   /**
    * Set cell value.
+   *
    * @param value Cell or cell value.
    */
   setValue(value) {
@@ -8631,22 +8653,22 @@ var Cell = class _Cell {
   }
   /**
    * Clone cell with all options.
+   *
    * @param value Cell or cell value.
    */
   clone(value) {
-    const cell = new _Cell(value ?? this);
-    cell.options = { ...this.options };
-    return cell;
+    return _Cell.from(value ?? this);
   }
   /**
    * Setter:
    */
   /**
    * Enable/disable cell border.
+   *
    * @param enable    Enable/disable cell border.
    * @param override  Override existing value.
    */
-  border(enable, override = true) {
+  border(enable = true, override = true) {
     if (override || typeof this.options.border === "undefined") {
       this.options.border = enable;
     }
@@ -8654,6 +8676,23 @@ var Cell = class _Cell {
   }
   /**
    * Set col span.
+   *
+   * ```ts
+   * import { Cell, Table } from "./mod.ts";
+   *
+   * new Table()
+   *   .body([
+   *     [
+   *       new Cell("Row 1 & 2 Column 1").rowSpan(2),
+   *       "Row 1 Column 2",
+   *       "Row 1 Column 3",
+   *     ],
+   *     [new Cell("Row 2 Column 2 & 3").colSpan(2)],
+   *   ])
+   *   .border()
+   *   .render();
+   * ```
+   *
    * @param span      Number of cols to span.
    * @param override  Override existing value.
    */
@@ -8665,6 +8704,23 @@ var Cell = class _Cell {
   }
   /**
    * Set row span.
+   *
+   * ```ts
+   * import { Cell, Table } from "./mod.ts";
+   *
+   * new Table()
+   *   .body([
+   *     [
+   *       new Cell("Row 1 & 2 Column 1").rowSpan(2),
+   *       "Row 1 Column 2",
+   *       "Row 1 Column 3",
+   *     ],
+   *     [new Cell("Row 2 Column 2 & 3").colSpan(2)],
+   *   ])
+   *   .border()
+   *   .render();
+   * ```
+   *
    * @param span      Number of rows to span.
    * @param override  Override existing value.
    */
@@ -8676,6 +8732,7 @@ var Cell = class _Cell {
   }
   /**
    * Align cell content.
+   *
    * @param direction Align direction.
    * @param override  Override existing value.
    */
@@ -8706,7 +8763,172 @@ var Cell = class _Cell {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/row.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/column.js
+var Column = class _Column {
+  constructor() {
+    Object.defineProperty(this, "opts", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: {}
+    });
+  }
+  /**
+   * Create a new cell from column options or an existing column.
+   * @param options
+   */
+  static from(options) {
+    const opts = options instanceof _Column ? options.opts : options;
+    return new _Column().options(opts);
+  }
+  /** Set column options. */
+  options(options) {
+    Object.assign(this.opts, options);
+    return this;
+  }
+  /** Set min column width. */
+  minWidth(width) {
+    this.opts.minWidth = width;
+    return this;
+  }
+  /** Set max column width. */
+  maxWidth(width) {
+    this.opts.maxWidth = width;
+    return this;
+  }
+  /** Set column border. */
+  border(border2 = true) {
+    this.opts.border = border2;
+    return this;
+  }
+  /** Set column padding. */
+  padding(padding) {
+    this.opts.padding = padding;
+    return this;
+  }
+  /** Set column alignment. */
+  align(direction) {
+    this.opts.align = direction;
+    return this;
+  }
+  /** Get min column width. */
+  getMinWidth() {
+    return this.opts.minWidth;
+  }
+  /** Get max column width. */
+  getMaxWidth() {
+    return this.opts.maxWidth;
+  }
+  /** Get column border. */
+  getBorder() {
+    return this.opts.border;
+  }
+  /** Get column padding. */
+  getPadding() {
+    return this.opts.padding;
+  }
+  /** Get column alignment. */
+  getAlign() {
+    return this.opts.align;
+  }
+};
+
+// dist/dnt/esm/deps/deno.land/std@0.196.0/console/_data.js
+var data_default = {
+  "UNICODE_VERSION": "15.0.0",
+  "tables": [
+    {
+      "d": "AAECAwQFBgcICQoLDA0OAw8DDwkQCRESERIA",
+      "r": "AQEBAgEBAQEBAQEBAQEBBwEHAVABBwcBBwF4"
+    },
+    {
+      "d": "AAECAwQFBgcGCAYJCgsMDQ4PEAYREhMUBhUWFxgZGhscHR4fICEiIyIkJSYnKCkqJSssLS4vMDEyMzQ1Njc4OToGOzwKBj0GPj9AQUIGQwZEBkVGR0hJSktMTQZOBgoGT1BRUlNUVVZXWFkGWgZbBlxdXl1fYGFiY2RlZmdoBmlqBmsGAQZsBm1uO29wcXI7czt0dXZ3OwY7eHkGent8Bn0Gfn+AgYKDhIWGBoc7iAZdO4kGiosGAXGMBo0GjgaPBpAGkQaSBpMGlJUGlpcGmJmam5ydnp+gLgahLKIGo6SlpganqKmqqwasBq0Grq8GsLGyswa0BrUGtre4Brm6uwZHvAa9vga/wME7wjvDxAbFO8bHO8gGyQbKywbMzQbOBs/Q0QbSBr8GvgbT1AbUBtUG1gbXBtjZ2tsG3N0G3t/g4eLjO+Tl5ufoO+k76gbrBuztOwbu7/AGO+XxCgYKCwZd8g==",
+      "r": "AQEBAQEBAQEBAQEBAQEBAQEBAQMBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQECBQEOAQEBAQEBAQEBAwEBAQEBAQEBAQIBAwEIAQEBAQEBAQEBAQEBAQIBAQEBAQEBAQEBAQEBAQEBDQEBBQEBAQEBAgEBAwEBAQEBAQEBAQEBbQHaAQEFAQEBBAECAQEBAQEBAQEBAwGuASFkCAELAQEBAQEBAQEHAQMBAQEaAQIBCAEFAQEBAQEBAQEBAQEBAQEBAQEBAQECAQEBAQIBAQEBAQEBAwEDAQEBAQEBAQUBAQEBAQEBBAEBAVIBAdkBARABAQFfARMBAYoBBAEBBQEmAUkBAQcBAQIBHgEBARUBAQEBAQUBAQcBDwEBARoBAgEBAQEBAQECAQEBAQEBAQEBAQEBAQEBAQMBBAEBAgEBAQEUfwEBAQIDAXj/AQ=="
+    },
+    {
+      "d": "AFUVAF3Xd3X/93//VXVVV9VX9V91f1/31X93XVXdVdVV9dVV/VVX1X9X/131VfXVVXV3V1VdVV1V1/1dV1X/3VUAVf3/3/9fVf3/3/9fVV1V/11VFQBQVQEAEEEQVQBQVQBAVFUVAFVUVQUAEAAUBFBVFVFVAEBVBQBUVRUAVVFVBRAAAVBVAVVQVQBVBQBAVUVUAQBUUQEAVQVVUVVUAVRVUVUFVUVBVVRBFRRQUVVQUVUBEFRRVQVVBQBRVRQBVFVRVUFVBVVFVVRVUVVUVQRUBQRQVUFVBVVFVVBVBVVQVRVUAVRVUVUFVVFVRVUFRFVRAEBVFQBAVVEAVFUAQFVQVRFRVQEAQAAEVQEAAQBUVUVVAQQAQVVQBVRVAVRVRUFVUVVRVaoAVQFVBVRVBVUFVQVVEABQVUUBAFVRVRUAVUFVUVVAFVRVRVUBVRUUVUUAQEQBAFQVABRVAEBVAFUEQFRFVRUAVVBVBVAQUFVFUBFQVQAFVUAABABUUVVUUFUVANd/X3//BUD3XdV1VQAEAFVXVdX9V1VXVQBUVdVdVdV1VX111VXVV9V//1X/X1VdVf9fVV9VdVdV1VX31dfVXXX9193/d1X/VV9VV3VVX//1VfVVXVVdVdVVdVWlVWlVqVaWVf/f/1X/Vf/1X1Xf/19V9VVf9df1X1X1X1XVVWlVfV31VVpVd1V3VapV33/fVZVVlVX1WVWlVelV+v/v//7/31Xv/6/77/tVWaVVVlVdVWaVmlX1/1WpVVZVlVWVVlVW+V9VFVBVAKqaqlWqWlWqVaoKoKpqqapqgapVqaqpqmqqVapqqv+qVqpqVRVAAFBVBVVQVUUVVUFVVFVQVQBQVRVVBQBQVRUAUFWqVkBVFQVQVVFVAUBBVRVVVFVUVQQUVAVRVVBVRVVRVFFVqlVFVQCqWlUAqmqqaqpVqlZVqmpVAV1VUVVUVQVAVQFBVQBVQBVVQVUAVRVUVQFVBQBUVQVQVVFVAEBVFFRVFVBVFUBBUUVVUVVAVRUAAQBUVRVVUFUFAEBVARRVFVAEVUVVFQBAVVRVBQBUAFRVAAVEVUVVFQBEFQRVBVBVEFRVUFUVAEARVFUVUQAQVQEFEABVFQBBVRVEFVUABVVUVQEAQFUVABRAVRVVAUABVQUAQFBVAEAAEFUFAAUABEFVAUBFEAAQVVARVRVUVVBVBUBVRFVUFQBQVQBUVQBAVRVVFUBVqlRVWlWqVapaVapWVaqpqmmqalVlVWpZVapVqlVBAFUAUABAVRVQVRUAQAEAVQVQVQVUVQBAFQBUVVFVVFUVAAEAVQBAABQAEARAVUVVAFUAQFUAQFVWVZVV/39V/1//X1X/76uq6v9XVWpVqlWqVlVaVapaVapWVamqmqqmqlWqapWqVapWqmqmqpaqWlWVaqpVZVVpVVZVlapVqlpVVmqpVapVlVZVqlZVqlVWVapqqpqqVapWqlZVqpqqWlWlqlWqVlWqVlVRVQD/Xw==",
+      "r": "CBcBCAEBAQEBAQEBAQECAQEBAQEBAQEBAQEBAQMBAQECAQEBAQEBAQEBAQEBBAEBGAEDAQwBAwEIAQEBAQEBAQgcCAEDAQEBAQEDAQEBDQEDEAELAQEBEQEKAQEBDgEBAgIBAQoBBQQBCAEBAQEBAQEHAQEHBgEWAQIBDQECAgEFAQECAgEKAQ0BAQIKAQ0BDQEBAQEBAQEBAgEHAQ4BAQEBAQQBBgEBDgEBAQEBAQcBAQIBAQEBBAEFAQEBDgEBAQEBAQECAQcBDwECAQwCDQEBAQEBAQECAQgBAQEEAQcBDQEBAQEBAQQBBwERAQEBARYBAQECAQEBGAECAQIBARIBBgEBDQECAQEBAQECAQgBAQEZAQEBAgYBAQEDAQECAQEBAQMBCBgIBwEMAQEGAQcBBwEQAQEBAQEBAgIBCgEBDQEIAQ0BAQEBAQEBBgEBDgEBAQEBAQEBAgEMBwEMAQwBAQEBCQECAwEHAQEBAQ0BAQEBDgIBBgEDAQEBAQEBAQMBAQEBAgEBAQEBAQEBCAEBAgEBAQEBAQkBCAgBAwECAQEBAgEBAQkBAQEBAwECAQMBAQIBBwEFAQEDAQYBAQEBAgEBAQEBAQEBAQECAgEDAQECBAIDAgIBBQEEAQEBAwEPAQEBCyIBCAEJAwQBAQIBAQEBAgECAQEBAQMBAQEBAwEBAQEBAQEBAQgBAQMDAgEBAwEEAQIBAQEBBAEBAQEBAQECAQEBAQEBAQEBAQEHAQQBAwEBAQcBAgUBBgECAQYBAQwBAQEUAQELCAYBFgMFAQYDAQoBAQMBARQBAQkBAQoBBgEVAwsBCgIPAQ0BGQEBAgEHARQBAwIBBgEBAQUBBgQBAgEJAQEBBQECAQMHAQELAQECCQEQAQECAgECAQsBDAEBAQEBCgEBAQsBAQEECQ4BCAQCAQEECAEEAQEFCAEPAQEEAQEPAQgBFAEBAQEBAQEKAQEJAQ8BEAEBEwEBAQIBCwEBDgENAwEKAQEBAQELAQEBAQECAQwBCAEBAQEBDgEDAQwBAQECAQEXAQEBAQEHAgEBBQEIAQEBAQEQAgEBBQEUAQEBAQEbAQEBAQEGARQBAQEBARkBAQEBCQEBAQEQAQIBDwEBARQBAQEBBwEBAQkBAQEBAQECAQEBCwECAQEVAQEBAQQBBQEBAQEOAQEBAQEBEgEBFgEBAgEMAQEBAQ8BAQMBFgEBDgEBBQEPAQETAQECAQMOAgUBCgIBGQEBAQEIAQMBBwEBAwECEwgBAQcLAQUBFwEBAQEDAQEBBwEBBAEBDg0BAQwBAQEDAQQBAQEDBAEBBAEBAQEBEAEPAQgBAQsBAQ4BEQEMAgEBBwEOAQEHAQEBAQQBBAEDCwECAQEBAwEBBggBAgEBAREBBQMKAQEBAwQCEQEBHgEPAQIBAQYEAQYBAwEUAQUMAQEBAQEBAQECAQEBAgEIAwEBBgsBAgEODAMBAgEBCwEBAQEBAwECAQECAQEBBwgPAQ=="
+    }
+  ]
+};
+
+// dist/dnt/esm/deps/deno.land/std@0.196.0/console/_rle.js
+function runLengthDecode({ d, r }) {
+  const data = atob(d);
+  const runLengths = atob(r);
+  let out = "";
+  for (const [i, ch] of [...runLengths].entries()) {
+    out += data[i].repeat(ch.codePointAt(0));
+  }
+  return Uint8Array.from([...out].map((x) => x.codePointAt(0)));
+}
+
+// dist/dnt/esm/deps/deno.land/std@0.196.0/console/unicode_width.js
+var tables = null;
+function lookupWidth(cp) {
+  if (!tables)
+    tables = data_default.tables.map(runLengthDecode);
+  const t1Offset = tables[0][cp >> 13 & 255];
+  const t2Offset = tables[1][128 * t1Offset + (cp >> 6 & 127)];
+  const packedWidths = tables[2][16 * t2Offset + (cp >> 2 & 15)];
+  const width = packedWidths >> 2 * (cp & 3) & 3;
+  return width === 3 ? 1 : width;
+}
+var cache = /* @__PURE__ */ new Map();
+function charWidth(ch) {
+  if (cache.has(ch))
+    return cache.get(ch);
+  const cp = ch.codePointAt(0);
+  let v = null;
+  if (cp < 127) {
+    v = cp >= 32 ? 1 : cp === 0 ? 0 : null;
+  } else if (cp >= 160) {
+    v = lookupWidth(cp);
+  } else {
+    v = null;
+  }
+  cache.set(ch, v);
+  return v;
+}
+function unicodeWidth(str) {
+  return [...str].map((ch) => charWidth(ch) ?? 0).reduce((a, b) => a + b, 0);
+}
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/_utils.js
+function longest(index, rows, maxWidth) {
+  const cellLengths = rows.map((row) => {
+    const cell = row[index];
+    const cellValue = cell instanceof Cell && cell.getColSpan() > 1 ? "" : cell?.toString() || "";
+    return cellValue.split("\n").map((line) => {
+      const str = typeof maxWidth === "undefined" ? line : consumeWords(maxWidth, line);
+      return strLength(str) || 0;
+    });
+  }).flat();
+  return Math.max(...cellLengths);
+}
+var strLength = (str) => {
+  return unicodeWidth(stripColor(str));
+};
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/consume_words.js
+function consumeWords(length, content) {
+  let consumed = "";
+  const words = content.split("\n")[0]?.split(/ /g);
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+    if (consumed) {
+      const nextLength = strLength(word);
+      const consumedLength = strLength(consumed);
+      if (consumedLength + nextLength >= length) {
+        break;
+      }
+    }
+    consumed += (i > 0 ? " " : "") + word;
+  }
+  return consumed;
+}
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/row.js
 var Row = class _Row extends Array {
   constructor() {
     super(...arguments);
@@ -8720,6 +8942,7 @@ var Row = class _Row extends Array {
   /**
    * Create a new row. If cells is a row, all cells and options of the row will
    * be copied to the new row.
+   *
    * @param cells Cells or row.
    */
   static from(cells) {
@@ -8740,10 +8963,11 @@ var Row = class _Row extends Array {
    */
   /**
    * Enable/disable cell border.
+   *
    * @param enable    Enable/disable cell border.
    * @param override  Override existing value.
    */
-  border(enable, override = true) {
+  border(enable = true, override = true) {
     if (override || typeof this.options.border === "undefined") {
       this.options.border = enable;
     }
@@ -8751,6 +8975,7 @@ var Row = class _Row extends Array {
   }
   /**
    * Align row content.
+   *
    * @param direction Align direction.
    * @param override  Override existing value.
    */
@@ -8777,49 +9002,7 @@ var Row = class _Row extends Array {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/utils.js
-function consumeWords(length, content) {
-  let consumed = "";
-  const words = content.split("\n")[0]?.split(/ /g);
-  for (let i = 0; i < words.length; i++) {
-    const word = words[i];
-    if (consumed) {
-      const nextLength = strLength(word);
-      const consumedLength = strLength(consumed);
-      if (consumedLength + nextLength >= length) {
-        break;
-      }
-    }
-    consumed += (i > 0 ? " " : "") + word;
-  }
-  return consumed;
-}
-function longest(index, rows, maxWidth) {
-  const cellLengths = rows.map((row) => {
-    const cell = row[index];
-    const cellValue = cell instanceof Cell && cell.getColSpan() > 1 ? "" : cell?.toString() || "";
-    return cellValue.split("\n").map((line) => {
-      const str = typeof maxWidth === "undefined" ? line : consumeWords(maxWidth, line);
-      return strLength(str) || 0;
-    });
-  }).flat();
-  return Math.max(...cellLengths);
-}
-var strLength = (str) => {
-  str = stripColor(str);
-  let length = 0;
-  for (let i = 0; i < str.length; i++) {
-    const charCode = str.charCodeAt(i);
-    if (charCode >= 19968 && charCode <= 40869) {
-      length += 2;
-    } else {
-      length += 1;
-    }
-  }
-  return length;
-};
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/layout.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/_layout.js
 var __classPrivateFieldGet = function(receiver, state, kind, f) {
   if (kind === "a" && !f)
     throw new TypeError("Private accessor was defined without a getter");
@@ -8871,23 +9054,25 @@ var TableLayout = class {
     const hasBorder = hasHeaderBorder || hasBodyBorder;
     const rows = __classPrivateFieldGet(this, _TableLayout_instances, "m", _TableLayout_getRows).call(this);
     const columns = Math.max(...rows.map((row) => row.length));
-    for (const row of rows) {
+    for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
+      const row = rows[rowIndex];
       const length = row.length;
       if (length < columns) {
         const diff = columns - length;
         for (let i = 0; i < diff; i++) {
-          row.push(this.createCell(null, row));
+          row.push(this.createCell(null, row, rowIndex, length + i));
         }
       }
     }
     const padding = [];
     const width = [];
     for (let colIndex = 0; colIndex < columns; colIndex++) {
-      const minColWidth = Array.isArray(this.options.minColWidth) ? this.options.minColWidth[colIndex] : this.options.minColWidth;
-      const maxColWidth = Array.isArray(this.options.maxColWidth) ? this.options.maxColWidth[colIndex] : this.options.maxColWidth;
+      const column = this.options.columns.at(colIndex);
+      const minColWidth = column?.getMinWidth() ?? (Array.isArray(this.options.minColWidth) ? this.options.minColWidth[colIndex] : this.options.minColWidth);
+      const maxColWidth = column?.getMaxWidth() ?? (Array.isArray(this.options.maxColWidth) ? this.options.maxColWidth[colIndex] : this.options.maxColWidth);
       const colWidth = longest(colIndex, rows, maxColWidth);
       width[colIndex] = Math.min(maxColWidth, Math.max(minColWidth, colWidth));
-      padding[colIndex] = Array.isArray(this.options.padding) ? this.options.padding[colIndex] : this.options.padding;
+      padding[colIndex] = column?.getPadding() ?? (Array.isArray(this.options.padding) ? this.options.padding[colIndex] : this.options.padding);
     }
     return {
       padding,
@@ -8930,7 +9115,7 @@ var TableLayout = class {
           rows[rowIndex].splice(colIndex, this.getDeleteCount(rows, rowIndex, colIndex), rows[rowIndex - 1][colIndex]);
           continue;
         }
-        const cell = row[colIndex] = this.createCell(row[colIndex] || null, row);
+        const cell = row[colIndex] = this.createCell(row[colIndex] || null, row, rowIndex, colIndex);
         colSpan = cell.getColSpan();
         rowSpan[colIndex] = cell.getRowSpan();
       }
@@ -8949,11 +9134,19 @@ var TableLayout = class {
   }
   /**
    * Create a new cell from existing cell or cell value.
-   * @param cell  Original cell.
-   * @param row   Parent row.
+   *
+   * @param cell      Original cell.
+   * @param row       Parent row.
+   * @param rowIndex  The row index of the cell.
+   * @param colIndex  The column index of the cell.
    */
-  createCell(cell, row) {
-    return Cell.from(cell ?? "").border(row.getBorder(), false).align(row.getAlign(), false);
+  createCell(cell, row, rowIndex, colIndex) {
+    const column = this.options.columns.at(colIndex);
+    const isHeaderRow = this.isHeaderRow(rowIndex);
+    return Cell.from(cell ?? "").border((isHeaderRow ? null : column?.getBorder()) ?? row.getBorder(), false).align((isHeaderRow ? null : column?.getAlign()) ?? row.getAlign(), false);
+  }
+  isHeaderRow(rowIndex) {
+    return rowIndex === 0 && this.table.getHeader() !== void 0;
   }
   /**
    * Render table layout.
@@ -9015,7 +9208,7 @@ var TableLayout = class {
     if (isMultilineRow) {
       return result + this.renderRow(rowSpan, rowIndex, opts, isMultilineRow);
     }
-    if (rowIndex === 0 && opts.hasHeaderBorder || rowIndex < opts.rows.length - 1 && opts.hasBodyBorder) {
+    if (opts.rows.length > 1 && (rowIndex === 0 && opts.hasHeaderBorder || rowIndex < opts.rows.length - 1 && opts.hasBodyBorder)) {
       result += this.renderBorderRow(row, nextRow, rowSpan, opts);
     }
     if (rowIndex === opts.rows.length - 1 && row.hasBorder()) {
@@ -9060,7 +9253,7 @@ var TableLayout = class {
       }
     }
     const { current, next } = this.renderCellValue(cell, maxLength);
-    row[colIndex].setValue(next);
+    row[colIndex].setValue(next.getValue());
     if (opts.hasBorder) {
       result += " ".repeat(opts.padding[colIndex]);
     }
@@ -9269,16 +9462,16 @@ _TableLayout_instances = /* @__PURE__ */ new WeakSet(), _TableLayout_getRows = f
   if (hasSpan) {
     return this.spanRows(rows);
   }
-  return rows.map((row) => {
+  return rows.map((row, rowIndex) => {
     const newRow = this.createRow(row);
-    for (let i = 0; i < row.length; i++) {
-      newRow[i] = this.createCell(row[i], newRow);
+    for (let colIndex = 0; colIndex < row.length; colIndex++) {
+      newRow[colIndex] = this.createCell(row[colIndex], newRow, rowIndex, colIndex);
     }
     return newRow;
   });
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/table/table.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/table.js
 var Table = class _Table extends Array {
   constructor() {
     super(...arguments);
@@ -9292,7 +9485,8 @@ var Table = class _Table extends Array {
         maxColWidth: Infinity,
         minColWidth: 0,
         padding: 1,
-        chars: { ..._Table._chars }
+        chars: { ..._Table._chars },
+        columns: []
       }
     });
     Object.defineProperty(this, "headerRow", {
@@ -9305,7 +9499,8 @@ var Table = class _Table extends Array {
   /**
    * Create a new table. If rows is a table, all rows and options of the table
    * will be copied to the new table.
-   * @param rows
+   *
+   * @param rows An array of rows or a table instance.
    */
   static from(rows) {
     const table = new this(...rows);
@@ -9318,6 +9513,7 @@ var Table = class _Table extends Array {
   /**
    * Create a new table from an array of json objects. An object represents a
    * row and each property a column.
+   *
    * @param rows Array of objects.
    */
   static fromJson(rows) {
@@ -9325,6 +9521,7 @@ var Table = class _Table extends Array {
   }
   /**
    * Set global default border characters.
+   *
    * @param chars Border options.
    */
   static chars(chars) {
@@ -9333,6 +9530,7 @@ var Table = class _Table extends Array {
   }
   /**
    * Write table or rows to stdout.
+   *
    * @param rows Table or rows.
    */
   static render(rows) {
@@ -9341,6 +9539,7 @@ var Table = class _Table extends Array {
   /**
    * Read data from an array of json objects. An object represents a
    * row and each property a column.
+   *
    * @param rows Array of objects.
    */
   fromJson(rows) {
@@ -9349,7 +9548,33 @@ var Table = class _Table extends Array {
     return this;
   }
   /**
+   * Set column options.
+   *
+   * @param columns An array of columns or column options.
+   */
+  columns(columns) {
+    this.options.columns = columns.map((column) => column instanceof Column ? column : Column.from(column));
+    return this;
+  }
+  /**
+   * Set column options by index.
+   *
+   @param index   The column index.
+   @param column  Column or column options.
+   */
+  column(index, column) {
+    if (column instanceof Column) {
+      this.options.columns[index] = column;
+    } else if (this.options.columns[index]) {
+      this.options.columns[index].options(column);
+    } else {
+      this.options.columns[index] = Column.from(column);
+    }
+    return this;
+  }
+  /**
    * Set table header.
+   *
    * @param header Header row or cells.
    */
   header(header) {
@@ -9358,7 +9583,8 @@ var Table = class _Table extends Array {
   }
   /**
    * Set table body.
-   * @param rows Table rows.
+   *
+   * @param rows Array of rows.
    */
   body(rows) {
     this.length = 0;
@@ -9382,8 +9608,9 @@ var Table = class _Table extends Array {
     return this;
   }
   /**
-   * Set max col with.
-   * @param width     Max col width.
+   * Set max column width.
+   *
+   * @param width     Max column width.
    * @param override  Override existing value.
    */
   maxColWidth(width, override = true) {
@@ -9393,8 +9620,9 @@ var Table = class _Table extends Array {
     return this;
   }
   /**
-   * Set min col width.
-   * @param width     Min col width.
+   * Set min column width.
+   *
+   * @param width     Min column width.
    * @param override  Override existing value.
    */
   minColWidth(width, override = true) {
@@ -9405,6 +9633,7 @@ var Table = class _Table extends Array {
   }
   /**
    * Set table indentation.
+   *
    * @param width     Indent width.
    * @param override  Override existing value.
    */
@@ -9416,6 +9645,7 @@ var Table = class _Table extends Array {
   }
   /**
    * Set cell padding.
+   *
    * @param padding   Cell padding.
    * @param override  Override existing value.
    */
@@ -9427,10 +9657,11 @@ var Table = class _Table extends Array {
   }
   /**
    * Enable/disable cell border.
+   *
    * @param enable    Enable/disable cell border.
    * @param override  Override existing value.
    */
-  border(enable, override = true) {
+  border(enable = true, override = true) {
     if (override || typeof this.options.border === "undefined") {
       this.options.border = enable;
     }
@@ -9438,6 +9669,7 @@ var Table = class _Table extends Array {
   }
   /**
    * Align table content.
+   *
    * @param direction Align direction.
    * @param override  Override existing value.
    */
@@ -9449,6 +9681,7 @@ var Table = class _Table extends Array {
   }
   /**
    * Set border characters.
+   *
    * @param chars Border options.
    */
   chars(chars) {
@@ -9463,11 +9696,11 @@ var Table = class _Table extends Array {
   getBody() {
     return [...this];
   }
-  /** Get mac col widrth. */
+  /** Get max column width. */
   getMaxColWidth() {
     return this.options.maxColWidth;
   }
-  /** Get min col width. */
+  /** Get min column width. */
   getMinColWidth() {
     return this.options.minColWidth;
   }
@@ -9490,7 +9723,7 @@ var Table = class _Table extends Array {
   }
   /** Check if table bordy has border. */
   hasBodyBorder() {
-    return this.getBorder() || this.some((row) => row instanceof Row ? row.hasBorder() : row.some((cell) => cell instanceof Cell ? cell.getBorder : false));
+    return this.getBorder() || this.options.columns.some((column) => column.getBorder()) || this.some((row) => row instanceof Row ? row.hasBorder() : row.some((cell) => cell instanceof Cell ? cell.getBorder() : false));
   }
   /** Check if table header or body has border. */
   hasBorder() {
@@ -9500,6 +9733,14 @@ var Table = class _Table extends Array {
   getAlign() {
     return this.options.align ?? "left";
   }
+  /** Get columns. */
+  getColumns() {
+    return this.options.columns;
+  }
+  /** Get column by column index. */
+  getColumn(index) {
+    return this.options.columns[index] ??= new Column();
+  }
 };
 Object.defineProperty(Table, "_chars", {
   enumerable: true,
@@ -9508,7 +9749,7 @@ Object.defineProperty(Table, "_chars", {
   value: { ...border }
 });
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/help/_help_generator.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/help/_help_generator.js
 var HelpGenerator = class _HelpGenerator {
   /** Generate help text for given command. */
   static generate(cmd, options) {
@@ -9560,7 +9801,7 @@ var HelpGenerator = class _HelpGenerator {
     if (version2) {
       rows.push([bold("Version:"), yellow(`${this.cmd.getVersion()}`)]);
     }
-    return "\n" + Table.from(rows).indent(this.indent).padding(1).toString() + "\n";
+    return "\n" + Table.from(rows).padding(1).toString() + "\n";
   }
   generateMeta() {
     const meta = Object.entries(this.cmd.getMeta());
@@ -9571,7 +9812,7 @@ var HelpGenerator = class _HelpGenerator {
     for (const [name, value] of meta) {
       rows.push([bold(`${name}: `) + value]);
     }
-    return "\n" + Table.from(rows).indent(this.indent).padding(1).toString() + "\n";
+    return "\n" + Table.from(rows).padding(1).toString() + "\n";
   }
   generateDescription() {
     if (!this.cmd.getDescription()) {
@@ -9579,7 +9820,7 @@ var HelpGenerator = class _HelpGenerator {
     }
     return this.label("Description") + Table.from([
       [dedent(this.cmd.getDescription())]
-    ]).indent(this.indent * 2).maxColWidth(140).padding(1).toString() + "\n";
+    ]).indent(this.indent).maxColWidth(140).padding(1).toString() + "\n";
   }
   generateOptions() {
     const options = this.cmd.getOptions(false);
@@ -9626,7 +9867,7 @@ var HelpGenerator = class _HelpGenerator {
           getDescription(option.description, !this.options.long),
           this.generateHints(option)
         ])
-      ]).padding([2, 2, 1, 2]).indent(this.indent * 2).maxColWidth([60, 60, 1, 80, 60]).toString() + "\n";
+      ]).padding([2, 2, 1, 2]).indent(this.indent).maxColWidth([60, 60, 1, 80, 60]).toString() + "\n";
     }
     return this.label(group.name ?? "Options") + Table.from([
       ...group.options.map((option) => [
@@ -9635,7 +9876,7 @@ var HelpGenerator = class _HelpGenerator {
         getDescription(option.description, !this.options.long),
         this.generateHints(option)
       ])
-    ]).indent(this.indent * 2).maxColWidth([60, 1, 80, 60]).padding([2, 1, 2]).toString() + "\n";
+    ]).indent(this.indent).maxColWidth([60, 1, 80, 60]).padding([2, 1, 2]).toString() + "\n";
   }
   generateCommands() {
     const commands = this.cmd.getCommands(false);
@@ -9651,7 +9892,7 @@ var HelpGenerator = class _HelpGenerator {
           red(bold("-")),
           command.getShortDescription()
         ])
-      ]).indent(this.indent * 2).maxColWidth([60, 60, 1, 80]).padding([2, 2, 1, 2]).toString() + "\n";
+      ]).indent(this.indent).maxColWidth([60, 60, 1, 80]).padding([2, 2, 1, 2]).toString() + "\n";
     }
     return this.label("Commands") + Table.from([
       ...commands.map((command) => [
@@ -9659,7 +9900,7 @@ var HelpGenerator = class _HelpGenerator {
         red(bold("-")),
         command.getShortDescription()
       ])
-    ]).maxColWidth([60, 1, 80]).padding([2, 1, 2]).indent(this.indent * 2).toString() + "\n";
+    ]).maxColWidth([60, 1, 80]).padding([2, 1, 2]).indent(this.indent).toString() + "\n";
   }
   generateEnvironmentVariables() {
     const envVars = this.cmd.getEnvVars(false);
@@ -9674,7 +9915,7 @@ var HelpGenerator = class _HelpGenerator {
         this.options.long ? dedent(envVar.description) : envVar.description.trim().split("\n", 1)[0],
         envVar.required ? `(${yellow(`required`)})` : ""
       ])
-    ]).padding([2, 2, 1, 2]).indent(this.indent * 2).maxColWidth([60, 60, 1, 80, 10]).toString() + "\n";
+    ]).padding([2, 2, 1, 2]).indent(this.indent).maxColWidth([60, 60, 1, 80, 10]).toString() + "\n";
   }
   generateExamples() {
     const examples = this.cmd.getExamples();
@@ -9684,7 +9925,7 @@ var HelpGenerator = class _HelpGenerator {
     return this.label("Examples") + Table.from(examples.map((example) => [
       dim(bold(`${capitalize(example.name)}:`)),
       dedent(example.description)
-    ])).padding(1).indent(this.indent * 2).maxColWidth(150).toString() + "\n";
+    ])).padding(1).indent(this.indent).maxColWidth(150).toString() + "\n";
   }
   generateHints(option) {
     if (!this.options.hints) {
@@ -9692,7 +9933,12 @@ var HelpGenerator = class _HelpGenerator {
     }
     const hints = [];
     option.required && hints.push(yellow(`required`));
-    typeof option.default !== "undefined" && hints.push(bold(`Default: `) + inspect(option.default, this.options.colors));
+    if (typeof option.default !== "undefined") {
+      const defaultValue = getDefaultValue(option);
+      if (typeof defaultValue !== "undefined") {
+        hints.push(bold(`Default: `) + inspect(defaultValue, this.options.colors));
+      }
+    }
     option.depends?.length && hints.push(yellow(bold(`Depends: `)) + italic(option.depends.map(getFlag).join(", ")));
     option.conflicts?.length && hints.push(red(bold(`Conflicts: `)) + italic(option.conflicts.map(getFlag).join(", ")));
     const type = this.cmd.getType(option.args[0]?.type)?.handler;
@@ -9708,7 +9954,7 @@ var HelpGenerator = class _HelpGenerator {
     return "";
   }
   label(label) {
-    return "\n" + " ".repeat(this.indent) + bold(`${label}:`) + "\n\n";
+    return "\n" + bold(`${label}:`) + "\n\n";
   }
 };
 function capitalize(string2) {
@@ -9729,7 +9975,7 @@ function highlightArguments(argsDefinition, types = true) {
 }
 function highlightArgumentDetails(arg, types = true) {
   let str = "";
-  str += yellow(arg.optionalValue ? "[" : "<");
+  str += yellow(arg.optional ? "[" : "<");
   let name = "";
   name += arg.name;
   if (arg.variadic) {
@@ -9744,19 +9990,30 @@ function highlightArgumentDetails(arg, types = true) {
       str += green("[]");
     }
   }
-  str += yellow(arg.optionalValue ? "]" : ">");
+  str += yellow(arg.optional ? "]" : ">");
   return str;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/integer.js
-var IntegerType = class extends Type {
-  /** Parse integer type. */
-  parse(type) {
-    return integer(type);
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/upgrade/_check_version.js
+async function checkVersion(cmd) {
+  const mainCommand = cmd.getMainCommand();
+  const upgradeCommand = mainCommand.getCommand("upgrade");
+  if (!isUpgradeCommand(upgradeCommand)) {
+    return;
   }
-};
+  const latestVersion = await upgradeCommand.getLatestVersion();
+  const currentVersion = mainCommand.getVersion();
+  if (currentVersion === latestVersion) {
+    return;
+  }
+  const versionHelpText = `(New version available: ${latestVersion}. Run '${mainCommand.getName()} upgrade' to upgrade to the latest version!)`;
+  mainCommand.version(`${currentVersion}  ${bold(yellow(versionHelpText))}`);
+}
+function isUpgradeCommand(command) {
+  return command instanceof Command && "getLatestVersion" in command;
+}
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/command.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/command.js
 var Command = class _Command {
   constructor() {
     Object.defineProperty(this, "types", {
@@ -9813,7 +10070,13 @@ var Command = class _Command {
       writable: true,
       value: void 0
     });
-    Object.defineProperty(this, "fn", {
+    Object.defineProperty(this, "actionHandler", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: void 0
+    });
+    Object.defineProperty(this, "globalActionHandler", {
       enumerable: true,
       configurable: true,
       writable: true,
@@ -9973,7 +10236,7 @@ var Command = class _Command {
       enumerable: true,
       configurable: true,
       writable: true,
-      value: void 0
+      value: null
     });
     Object.defineProperty(this, "_noGlobals", {
       enumerable: true,
@@ -10049,6 +10312,7 @@ var Command = class _Command {
   }
   /**
    * Add new command alias.
+   *
    * @param alias Tha name of the alias.
    */
   alias(alias) {
@@ -10060,7 +10324,7 @@ var Command = class _Command {
   }
   /** Reset internal command reference to main command. */
   reset() {
-    this._groupName = void 0;
+    this._groupName = null;
     this.cmd = this;
     return this;
   }
@@ -10079,13 +10343,14 @@ var Command = class _Command {
   /*****************************************************************************
    **** SUB HANDLER ************************************************************
    *****************************************************************************/
-  /** Set command name. */
+  /** Set command name. Used in auto generated help and shell completions */
   name(name) {
     this.cmd._name = name;
     return this;
   }
   /**
    * Set command version.
+   *
    * @param version Semantic version string string or method that returns the version string.
    */
   version(version2) {
@@ -10096,6 +10361,13 @@ var Command = class _Command {
     }
     return this;
   }
+  /**
+   * Add meta data. Will be displayed in the auto generated help and in the
+   * output of the long version.
+   *
+   * @param name  The name/label of the metadata.
+   * @param value The value of the metadata.
+   */
   meta(name, value) {
     this.cmd._meta[name] = value;
     return this;
@@ -10105,6 +10377,7 @@ var Command = class _Command {
   }
   /**
    * Set command help.
+   *
    * @param help Help string, method, or config for generator that returns the help string.
    */
   help(help) {
@@ -10119,6 +10392,7 @@ var Command = class _Command {
   }
   /**
    * Set the long command description.
+   *
    * @param description The command description.
    */
   description(description) {
@@ -10127,15 +10401,14 @@ var Command = class _Command {
   }
   /**
    * Set the command usage. Defaults to arguments.
+   *
    * @param usage The command usage.
    */
   usage(usage) {
     this.cmd._usage = usage;
     return this;
   }
-  /**
-   * Hide command from help, completions, etc.
-   */
+  /** Hide command from help, completions, etc. */
   hidden() {
     this.cmd.isHidden = true;
     return this;
@@ -10161,32 +10434,27 @@ var Command = class _Command {
   }
   /**
    * Set command callback method.
+   *
    * @param fn Command action handler.
    */
   action(fn) {
-    this.cmd.fn = fn;
+    this.cmd.actionHandler = fn;
+    return this;
+  }
+  /**
+   * Set command callback method.
+   *
+   * @param fn Command action handler.
+   */
+  globalAction(fn) {
+    this.cmd.globalActionHandler = fn;
     return this;
   }
   /**
    * Don't throw an error if the command was called without arguments.
+   *
    * @param allowEmpty Enable/disable allow empty.
    */
-  // public allowEmpty<TAllowEmpty extends boolean | undefined = undefined>(
-  //   allowEmpty?: TAllowEmpty,
-  // ): false extends TAllowEmpty ? this
-  //   : Command<
-  //     Partial<TParentCommandGlobals>,
-  //     TParentCommandTypes,
-  //     Partial<TCommandOptions>,
-  //     TCommandArguments,
-  //     TCommandGlobals,
-  //     TCommandTypes,
-  //     TCommandGlobalTypes,
-  //     TParentCommand
-  //   > {
-  //   this.cmd._allowEmpty = allowEmpty !== false;
-  //   return this;
-  // }
   allowEmpty(allowEmpty) {
     this.cmd._allowEmpty = allowEmpty !== false;
     return this;
@@ -10200,7 +10468,7 @@ var Command = class _Command {
    *     `command --debug-level warning server --port 80`
    *
    * Will result in:
-   *     - options: `{debugLevel: 'warning'}`
+   *     - options: `{ debugLevel: 'warning' }`
    *     - args: `['server', '--port', '80']`
    *
    * @param stopEarly Enable/disable stop early.
@@ -10213,6 +10481,7 @@ var Command = class _Command {
    * Disable parsing arguments. If enabled the raw arguments will be passed to
    * the action handler. This has no effect for parent or child commands. Only
    * for the command on which this method was called.
+   *
    * @param useRawArgs Enable/disable raw arguments.
    */
   useRawArgs(useRawArgs = true) {
@@ -10222,6 +10491,7 @@ var Command = class _Command {
   /**
    * Set default command. The default command is executed when the program
    * was called without any argument and if no action handler is registered.
+   *
    * @param name Name of the default command.
    */
   default(name) {
@@ -10233,6 +10503,7 @@ var Command = class _Command {
   }
   /**
    * Register custom type.
+   *
    * @param name    The name of the type.
    * @param handler The callback method to parse the type.
    * @param options Type options.
@@ -10252,6 +10523,13 @@ var Command = class _Command {
     }
     return this;
   }
+  /**
+   * Register global complete handler.
+   *
+   * @param name      The name of the completion.
+   * @param complete  The callback method to complete the type.
+   * @param options   Complete options.
+   */
   globalComplete(name, complete, options) {
     return this.complete(name, complete, { ...options, global: true });
   }
@@ -10279,7 +10557,12 @@ var Command = class _Command {
    *
    * **Example:**
    *
-   * ```
+   * ```ts
+   * import { Command, ValidationError } from "./mod.ts";
+   *
+   * const cmd = new Command();
+   * // ...
+   *
    * try {
    *   cmd.parse();
    * } catch(error) {
@@ -10297,10 +10580,16 @@ var Command = class _Command {
     this.cmd.throwOnError = true;
     return this;
   }
+  /**
+   * Set custom error handler.
+   *
+   * @param handler Error handler callback function.
+   */
   error(handler) {
     this.cmd.errorHandler = handler;
     return this;
   }
+  /** Get error handler callback function. */
   getErrorHandler() {
     return this.errorHandler ?? this._parent?.errorHandler;
   }
@@ -10329,12 +10618,6 @@ var Command = class _Command {
   shouldExit() {
     return this._shouldExit ?? this._parent?.shouldExit() ?? true;
   }
-  globalOption(flags, desc, opts) {
-    if (typeof opts === "function") {
-      return this.option(flags, desc, { value: opts, global: true });
-    }
-    return this.option(flags, desc, { ...opts, global: true });
-  }
   /**
    * Enable grouping of options and set the name of the group.
    * All option which are added after calling the `.group()` method will be
@@ -10347,9 +10630,22 @@ var Command = class _Command {
     this.cmd._groupName = name;
     return this;
   }
+  /**
+   * Register a global option.
+   *
+   * @param flags Flags string e.g: -h, --help, --manual <requiredArg:string> [optionalArg:number] [...restArgs:string]
+   * @param desc Flag description.
+   * @param opts Flag options or custom handler for processing flag value.
+   */
+  globalOption(flags, desc, opts) {
+    if (typeof opts === "function") {
+      return this.option(flags, desc, { value: opts, global: true });
+    }
+    return this.option(flags, desc, { ...opts, global: true });
+  }
   option(flags, desc, opts) {
     if (typeof opts === "function") {
-      return this.option(flags, desc, { value: opts });
+      opts = { value: opts };
     }
     const result = splitArguments(flags);
     const args = result.typeDefinition ? parseArgumentsDefinition(result.typeDefinition) : [];
@@ -10361,7 +10657,7 @@ var Command = class _Command {
       flags: result.flags,
       equalsSign: result.equalsSign,
       typeDefinition: result.typeDefinition,
-      groupName: this._groupName
+      groupName: this._groupName ?? void 0
     };
     if (option.separator) {
       for (const arg of args) {
@@ -10378,7 +10674,7 @@ var Command = class _Command {
         if (opts?.override) {
           this.removeOption(name);
         } else {
-          throw new DuplicateOptionNameError(name);
+          throw new DuplicateOptionNameError(name, this.getPath());
         }
       }
       if (!option.name && isLong) {
@@ -10397,7 +10693,8 @@ var Command = class _Command {
     return this;
   }
   /**
-   * Add new command example.
+   * Register command example.
+   *
    * @param name          Name of the example.
    * @param description   The content of the example.
    */
@@ -10408,6 +10705,18 @@ var Command = class _Command {
     this.cmd.examples.push({ name, description });
     return this;
   }
+  /**
+   * @param flags Flags string e.g: -h, --help, --manual <requiredArg:string> [optionalArg:number] [...restArgs:string]
+   * @param desc Flag description.
+   * @param opts Flag options or custom handler for processing flag value.
+   */
+  /**
+   * Register a global environment variable.
+   *
+   * @param name        Name of the environment variable.
+   * @param description The description of the environment variable.
+   * @param options     Environment variable options.
+   */
   globalEnv(name, description, options) {
     return this.env(name, description, { ...options, global: true });
   }
@@ -10422,7 +10731,7 @@ var Command = class _Command {
     const details = parseArgumentsDefinition(result.typeDefinition);
     if (details.length > 1) {
       throw new TooManyEnvVarValuesError(name);
-    } else if (details.length && details[0].optionalValue) {
+    } else if (details.length && details[0].optional) {
       throw new UnexpectedOptionalEnvVarValueError(name);
     } else if (details.length && details[0].variadic) {
       throw new UnexpectedVariadicEnvVarValueError(name);
@@ -10442,6 +10751,7 @@ var Command = class _Command {
    *****************************************************************************/
   /**
    * Parse command line arguments and execute matched command.
+   *
    * @param args Command line args to parse. Ex: `cmd.parse( Deno.args )`
    */
   parse(args = import_shim_deno2.Deno.args) {
@@ -10451,7 +10761,9 @@ var Command = class _Command {
       env: {},
       literal: [],
       stopEarly: false,
-      stopOnUnknown: false
+      stopOnUnknown: false,
+      defaults: {},
+      actions: []
     };
     return this.parseCommand(ctx);
   }
@@ -10465,7 +10777,7 @@ var Command = class _Command {
         return { options: {}, args: [], cmd: this, literal: [] };
       } else if (this._useRawArgs) {
         await this.parseEnvVars(ctx, this.envVars);
-        return this.execute(ctx.env, ...ctx.unknown);
+        return await this.execute(ctx.env, ctx.unknown);
       }
       let preParseGlobals = false;
       let subCommand;
@@ -10491,18 +10803,18 @@ var Command = class _Command {
       const options = { ...ctx.env, ...ctx.flags };
       const args = this.parseArguments(ctx, options);
       this.literalArgs = ctx.literal;
-      if (ctx.action) {
-        await ctx.action.action.call(this, options, ...args);
-        if (ctx.action.standalone) {
-          return {
-            options,
-            args,
-            cmd: this,
-            literal: this.literalArgs
-          };
-        }
+      if (ctx.actions.length) {
+        await Promise.all(ctx.actions.map((action) => action.call(this, options, ...args)));
       }
-      return await this.execute(options, ...args);
+      if (ctx.standalone) {
+        return {
+          options,
+          args,
+          cmd: this,
+          literal: this.literalArgs
+        };
+      }
+      return await this.execute(options, args);
     } catch (error) {
       this.handleError(error);
     }
@@ -10553,10 +10865,7 @@ var Command = class _Command {
     !this.types.has("boolean") && this.type("boolean", new BooleanType(), { global: true });
     !this.types.has("file") && this.type("file", new FileType(), { global: true });
     if (!this._help) {
-      this.help({
-        hints: true,
-        types: false
-      });
+      this.help({});
     }
     if (this._versionOptions !== false && (this._versionOptions || this.ver)) {
       this.option(this._versionOptions?.flags || "-V, --version", this._versionOptions?.desc || "Show the version number for this program.", {
@@ -10565,7 +10874,7 @@ var Command = class _Command {
         action: async function() {
           const long = this.getRawArgs().includes(`--${this._versionOption?.name}`);
           if (long) {
-            await this.checkVersion();
+            await checkVersion(this);
             this.showLongVersion();
           } else {
             this.showVersion();
@@ -10583,7 +10892,7 @@ var Command = class _Command {
         prepend: true,
         action: async function() {
           const long = this.getRawArgs().includes(`--${this.getHelpOption()?.name}`);
-          await this.checkVersion();
+          await checkVersion(this);
           this.showHelp({ long });
           this.exit();
         },
@@ -10598,16 +10907,18 @@ var Command = class _Command {
    * @param options A map of options.
    * @param args Command arguments.
    */
-  async execute(options, ...args) {
-    if (this.fn) {
-      await this.fn(options, ...args);
-    } else if (this.defaultCommand) {
+  async execute(options, args) {
+    if (this.defaultCommand) {
       const cmd = this.getCommand(this.defaultCommand, true);
       if (!cmd) {
         throw new DefaultCommandNotFoundError(this.defaultCommand, this.getCommands());
       }
       cmd._globalParent = this;
-      return cmd.execute(options, ...args);
+      return cmd.execute(options, args);
+    }
+    await this.executeGlobalAction(options, args);
+    if (this.actionHandler) {
+      await this.actionHandler(options, ...args);
     }
     return {
       options,
@@ -10615,6 +10926,12 @@ var Command = class _Command {
       cmd: this,
       literal: this.literalArgs
     };
+  }
+  async executeGlobalAction(options, args) {
+    if (!this._noGlobals) {
+      await this._parent?.executeGlobalAction(options, args);
+    }
+    await this.globalActionHandler?.(options, ...args);
   }
   /**
    * Execute external sub-command.
@@ -10624,12 +10941,12 @@ var Command = class _Command {
     const command = this.getPath().replace(/\s+/g, "-");
     await import_shim_deno2.Deno.permissions.request({ name: "run", command });
     try {
-      const process2 = import_shim_deno2.Deno.run({
-        cmd: [command, ...args]
+      const cmd = new import_shim_deno2.Deno.Command(command, {
+        args
       });
-      const status = await process2.status();
-      if (!status.success) {
-        import_shim_deno2.Deno.exit(status.code);
+      const output = await cmd.output();
+      if (!output.success) {
+        import_shim_deno2.Deno.exit(output.code);
       }
     } catch (error) {
       if (error instanceof import_shim_deno2.Deno.errors.NotFound) {
@@ -10649,8 +10966,8 @@ var Command = class _Command {
       ignoreDefaults: ctx.env,
       parse: (type) => this.parseType(type),
       option: (option) => {
-        if (!ctx.action && option.action) {
-          ctx.action = option;
+        if (option.action) {
+          ctx.actions.push(option.action);
         }
       }
     });
@@ -10732,7 +11049,7 @@ var Command = class _Command {
       }
     } else {
       if (!args.length) {
-        const required = this.getArguments().filter((expectedArg) => !expectedArg.optionalValue).map((expectedArg) => expectedArg.name);
+        const required = this.getArguments().filter((expectedArg) => !expectedArg.optional).map((expectedArg) => expectedArg.name);
         if (required.length) {
           const optionNames = Object.keys(options);
           const hasStandaloneOption = !!optionNames.find((name) => this.getOption(name, true)?.standalone);
@@ -10743,7 +11060,7 @@ var Command = class _Command {
       } else {
         for (const expectedArg of this.getArguments()) {
           if (!args.length) {
-            if (expectedArg.optionalValue) {
+            if (expectedArg.optional) {
               break;
             }
             throw new MissingArgumentError(expectedArg.name);
@@ -10828,9 +11145,13 @@ var Command = class _Command {
   getAliases() {
     return this.aliases;
   }
-  /** Get full command path. */
-  getPath() {
-    return this._parent ? this._parent.getPath() + " " + this._name : this._name;
+  /**
+   * Get full command path.
+   *
+   * @param name Override the main command name.
+   */
+  getPath(name) {
+    return this._parent ? this._parent.getPath(name) + " " + this._name : name || this._name;
   }
   /** Get arguments definition. E.g: <input-file:string> <output-file:string> */
   getArgsDefinition() {
@@ -10838,6 +11159,7 @@ var Command = class _Command {
   }
   /**
    * Get argument by name.
+   *
    * @param name Name of the argument.
    */
   getArgument(name) {
@@ -10866,8 +11188,12 @@ var Command = class _Command {
   getDescription() {
     return typeof this.desc === "function" ? this.desc = this.desc() : this.desc;
   }
+  /** Get auto generated command usage. */
   getUsage() {
-    return this._usage ?? this.getArgsDefinition();
+    return this._usage ?? [this.getArgsDefinition(), this.getRequiredOptionsDefinition()].join(" ").trim();
+  }
+  getRequiredOptionsDefinition() {
+    return this.getOptions().filter((option) => option.required).map((option) => [findFlag(option.flags), option.typeDefinition].filter((v) => v).join(" ").trim()).join(" ");
   }
   /** Get short command description. This is the first line of the description. */
   getShortDescription() {
@@ -10912,26 +11238,12 @@ ${bold(k)} ${brightBlue(v)}`).join("");
       import_shim_deno2.Deno.exit(code2);
     }
   }
-  /** Check if new version is available and add hint to version. */
-  async checkVersion() {
-    const mainCommand = this.getMainCommand();
-    const upgradeCommand = mainCommand.getCommand("upgrade");
-    if (!isUpgradeCommand(upgradeCommand)) {
-      return;
-    }
-    const latestVersion = await upgradeCommand.getLatestVersion();
-    const currentVersion = mainCommand.getVersion();
-    if (currentVersion === latestVersion) {
-      return;
-    }
-    const versionHelpText = `(New version available: ${latestVersion}. Run '${mainCommand.getName()} upgrade' to upgrade to the latest version!)`;
-    mainCommand.version(`${currentVersion}  ${bold(yellow(versionHelpText))}`);
-  }
   /*****************************************************************************
    **** Options GETTER *********************************************************
    *****************************************************************************/
   /**
    * Checks whether the command has options or not.
+   *
    * @param hidden Include hidden options.
    */
   hasOptions(hidden2) {
@@ -10939,6 +11251,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get options.
+   *
    * @param hidden Include hidden options.
    */
   getOptions(hidden2) {
@@ -10946,6 +11259,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get base options.
+   *
    * @param hidden Include hidden options.
    */
   getBaseOptions(hidden2) {
@@ -10956,6 +11270,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get global options.
+   *
    * @param hidden Include hidden options.
    */
   getGlobalOptions(hidden2) {
@@ -10978,6 +11293,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Checks whether the command has an option with given name or not.
+   *
    * @param name Name of the option. Must be in param-case.
    * @param hidden Include hidden options.
    */
@@ -10986,6 +11302,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get option by name.
+   *
    * @param name Name of the option. Must be in param-case.
    * @param hidden Include hidden options.
    */
@@ -10994,6 +11311,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get base option by name.
+   *
    * @param name Name of the option. Must be in param-case.
    * @param hidden Include hidden options.
    */
@@ -11003,6 +11321,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get global option from parent commands by name.
+   *
    * @param name Name of the option. Must be in param-case.
    * @param hidden Include hidden options.
    */
@@ -11022,6 +11341,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Remove option by name.
+   *
    * @param name Name of the option. Must be in param-case.
    */
   removeOption(name) {
@@ -11033,6 +11353,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Checks whether the command has sub-commands or not.
+   *
    * @param hidden Include hidden commands.
    */
   hasCommands(hidden2) {
@@ -11040,6 +11361,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get commands.
+   *
    * @param hidden Include hidden commands.
    */
   getCommands(hidden2) {
@@ -11047,6 +11369,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get base commands.
+   *
    * @param hidden Include hidden commands.
    */
   getBaseCommands(hidden2) {
@@ -11055,6 +11378,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get global commands.
+   *
    * @param hidden Include hidden commands.
    */
   getGlobalCommands(hidden2) {
@@ -11076,6 +11400,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Checks whether a child command exists by given name or alias.
+   *
    * @param name Name or alias of the command.
    * @param hidden Include hidden commands.
    */
@@ -11084,6 +11409,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get command by name or alias.
+   *
    * @param name Name or alias of the command.
    * @param hidden Include hidden commands.
    */
@@ -11092,6 +11418,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get base command by name or alias.
+   *
    * @param name Name or alias of the command.
    * @param hidden Include hidden commands.
    */
@@ -11104,6 +11431,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get global command by name or alias.
+   *
    * @param name Name or alias of the command.
    * @param hidden Include hidden commands.
    */
@@ -11122,6 +11450,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Remove sub-command by name or alias.
+   *
    * @param name Name or alias of the command.
    */
   removeCommand(name) {
@@ -11159,6 +11488,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get type by name.
+   *
    * @param name Name of the type.
    */
   getType(name) {
@@ -11166,6 +11496,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get base type by name.
+   *
    * @param name Name of the type.
    */
   getBaseType(name) {
@@ -11173,6 +11504,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get global type by name.
+   *
    * @param name Name of the type.
    */
   getGlobalType(name) {
@@ -11213,6 +11545,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get completion by name.
+   *
    * @param name Name of the completion.
    */
   getCompletion(name) {
@@ -11220,6 +11553,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get base completion by name.
+   *
    * @param name Name of the completion.
    */
   getBaseCompletion(name) {
@@ -11227,6 +11561,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get global completions by name.
+   *
    * @param name Name of the completion.
    */
   getGlobalCompletion(name) {
@@ -11241,6 +11576,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Checks whether the command has environment variables or not.
+   *
    * @param hidden Include hidden environment variable.
    */
   hasEnvVars(hidden2) {
@@ -11248,6 +11584,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get environment variables.
+   *
    * @param hidden Include hidden environment variable.
    */
   getEnvVars(hidden2) {
@@ -11255,6 +11592,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get base environment variables.
+   *
    * @param hidden Include hidden environment variable.
    */
   getBaseEnvVars(hidden2) {
@@ -11265,6 +11603,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get global environment variables.
+   *
    * @param hidden Include hidden environment variable.
    */
   getGlobalEnvVars(hidden2) {
@@ -11289,6 +11628,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Checks whether the command has an environment variable with given name or not.
+   *
    * @param name Name of the environment variable.
    * @param hidden Include hidden environment variable.
    */
@@ -11297,6 +11637,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get environment variable by name.
+   *
    * @param name Name of the environment variable.
    * @param hidden Include hidden environment variable.
    */
@@ -11305,6 +11646,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get base environment variable by name.
+   *
    * @param name Name of the environment variable.
    * @param hidden Include hidden environment variable.
    */
@@ -11314,6 +11656,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /**
    * Get global environment variable by name.
+   *
    * @param name Name of the environment variable.
    * @param hidden Include hidden environment variable.
    */
@@ -11347,27 +11690,20 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     return this._helpOption ?? this._parent?.getHelpOption();
   }
 };
-function isUpgradeCommand(command) {
-  return command instanceof Command && "getLatestVersion" in command;
+function findFlag(flags) {
+  for (const flag of flags) {
+    if (flag.startsWith("--")) {
+      return flag;
+    }
+  }
+  return flags[0];
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/completions/bash.js
-var _BashCompletionsCommand_cmd;
-_BashCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/child_command.js
+var _ChildCommandType_cmd;
+_ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/completions/fish.js
-var _FishCompletionsCommand_cmd;
-_FishCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/completions/zsh.js
-var _ZshCompletionsCommand_cmd;
-_ZshCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/completions/mod.js
-var _CompletionsCommand_cmd;
-_CompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/enum.js
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/enum.js
 var EnumType = class extends Type {
   constructor(values) {
     super();
@@ -11395,9 +11731,21 @@ var EnumType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v0.25.7/command/types/child_command.js
-var _ChildCommandType_cmd;
-_ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/completions/bash.js
+var _BashCompletionsCommand_cmd;
+_BashCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/completions/fish.js
+var _FishCompletionsCommand_cmd;
+_FishCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/completions/zsh.js
+var _ZshCompletionsCommand_cmd;
+_ZshCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
+
+// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/completions/completions_command.js
+var _CompletionsCommand_cmd;
+_CompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
 // dist/dnt/esm/gh-wrapper/exec.js
 async function exec2(args) {
