@@ -1,6 +1,7 @@
 import { fetchHistory } from "./fetch_history.ts";
 import { fetchSha } from "./fetch_sha.ts";
 import { fetchTags } from "./fetch_tags.ts";
+import { fetchTotalCommit } from "./fetch_total_commit.ts";
 import { GhDescribeError } from "./gh_describe_error.ts";
 import { resolveRepo } from "./resolve_repo.ts";
 import { searchTag } from "./search_tags.ts";
@@ -72,11 +73,26 @@ export interface GhDescribeOutput {
   shortSha: string;
 }
 
-export function createDescribe(tag: string, distance: number, sha: string) {
+// Return the slot of the most-significant bit set in x.
+export function MSB(x: number) {
+  let r = 0;
+  while (x > 1) {
+    x >>= 1;
+    r++;
+  }
+  return r;
+}
+
+export function createDescribe(
+  tag: string,
+  distance: number,
+  sha: string,
+  shortShaChars: number,
+): string {
   if (distance === 0) {
     return tag;
   } else {
-    return `${tag}-${distance}-g${sha.substring(0, 7)}`;
+    return `${tag}-${distance}-g${sha.substring(0, shortShaChars)}`;
   }
 }
 
@@ -92,12 +108,22 @@ export async function ghDescribe(options?: GhDescribeOptions): Promise<GhDescrib
   } = options ?? {};
   const { owner, repo, host } = await resolveRepo(options?.repo);
 
-  const [tags, { sha, histories }] = await Promise.all([
+  const [tags, { sha, histories, shortShaChars }] = await Promise.all([
     fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
       const sha = await fetchSha({ owner, repo, host, sha: commitish });
       const histories = fetchHistory({ owner, repo, host, sha });
-      return { sha, histories };
+
+      // Emulate https://github.com/git/git/blob/e9356ba3ea2a6754281ff7697b3e5a1697b21e24/object-name.c#L829-L847
+      const commitCount = await fetchTotalCommit({ owner, repo, host, sha });
+      // fetch highest set bit in commitCount
+      const distance = MSB(commitCount) + 1;
+      // calculate how many chars to use for short sha
+      // 7 is the default for git describe
+      // https://git-scm.com/docs/git-describe#_examples
+      const shortShaChars = Math.max(7, Math.round((distance + 1) / 2));
+
+      return { sha, histories, shortShaChars };
     })(),
   ]);
 
@@ -110,12 +136,12 @@ export async function ghDescribe(options?: GhDescribeOptions): Promise<GhDescrib
     throw new GhDescribeError("No names found, cannot describe anything.");
   }
 
-  const describe = createDescribe(tag, distance, sha);
+  const describe = createDescribe(tag, distance, sha, shortShaChars);
   return {
     describe,
     tag,
     distance,
     sha,
-    shortSha: sha.substring(0, 7),
+    shortSha: sha.substring(0, shortShaChars),
   };
 }
