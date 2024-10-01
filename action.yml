@@ -40,7 +40,7 @@ outputs:
   sha:
     description: >
       The object name for the commit itself.
-      ex) 2414721
+      ex) 2414721230345897234093645897124245324623
   short-sha:
     description: >
       The object name for the commit itself.
