@@ -10778,6 +10778,19 @@ ${stderr}`);
   }
 };
 
+// dist/dnt/esm/gh-wrapper/graphql.js
+function graphql({ host, jq } = {}) {
+  return async function graphqlTag(...[template, ...substitutions]) {
+    const query = String.raw(template, ...substitutions);
+    const args = ["api", "graphql", "-f", `query=${query}`];
+    if (host)
+      args.push("--hostname", host);
+    if (jq)
+      args.push("-q", jq);
+    return await exec2(args);
+  };
+}
+
 // dist/dnt/esm/gh-wrapper/list_commits.js
 function createUrl({ owner, repo, sha, perPage, page }) {
   const param = new URLSearchParams();
@@ -10895,6 +10908,24 @@ async function fetchTags({ owner, repo, host, match, exclude }) {
   return new Map(tags);
 }
 
+// dist/dnt/esm/core/fetch_total_commit.js
+async function fetchTotalCommit({ owner, repo, host, sha }) {
+  const stdout = await graphql({ host })`
+  query {
+    repository(owner: "${owner}", name: "${repo}") {
+      object(expression: "${sha}") {
+        ... on Commit {
+          history(first: 0) {
+            totalCount
+          }
+        }
+      }
+    }
+  }`;
+  const repository = JSON.parse(stdout);
+  return repository.data.repository.object.history.totalCount;
+}
+
 // dist/dnt/esm/core/ghrepo.js
 var GitHubRepository = class {
   constructor(owner, repo, host) {
@@ -11001,22 +11032,33 @@ async function searchTag(tags, histories) {
 }
 
 // dist/dnt/esm/core/gh_describe.js
-function createDescribe(tag, distance2, sha) {
+function MSB(x) {
+  let r = 0;
+  while (x > 1) {
+    x >>= 1;
+    r++;
+  }
+  return r;
+}
+function createDescribe(tag, distance2, sha, shortShaChars) {
   if (distance2 === 0) {
     return tag;
   } else {
-    return `${tag}-${distance2}-g${sha.substring(0, 7)}`;
+    return `${tag}-${distance2}-g${sha.substring(0, shortShaChars)}`;
   }
 }
 async function ghDescribe(options) {
   const { commitish, defaultTag, match, exclude } = options ?? {};
   const { owner, repo, host } = await resolveRepo(options?.repo);
-  const [tags, { sha, histories }] = await Promise.all([
+  const [tags, { sha, histories, shortShaChars }] = await Promise.all([
     fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
       const sha2 = await fetchSha({ owner, repo, host, sha: commitish });
       const histories2 = fetchHistory({ owner, repo, host, sha: sha2 });
-      return { sha: sha2, histories: histories2 };
+      const commitCount = await fetchTotalCommit({ owner, repo, host, sha: sha2 });
+      const distance3 = MSB(commitCount) + 1;
+      const shortShaChars2 = Math.max(7, Math.round((distance3 + 1) / 2));
+      return { sha: sha2, histories: histories2, shortShaChars: shortShaChars2 };
     })()
   ]);
   const { distance: distance2, tag } = await searchTag(tags, histories) || {
@@ -11026,13 +11068,13 @@ async function ghDescribe(options) {
   if (!tag) {
     throw new GhDescribeError("No names found, cannot describe anything.");
   }
-  const describe2 = createDescribe(tag, distance2, sha);
+  const describe2 = createDescribe(tag, distance2, sha, shortShaChars);
   return {
     describe: describe2,
     tag,
     distance: distance2,
     sha,
-    shortSha: sha.substring(0, 7)
+    shortSha: sha.substring(0, shortShaChars)
   };
 }
 
