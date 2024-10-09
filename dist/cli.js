@@ -5116,23 +5116,78 @@ var require_dist2 = __commonJS({
   }
 });
 
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/_common/assert_path.js
+// dist/dnt/esm/_dnt.shims.js
+var import_shim_deno = __toESM(require_dist2(), 1);
+var import_shim_deno2 = __toESM(require_dist2(), 1);
+var dntGlobals = {
+  Deno: import_shim_deno.Deno
+};
+var dntGlobalThis = createMergeProxy(globalThis, dntGlobals);
+function createMergeProxy(baseObj, extObj) {
+  return new Proxy(baseObj, {
+    get(_target, prop, _receiver) {
+      if (prop in extObj) {
+        return extObj[prop];
+      } else {
+        return baseObj[prop];
+      }
+    },
+    set(_target, prop, value) {
+      if (prop in extObj) {
+        delete extObj[prop];
+      }
+      baseObj[prop] = value;
+      return true;
+    },
+    deleteProperty(_target, prop) {
+      let success = false;
+      if (prop in extObj) {
+        delete extObj[prop];
+        success = true;
+      }
+      if (prop in baseObj) {
+        delete baseObj[prop];
+        success = true;
+      }
+      return success;
+    },
+    ownKeys(_target) {
+      const baseKeys = Reflect.ownKeys(baseObj);
+      const extKeys = Reflect.ownKeys(extObj);
+      const extKeysSet = new Set(extKeys);
+      return [...baseKeys.filter((k) => !extKeysSet.has(k)), ...extKeys];
+    },
+    defineProperty(_target, prop, desc) {
+      if (prop in extObj) {
+        delete extObj[prop];
+      }
+      Reflect.defineProperty(baseObj, prop, desc);
+      return true;
+    },
+    getOwnPropertyDescriptor(_target, prop) {
+      if (prop in extObj) {
+        return Reflect.getOwnPropertyDescriptor(extObj, prop);
+      } else {
+        return Reflect.getOwnPropertyDescriptor(baseObj, prop);
+      }
+    },
+    has(_target, prop) {
+      return prop in extObj || prop in baseObj;
+    }
+  });
+}
+
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_os.js
+var isWindows = dntGlobalThis.Deno?.build.os === "windows" || dntGlobalThis.navigator?.platform?.startsWith("Win") || dntGlobalThis.process?.platform?.startsWith("win") || false;
+
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_common/assert_path.js
 function assertPath(path) {
   if (typeof path !== "string") {
-    throw new TypeError(`Path must be a string. Received ${JSON.stringify(path)}`);
+    throw new TypeError(`Path must be a string, received "${JSON.stringify(path)}"`);
   }
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/_common/constants.js
-var CHAR_UPPERCASE_A = 65;
-var CHAR_LOWERCASE_A = 97;
-var CHAR_UPPERCASE_Z = 90;
-var CHAR_LOWERCASE_Z = 122;
-var CHAR_FORWARD_SLASH = 47;
-var CHAR_BACKWARD_SLASH = 92;
-var CHAR_COLON = 58;
-
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/_common/strip_trailing_separators.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_common/strip_trailing_separators.js
 function stripTrailingSeparators(segment, isSep) {
   if (segment.length <= 1) {
     return segment;
@@ -5148,8 +5203,22 @@ function stripTrailingSeparators(segment, isSep) {
   return segment.slice(0, end);
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/windows/_util.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_common/constants.js
+var CHAR_UPPERCASE_A = 65;
+var CHAR_LOWERCASE_A = 97;
+var CHAR_UPPERCASE_Z = 90;
+var CHAR_LOWERCASE_Z = 122;
+var CHAR_FORWARD_SLASH = 47;
+var CHAR_BACKWARD_SLASH = 92;
+var CHAR_COLON = 58;
+
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/posix/_util.js
 function isPosixPathSeparator(code2) {
+  return code2 === CHAR_FORWARD_SLASH;
+}
+
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/windows/_util.js
+function isPosixPathSeparator2(code2) {
   return code2 === CHAR_FORWARD_SLASH;
 }
 function isPathSeparator(code2) {
@@ -5159,15 +5228,36 @@ function isWindowsDeviceRoot(code2) {
   return code2 >= CHAR_LOWERCASE_A && code2 <= CHAR_LOWERCASE_Z || code2 >= CHAR_UPPERCASE_A && code2 <= CHAR_UPPERCASE_Z;
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/_common/dirname.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_common/dirname.js
 function assertArg(path) {
   assertPath(path);
   if (path.length === 0)
     return ".";
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/windows/dirname.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/posix/dirname.js
 function dirname(path) {
+  assertArg(path);
+  let end = -1;
+  let matchedNonSeparator = false;
+  for (let i = path.length - 1; i >= 1; --i) {
+    if (isPosixPathSeparator(path.charCodeAt(i))) {
+      if (matchedNonSeparator) {
+        end = i;
+        break;
+      }
+    } else {
+      matchedNonSeparator = true;
+    }
+  }
+  if (end === -1) {
+    return isPosixPathSeparator(path.charCodeAt(0)) ? "/" : ".";
+  }
+  return stripTrailingSeparators(path.slice(0, end), isPosixPathSeparator);
+}
+
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/windows/dirname.js
+function dirname2(path) {
   assertArg(path);
   const len = path.length;
   let rootEnd = -1;
@@ -5234,72 +5324,16 @@ function dirname(path) {
     else
       end = rootEnd;
   }
-  return stripTrailingSeparators(path.slice(0, end), isPosixPathSeparator);
+  return stripTrailingSeparators(path.slice(0, end), isPosixPathSeparator2);
 }
 
-// dist/dnt/esm/_dnt.shims.js
-var import_shim_deno = __toESM(require_dist2(), 1);
-var import_shim_deno2 = __toESM(require_dist2(), 1);
-var dntGlobals = {
-  Deno: import_shim_deno.Deno
-};
-var dntGlobalThis = createMergeProxy(globalThis, dntGlobals);
-function createMergeProxy(baseObj, extObj) {
-  return new Proxy(baseObj, {
-    get(_target, prop, _receiver) {
-      if (prop in extObj) {
-        return extObj[prop];
-      } else {
-        return baseObj[prop];
-      }
-    },
-    set(_target, prop, value) {
-      if (prop in extObj) {
-        delete extObj[prop];
-      }
-      baseObj[prop] = value;
-      return true;
-    },
-    deleteProperty(_target, prop) {
-      let success = false;
-      if (prop in extObj) {
-        delete extObj[prop];
-        success = true;
-      }
-      if (prop in baseObj) {
-        delete baseObj[prop];
-        success = true;
-      }
-      return success;
-    },
-    ownKeys(_target) {
-      const baseKeys = Reflect.ownKeys(baseObj);
-      const extKeys = Reflect.ownKeys(extObj);
-      const extKeysSet = new Set(extKeys);
-      return [...baseKeys.filter((k) => !extKeysSet.has(k)), ...extKeys];
-    },
-    defineProperty(_target, prop, desc) {
-      if (prop in extObj) {
-        delete extObj[prop];
-      }
-      Reflect.defineProperty(baseObj, prop, desc);
-      return true;
-    },
-    getOwnPropertyDescriptor(_target, prop) {
-      if (prop in extObj) {
-        return Reflect.getOwnPropertyDescriptor(extObj, prop);
-      } else {
-        return Reflect.getOwnPropertyDescriptor(baseObj, prop);
-      }
-    },
-    has(_target, prop) {
-      return prop in extObj || prop in baseObj;
-    }
-  });
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/dirname.js
+function dirname3(path) {
+  return isWindows ? dirname2(path) : dirname(path);
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/_common/glob_to_reg_exp.js
-var regExpEscapeChars = [
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_common/glob_to_reg_exp.js
+var REG_EXP_ESCAPE_CHARS = [
   "!",
   "$",
   "(",
@@ -5315,7 +5349,7 @@ var regExpEscapeChars = [
   "{",
   "|"
 ];
-var rangeEscapeChars = ["-", "\\", "]"];
+var RANGE_ESCAPE_CHARS = ["-", "\\", "]"];
 function _globToRegExp(c, glob, {
   extended = true,
   globstar: globstarOption = true,
@@ -5340,7 +5374,7 @@ function _globToRegExp(c, glob, {
     for (; i < glob.length && !c.seps.includes(glob[i]); i++) {
       if (inEscape) {
         inEscape = false;
-        const escapeChars = inRange ? rangeEscapeChars : regExpEscapeChars;
+        const escapeChars = inRange ? RANGE_ESCAPE_CHARS : REG_EXP_ESCAPE_CHARS;
         segment += escapeChars.includes(glob[i]) ? `\\${glob[i]}` : glob[i];
         continue;
       }
@@ -5407,11 +5441,7 @@ function _globToRegExp(c, glob, {
         continue;
       }
       if (inRange) {
-        if (glob[i] === "\\") {
-          segment += `\\\\`;
-        } else {
-          segment += glob[i];
-        }
+        segment += glob[i];
         continue;
       }
       if (glob[i] === ")" && groupStack.length > 0 && groupStack[groupStack.length - 1] !== "BRACE") {
@@ -5492,12 +5522,12 @@ function _globToRegExp(c, glob, {
         }
         continue;
       }
-      segment += regExpEscapeChars.includes(glob[i]) ? `\\${glob[i]}` : glob[i];
+      segment += REG_EXP_ESCAPE_CHARS.includes(glob[i]) ? `\\${glob[i]}` : glob[i];
     }
     if (groupStack.length > 0 || inRange || inEscape) {
       segment = "";
       for (const c2 of glob.slice(j, i)) {
-        segment += regExpEscapeChars.includes(c2) ? `\\${c2}` : c2;
+        segment += REG_EXP_ESCAPE_CHARS.includes(c2) ? `\\${c2}` : c2;
         endsWithSep = false;
       }
     }
@@ -5508,56 +5538,14 @@ function _globToRegExp(c, glob, {
     }
     while (c.seps.includes(glob[i]))
       i++;
-    if (!(i > j)) {
-      throw new Error("Assertion failure: i > j (potential infinite loop)");
-    }
     j = i;
   }
   regExpString = `^${regExpString}$`;
   return new RegExp(regExpString, caseInsensitive ? "i" : "");
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/windows/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/posix/glob_to_regexp.js
 var constants = {
-  sep: "(?:\\\\|/)+",
-  sepMaybe: "(?:\\\\|/)*",
-  seps: ["\\", "/"],
-  globstar: "(?:[^\\\\/]*(?:\\\\|/|$)+)*",
-  wildcard: "[^\\\\/]*",
-  escapePrefix: "`"
-};
-function globToRegExp(glob, options = {}) {
-  return _globToRegExp(constants, glob, options);
-}
-
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/posix/_util.js
-function isPosixPathSeparator2(code2) {
-  return code2 === CHAR_FORWARD_SLASH;
-}
-
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/posix/dirname.js
-function dirname2(path) {
-  assertArg(path);
-  let end = -1;
-  let matchedNonSeparator = false;
-  for (let i = path.length - 1; i >= 1; --i) {
-    if (isPosixPathSeparator2(path.charCodeAt(i))) {
-      if (matchedNonSeparator) {
-        end = i;
-        break;
-      }
-    } else {
-      matchedNonSeparator = true;
-    }
-  }
-  if (end === -1) {
-    return isPosixPathSeparator2(path.charCodeAt(0)) ? "/" : ".";
-  }
-  return stripTrailingSeparators(path.slice(0, end), isPosixPathSeparator2);
-}
-
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/posix/glob_to_regexp.js
-var constants2 = {
   sep: "/+",
   sepMaybe: "/*",
   seps: ["/"],
@@ -5565,32 +5553,26 @@ var constants2 = {
   wildcard: "[^/]*",
   escapePrefix: "\\"
 };
+function globToRegExp(glob, options = {}) {
+  return _globToRegExp(constants, glob, options);
+}
+
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/windows/glob_to_regexp.js
+var constants2 = {
+  sep: "(?:\\\\|/)+",
+  sepMaybe: "(?:\\\\|/)*",
+  seps: ["\\", "/"],
+  globstar: "(?:[^\\\\/]*(?:\\\\|/|$)+)*",
+  wildcard: "[^\\\\/]*",
+  escapePrefix: "`"
+};
 function globToRegExp2(glob, options = {}) {
   return _globToRegExp(constants2, glob, options);
 }
 
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/_os.js
-var osType = (() => {
-  const { Deno: Deno4 } = dntGlobalThis;
-  if (typeof Deno4?.build?.os === "string") {
-    return Deno4.build.os;
-  }
-  const { navigator } = dntGlobalThis;
-  if (navigator?.appVersion?.includes?.("Win")) {
-    return "windows";
-  }
-  return "linux";
-})();
-var isWindows = osType === "windows";
-
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/dirname.js
-function dirname3(path) {
-  return isWindows ? dirname(path) : dirname2(path);
-}
-
-// dist/dnt/esm/deps/deno.land/std@0.213.0/path/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/glob_to_regexp.js
 function globToRegExp3(glob, options = {}) {
-  return options.os === "windows" || !options.os && isWindows ? globToRegExp(glob, options) : globToRegExp2(glob, options);
+  return isWindows ? globToRegExp2(glob, options) : globToRegExp(glob, options);
 }
 
 // dist/dnt/esm/git-wrapper/exec.js

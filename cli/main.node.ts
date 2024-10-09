@@ -4,7 +4,7 @@
  * @module
  */
 
-import { dirname } from "https://deno.land/std@0.213.0/path/mod.ts";
+import { dirname } from "jsr:@std/path@1.0.6";
 import * as git from "../git-wrapper/mod.ts";
 import { ghDescribeCli } from "./cli.ts";
 
