@@ -1,5 +1,5 @@
 import $ from "jsr:@david/dax@0.42.0";
-import { build as esbuild } from "https://deno.land/x/esbuild@v0.20.0/mod.js";
+import { build as esbuild } from "https://deno.land/x/esbuild@v0.24.0/mod.js";
 import { ghDescribe } from "./core/mod.ts";
 
 console.log("$ gh describe");
