@@ -9,7 +9,7 @@ interface FetchTotalCommitArgs {
 
 export async function fetchTotalCommit({ owner, repo, host, sha }: FetchTotalCommitArgs) {
   const stdout = await gh.graphql({ host })`
-  {
+  query {
     repository(owner: "${owner}", name: "${repo}") {
       object(expression: "${sha}") {
         ... on Commit {
@@ -21,5 +21,5 @@ export async function fetchTotalCommit({ owner, repo, host, sha }: FetchTotalCom
     }
   }`;
   const repository = JSON.parse(stdout);
-  return repository.object.history.totalCount;
+  return repository.data.repository.object.history.totalCount;
 }
