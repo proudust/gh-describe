@@ -449,8 +449,8 @@ var require_write = __commonJS({
     var fs = __importStar(require("fs"));
     var util_1 = require("util");
     var nodeWrite = (0, util_1.promisify)(fs.write);
-    var write = async (fd, data) => {
-      const { bytesWritten } = await nodeWrite(fd, data);
+    var write = async (fd, data2) => {
+      const { bytesWritten } = await nodeWrite(fd, data2);
       return bytesWritten;
     };
     exports2.write = write;
@@ -998,10 +998,10 @@ var require_std = __commonJS({
           process.stdin.once("readable", () => {
             var _a;
             process.stdin.off("error", onerror);
-            const data = (_a = process.stdin.read(p.length)) !== null && _a !== void 0 ? _a : process.stdin.read();
-            if (data) {
-              p.set(data);
-              resolve3(data.length > 0 ? data.length : null);
+            const data2 = (_a = process.stdin.read(p.length)) !== null && _a !== void 0 ? _a : process.stdin.read();
+            if (data2) {
+              p.set(data2);
+              resolve3(data2.length > 0 ? data2.length : null);
             } else {
               resolve3(null);
             }
@@ -1053,8 +1053,8 @@ var require_std = __commonJS({
         }
         return stdoutWritable;
       },
-      writeSync(data) {
-        return (0, writeSync_js_1.writeSync)(this.rid, data);
+      writeSync(data2) {
+        return (0, writeSync_js_1.writeSync)(this.rid, data2);
       },
       close() {
         process.stdout.destroy();
@@ -1082,8 +1082,8 @@ var require_std = __commonJS({
         }
         return stderrWritable;
       },
-      writeSync(data) {
-        return (0, writeSync_js_1.writeSync)(this.rid, data);
+      writeSync(data2) {
+        return (0, writeSync_js_1.writeSync)(this.rid, data2);
       },
       close() {
         process.stderr.destroy();
@@ -2248,10 +2248,10 @@ var require_exit = __commonJS({
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.exit = void 0;
-    var exit = function exit2(code2) {
+    var exit2 = function exit3(code2) {
       return process.exit(code2);
     };
-    exports2.exit = exit;
+    exports2.exit = exit2;
   }
 });
 
@@ -2959,7 +2959,7 @@ var require_writeTextFile = __commonJS({
     var fs = __importStar(require("fs/promises"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var fs_flags_js_1 = require_fs_flags();
-    var writeTextFile = async function writeTextFile2(path, data, { append = false, create = true, createNew = false, mode, signal } = {}) {
+    var writeTextFile = async function writeTextFile2(path, data2, { append = false, create = true, createNew = false, mode, signal } = {}) {
       const truncate = create && !append;
       const flag = (0, fs_flags_js_1.getFsFlag)({
         append,
@@ -2969,7 +2969,7 @@ var require_writeTextFile = __commonJS({
         write: true
       });
       try {
-        await fs.writeFile(path, data, { flag, mode, signal });
+        await fs.writeFile(path, data2, { flag, mode, signal });
         if (mode !== void 0)
           await fs.chmod(path, mode);
       } catch (error) {
@@ -3037,10 +3037,10 @@ var require_writeTextFileSync = __commonJS({
     exports2.writeTextFileSync = void 0;
     var fs = __importStar(require("fs"));
     var errorMap_js_1 = __importDefault(require_errorMap());
-    var writeTextFileSync = (path, data, { append = false, create = true, mode } = {}) => {
+    var writeTextFileSync = (path, data2, { append = false, create = true, mode } = {}) => {
       const flag = create ? append ? "a" : "w" : "r+";
       try {
-        fs.writeFileSync(path, data, { flag, mode });
+        fs.writeFileSync(path, data2, { flag, mode });
         if (mode !== void 0)
           fs.chmodSync(path, mode);
       } catch (error) {
@@ -3836,7 +3836,7 @@ var require_run = __commonJS({
       }
       const process2 = child_process_1.default.spawn(commandName, args, {
         cwd: options.cwd,
-        env: getEnv(options),
+        env: getEnv2(options),
         uid: options.uid,
         gid: options.gid,
         shell: false,
@@ -3879,7 +3879,7 @@ var require_run = __commonJS({
         return firstArg;
       }
     }
-    function getEnv(options) {
+    function getEnv2(options) {
       var _a;
       const env = (_a = options.env) !== null && _a !== void 0 ? _a : {};
       for (const name in process.env) {
@@ -4541,11 +4541,11 @@ var require_writeFile = __commonJS({
     var fs = __importStar(require("fs/promises"));
     var errorMap_js_1 = __importDefault(require_errorMap());
     var fs_flags_js_1 = require_fs_flags();
-    var writeFile = async function writeFile2(path, data, { append = false, create = true, createNew = false, mode, signal } = {}) {
+    var writeFile = async function writeFile2(path, data2, { append = false, create = true, createNew = false, mode, signal } = {}) {
       const truncate = create && !append;
       const flag = (0, fs_flags_js_1.getFsFlag)({ append, create, createNew, truncate, write: true });
       try {
-        await fs.writeFile(path, data, { flag, signal });
+        await fs.writeFile(path, data2, { flag, signal });
         if (mode != null)
           await fs.chmod(path, mode);
       } catch (error) {
@@ -4570,7 +4570,7 @@ var require_writeFileSync = __commonJS({
     var errorMap_js_1 = __importDefault(require_errorMap());
     var statSync_js_1 = require_statSync();
     var chmodSync_js_1 = require_chmodSync();
-    var writeFileSync = function writeFileSync2(path, data, options = {}) {
+    var writeFileSync = function writeFileSync2(path, data2, options = {}) {
       try {
         if (options.create !== void 0) {
           const create = !!options.create;
@@ -4590,8 +4590,8 @@ var require_writeFileSync = __commonJS({
           (0, chmodSync_js_1.chmodSync)(path, options.mode);
         }
         let nwritten = 0;
-        while (nwritten < data.length) {
-          nwritten += file.writeSync(data.subarray(nwritten));
+        while (nwritten < data2.length) {
+          nwritten += file.writeSync(data2.subarray(nwritten));
         }
         file.close();
       } catch (e) {
@@ -5704,291 +5704,7 @@ async function revParse(options) {
   return await exec(args);
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/ansi/ansi_escapes.js
-var ansi_escapes_exports = {};
-__export(ansi_escapes_exports, {
-  bel: () => bel,
-  clearScreen: () => clearScreen,
-  clearTerminal: () => clearTerminal,
-  cursorBackward: () => cursorBackward,
-  cursorDown: () => cursorDown,
-  cursorForward: () => cursorForward,
-  cursorHide: () => cursorHide,
-  cursorLeft: () => cursorLeft,
-  cursorMove: () => cursorMove,
-  cursorNextLine: () => cursorNextLine,
-  cursorPosition: () => cursorPosition,
-  cursorPrevLine: () => cursorPrevLine,
-  cursorRestore: () => cursorRestore,
-  cursorSave: () => cursorSave,
-  cursorShow: () => cursorShow,
-  cursorTo: () => cursorTo,
-  cursorUp: () => cursorUp,
-  eraseDown: () => eraseDown,
-  eraseLine: () => eraseLine,
-  eraseLineEnd: () => eraseLineEnd,
-  eraseLineStart: () => eraseLineStart,
-  eraseLines: () => eraseLines,
-  eraseScreen: () => eraseScreen,
-  eraseUp: () => eraseUp,
-  image: () => image,
-  link: () => link,
-  scrollDown: () => scrollDown,
-  scrollUp: () => scrollUp
-});
-
-// dist/dnt/esm/deps/deno.land/std@0.196.0/encoding/base64.js
-var base64abc = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-  "0",
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "+",
-  "/"
-];
-function encode(data) {
-  const uint8 = typeof data === "string" ? new TextEncoder().encode(data) : data instanceof Uint8Array ? data : new Uint8Array(data);
-  let result = "", i;
-  const l = uint8.length;
-  for (i = 2; i < l; i += 3) {
-    result += base64abc[uint8[i - 2] >> 2];
-    result += base64abc[(uint8[i - 2] & 3) << 4 | uint8[i - 1] >> 4];
-    result += base64abc[(uint8[i - 1] & 15) << 2 | uint8[i] >> 6];
-    result += base64abc[uint8[i] & 63];
-  }
-  if (i === l + 1) {
-    result += base64abc[uint8[i - 2] >> 2];
-    result += base64abc[(uint8[i - 2] & 3) << 4];
-    result += "==";
-  }
-  if (i === l) {
-    result += base64abc[uint8[i - 2] >> 2];
-    result += base64abc[(uint8[i - 2] & 3) << 4 | uint8[i - 1] >> 4];
-    result += base64abc[(uint8[i - 1] & 15) << 2];
-    result += "=";
-  }
-  return result;
-}
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/ansi/ansi_escapes.js
-var ESC = "\x1B";
-var CSI = `${ESC}[`;
-var OSC = `${ESC}]`;
-var SEP = ";";
-var bel = "\x07";
-var cursorPosition = `${CSI}6n`;
-function cursorTo(x, y) {
-  if (typeof y !== "number") {
-    return `${CSI}${x}G`;
-  }
-  return `${CSI}${y};${x}H`;
-}
-function cursorMove(x, y) {
-  let ret = "";
-  if (x < 0) {
-    ret += `${CSI}${-x}D`;
-  } else if (x > 0) {
-    ret += `${CSI}${x}C`;
-  }
-  if (y < 0) {
-    ret += `${CSI}${-y}A`;
-  } else if (y > 0) {
-    ret += `${CSI}${y}B`;
-  }
-  return ret;
-}
-function cursorUp(count = 1) {
-  return `${CSI}${count}A`;
-}
-function cursorDown(count = 1) {
-  return `${CSI}${count}B`;
-}
-function cursorForward(count = 1) {
-  return `${CSI}${count}C`;
-}
-function cursorBackward(count = 1) {
-  return `${CSI}${count}D`;
-}
-function cursorNextLine(count = 1) {
-  return `${CSI}E`.repeat(count);
-}
-function cursorPrevLine(count = 1) {
-  return `${CSI}F`.repeat(count);
-}
-var cursorLeft = `${CSI}G`;
-var cursorHide = `${CSI}?25l`;
-var cursorShow = `${CSI}?25h`;
-var cursorSave = `${ESC}7`;
-var cursorRestore = `${ESC}8`;
-function scrollUp(count = 1) {
-  return `${CSI}S`.repeat(count);
-}
-function scrollDown(count = 1) {
-  return `${CSI}T`.repeat(count);
-}
-var eraseScreen = `${CSI}2J`;
-function eraseUp(count = 1) {
-  return `${CSI}1J`.repeat(count);
-}
-function eraseDown(count = 1) {
-  return `${CSI}0J`.repeat(count);
-}
-var eraseLine = `${CSI}2K`;
-var eraseLineEnd = `${CSI}0K`;
-var eraseLineStart = `${CSI}1K`;
-function eraseLines(count) {
-  let clear = "";
-  for (let i = 0; i < count; i++) {
-    clear += eraseLine + (i < count - 1 ? cursorUp() : "");
-  }
-  clear += cursorLeft;
-  return clear;
-}
-var clearScreen = "\x1Bc";
-var clearTerminal = import_shim_deno2.Deno.build.os === "windows" ? `${eraseScreen}${CSI}0f` : `${eraseScreen}${CSI}3J${CSI}H`;
-function link(text, url) {
-  return [
-    OSC,
-    "8",
-    SEP,
-    SEP,
-    url,
-    bel,
-    text,
-    OSC,
-    "8",
-    SEP,
-    SEP,
-    bel
-  ].join("");
-}
-function image(buffer, options) {
-  let ret = `${OSC}1337;File=inline=1`;
-  if (options?.width) {
-    ret += `;width=${options.width}`;
-  }
-  if (options?.height) {
-    ret += `;height=${options.height}`;
-  }
-  if (options?.preserveAspectRatio === false) {
-    ret += ";preserveAspectRatio=0";
-  }
-  return ret + ":" + encode(buffer) + bel;
-}
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/ansi/ansi.js
-var ansi = factory();
-var encoder = new TextEncoder();
-function factory() {
-  let result = [];
-  let stack = [];
-  const ansi2 = function(...args) {
-    if (this) {
-      if (args.length) {
-        update(args);
-        return this;
-      }
-      return this.toString();
-    }
-    return factory();
-  };
-  ansi2.text = function(text) {
-    stack.push([text, []]);
-    return this;
-  };
-  ansi2.toArray = function() {
-    update();
-    const ret = result;
-    result = [];
-    return ret;
-  };
-  ansi2.toString = function() {
-    return this.toArray().join("");
-  };
-  ansi2.bytes = function() {
-    return encoder.encode(this.toString());
-  };
-  const methodList = Object.entries(ansi_escapes_exports);
-  for (const [name, method] of methodList) {
-    Object.defineProperty(ansi2, name, {
-      get() {
-        stack.push([method, []]);
-        return this;
-      }
-    });
-  }
-  return ansi2;
-  function update(args) {
-    if (!stack.length) {
-      return;
-    }
-    if (args) {
-      stack[stack.length - 1][1] = args;
-    }
-    result.push(...stack.map(([prop, args2]) => typeof prop === "string" ? prop : prop.call(ansi2, ...args2)));
-    stack = [];
-  }
-}
-
-// dist/dnt/esm/deps/deno.land/std@0.196.0/fmt/colors.js
+// dist/dnt/esm/deps/jsr.io/@std/fmt/1.0.2/colors.js
 var colors_exports = {};
 __export(colors_exports, {
   bgBlack: () => bgBlack,
@@ -6035,7 +5751,7 @@ __export(colors_exports, {
   rgb8: () => rgb8,
   setColorEnabled: () => setColorEnabled,
   strikethrough: () => strikethrough,
-  stripColor: () => stripColor,
+  stripAnsiCode: () => stripAnsiCode,
   underline: () => underline,
   white: () => white,
   yellow: () => yellow
@@ -6220,13 +5936,13 @@ function bgRgb24(str, color) {
 }
 var ANSI_PATTERN = new RegExp([
   "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)",
-  "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-nq-uy=><~]))"
+  "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TXZcf-nq-uy=><~]))"
 ].join("|"), "g");
-function stripColor(string2) {
+function stripAnsiCode(string2) {
   return string2.replace(ANSI_PATTERN, "");
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/ansi/colors.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/ansi/1.0.0-rc.7/colors.js
 var proto = /* @__PURE__ */ Object.create(null);
 var methodNames = Object.keys(colors_exports);
 for (const name of methodNames) {
@@ -6235,12 +5951,12 @@ for (const name of methodNames) {
   }
   Object.defineProperty(proto, name, {
     get() {
-      return factory2([...this._stack, name]);
+      return factory([...this._stack, name]);
     }
   });
 }
-var colors = factory2();
-function factory2(stack = []) {
+var colors = factory();
+function factory(stack = []) {
   const colors2 = function(str, ...args) {
     if (typeof str !== "undefined") {
       const lastIndex = stack.length - 1;
@@ -6248,107 +5964,137 @@ function factory2(stack = []) {
     }
     const tmp = stack.slice();
     stack = [];
-    return factory2(tmp);
+    return factory(tmp);
   };
   Object.setPrototypeOf(colors2, proto);
   colors2._stack = stack;
   return colors2;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/ansi/cursor_position.js
-var encoder2 = new TextEncoder();
-var decoder = new TextDecoder();
-function getCursorPosition({ reader = import_shim_deno2.Deno.stdin, writer = import_shim_deno2.Deno.stdout } = {}) {
-  const data = new Uint8Array(8);
-  reader.setRaw(true);
-  writer.writeSync(encoder2.encode(cursorPosition));
-  reader.readSync(data);
-  reader.setRaw(false);
-  const [y, x] = decoder.decode(data).match(/\[(\d+);(\d+)R/)?.slice(1, 3).map(Number) ?? [0, 0];
-  return { x, y };
+// dist/dnt/esm/deps/jsr.io/@std/text/1.0.7/levenshtein_distance.js
+var { ceil } = Math;
+var peq = new Uint32Array(1114112);
+function myers32(t, p) {
+  const n = t.length;
+  const m = p.length;
+  for (let i = 0; i < m; i++) {
+    peq[p[i].codePointAt(0)] |= 1 << i;
+  }
+  const last = m - 1;
+  let pv = -1;
+  let mv = 0;
+  let score = m;
+  for (let j = 0; j < n; j++) {
+    const eq = peq[t[j].codePointAt(0)];
+    const xv = eq | mv;
+    const xh = (eq & pv) + pv ^ pv | eq;
+    let ph = mv | ~(xh | pv);
+    let mh = pv & xh;
+    score += (ph >>> last & 1) - (mh >>> last & 1);
+    ph = ph << 1 | 1;
+    mh = mh << 1;
+    pv = mh | ~(xv | ph);
+    mv = ph & xv;
+  }
+  for (let i = 0; i < m; i++) {
+    peq[p[i].codePointAt(0)] = 0;
+  }
+  return score;
+}
+function myersX(t, p) {
+  const n = t.length;
+  const m = p.length;
+  const h = new Int8Array(n).fill(1);
+  const bmax = ceil(m / 32) - 1;
+  for (let b = 0; b < bmax; b++) {
+    const start2 = b * 32;
+    const end = (b + 1) * 32;
+    for (let i = start2; i < end; i++) {
+      peq[p[i].codePointAt(0)] |= 1 << i;
+    }
+    let pv2 = -1;
+    let mv2 = 0;
+    for (let j = 0; j < n; j++) {
+      const hin = h[j];
+      let eq = peq[t[j].codePointAt(0)];
+      const xv = eq | mv2;
+      eq |= hin >>> 31;
+      const xh = (eq & pv2) + pv2 ^ pv2 | eq;
+      let ph = mv2 | ~(xh | pv2);
+      let mh = pv2 & xh;
+      h[j] = (ph >>> 31) - (mh >>> 31);
+      ph = ph << 1 | -hin >>> 31;
+      mh = mh << 1 | hin >>> 31;
+      pv2 = mh | ~(xv | ph);
+      mv2 = ph & xv;
+    }
+    for (let i = start2; i < end; i++) {
+      peq[p[i].codePointAt(0)] = 0;
+    }
+  }
+  const start = bmax * 32;
+  for (let i = start; i < m; i++) {
+    peq[p[i].codePointAt(0)] |= 1 << i;
+  }
+  const last = m - 1;
+  let pv = -1;
+  let mv = 0;
+  let score = m;
+  for (let j = 0; j < n; j++) {
+    const hin = h[j];
+    let eq = peq[t[j].codePointAt(0)];
+    const xv = eq | mv;
+    eq |= hin >>> 31;
+    const xh = (eq & pv) + pv ^ pv | eq;
+    let ph = mv | ~(xh | pv);
+    let mh = pv & xh;
+    score += (ph >>> last & 1) - (mh >>> last & 1);
+    ph = ph << 1 | -hin >>> 31;
+    mh = mh << 1 | hin >>> 31;
+    pv = mh | ~(xv | ph);
+    mv = ph & xv;
+  }
+  for (let i = start; i < m; i++) {
+    peq[p[i].codePointAt(0)] = 0;
+  }
+  return score;
+}
+function levenshteinDistance(str1, str2) {
+  let t = [...str1];
+  let p = [...str2];
+  if (t.length < p.length) {
+    [p, t] = [t, p];
+  }
+  if (p.length === 0) {
+    return t.length;
+  }
+  return p.length <= 32 ? myers32(t, p) : myersX(t, p);
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/ansi/tty.js
-var tty = factory3();
-var encoder3 = new TextEncoder();
-function factory3(options) {
-  let result = "";
-  let stack = [];
-  const writer = options?.writer ?? import_shim_deno2.Deno.stdout;
-  const reader = options?.reader ?? import_shim_deno2.Deno.stdin;
-  const tty2 = function(...args) {
-    if (this) {
-      update(args);
-      writer.writeSync(encoder3.encode(result));
-      return this;
-    }
-    return factory3(args[0] ?? options);
-  };
-  tty2.text = function(text) {
-    stack.push([text, []]);
-    update();
-    writer.writeSync(encoder3.encode(result));
-    return this;
-  };
-  tty2.getCursorPosition = () => getCursorPosition({ writer, reader });
-  const methodList = Object.entries(ansi_escapes_exports);
-  for (const [name, method] of methodList) {
-    if (name === "cursorPosition") {
-      continue;
-    }
-    Object.defineProperty(tty2, name, {
-      get() {
-        stack.push([method, []]);
-        return this;
-      }
-    });
+// dist/dnt/esm/deps/jsr.io/@std/text/1.0.7/closest_string.js
+function closestString(givenWord, possibleWords, options) {
+  if (possibleWords.length === 0) {
+    throw new TypeError("When using closestString(), the possibleWords array must contain at least one word");
   }
-  return tty2;
-  function update(args) {
-    if (!stack.length) {
-      return;
-    }
-    if (args) {
-      stack[stack.length - 1][1] = args;
-    }
-    result = stack.reduce((prev, [cur, args2]) => prev + (typeof cur === "string" ? cur : cur.call(tty2, ...args2)), "");
-    stack = [];
+  const { caseSensitive, compareFn = levenshteinDistance } = { ...options };
+  if (!caseSensitive) {
+    givenWord = givenWord.toLowerCase();
   }
+  let nearestWord = possibleWords[0];
+  let closestStringDistance = Infinity;
+  for (const each of possibleWords) {
+    const distance = caseSensitive ? compareFn(givenWord, each) : compareFn(givenWord, each.toLowerCase());
+    if (distance < closestStringDistance) {
+      nearestWord = each;
+      closestStringDistance = distance;
+    }
+  }
+  return nearestWord;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/_utils/distance.js
-function distance(a, b) {
-  if (a.length == 0) {
-    return b.length;
-  }
-  if (b.length == 0) {
-    return a.length;
-  }
-  const matrix = [];
-  for (let i = 0; i <= b.length; i++) {
-    matrix[i] = [i];
-  }
-  for (let j = 0; j <= a.length; j++) {
-    matrix[0][j] = j;
-  }
-  for (let i = 1; i <= b.length; i++) {
-    for (let j = 1; j <= a.length; j++) {
-      if (b.charAt(i - 1) == a.charAt(j - 1)) {
-        matrix[i][j] = matrix[i - 1][j - 1];
-      } else {
-        matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
-      }
-    }
-  }
-  return matrix[b.length][a.length];
-}
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/_utils.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.7/_utils.js
 function paramCaseToCamelCase(str) {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
-}
-function underscoreToCamelCase(str) {
-  return str.replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase().replace(/_([a-z])/g, (g) => g[1].toUpperCase());
 }
 function getOption(flags, name) {
   while (name[0] === "-") {
@@ -6369,7 +6115,7 @@ function didYouMeanType(type, types) {
   return didYouMean(" Did you mean type", type, types);
 }
 function didYouMean(message, type, types) {
-  const match = closest(type, types);
+  const match = types.length ? closestString(type, types) : void 0;
   return match ? `${message} "${match}"?` : "";
 }
 function getFlag(name) {
@@ -6411,23 +6157,11 @@ function matchWildCardOption(name, option) {
   }
   return option;
 }
-function closest(str, arr) {
-  let minDistance = Infinity;
-  let minIndex = 0;
-  for (let i = 0; i < arr.length; i++) {
-    const dist = distance(str, arr[i]);
-    if (dist < minDistance) {
-      minDistance = dist;
-      minIndex = i;
-    }
-  }
-  return arr[minIndex];
-}
 function getDefaultValue(option) {
   return typeof option.default === "function" ? option.default() : option.default;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/_errors.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.7/_errors.js
 var FlagsError = class _FlagsError extends Error {
   constructor(message) {
     super(message);
@@ -6537,7 +6271,7 @@ var InvalidTypeError = class extends ValidationError {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/deprecated.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.7/deprecated.js
 var OptionType;
 (function(OptionType2) {
   OptionType2["STRING"] = "string";
@@ -6546,7 +6280,7 @@ var OptionType;
   OptionType2["BOOLEAN"] = "boolean";
 })(OptionType || (OptionType = {}));
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/types/boolean.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.7/types/boolean.js
 var boolean = (type) => {
   if (~["1", "true"].indexOf(type.value)) {
     return true;
@@ -6557,7 +6291,7 @@ var boolean = (type) => {
   throw new InvalidTypeError(type, ["true", "false", "1", "0"]);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/types/number.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.7/types/number.js
 var number = (type) => {
   const value = Number(type.value);
   if (Number.isFinite(value)) {
@@ -6566,12 +6300,12 @@ var number = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/types/string.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.7/types/string.js
 var string = ({ value }) => {
   return value;
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/_validate_flags.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.7/_validate_flags.js
 function validateFlags(ctx, opts, options = /* @__PURE__ */ new Map()) {
   if (!opts.flags) {
     return;
@@ -6699,7 +6433,7 @@ function isset(flagName, flags) {
   return typeof flags[name] !== "undefined";
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/types/integer.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.7/types/integer.js
 var integer = (type) => {
   const value = Number(type.value);
   if (Number.isInteger(value)) {
@@ -6708,7 +6442,7 @@ var integer = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/flags/flags.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.7/flags.js
 var DefaultTypes = {
   string,
   number,
@@ -7022,10 +6756,23 @@ function parseDefaultType(option, arg, value) {
   });
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/_utils.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.7/_utils.js
+function getFlag2(name) {
+  if (name.startsWith("-")) {
+    return name;
+  }
+  if (name.length > 1) {
+    return `--${name}`;
+  }
+  return `-${name}`;
+}
+function didYouMean2(message, type, types) {
+  const match = types.length ? closestString(type, types) : void 0;
+  return match ? `${message} "${match}"?` : "";
+}
 function didYouMeanCommand(command, commands, excludes = []) {
   const commandNames = commands.map((command2) => command2.getName()).filter((command2) => !excludes.includes(command2));
-  return didYouMean(" Did you mean command", command, commandNames);
+  return didYouMean2(" Did you mean command", command, commandNames);
 }
 var ARGUMENT_REGEX = /^[<\[].+[\]>]$/;
 var ARGUMENT_DETAILS_REGEX = /[<\[:>\]]/;
@@ -7103,8 +6850,11 @@ function dedent(str) {
 function getDescription(description, short) {
   return short ? description.trim().split("\n", 1)[0].trim() : dedent(description);
 }
+function underscoreToCamelCase(str) {
+  return str.replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase().replace(/_([a-z])/g, (g) => g[1].toUpperCase());
+}
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/_errors.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.7/_errors.js
 var CommandError = class _CommandError extends Error {
   constructor(message) {
     super(message);
@@ -7132,7 +6882,7 @@ var ValidationError2 = class _ValidationError extends CommandError {
 };
 var DuplicateOptionNameError = class _DuplicateOptionNameError extends CommandError {
   constructor(optionName, commandName) {
-    super(`An option with name '${bold(getFlag(optionName))}' is already registered on command '${bold(commandName)}'. If it is intended to override the option, set the '${bold("override")}' option of the '${bold("option")}' method to true.`);
+    super(`An option with name '${bold(getFlag2(optionName))}' is already registered on command '${bold(commandName)}'. If it is intended to override the option, set the '${bold("override")}' option of the '${bold("option")}' method to true.`);
     Object.setPrototypeOf(this, _DuplicateOptionNameError.prototype);
   }
 };
@@ -7214,12 +6964,6 @@ var DefaultCommandNotFoundError = class _DefaultCommandNotFoundError extends Com
     Object.setPrototypeOf(this, _DefaultCommandNotFoundError.prototype);
   }
 };
-var CommandExecutableNotFoundError = class _CommandExecutableNotFoundError extends CommandError {
-  constructor(name) {
-    super(`Command executable not found: ${name}`);
-    Object.setPrototypeOf(this, _CommandExecutableNotFoundError.prototype);
-  }
-};
 var UnknownCommandError = class _UnknownCommandError extends ValidationError2 {
   constructor(name, commands, excluded) {
     super(`Unknown command "${name}".${didYouMeanCommand(name, commands, excluded)}`);
@@ -7251,54 +6995,34 @@ var TooManyArgumentsError = class _TooManyArgumentsError extends ValidationError
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/type.js
-var Type = class {
-};
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/boolean.js
-var BooleanType = class extends Type {
-  /** Parse boolean type. */
-  parse(type) {
-    return boolean(type);
+// dist/dnt/esm/deps/jsr.io/@cliffy/internal/1.0.0-rc.7/runtime/exit.js
+function exit(code2) {
+  const { Deno: Deno4, process: process2 } = dntGlobalThis;
+  const exit2 = Deno4?.exit ?? process2?.exit;
+  if (exit2) {
+    exit2(code2);
   }
-  /** Complete boolean type. */
-  complete() {
-    return ["true", "false"];
-  }
-};
+  throw new Error("unsupported runtime");
+}
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/string.js
-var StringType = class extends Type {
-  /** Complete string type. */
-  parse(type) {
-    return string(type);
-  }
-};
+// dist/dnt/esm/deps/jsr.io/@cliffy/internal/1.0.0-rc.7/runtime/get_args.js
+function getArgs() {
+  const { Deno: Deno4, process: process2 } = dntGlobalThis;
+  return Deno4?.args ?? process2?.argv.slice(2) ?? [];
+}
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/file.js
-var FileType = class extends StringType {
-  constructor() {
-    super();
+// dist/dnt/esm/deps/jsr.io/@cliffy/internal/1.0.0-rc.7/runtime/get_env.js
+function getEnv(name) {
+  const { Deno: Deno4, process: process2 } = dntGlobalThis;
+  if (Deno4) {
+    return Deno4.env.get(name);
+  } else if (process2) {
+    return process2.env[name];
   }
-};
+  throw new Error("unsupported runtime");
+}
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/integer.js
-var IntegerType = class extends Type {
-  /** Parse integer type. */
-  parse(type) {
-    return integer(type);
-  }
-};
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/number.js
-var NumberType = class extends Type {
-  /** Parse number type. */
-  parse(type) {
-    return number(type);
-  }
-};
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/border.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.7/border.js
 var border = {
   top: "\u2500",
   topMid: "\u252C",
@@ -7317,11 +7041,21 @@ var border = {
   middle: "\u2502"
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/cell.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.7/cell.js
 var Cell = class _Cell {
   /** Get cell length. */
   get length() {
     return this.toString().length;
+  }
+  /**
+   * Any unterminated ANSI formatting overflowed from previous lines of a
+   * multi-line cell.
+   */
+  get unclosedAnsiRuns() {
+    return this.options.unclosedAnsiRuns ?? "";
+  }
+  set unclosedAnsiRuns(val) {
+    this.options.unclosedAnsiRuns = val;
   }
   /**
    * Create a new cell. If value is a cell, the value and all options of the cell
@@ -7487,7 +7221,7 @@ var Cell = class _Cell {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/column.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.7/column.js
 var Column = class _Column {
   constructor() {
     Object.defineProperty(this, "opts", {
@@ -7557,8 +7291,9 @@ var Column = class _Column {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/std@0.196.0/console/_data.js
-var data_default = {
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.7/unicode_width.js
+var tables = null;
+var data = {
   "UNICODE_VERSION": "15.0.0",
   "tables": [
     {
@@ -7575,23 +7310,9 @@ var data_default = {
     }
   ]
 };
-
-// dist/dnt/esm/deps/deno.land/std@0.196.0/console/_rle.js
-function runLengthDecode({ d, r }) {
-  const data = atob(d);
-  const runLengths = atob(r);
-  let out = "";
-  for (const [i, ch] of [...runLengths].entries()) {
-    out += data[i].repeat(ch.codePointAt(0));
-  }
-  return Uint8Array.from([...out].map((x) => x.codePointAt(0)));
-}
-
-// dist/dnt/esm/deps/deno.land/std@0.196.0/console/unicode_width.js
-var tables = null;
 function lookupWidth(cp) {
   if (!tables)
-    tables = data_default.tables.map(runLengthDecode);
+    tables = data.tables.map(runLengthDecode);
   const t1Offset = tables[0][cp >> 13 & 255];
   const t2Offset = tables[1][128 * t1Offset + (cp >> 6 & 127)];
   const packedWidths = tables[2][16 * t2Offset + (cp >> 2 & 15)];
@@ -7599,26 +7320,35 @@ function lookupWidth(cp) {
   return width === 3 ? 1 : width;
 }
 var cache = /* @__PURE__ */ new Map();
-function charWidth(ch) {
-  if (cache.has(ch))
-    return cache.get(ch);
-  const cp = ch.codePointAt(0);
-  let v = null;
-  if (cp < 127) {
-    v = cp >= 32 ? 1 : cp === 0 ? 0 : null;
-  } else if (cp >= 160) {
-    v = lookupWidth(cp);
+function charWidth(char) {
+  if (cache.has(char))
+    return cache.get(char);
+  const codePoint = char.codePointAt(0);
+  let width = null;
+  if (codePoint < 127) {
+    width = codePoint >= 32 ? 1 : codePoint === 0 ? 0 : null;
+  } else if (codePoint >= 160) {
+    width = lookupWidth(codePoint);
   } else {
-    v = null;
+    width = null;
   }
-  cache.set(ch, v);
-  return v;
+  cache.set(char, width);
+  return width;
 }
 function unicodeWidth(str) {
   return [...str].map((ch) => charWidth(ch) ?? 0).reduce((a, b) => a + b, 0);
 }
+function runLengthDecode({ d, r }) {
+  const data2 = atob(d);
+  const runLengths = atob(r);
+  let out = "";
+  for (const [i, ch] of [...runLengths].entries()) {
+    out += data2[i].repeat(ch.codePointAt(0));
+  }
+  return Uint8Array.from([...out].map((x) => x.codePointAt(0)));
+}
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/_utils.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.7/_utils.js
 function longest(index, rows, maxWidth) {
   const cellLengths = rows.map((row) => {
     const cell = row[index];
@@ -7631,10 +7361,37 @@ function longest(index, rows, maxWidth) {
   return Math.max(...cellLengths);
 }
 var strLength = (str) => {
-  return unicodeWidth(stripColor(str));
+  return unicodeWidth(stripAnsiCode(str));
 };
+var ansiRegexSource = (
+  // deno-lint-ignore no-control-regex
+  /\x1b\[(?:(?<_0>0)|(?<_22>1|2|22)|(?<_23>3|23)|(?<_24>4|24)|(?<_27>7|27)|(?<_28>8|28)|(?<_29>9|29)|(?<_39>30|31|32|33|34|35|36|37|38;2;\d+;\d+;\d+|38;5;\d+|39|90|91|92|93|94|95|96|97)|(?<_49>40|41|42|43|44|45|46|47|48;2;\d+;\d+;\d+|48;5;\d+|49|100|101|102|103|104|105|106|107))m/.source
+);
+function getUnclosedAnsiRuns(text) {
+  const tokens = [];
+  for (const { groups } of text.matchAll(new RegExp(ansiRegexSource, "g"))) {
+    const [_kind, content] = Object.entries(groups).find(([_, val]) => val);
+    tokens.push({ kind: _kind.slice(1), content });
+  }
+  let unclosed = [];
+  for (const token of tokens) {
+    unclosed = [...unclosed.filter((y) => y.kind !== token.kind), token];
+  }
+  unclosed = unclosed.filter(({ content, kind }) => content !== kind);
+  const currentSuffix = unclosed.map(({ kind }) => `\x1B[${kind}m`).reverse().join("");
+  const nextPrefix = unclosed.map(({ content }) => `\x1B[${content}m`).join("");
+  return {
+    /** The suffix to be appended to the text to close all unclosed runs. */
+    currentSuffix,
+    /**
+     * The prefix to be appended to the next segment to continue unclosed
+     * runs if the input text forms the first segment of a multi-line string.
+     */
+    nextPrefix
+  };
+}
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/consume_words.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.7/consume_words.js
 function consumeWords(length, content) {
   let consumed = "";
   const words = content.split("\n")[0]?.split(/ /g);
@@ -7651,8 +7408,25 @@ function consumeWords(length, content) {
   }
   return consumed;
 }
+function consumeChars(length, content) {
+  let consumed = "";
+  const chars = [
+    ...content.split("\n")[0].matchAll(new RegExp(`(?:${ansiRegexSource})+|.`, "gu"))
+  ].map(([match]) => match);
+  for (const char of chars) {
+    if (consumed) {
+      const nextLength = strLength(char);
+      const consumedLength = strLength(consumed);
+      if (consumedLength + nextLength > length) {
+        break;
+      }
+    }
+    consumed += char;
+  }
+  return consumed;
+}
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/row.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.7/row.js
 var Row = class _Row extends Array {
   constructor() {
     super(...arguments);
@@ -7726,7 +7500,7 @@ var Row = class _Row extends Array {
   }
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/_layout.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.7/_layout.js
 var __classPrivateFieldGet = function(receiver, state, kind, f) {
   if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
   if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
@@ -7975,7 +7749,7 @@ var TableLayout = class {
       }
     }
     const { current, next } = this.renderCellValue(cell, maxLength);
-    row[colIndex].setValue(next.getValue());
+    row[colIndex].setValue(next);
     if (opts.hasBorder) {
       result += " ".repeat(opts.padding[colIndex]);
     }
@@ -7996,9 +7770,13 @@ var TableLayout = class {
     let words = consumeWords(length, cell.toString());
     const breakWord = strLength(words) > length;
     if (breakWord) {
-      words = words.slice(0, length);
+      words = consumeChars(length, words);
     }
     const next = cell.toString().slice(words.length + (breakWord ? 0 : 1));
+    words = cell.unclosedAnsiRuns + words;
+    const { currentSuffix, nextPrefix } = getUnclosedAnsiRuns(words);
+    words += currentSuffix;
+    cell.unclosedAnsiRuns = nextPrefix;
     const fillLength = maxLength - strLength(words);
     const align = cell.getAlign();
     let current;
@@ -8013,10 +7791,7 @@ var TableLayout = class {
     } else {
       throw new Error("Unknown direction: " + align);
     }
-    return {
-      current,
-      next: cell.clone(next)
-    };
+    return { current, next };
   }
   /**
    * Render border row.
@@ -8193,7 +7968,7 @@ _TableLayout_instances = /* @__PURE__ */ new WeakSet(), _TableLayout_getRows = f
   });
 };
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/table/table.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.7/table.js
 var Table = class _Table extends Array {
   constructor() {
     super(...arguments);
@@ -8471,7 +8246,17 @@ Object.defineProperty(Table, "_chars", {
   value: { ...border }
 });
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/help/_help_generator.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/internal/1.0.0-rc.7/runtime/inspect.js
+function inspect(value, colors2) {
+  const { Deno: Deno4 } = dntGlobalThis;
+  return Deno4?.inspect(value, { depth: 1, colors: colors2, trailingComma: false }) ?? JSON.stringify(value, null, 2);
+}
+
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.7/type.js
+var Type = class {
+};
+
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.7/help/_help_generator.js
 var HelpGenerator = class _HelpGenerator {
   /** Generate help text for given command. */
   static generate(cmd, options) {
@@ -8645,7 +8430,7 @@ var HelpGenerator = class _HelpGenerator {
       return "";
     }
     return this.label("Examples") + Table.from(examples.map((example) => [
-      dim(bold(`${capitalize(example.name)}:`)),
+      dim(bold(example.name)),
       dedent(example.description)
     ])).padding(1).indent(this.indent).maxColWidth(150).toString() + "\n";
   }
@@ -8656,13 +8441,13 @@ var HelpGenerator = class _HelpGenerator {
     const hints = [];
     option.required && hints.push(yellow(`required`));
     if (typeof option.default !== "undefined") {
-      const defaultValue = getDefaultValue(option);
+      const defaultValue = typeof option.default === "function" ? option.default() : option.default;
       if (typeof defaultValue !== "undefined") {
         hints.push(bold(`Default: `) + inspect(defaultValue, this.options.colors));
       }
     }
-    option.depends?.length && hints.push(yellow(bold(`Depends: `)) + italic(option.depends.map(getFlag).join(", ")));
-    option.conflicts?.length && hints.push(red(bold(`Conflicts: `)) + italic(option.conflicts.map(getFlag).join(", ")));
+    option.depends?.length && hints.push(yellow(bold(`Depends: `)) + italic(option.depends.map(getFlag2).join(", ")));
+    option.conflicts?.length && hints.push(red(bold(`Conflicts: `)) + italic(option.conflicts.map(getFlag2).join(", ")));
     const type = this.cmd.getType(option.args[0]?.type)?.handler;
     if (type instanceof Type) {
       const possibleValues = type.values?.(this.cmd, this.cmd.getParent());
@@ -8679,16 +8464,6 @@ var HelpGenerator = class _HelpGenerator {
     return "\n" + bold(`${label}:`) + "\n\n";
   }
 };
-function capitalize(string2) {
-  return string2?.charAt(0).toUpperCase() + string2.slice(1);
-}
-function inspect(value, colors2) {
-  return import_shim_deno2.Deno.inspect(
-    value,
-    // deno < 1.4.3 doesn't support the colors property.
-    { depth: 1, colors: colors2, trailingComma: false }
-  );
-}
 function highlightArguments(argsDefinition, types = true) {
   if (!argsDefinition) {
     return "";
@@ -8716,7 +8491,50 @@ function highlightArgumentDetails(arg, types = true) {
   return str;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/upgrade/_check_version.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.7/types/boolean.js
+var BooleanType = class extends Type {
+  /** Parse boolean type. */
+  parse(type) {
+    return boolean(type);
+  }
+  /** Complete boolean type. */
+  complete() {
+    return ["true", "false"];
+  }
+};
+
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.7/types/string.js
+var StringType = class extends Type {
+  /** Complete string type. */
+  parse(type) {
+    return string(type);
+  }
+};
+
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.7/types/file.js
+var FileType = class extends StringType {
+  constructor() {
+    super();
+  }
+};
+
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.7/types/integer.js
+var IntegerType = class extends Type {
+  /** Parse integer type. */
+  parse(type) {
+    return integer(type);
+  }
+};
+
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.7/types/number.js
+var NumberType = class extends Type {
+  /** Parse number type. */
+  parse(type) {
+    return number(type);
+  }
+};
+
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.7/upgrade/_check_version.js
 async function checkVersion(cmd) {
   const mainCommand = cmd.getMainCommand();
   const upgradeCommand = mainCommand.getCommand("upgrade");
@@ -8725,7 +8543,7 @@ async function checkVersion(cmd) {
   }
   const latestVersion = await upgradeCommand.getLatestVersion();
   const currentVersion = mainCommand.getVersion();
-  if (currentVersion === latestVersion) {
+  if (!currentVersion || currentVersion === latestVersion) {
     return;
   }
   const versionHelpText = `(New version available: ${latestVersion}. Run '${mainCommand.getName()} upgrade' to upgrade to the latest version!)`;
@@ -8735,7 +8553,7 @@ function isUpgradeCommand(command) {
   return command instanceof Command && "getLatestVersion" in command;
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/command.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.7/command.js
 var Command = class _Command {
   constructor() {
     Object.defineProperty(this, "types", {
@@ -8851,12 +8669,6 @@ var Command = class _Command {
       configurable: true,
       writable: true,
       value: void 0
-    });
-    Object.defineProperty(this, "isExecutable", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: false
     });
     Object.defineProperty(this, "throwOnError", {
       enumerable: true,
@@ -9140,15 +8952,10 @@ var Command = class _Command {
     this.cmd.isGlobal = true;
     return this;
   }
-  /** Make command executable. */
-  executable() {
-    this.cmd.isExecutable = true;
-    return this;
-  }
   /**
-   * Set command arguments:
+   * Set command arguments.
    *
-   *   <requiredArg:string> [optionalArg: number] [...restArgs:string]
+   * Syntax: `<requiredArg:string> [optionalArg: number] [...restArgs:string]`
    */
   arguments(args) {
     this.cmd.argsDefinition = args;
@@ -9267,7 +9074,7 @@ var Command = class _Command {
     return this;
   }
   /**
-   * Throw validation errors instead of calling `Deno.exit()` to handle
+   * Throw validation errors instead of calling `exit()` to handle
    * validation errors manually.
    *
    * A validation error is thrown when the command is wrongly used by the user.
@@ -9316,7 +9123,7 @@ var Command = class _Command {
     return this.errorHandler ?? this._parent?.errorHandler;
   }
   /**
-   * Same as `.throwErrors()` but also prevents calling `Deno.exit` after
+   * Same as `.throwErrors()` but also prevents calling `exit()` after
    * printing help or version with the --help and --version option.
    */
   noExit() {
@@ -9476,7 +9283,7 @@ var Command = class _Command {
    *
    * @param args Command line args to parse. Ex: `cmd.parse( Deno.args )`
    */
-  parse(args = import_shim_deno2.Deno.args) {
+  parse(args = getArgs()) {
     const ctx = {
       unknown: args.slice(),
       flags: {},
@@ -9494,10 +9301,7 @@ var Command = class _Command {
       this.reset();
       this.registerDefaults();
       this.rawArgs = ctx.unknown.slice();
-      if (this.isExecutable) {
-        await this.executeExecutable(ctx.unknown);
-        return { options: {}, args: [], cmd: this, literal: [] };
-      } else if (this._useRawArgs) {
+      if (this._useRawArgs) {
         await this.parseEnvVars(ctx, this.envVars);
         return await this.execute(ctx.env, ctx.unknown);
       }
@@ -9527,14 +9331,14 @@ var Command = class _Command {
       this.literalArgs = ctx.literal;
       if (ctx.actions.length) {
         await Promise.all(ctx.actions.map((action) => action.call(this, options, ...args)));
-      }
-      if (ctx.standalone) {
-        return {
-          options,
-          args,
-          cmd: this,
-          literal: this.literalArgs
-        };
+        if (ctx.standalone) {
+          return {
+            options,
+            args,
+            cmd: this,
+            literal: this.literalArgs
+          };
+        }
       }
       return await this.execute(options, args);
     } catch (error) {
@@ -9655,28 +9459,6 @@ var Command = class _Command {
     }
     await this.globalActionHandler?.(options, ...args);
   }
-  /**
-   * Execute external sub-command.
-   * @param args Raw command line arguments.
-   */
-  async executeExecutable(args) {
-    const command = this.getPath().replace(/\s+/g, "-");
-    await import_shim_deno2.Deno.permissions.request({ name: "run", command });
-    try {
-      const cmd = new import_shim_deno2.Deno.Command(command, {
-        args
-      });
-      const output = await cmd.output();
-      if (!output.success) {
-        import_shim_deno2.Deno.exit(output.code);
-      }
-    } catch (error) {
-      if (error instanceof import_shim_deno2.Deno.errors.NotFound) {
-        throw new CommandExecutableNotFoundError(command);
-      }
-      throw error;
-    }
-  }
   /** Parse raw command line arguments. */
   parseOptions(ctx, options, { stopEarly = this._stopEarly, stopOnUnknown = false, dotted = true } = {}) {
     parseFlags(ctx, {
@@ -9736,12 +9518,12 @@ var Command = class _Command {
   }
   async findEnvVar(names) {
     for (const name of names) {
-      const status = await import_shim_deno2.Deno.permissions.query({
+      const status = await dntGlobalThis.Deno?.permissions.query({
         name: "env",
         variable: name
       });
-      if (status.state === "granted") {
-        const value = import_shim_deno2.Deno.env.get(name);
+      if (!status || status.state === "granted") {
+        const value = getEnv(name);
         if (value) {
           return { name, value };
         }
@@ -9822,7 +9604,7 @@ var Command = class _Command {
   }
   /**
    * Handle error. If `throwErrors` is enabled the error will be thrown,
-   * otherwise a formatted error message will be printed and `Deno.exit(1)`
+   * otherwise a formatted error message will be printed and `exit(1)`
    * will be called. This will also trigger registered error handlers.
    *
    * @param error The error to handle.
@@ -9838,7 +9620,7 @@ var Command = class _Command {
     this.showHelp();
     console.error(red(`  ${bold("error")}: ${error.message}
 `));
-    import_shim_deno2.Deno.exit(error instanceof ValidationError2 ? error.exitCode : 1);
+    exit(error instanceof ValidationError2 ? error.exitCode : 1);
   }
   /*****************************************************************************
    **** GETTER *****************************************************************
@@ -9957,7 +9739,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   exit(code2 = 0) {
     if (this.shouldExit()) {
-      import_shim_deno2.Deno.exit(code2);
+      exit(code2);
     }
   }
   /*****************************************************************************
@@ -10421,11 +10203,11 @@ function findFlag(flags) {
   return flags[0];
 }
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/child_command.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.7/types/child_command.js
 var _ChildCommandType_cmd;
 _ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/types/enum.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.7/types/enum.js
 var EnumType = class extends Type {
   constructor(values) {
     super();
@@ -10452,22 +10234,6 @@ var EnumType = class extends Type {
     return this.values();
   }
 };
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/completions/bash.js
-var _BashCompletionsCommand_cmd;
-_BashCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/completions/fish.js
-var _FishCompletionsCommand_cmd;
-_FishCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/completions/zsh.js
-var _ZshCompletionsCommand_cmd;
-_ZshCompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
-
-// dist/dnt/esm/deps/deno.land/x/cliffy@v1.0.0-rc.3/command/completions/completions_command.js
-var _CompletionsCommand_cmd;
-_CompletionsCommand_cmd = /* @__PURE__ */ new WeakMap();
 
 // dist/dnt/esm/gh-wrapper/exec.js
 async function exec2(args) {
@@ -10756,13 +10522,13 @@ async function resolveRepo(repo) {
 // dist/dnt/esm/core/search_tags.js
 async function searchTag(tags, histories) {
   if (0 < tags.size) {
-    let distance2 = 0;
+    let distance = 0;
     for await (const commit of histories) {
       const tag = tags.get(commit);
       if (tag) {
-        return { tag, distance: distance2 };
+        return { tag, distance };
       } else {
-        distance2++;
+        distance++;
       }
     }
   }
@@ -10778,11 +10544,11 @@ function MSB(x) {
   }
   return r;
 }
-function createDescribe(tag, distance2, sha, shortShaChars) {
-  if (distance2 === 0) {
+function createDescribe(tag, distance, sha, shortShaChars) {
+  if (distance === 0) {
     return tag;
   } else {
-    return `${tag}-${distance2}-g${sha.substring(0, shortShaChars)}`;
+    return `${tag}-${distance}-g${sha.substring(0, shortShaChars)}`;
   }
 }
 async function ghDescribe(options) {
@@ -10794,23 +10560,23 @@ async function ghDescribe(options) {
       const sha2 = await fetchSha({ owner, repo, host, sha: commitish });
       const histories2 = fetchHistory({ owner, repo, host, sha: sha2 });
       const commitCount = await fetchTotalCommit({ owner, repo, host, sha: sha2 });
-      const distance3 = MSB(commitCount) + 1;
-      const shortShaChars2 = Math.max(7, Math.round((distance3 + 1) / 2));
+      const distance2 = MSB(commitCount) + 1;
+      const shortShaChars2 = Math.max(7, Math.round((distance2 + 1) / 2));
       return { sha: sha2, histories: histories2, shortShaChars: shortShaChars2 };
     })()
   ]);
-  const { distance: distance2, tag } = await searchTag(tags, histories) || {
+  const { distance, tag } = await searchTag(tags, histories) || {
     distance: 0,
     tag: defaultTag
   };
   if (!tag) {
     throw new GhDescribeError("No names found, cannot describe anything.");
   }
-  const describe2 = createDescribe(tag, distance2, sha, shortShaChars);
+  const describe2 = createDescribe(tag, distance, sha, shortShaChars);
   return {
     describe: describe2,
     tag,
-    distance: distance2,
+    distance,
     sha,
     shortSha: sha.substring(0, shortShaChars)
   };
