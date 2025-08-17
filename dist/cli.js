@@ -5686,7 +5686,7 @@ async function revParse(options) {
   return await exec(args);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/fmt/1.0.2/colors.js
+// dist/dnt/esm/deps/jsr.io/@std/fmt/1.0.8/colors.js
 var colors_exports = {};
 __export(colors_exports, {
   bgBlack: () => bgBlack,
@@ -5953,7 +5953,7 @@ function factory(stack = []) {
   return colors2;
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/text/1.0.7/levenshtein_distance.js
+// dist/dnt/esm/deps/jsr.io/@std/text/1.0.16/levenshtein_distance.js
 var { ceil } = Math;
 var peq = new Uint32Array(1114112);
 function myers32(t, p) {
@@ -6053,7 +6053,7 @@ function levenshteinDistance(str1, str2) {
   return p.length <= 32 ? myers32(t, p) : myersX(t, p);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/text/1.0.7/closest_string.js
+// dist/dnt/esm/deps/jsr.io/@std/text/1.0.16/closest_string.js
 function closestString(givenWord, possibleWords, options) {
   if (possibleWords.length === 0) {
     throw new TypeError("When using closestString(), the possibleWords array must contain at least one word");
