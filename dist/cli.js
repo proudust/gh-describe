@@ -10298,16 +10298,19 @@ async function listCommits({ host, jq, ...options }) {
 }
 
 // dist/dnt/esm/gh-wrapper/list_tags.js
-function createUrl2({ owner, repo, perPage, page }) {
-  const param = new URLSearchParams();
+function createUrl2({ owner, repo }) {
+  return `repos/${owner}/${repo}/tags`;
+}
+function getPageParams({ perPage, page }) {
+  const params = [];
   if (perPage)
-    param.set("per_page", String(perPage));
+    params.push(`-F per_page=${perPage}`);
   if (page)
-    param.set("page", String(page));
-  return `repos/${owner}/${repo}/tags?${param}`;
+    params.push(`-F page=${page}`);
+  return params;
 }
 async function listTags({ host, jq, ...options }) {
-  const args = ["api", createUrl2(options)];
+  const args = ["api", "-XGET", createUrl2(options), ...getPageParams(options)];
   if (host)
     args.push("--hostname", host);
   if (jq)
