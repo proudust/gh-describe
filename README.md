@@ -25,7 +25,7 @@ All inputs are optional, and sensible defaults will be used if they are not set.
 | ---------- | ----------------------------------------------------- | --------------------------------------------------------- |
 | token      | Personal Access Token (PAT)                           | `GITHUB_TOKEN`                                            |
 | repo       | Target repository                                     | The owner and repository that triggered the workflow run. |
-| commit-ish | Commit-ish object names to describe.                  | The branch or tag ref that triggered the workflow run.    |
+| commit-ish | Commit-ish object names to describe.                  | The commit sha that triggered the workflow run.           |
 | match      | Only consider tags matching the given glob pattern.   |                                                           |
 | exclude    | Do not consider tags matching the given glob pattern. |                                                           |
 | default    | If the name is not found, use this value.             | If the name is not found, the action fails.               |
@@ -76,13 +76,13 @@ Require [GitHub CLI](https://github.com/cli/cli#installation) and
 [Deno](https://deno.land/#installation).
 
 ```sh
-deno run --allow-run https://deno.land/x/gh_describe@v2.1.0/main.ts
+deno run --allow-run https://deno.land/x/gh_describe@v2.1.1/main.ts
 ```
 
 or
 
 ```sh
-deno install -n gh-describe --allow-run https://deno.land/x/gh_describe@v2.1.0/main.ts
+deno install -n gh-describe --allow-run https://deno.land/x/gh_describe@v2.1.1/main.ts
 gh-describe
 ```
 
@@ -110,7 +110,7 @@ Mac or Linux:
 ```sh
 $ gh describe --help
   Usage:   gh-describe [commit-ish]
-  Version: v2.1.0
+  Version: v2.1.1
 
   Description:
 
