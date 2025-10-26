@@ -25233,8 +25233,8 @@ async function fetchSha(args) {
       const perPage = 1;
       const jq = ".[].sha";
       return await listCommits({ ...args, perPage, jq });
-    } catch {
-      return sha;
+    } catch (e) {
+      throw new GhDescribeError(`couldn't find remote ref ${sha}`, { cause: e });
     }
   } else {
     return revParse({ arg: "HEAD" });
