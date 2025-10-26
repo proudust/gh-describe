@@ -10219,24 +10219,29 @@ var EnumType = class extends Type {
 
 // dist/dnt/esm/gh-wrapper/exec.js
 async function exec2(args) {
-  const process2 = import_shim_deno2.Deno.run({
-    cmd: ["gh", ...args],
-    stdout: "piped",
-    stderr: "piped"
-  });
-  const [{ code: code2 }, stdout, stderr] = await Promise.all([
-    process2.status(),
-    process2.output(),
-    process2.stderrOutput()
-  ]);
-  if (code2 === 0) {
-    return new TextDecoder().decode(stdout).trim();
-  } else {
-    const jqIndex = args.indexOf("-q");
-    if (0 < jqIndex) {
-      await exec2([...args.slice(0, jqIndex), ...args.slice(jqIndex + 2, args.length)]);
+  let process2 = null;
+  try {
+    process2 = import_shim_deno2.Deno.run({
+      cmd: ["gh", ...args],
+      stdout: "piped",
+      stderr: "piped"
+    });
+    const [{ code: code2 }, stdout, stderr] = await Promise.all([
+      process2.status(),
+      process2.output(),
+      process2.stderrOutput()
+    ]);
+    if (code2 === 0) {
+      return new TextDecoder().decode(stdout).trim();
+    } else {
+      const jqIndex = args.indexOf("-q");
+      if (0 < jqIndex) {
+        await exec2([...args.slice(0, jqIndex), ...args.slice(jqIndex + 2, args.length)]);
+      }
+      throw new GitHubCliError(args, code2, new TextDecoder().decode(stderr).trim());
     }
-    throw new GitHubCliError(args, code2, new TextDecoder().decode(stderr).trim());
+  } finally {
+    process2?.close();
   }
 }
 var GitHubCliError = class extends Error {
