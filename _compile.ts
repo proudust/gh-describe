@@ -1,4 +1,4 @@
-import $ from "jsr:@david/dax@0.42.0";
+import $ from "jsr:@david/dax@0.43.2";
 import { build as esbuild } from "https://deno.land/x/esbuild@v0.25.11/mod.js";
 import { ghDescribe } from "./core/mod.ts";
 
