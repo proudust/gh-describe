@@ -25246,10 +25246,17 @@ async function fetchSha(args) {
   }
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_os.js
-var isWindows = dntGlobalThis.Deno?.build.os === "windows" || dntGlobalThis.navigator?.platform?.startsWith("Win") || dntGlobalThis.process?.platform?.startsWith("win") || false;
+// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.12/_os.js
+function checkWindows() {
+  const global2 = dntGlobalThis;
+  const os = global2.Deno?.build?.os;
+  return typeof os === "string" ? os === "windows" : global2.navigator?.platform?.startsWith("Win") ?? global2.process?.platform?.startsWith("win") ?? false;
+}
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_common/glob_to_reg_exp.js
+// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.12/os.js
+var isWindows = checkWindows();
+
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/_common/glob_to_reg_exp.js
 var REG_EXP_ESCAPE_CHARS = [
   "!",
   "$",
@@ -25461,7 +25468,7 @@ function _globToRegExp(c, glob, {
   return new RegExp(regExpString, caseInsensitive ? "i" : "");
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/posix/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/posix/glob_to_regexp.js
 var constants = {
   sep: "/+",
   sepMaybe: "/*",
@@ -25474,7 +25481,7 @@ function globToRegExp(glob, options = {}) {
   return _globToRegExp(constants, glob, options);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/windows/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/windows/glob_to_regexp.js
 var constants2 = {
   sep: "(?:\\\\|/)+",
   sepMaybe: "(?:\\\\|/)*",
@@ -25487,7 +25494,7 @@ function globToRegExp2(glob, options = {}) {
   return _globToRegExp(constants2, glob, options);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/glob_to_regexp.js
 function globToRegExp3(glob, options = {}) {
   return isWindows ? globToRegExp2(glob, options) : globToRegExp(glob, options);
 }

@@ -1,4 +1,4 @@
-import { dirname, fromFileUrl } from "jsr:@std/path@1.0.6";
+import { dirname, fromFileUrl } from "jsr:@std/path@1.1.2";
 import * as git from "../git-wrapper/mod.ts";
 import { ghDescribeCli } from "./cli.ts";
 

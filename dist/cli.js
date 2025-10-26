@@ -5177,17 +5177,39 @@ function createMergeProxy(baseObj, extObj) {
   });
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_os.js
-var isWindows = dntGlobalThis.Deno?.build.os === "windows" || dntGlobalThis.navigator?.platform?.startsWith("Win") || dntGlobalThis.process?.platform?.startsWith("win") || false;
+// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.12/_os.js
+function checkWindows() {
+  const global = dntGlobalThis;
+  const os = global.Deno?.build?.os;
+  return typeof os === "string" ? os === "windows" : global.navigator?.platform?.startsWith("Win") ?? global.process?.platform?.startsWith("win") ?? false;
+}
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_common/assert_path.js
+// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.12/os.js
+var isWindows = checkWindows();
+
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/_common/assert_path.js
 function assertPath(path) {
   if (typeof path !== "string") {
     throw new TypeError(`Path must be a string, received "${JSON.stringify(path)}"`);
   }
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_common/strip_trailing_separators.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/_common/from_file_url.js
+function assertArg(url) {
+  url = url instanceof URL ? url : new URL(url);
+  if (url.protocol !== "file:") {
+    throw new TypeError(`URL must be a file URL: received "${url.protocol}"`);
+  }
+  return url;
+}
+
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/posix/from_file_url.js
+function fromFileUrl(url) {
+  url = assertArg(url);
+  return decodeURIComponent(url.pathname.replace(/%(?![0-9A-Fa-f]{2})/g, "%25"));
+}
+
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/_common/strip_trailing_separators.js
 function stripTrailingSeparators(segment, isSep) {
   if (segment.length <= 1) {
     return segment;
@@ -5203,7 +5225,7 @@ function stripTrailingSeparators(segment, isSep) {
   return segment.slice(0, end);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_common/constants.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/_common/constants.js
 var CHAR_UPPERCASE_A = 65;
 var CHAR_LOWERCASE_A = 97;
 var CHAR_UPPERCASE_Z = 90;
@@ -5212,12 +5234,12 @@ var CHAR_FORWARD_SLASH = 47;
 var CHAR_BACKWARD_SLASH = 92;
 var CHAR_COLON = 58;
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/posix/_util.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/posix/_util.js
 function isPosixPathSeparator(code2) {
   return code2 === CHAR_FORWARD_SLASH;
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/windows/_util.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/windows/_util.js
 function isPosixPathSeparator2(code2) {
   return code2 === CHAR_FORWARD_SLASH;
 }
@@ -5228,16 +5250,29 @@ function isWindowsDeviceRoot(code2) {
   return code2 >= CHAR_LOWERCASE_A && code2 <= CHAR_LOWERCASE_Z || code2 >= CHAR_UPPERCASE_A && code2 <= CHAR_UPPERCASE_Z;
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_common/dirname.js
-function assertArg(path) {
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/windows/from_file_url.js
+function fromFileUrl2(url) {
+  url = assertArg(url);
+  let path = decodeURIComponent(url.pathname.replace(/\//g, "\\").replace(/%(?![0-9A-Fa-f]{2})/g, "%25")).replace(/^\\*([A-Za-z]:)(\\|$)/, "$1\\");
+  if (url.hostname !== "") {
+    path = `\\\\${url.hostname}${path}`;
+  }
+  return path;
+}
+
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/_common/dirname.js
+function assertArg2(path) {
   assertPath(path);
   if (path.length === 0)
     return ".";
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/posix/dirname.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/posix/dirname.js
 function dirname(path) {
-  assertArg(path);
+  if (path instanceof URL) {
+    path = fromFileUrl(path);
+  }
+  assertArg2(path);
   let end = -1;
   let matchedNonSeparator = false;
   for (let i = path.length - 1; i >= 1; --i) {
@@ -5256,9 +5291,12 @@ function dirname(path) {
   return stripTrailingSeparators(path.slice(0, end), isPosixPathSeparator);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/windows/dirname.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/windows/dirname.js
 function dirname2(path) {
-  assertArg(path);
+  if (path instanceof URL) {
+    path = fromFileUrl2(path);
+  }
+  assertArg2(path);
   const len = path.length;
   let rootEnd = -1;
   let end = -1;
@@ -5327,12 +5365,12 @@ function dirname2(path) {
   return stripTrailingSeparators(path.slice(0, end), isPosixPathSeparator2);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/dirname.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/dirname.js
 function dirname3(path) {
   return isWindows ? dirname2(path) : dirname(path);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/_common/glob_to_reg_exp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/_common/glob_to_reg_exp.js
 var REG_EXP_ESCAPE_CHARS = [
   "!",
   "$",
@@ -5544,7 +5582,7 @@ function _globToRegExp(c, glob, {
   return new RegExp(regExpString, caseInsensitive ? "i" : "");
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/posix/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/posix/glob_to_regexp.js
 var constants = {
   sep: "/+",
   sepMaybe: "/*",
@@ -5557,7 +5595,7 @@ function globToRegExp(glob, options = {}) {
   return _globToRegExp(constants, glob, options);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/windows/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/windows/glob_to_regexp.js
 var constants2 = {
   sep: "(?:\\\\|/)+",
   sepMaybe: "(?:\\\\|/)*",
@@ -5570,7 +5608,7 @@ function globToRegExp2(glob, options = {}) {
   return _globToRegExp(constants2, glob, options);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.0.6/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/glob_to_regexp.js
 function globToRegExp3(glob, options = {}) {
   return isWindows ? globToRegExp2(glob, options) : globToRegExp(glob, options);
 }
