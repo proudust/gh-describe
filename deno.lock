@@ -15,7 +15,7 @@
       "jsr:@deno/cache-dir@^0.10.3": "jsr:@deno/cache-dir@0.10.3",
       "jsr:@deno/dnt@0.41.3": "jsr:@deno/dnt@0.41.3",
       "jsr:@deno/graph@^0.73.1": "jsr:@deno/graph@0.73.1",
-      "jsr:@std/assert@1.0.6": "jsr:@std/assert@1.0.6",
+      "jsr:@std/assert@1.0.15": "jsr:@std/assert@1.0.15",
       "jsr:@std/assert@^0.223.0": "jsr:@std/assert@0.223.0",
       "jsr:@std/assert@^0.226.0": "jsr:@std/assert@0.226.0",
       "jsr:@std/bytes@^0.223.0": "jsr:@std/bytes@0.223.0",
@@ -28,7 +28,7 @@
       "jsr:@std/fs@^0.229.3": "jsr:@std/fs@0.229.3",
       "jsr:@std/fs@^1": "jsr:@std/fs@1.0.19",
       "jsr:@std/internal@^1.0.10": "jsr:@std/internal@1.0.12",
-      "jsr:@std/internal@^1.0.4": "jsr:@std/internal@1.0.12",
+      "jsr:@std/internal@^1.0.12": "jsr:@std/internal@1.0.12",
       "jsr:@std/internal@^1.0.9": "jsr:@std/internal@1.0.12",
       "jsr:@std/io@0.225": "jsr:@std/io@0.225.2",
       "jsr:@std/io@^0.223": "jsr:@std/io@0.223.0",
@@ -134,10 +134,10 @@
       "@std/assert@0.226.0": {
         "integrity": "0dfb5f7c7723c18cec118e080fec76ce15b4c31154b15ad2bd74822603ef75b3"
       },
-      "@std/assert@1.0.6": {
-        "integrity": "1904c05806a25d94fe791d6d883b685c9e2dcd60e4f9fc30f4fc5cf010c72207",
+      "@std/assert@1.0.15": {
+        "integrity": "d64018e951dbdfab9777335ecdb000c0b4e3df036984083be219ce5941e4703b",
         "dependencies": [
-          "jsr:@std/internal@^1.0.4"
+          "jsr:@std/internal@^1.0.12"
         ]
       },
       "@std/bytes@0.223.0": {
