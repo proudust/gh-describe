@@ -25487,13 +25487,13 @@ async function fetchTags({ owner, repo, host, match, exclude, listTagsFn = listT
   const perPage = 100;
   const jq = ".[] | [.commit.sha, .name]";
   let page = 0;
-  let count;
+  let tuples;
   do {
     page++;
     const stdout = await listTagsFn({ owner, repo, perPage, page, host, jq });
-    const tuples = parseTags(stdout, context);
-    count = tags.push(...tuples);
-  } while (count === perPage);
+    tuples = parseTags(stdout, context);
+    tags.push(...tuples);
+  } while (tuples.length === perPage);
   return new Map(tags);
 }
 
