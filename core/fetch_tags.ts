@@ -18,12 +18,15 @@ function parseTags(stdout: string, { match, exclude }: FetchTagsContext): TagTup
     );
 }
 
-interface FetchTagsArgs {
+export type ListTagsOption = gh.ListTagsOption;
+
+export interface FetchTagsArgs {
   owner: string;
   repo: string;
   host?: string;
   match?: string | RegExp | (string | RegExp)[];
   exclude?: string | RegExp | (string | RegExp)[];
+  listTagsFn?: (args: ListTagsOption) => string | Promise<string>;
 }
 
 type Tags = Map<string, string>;
@@ -35,6 +38,7 @@ export async function fetchTags(
     host,
     match,
     exclude,
+    listTagsFn = gh.listTags,
   }: FetchTagsArgs,
 ): Promise<Tags> {
   const context = {
@@ -49,7 +53,7 @@ export async function fetchTags(
   let count: number;
   do {
     page++;
-    const stdout = await gh.listTags({ owner, repo, perPage, page, host, jq });
+    const stdout = await listTagsFn({ owner, repo, perPage, page, host, jq });
     const tuples = parseTags(stdout, context);
     count = tags.push(...tuples);
   } while (count === perPage);
