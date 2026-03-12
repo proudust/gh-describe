@@ -5926,11 +5926,12 @@ function stripAnsiCode(string2) {
   return string2.replace(ANSI_PATTERN, "");
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/ansi/1.0.0-rc.8/colors.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/ansi/1.0.0/colors.js
 var proto = /* @__PURE__ */ Object.create(null);
 var methodNames = Object.keys(colors_exports);
 for (const name of methodNames) {
   if (name === "setColorEnabled" || name === "getColorEnabled") {
+    proto[name] = colors_exports[name];
     continue;
   }
   Object.defineProperty(proto, name, {
@@ -5953,6 +5954,12 @@ function factory(stack = []) {
   Object.setPrototypeOf(colors2, proto);
   colors2._stack = stack;
   return colors2;
+}
+
+// dist/dnt/esm/deps/jsr.io/@cliffy/internal/1.0.0/runtime/get_args.js
+function getArgs() {
+  const { Deno: Deno4, process: process2, Bun } = globalThis;
+  return Deno4?.args ?? Bun?.argv.slice(2) ?? process2?.argv.slice(2) ?? [];
 }
 
 // dist/dnt/esm/deps/jsr.io/@std/text/1.0.17/levenshtein_distance.js
@@ -6076,7 +6083,7 @@ function closestString(givenWord, possibleWords, options) {
   return nearestWord;
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.8/_utils.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0/_utils.js
 function paramCaseToCamelCase(str) {
   return str.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
@@ -6145,7 +6152,7 @@ function getDefaultValue(option) {
   return typeof option.default === "function" ? option.default() : option.default;
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.8/_errors.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0/_errors.js
 var FlagsError = class _FlagsError extends Error {
   constructor(message) {
     super(message);
@@ -6255,16 +6262,7 @@ var InvalidTypeError = class extends ValidationError {
   }
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.8/deprecated.js
-var OptionType;
-(function(OptionType2) {
-  OptionType2["STRING"] = "string";
-  OptionType2["NUMBER"] = "number";
-  OptionType2["INTEGER"] = "integer";
-  OptionType2["BOOLEAN"] = "boolean";
-})(OptionType || (OptionType = {}));
-
-// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.8/types/boolean.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0/types/boolean.js
 var boolean = (type) => {
   if (~["1", "true"].indexOf(type.value)) {
     return true;
@@ -6275,7 +6273,7 @@ var boolean = (type) => {
   throw new InvalidTypeError(type, ["true", "false", "1", "0"]);
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.8/types/number.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0/types/number.js
 var number = (type) => {
   const value = Number(type.value);
   if (Number.isFinite(value)) {
@@ -6284,12 +6282,12 @@ var number = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.8/types/string.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0/types/string.js
 var string = ({ value }) => {
   return value;
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.8/_validate_flags.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0/_validate_flags.js
 function validateFlags(ctx, opts, options = /* @__PURE__ */ new Map()) {
   if (!opts.flags) {
     return;
@@ -6306,7 +6304,7 @@ function validateFlags(ctx, opts, options = /* @__PURE__ */ new Map()) {
   for (const [name, option] of options) {
     validateUnknownOption(option, opts);
     validateConflictingOptions(ctx, option);
-    validateDependingOptions(ctx, option);
+    validateDependingOptions(ctx, option, opts);
     validateRequiredValues(ctx, option, name);
   }
   validateRequiredOptions(ctx, options, opts);
@@ -6368,12 +6366,13 @@ function validateConflictingOptions(ctx, option) {
     }
   }
 }
-function validateDependingOptions(ctx, option) {
+function validateDependingOptions(ctx, option, opts) {
   if (!option.depends) {
     return;
   }
   for (const flag of option.depends) {
-    if (!isset(flag, ctx.flags) && !ctx.defaults[option.name]) {
+    if (!isset(flag, ctx.flags) && !ctx.defaults[option.name] && // TODO: remove ignoreDefaults if flags module has support for environment variables
+    (!opts.ignoreDefaults || typeof opts.ignoreDefaults[flag] === "undefined")) {
       throw new DependingOptionError(option.name, flag);
     }
   }
@@ -6417,7 +6416,7 @@ function isset(flagName, flags) {
   return typeof flags[name] !== "undefined";
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.8/types/integer.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0/types/integer.js
 var integer = (type) => {
   const value = Number(type.value);
   if (Number.isInteger(value)) {
@@ -6426,14 +6425,14 @@ var integer = (type) => {
   throw new InvalidTypeError(type);
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0-rc.8/flags.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/flags/1.0.0/flags.js
 var DefaultTypes = {
   string,
   number,
   integer,
   boolean
 };
-function parseFlags(argsOrCtx, opts = {}) {
+function parseFlags(argsOrCtx = getArgs(), opts = {}) {
   let args;
   let ctx;
   if (Array.isArray(argsOrCtx)) {
@@ -6492,9 +6491,9 @@ function parseArgs(ctx, args, opts) {
         throw new UnknownOptionError(flag, opts.flags ?? []);
       }
       if (!arg.type) {
-        arg.type = OptionType.BOOLEAN;
+        arg.type = "boolean";
       }
-      if (!option2.args?.length && arg.type === OptionType.BOOLEAN && arg.optional === void 0) {
+      if (!option2.args?.length && arg.type === "boolean" && arg.optional === void 0) {
         arg.optional = true;
       }
       if (arg.optional) {
@@ -6518,7 +6517,7 @@ function parseArgs(ctx, args, opts) {
       } else {
         if (hasNext(arg)) {
           result = parseValue(option2, arg, next());
-        } else if (arg.optional && arg.type === OptionType.BOOLEAN) {
+        } else if (arg.optional && arg.type === "boolean") {
           result = true;
         }
       }
@@ -6559,14 +6558,14 @@ function parseArgs(ctx, args, opts) {
           return false;
         }
         if (arg2.optional || arg2.variadic) {
-          return nextValue[0] !== "-" || typeof currentValue !== "undefined" || arg2.type === OptionType.NUMBER && !isNaN(Number(nextValue));
+          return nextValue[0] !== "-" || typeof currentValue !== "undefined" || arg2.type === "number" && !isNaN(Number(nextValue));
         }
         return false;
       }
       function parseValue(option3, arg2, value) {
         const result2 = opts.parse ? opts.parse({
           label: "Option",
-          type: arg2.type || OptionType.STRING,
+          type: arg2.type || "string",
           name: `--${option3.name}`,
           value
         }) : parseDefaultType(option3, arg2, value);
@@ -6637,7 +6636,7 @@ function parseArgs(ctx, args, opts) {
       option = {
         name: current.replace(/^-+/, ""),
         optionalValue: true,
-        type: OptionType.STRING
+        type: "string"
       };
     }
     if (option.standalone) {
@@ -6727,7 +6726,7 @@ function splitFlags(flag) {
   return normalized;
 }
 function parseDefaultType(option, arg, value) {
-  const type = arg.type || OptionType.STRING;
+  const type = arg.type || "string";
   const parseType = DefaultTypes[type];
   if (!parseType) {
     throw new UnknownTypeError(type, Object.keys(DefaultTypes));
@@ -6740,7 +6739,7 @@ function parseDefaultType(option, arg, value) {
   });
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.8/_utils.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/_utils.js
 function getFlag2(name) {
   if (name.startsWith("-")) {
     return name;
@@ -6773,31 +6772,36 @@ function parseArgumentsDefinition(argsDefinition, validate = true, all) {
   const argumentDetails = [];
   let hasOptional = false;
   let hasVariadic = false;
-  const parts = argsDefinition.split(/ +/);
-  for (const arg of parts) {
-    if (validate && hasVariadic) {
-      throw new UnexpectedArgumentAfterVariadicArgumentError(arg);
+  const parts = Array.isArray(argsDefinition) ? argsDefinition : argsDefinition.split(/ +/);
+  for (let argDef of parts) {
+    if (typeof argDef === "string") {
+      argDef = { arg: argDef };
     }
-    const parts2 = arg.split(ARGUMENT_DETAILS_REGEX);
+    if (validate && hasVariadic) {
+      throw new UnexpectedArgumentAfterVariadicArgumentError(argDef.arg);
+    }
+    const parts2 = argDef.arg.split(ARGUMENT_DETAILS_REGEX);
     if (!parts2[1]) {
       if (all) {
         argumentDetails.push(parts2[0]);
       }
       continue;
     }
-    const type = parts2[2] || OptionType.STRING;
+    const type = parts2[2] || "string";
     const details = {
-      optional: arg[0] === "[",
+      description: argDef.description,
+      optional: argDef.arg[0] === "[",
+      raw: argDef.arg,
       name: parts2[1],
       action: parts2[3] || type,
       variadic: false,
-      list: type ? arg.indexOf(type + "[]") !== -1 : false,
+      list: type ? argDef.arg.indexOf(type + "[]") !== -1 : false,
       type
     };
     if (validate && !details.optional && hasOptional) {
       throw new UnexpectedRequiredArgumentError(details.name);
     }
-    if (arg[0] === "[") {
+    if (argDef.arg[0] === "[") {
       hasOptional = true;
     }
     if (details.name.length > 3) {
@@ -6838,7 +6842,7 @@ function underscoreToCamelCase(str) {
   return str.replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase().replace(/_([a-z])/g, (g) => g[1].toUpperCase());
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.8/_errors.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/_errors.js
 var CommandError = class _CommandError extends Error {
   constructor(message) {
     super(message);
@@ -6979,7 +6983,7 @@ var TooManyArgumentsError = class _TooManyArgumentsError extends ValidationError
   }
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/internal/1.0.0-rc.8/runtime/exit.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/internal/1.0.0/runtime/exit.js
 function exit(code2) {
   const { Deno: Deno4, process: process2 } = globalThis;
   const exit2 = Deno4?.exit ?? process2?.exit;
@@ -6989,13 +6993,7 @@ function exit(code2) {
   throw new Error("unsupported runtime");
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/internal/1.0.0-rc.8/runtime/get_args.js
-function getArgs() {
-  const { Deno: Deno4, process: process2 } = globalThis;
-  return Deno4?.args ?? process2?.argv.slice(2) ?? [];
-}
-
-// dist/dnt/esm/deps/jsr.io/@cliffy/internal/1.0.0-rc.8/runtime/get_env.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/internal/1.0.0/runtime/get_env.js
 function getEnv(name) {
   const { Deno: Deno4, process: process2 } = globalThis;
   if (Deno4) {
@@ -7006,7 +7004,7 @@ function getEnv(name) {
   throw new Error("unsupported runtime");
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.8/border.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0/border.js
 var border = {
   top: "\u2500",
   topMid: "\u252C",
@@ -7025,7 +7023,7 @@ var border = {
   middle: "\u2502"
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.8/cell.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0/cell.js
 var Cell = class _Cell {
   /** Get cell length. */
   get length() {
@@ -7205,7 +7203,7 @@ var Cell = class _Cell {
   }
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.8/column.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0/column.js
 var Column = class _Column {
   constructor() {
     Object.defineProperty(this, "opts", {
@@ -7275,7 +7273,7 @@ var Column = class _Column {
   }
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.8/unicode_width.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0/unicode_width.js
 var tables = null;
 var data = {
   "UNICODE_VERSION": "15.0.0",
@@ -7332,7 +7330,7 @@ function runLengthDecode({ d, r }) {
   return Uint8Array.from([...out].map((x) => x.codePointAt(0)));
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.8/_utils.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0/_utils.js
 function longest(index, rows, maxWidth) {
   const cellLengths = rows.map((row) => {
     const cell = row[index];
@@ -7375,7 +7373,7 @@ function getUnclosedAnsiRuns(text) {
   };
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.8/consume_words.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0/consume_words.js
 function consumeWords(length, content) {
   let consumed = "";
   const words = content.split("\n")[0]?.split(/ /g);
@@ -7410,7 +7408,7 @@ function consumeChars(length, content) {
   return consumed;
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.8/row.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0/row.js
 var Row = class _Row extends Array {
   constructor() {
     super(...arguments);
@@ -7484,7 +7482,7 @@ var Row = class _Row extends Array {
   }
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.8/_layout.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0/_layout.js
 var __classPrivateFieldGet = function(receiver, state, kind, f) {
   if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
   if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
@@ -7952,7 +7950,7 @@ _TableLayout_instances = /* @__PURE__ */ new WeakSet(), _TableLayout_getRows = f
   });
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0-rc.8/table.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/table/1.0.0/table.js
 var Table = class _Table extends Array {
   constructor() {
     super(...arguments);
@@ -8230,17 +8228,17 @@ Object.defineProperty(Table, "_chars", {
   value: { ...border }
 });
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/internal/1.0.0-rc.8/runtime/inspect.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/internal/1.0.0/runtime/inspect.js
 function inspect(value, colors2) {
   const { Deno: Deno4 } = globalThis;
   return Deno4?.inspect(value, { depth: 1, colors: colors2, trailingComma: false }) ?? JSON.stringify(value, null, 2);
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.8/type.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/type.js
 var Type = class {
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.8/help/_help_generator.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/help/_help_generator.js
 var HelpGenerator = class _HelpGenerator {
   /** Generate help text for given command. */
   static generate(cmd, options) {
@@ -8276,7 +8274,7 @@ var HelpGenerator = class _HelpGenerator {
   generate() {
     const areColorsEnabled = getColorEnabled();
     setColorEnabled(this.options.colors);
-    const result = this.generateHeader() + this.generateMeta() + this.generateDescription() + this.generateOptions() + this.generateCommands() + this.generateEnvironmentVariables() + this.generateExamples();
+    const result = this.generateHeader() + this.generateMeta() + this.generateDescription() + this.generateArguments() + this.generateOptions() + this.generateCommands() + this.generateEnvironmentVariables() + this.generateExamples();
     setColorEnabled(areColorsEnabled);
     return result;
   }
@@ -8312,6 +8310,20 @@ var HelpGenerator = class _HelpGenerator {
     return this.label("Description") + Table.from([
       [dedent(this.cmd.getDescription())]
     ]).indent(this.indent).maxColWidth(140).padding(1).toString() + "\n";
+  }
+  generateArguments() {
+    const args = this.cmd.getArguments();
+    if (!args.length || !args.find((arg) => arg.description)) {
+      return "";
+    }
+    return this.label("Arguments") + Table.from([
+      ...args.filter((arg) => arg.description).map((argument) => [
+        highlightArguments(argument.raw || "", this.options.types),
+        red(bold("-")),
+        getDescription(argument.description ?? "", !this.options.long),
+        this.generateArgumentHints(argument)
+      ])
+    ]).padding([2, 1, 2]).indent(this.indent).maxColWidth([60, 1, 80, 60]).toString() + "\n";
   }
   generateOptions() {
     const options = this.cmd.getOptions(false);
@@ -8356,7 +8368,7 @@ var HelpGenerator = class _HelpGenerator {
           highlightArguments(option.typeDefinition || "", this.options.types),
           red(bold("-")),
           getDescription(option.description, !this.options.long),
-          this.generateHints(option)
+          this.generateOptionHints(option)
         ])
       ]).padding([2, 2, 1, 2]).indent(this.indent).maxColWidth([60, 60, 1, 80, 60]).toString() + "\n";
     }
@@ -8365,7 +8377,7 @@ var HelpGenerator = class _HelpGenerator {
         option.flags.map((flag) => brightBlue(flag)).join(", "),
         red(bold("-")),
         getDescription(option.description, !this.options.long),
-        this.generateHints(option)
+        this.generateOptionHints(option)
       ])
     ]).indent(this.indent).maxColWidth([60, 1, 80, 60]).padding([2, 1, 2]).toString() + "\n";
   }
@@ -8418,21 +8430,34 @@ var HelpGenerator = class _HelpGenerator {
       dedent(example.description)
     ])).padding(1).indent(this.indent).maxColWidth(150).toString() + "\n";
   }
-  generateHints(option) {
+  generateOptionHints(option) {
     if (!this.options.hints) {
       return "";
     }
     const hints = [];
     option.required && hints.push(yellow(`required`));
-    if (typeof option.default !== "undefined") {
+    const type = this.cmd.getType(option.args[0]?.type)?.handler;
+    if (typeof option.default !== "undefined" || typeof option.defaultText !== "undefined") {
       const defaultValue = typeof option.default === "function" ? option.default() : option.default;
-      if (typeof defaultValue !== "undefined") {
-        hints.push(bold(`Default: `) + inspect(defaultValue, this.options.colors));
+      const defaultText = typeof option.defaultText === "function" ? option.defaultText(defaultValue) : typeof option.defaultText !== "undefined" ? option.defaultText : type instanceof Type && type.defaultText ? type.defaultText() : defaultValue;
+      if (typeof defaultText !== "undefined") {
+        hints.push(bold(`Default: `) + inspect(defaultText, this.options.colors));
       }
     }
     option.depends?.length && hints.push(yellow(bold(`Depends: `)) + italic(option.depends.map(getFlag2).join(", ")));
     option.conflicts?.length && hints.push(red(bold(`Conflicts: `)) + italic(option.conflicts.map(getFlag2).join(", ")));
-    const type = this.cmd.getType(option.args[0]?.type)?.handler;
+    return this.generateHints(type, hints);
+  }
+  generateArgumentHints(option) {
+    if (!this.options.hints) {
+      return "";
+    }
+    const hints = [];
+    !option.optional && hints.push(yellow(`required`));
+    const type = this.cmd.getType(option.type)?.handler;
+    return this.generateHints(type, hints);
+  }
+  generateHints(type, hints) {
     if (type instanceof Type) {
       const possibleValues = type.values?.(this.cmd, this.cmd.getParent());
       if (possibleValues?.length) {
@@ -8475,7 +8500,7 @@ function highlightArgumentDetails(arg, types = true) {
   return str;
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.8/types/boolean.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/types/boolean.js
 var BooleanType = class extends Type {
   /** Parse boolean type. */
   parse(type) {
@@ -8487,7 +8512,7 @@ var BooleanType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.8/types/string.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/types/string.js
 var StringType = class extends Type {
   /** Complete string type. */
   parse(type) {
@@ -8495,14 +8520,14 @@ var StringType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.8/types/file.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/types/file.js
 var FileType = class extends StringType {
   constructor() {
     super();
   }
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.8/types/integer.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/types/integer.js
 var IntegerType = class extends Type {
   /** Parse integer type. */
   parse(type) {
@@ -8510,7 +8535,7 @@ var IntegerType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.8/types/number.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/types/number.js
 var NumberType = class extends Type {
   /** Parse number type. */
   parse(type) {
@@ -8518,11 +8543,21 @@ var NumberType = class extends Type {
   }
 };
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.8/upgrade/_check_version.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/types/secret.js
+var SecretType = class extends StringType {
+  defaultText() {
+    return "******";
+  }
+};
+
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/upgrade/_check_version.js
 async function checkVersion(cmd) {
   const mainCommand = cmd.getMainCommand();
   const upgradeCommand = mainCommand.getCommand("upgrade");
   if (!isUpgradeCommand(upgradeCommand)) {
+    return;
+  }
+  if (!await upgradeCommand.hasRequiredPermissions()) {
     return;
   }
   const latestVersion = await upgradeCommand.getLatestVersion();
@@ -8534,243 +8569,62 @@ async function checkVersion(cmd) {
   mainCommand.version(`${currentVersion}  ${bold(yellow(versionHelpText))}`);
 }
 function isUpgradeCommand(command) {
-  return command instanceof Command && "getLatestVersion" in command;
+  return command instanceof Command && "getLatestVersion" in command && "hasRequiredPermissions" in command;
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.8/command.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/command.js
 var Command = class _Command {
   constructor() {
-    Object.defineProperty(this, "types", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: /* @__PURE__ */ new Map()
-    });
-    Object.defineProperty(this, "rawArgs", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "literalArgs", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "_name", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: "COMMAND"
-    });
-    Object.defineProperty(this, "_parent", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "_globalParent", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "ver", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "desc", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: ""
-    });
-    Object.defineProperty(this, "_usage", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "actionHandler", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "globalActionHandler", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "options", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "commands", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: /* @__PURE__ */ new Map()
-    });
-    Object.defineProperty(this, "examples", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "envVars", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "aliases", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "completions", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: /* @__PURE__ */ new Map()
-    });
     Object.defineProperty(this, "cmd", {
       enumerable: true,
       configurable: true,
       writable: true,
       value: this
     });
-    Object.defineProperty(this, "argsDefinition", {
+    Object.defineProperty(this, "parent", {
       enumerable: true,
       configurable: true,
       writable: true,
       value: void 0
     });
-    Object.defineProperty(this, "throwOnError", {
+    Object.defineProperty(this, "props", {
       enumerable: true,
       configurable: true,
       writable: true,
-      value: false
+      value: {
+        rawArgs: [],
+        literalArgs: [],
+        args: []
+      }
     });
-    Object.defineProperty(this, "_allowEmpty", {
+    Object.defineProperty(this, "settings", {
       enumerable: true,
       configurable: true,
       writable: true,
-      value: false
+      value: {
+        name: "COMMAND",
+        description: "",
+        examples: [],
+        aliases: [],
+        meta: {},
+        commands: /* @__PURE__ */ new Map()
+      }
     });
-    Object.defineProperty(this, "_stopEarly", {
+    Object.defineProperty(this, "builder", {
       enumerable: true,
       configurable: true,
       writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "defaultCommand", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "_useRawArgs", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "args", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, "isHidden", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "isGlobal", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "hasDefaults", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "_versionOptions", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "_helpOptions", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "_versionOption", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "_helpOption", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "_help", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "_shouldExit", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, "_meta", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: {}
-    });
-    Object.defineProperty(this, "_groupName", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: null
-    });
-    Object.defineProperty(this, "_noGlobals", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, "errorHandler", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: void 0
+      value: {
+        groupName: null,
+        types: /* @__PURE__ */ new Map(),
+        options: [],
+        envVars: [],
+        completions: /* @__PURE__ */ new Map()
+      }
     });
   }
   versionOption(flags, desc, opts) {
-    this._versionOptions = flags === false ? flags : {
+    this.settings.versionOptions = flags === false ? flags : {
       flags,
       desc,
       opts: typeof opts === "function" ? { action: opts } : opts
@@ -8778,7 +8632,7 @@ var Command = class _Command {
     return this;
   }
   helpOption(flags, desc, opts) {
-    this._helpOptions = flags === false ? flags : {
+    this.settings.helpOptions = flags === false ? flags : {
       flags,
       desc,
       opts: typeof opts === "function" ? { action: opts } : opts
@@ -8789,9 +8643,9 @@ var Command = class _Command {
    * Add new sub-command.
    * @param nameAndArguments  Command definition. E.g: `my-command <input-file:string> <output-file:string>`
    * @param cmdOrDescription  The description of the new child command.
-   * @param override          Override existing child command.
+   * @param options           Sub-command options.
    */
-  command(nameAndArguments, cmdOrDescription, override) {
+  command(nameAndArguments, cmdOrDescription, { override } = {}) {
     this.reset();
     const result = splitArguments(nameAndArguments);
     const name = result.flags.shift();
@@ -8815,8 +8669,8 @@ var Command = class _Command {
     } else {
       cmd = new _Command();
     }
-    cmd._name = name;
-    cmd._parent = this;
+    cmd.settings.name = name;
+    cmd.parent = this;
     if (description) {
       cmd.description(description);
     }
@@ -8824,7 +8678,7 @@ var Command = class _Command {
       cmd.arguments(result.typeDefinition);
     }
     aliases.forEach((alias) => cmd.alias(alias));
-    this.commands.set(name, cmd);
+    this.settings.commands.set(name, cmd);
     this.select(name);
     return this;
   }
@@ -8834,15 +8688,15 @@ var Command = class _Command {
    * @param alias Tha name of the alias.
    */
   alias(alias) {
-    if (this.cmd._name === alias || this.cmd.aliases.includes(alias)) {
+    if (this.cmd.settings.name === alias || this.cmd.settings.aliases.includes(alias)) {
       throw new DuplicateCommandAliasError(alias);
     }
-    this.cmd.aliases.push(alias);
+    this.cmd.settings.aliases.push(alias);
     return this;
   }
   /** Reset internal command reference to main command. */
   reset() {
-    this._groupName = null;
+    this.builder.groupName = null;
     this.cmd = this;
     return this;
   }
@@ -8861,21 +8715,36 @@ var Command = class _Command {
   /*****************************************************************************
    **** SUB HANDLER ************************************************************
    *****************************************************************************/
-  /** Set command name. Used in auto generated help and shell completions */
+  /**
+   * Set command name.
+   *
+   * This method is usually used to set the command name for the main command.
+   * The name should match the name of your program. It is displayed in the auto
+   * generated help and used for shell completions by default.
+   *
+   * When used on child command, the name will be overridden by the command name
+   * passed to the parent command when the command is registered with the
+   * {@linkcode Command.command}.
+   *
+   * @param name The name for the command.
+   */
   name(name) {
-    this.cmd._name = name;
+    this.cmd.settings.name = name;
     return this;
   }
   /**
    * Set command version.
    *
+   * Set the version of your cli. The version is displayed in the auto generated
+   * help and the output from the [version](./help.md#version-option) option.
+   *
    * @param version Semantic version string string or method that returns the version string.
    */
   version(version2) {
     if (typeof version2 === "string") {
-      this.cmd.ver = () => version2;
+      this.cmd.settings.version = () => version2;
     } else if (typeof version2 === "function") {
-      this.cmd.ver = version2;
+      this.cmd.settings.version = version2;
     }
     return this;
   }
@@ -8887,11 +8756,11 @@ var Command = class _Command {
    * @param value The value of the metadata.
    */
   meta(name, value) {
-    this.cmd._meta[name] = value;
+    this.cmd.settings.meta[name] = value;
     return this;
   }
   getMeta(name) {
-    return typeof name === "undefined" ? this._meta : this._meta[name];
+    return typeof name === "undefined" ? this.settings.meta : this.settings.meta[name];
   }
   /**
    * Set command help.
@@ -8900,49 +8769,214 @@ var Command = class _Command {
    */
   help(help) {
     if (typeof help === "string") {
-      this.cmd._help = () => help;
+      this.cmd.settings.help = () => help;
     } else if (typeof help === "function") {
-      this.cmd._help = help;
+      this.cmd.settings.help = help;
     } else {
-      this.cmd._help = (cmd, options) => HelpGenerator.generate(cmd, { ...help, ...options });
+      this.cmd.settings.help = (cmd, options) => HelpGenerator.generate(cmd, { ...help, ...options });
     }
     return this;
   }
   /**
-   * Set the long command description.
+   * Set the command description.
+   *
+   * The description will be displayed in the auto generated help. If the help
+   * option is called with the short flag `-h`, only the first line is
+   * displayed. If called with the long name `--help`, the full description is
+   * displayed.
+   *
+   * For better multiline formatting, unnecessary indentations and empty leading
+   * and trailing lines will be automatically removed.
+   *
+   * @example Multiline formatting
+   *
+   * For example, following description:
+   *
+   * ```ts
+   * import { Command } from "https://deno.land/x/cliffy/command/mod.ts";
+   *
+   * new Command()
+   *   .description(`
+   *     This is a multiline description.
+   *       The indentation of this line will be preserved.
+   *   `);
+   * ```
+   *
+   * is formatted as follows:
+   *
+   * ```console
+   * This is a multiline description.
+   *   The indentation of this line will be preserved.
+   * ```
    *
    * @param description The command description.
    */
   description(description) {
-    this.cmd.desc = description;
+    this.cmd.settings.description = description;
     return this;
   }
   /**
    * Set the command usage. Defaults to arguments.
    *
+   * With the `.usage()` method you can override the usage text that is
+   * displayed at the top of the auto generated help. By default the command
+   * arguments are used. The usage is always prefixed with the command name.
+   *
+   * @example Set custom usage
+   *
+   * ```ts
+   * import { Command } from "https://deno.land/x/cliffy/command/mod.ts";
+   *
+   * await new Command()
+   *   .name("script-runner")
+   *   .description("Simple script runner.")
+   *   .usage("[options] [script] [script options]")
+   *   // ...
+   *   .parse(Deno.args);
+   * ```
+   *
    * @param usage The command usage.
    */
   usage(usage) {
-    this.cmd._usage = usage;
+    this.cmd.settings.usage = usage;
     return this;
   }
   /** Hide command from help, completions, etc. */
   hidden() {
-    this.cmd.isHidden = true;
+    this.cmd.settings.isHidden = true;
     return this;
   }
   /** Make command globally available. */
   global() {
-    this.cmd.isGlobal = true;
+    this.cmd.settings.isGlobal = true;
     return this;
   }
   /**
    * Set command arguments.
    *
-   * Syntax: `<requiredArg:string> [optionalArg: number] [...restArgs:string]`
+   * You can use the {@linkcode Command.arguments} method to specify the
+   * arguments for the command.
+   *
+   * This method will override any previously defined arguments.
+   *
+   * Angled brackets (e.g. `<required>`) indicate required input and
+   * square brackets (e.g. `[optional]`) indicate optional input. A required
+   * input cannot be defined after an optional input.
+   *
+   * Arguments can be also defined with the {@linkcode Command.command} method.
+   *
+   * Optionally you can define [types](./types.md) and
+   * [completions](./shell_completions.md) for your arguments after the argument
+   * name separated by colon. If no type is specified the type defaults to
+   * `string`.
+   *
+   * @example Define arguments
+   *
+   * ```ts
+   * import { Command } from "@cliffy/command";
+   *
+   * const cmd = new Command()
+   *   .name("example")
+   *   .arguments("<input-file:string> [output-file:string] [...tags:string]", [
+   *     "The input file.",
+   *     "The output file.",
+   *     "Tags for the file."
+   *   ]);
+   *
+   * // Parsing arguments
+   * const { args } = await cmd.parse(["input.txt", "result.txt", "tag1", "tag2"]);
+   *
+   * console.log(args); // Output: ['input.txt', 'result.txt', 'tag1', 'tag2']
+   * ```
+   *
+   * @example Use custom types in arguments
+   *
+   * ```typescript
+   * import { Command, EnumType } from "@cliffy/command";
+   *
+   * await new Command()
+   *   .type("color", new EnumType(["red", "blue"]))
+   *   .arguments("<color:color>")
+   *   .action((_, color: "red" | "blue") => {
+   *     console.log("color:", color);
+   *   })
+   *   .parse(Deno.args);
+   * ```
+   *
+   * @example Variadic arguments
+   *
+   * The last argument of a command can be variadic. To make an argument
+   * variadic you can append or prepend `...` to the argument name (`<...NAME>`
+   * or `<NAME...>`).
+   *
+   * Required rest arguments `<...args>` requires at least one argument, optional
+   * rest args `[...args]` are completely optional.
+   *
+   * ```typescript
+   * import { Command } from "https://deno.land/x/cliffy/command/mod.ts";
+   *
+   * await new Command()
+   *   .description("Remove directories.")
+   *   .arguments("<dirs...>")
+   *   .action((_, ...dirs: Array<string>) => {
+   *     for (const dir of dirs) {
+   *       console.log("rmdir %s", dir);
+   *     }
+   *   })
+   *   .parse(Deno.args);
+   * ```
+   *
+   * ```console
+   * $ deno run example.ts dir1 dir2 dir3
+   * rmdir dir1
+   * rmdir dir2
+   * rmdir dir3
+   * ```
+   *
+   * @param args         The arguments definition string.
+   * @param descriptions The argument descriptions.
+   * @returns            The command instance.
    */
-  arguments(args) {
-    this.cmd.argsDefinition = args;
+  arguments(args, descriptions) {
+    this.cmd.settings.arguments = args.split(" ").map((arg, index) => ({
+      arg,
+      description: descriptions?.[index]
+    }));
+    return this;
+  }
+  /**
+   * Add a new command argument.
+   *
+   * - When called multiple times, arguments are appended in the order of calls.
+   * - When called after `arguments()`, the new argument is appended after the previously
+   *   defined arguments.
+   * - When called before `arguments()`, the new argument is overwritten by the later
+   *   defined arguments.
+   *
+   * @example
+   * ```ts
+   * import { Command } from "@cliffy/command";
+   *
+   * const cmd = new Command()
+   *   .name("example")
+   *   .argument("<input-file:string>", "The input file.")
+   *   .argument("[output-file:string]", "The output file.", { default: "out.txt" })
+   *   .argument("[...tags:string]", "Tags for the file.");
+   *
+   * // Parsing arguments
+   * const { args } = await cmd.parse(["input.txt", "result.txt", "tag1", "tag2"]);
+   *
+   * console.log(args); // Output: ['input.txt', 'result.txt', 'tag1', 'tag2']
+   * ```
+   *
+   * @param arg         The argument definition. E.g: `<input-file:string>`
+   * @param description The argument description.
+   * @param opts        Argument options.
+   * @returns           The command instance.
+   */
+  argument(arg, description, opts) {
+    this.cmd.settings.arguments ??= [];
+    this.cmd.settings.arguments.push({ arg, description, ...opts });
     return this;
   }
   /**
@@ -8951,7 +8985,7 @@ var Command = class _Command {
    * @param fn Command action handler.
    */
   action(fn) {
-    this.cmd.actionHandler = fn;
+    this.cmd.settings.actionHandler = fn;
     return this;
   }
   /**
@@ -8960,7 +8994,7 @@ var Command = class _Command {
    * @param fn Command action handler.
    */
   globalAction(fn) {
-    this.cmd.globalActionHandler = fn;
+    this.cmd.settings.globalActionHandler = fn;
     return this;
   }
   /**
@@ -8969,7 +9003,7 @@ var Command = class _Command {
    * @param allowEmpty Enable/disable allow empty.
    */
   allowEmpty(allowEmpty) {
-    this.cmd._allowEmpty = allowEmpty !== false;
+    this.cmd.settings.allowEmpty = allowEmpty !== false;
     return this;
   }
   /**
@@ -8987,7 +9021,7 @@ var Command = class _Command {
    * @param stopEarly Enable/disable stop early.
    */
   stopEarly(stopEarly = true) {
-    this.cmd._stopEarly = stopEarly;
+    this.cmd.settings.stopEarly = stopEarly;
     return this;
   }
   /**
@@ -8998,17 +9032,19 @@ var Command = class _Command {
    * @param useRawArgs Enable/disable raw arguments.
    */
   useRawArgs(useRawArgs = true) {
-    this.cmd._useRawArgs = useRawArgs;
+    this.cmd.settings.useRawArgs = useRawArgs;
     return this;
   }
   /**
-   * Set default command. The default command is executed when the program
-   * was called without any argument and if no action handler is registered.
+   * Set default command.
+   *
+   * The default command is executed when the program was called without any
+   * arguments.
    *
    * @param name Name of the default command.
    */
   default(name) {
-    this.cmd.defaultCommand = name;
+    this.cmd.settings.defaultCommand = name;
     return this;
   }
   globalType(name, handler, options) {
@@ -9022,10 +9058,10 @@ var Command = class _Command {
    * @param options Type options.
    */
   type(name, handler, options) {
-    if (this.cmd.types.get(name) && !options?.override) {
+    if (this.cmd.builder.types.get(name) && !options?.override) {
       throw new DuplicateTypeError(name);
     }
-    this.cmd.types.set(name, {
+    this.cmd.builder.types.set(name, {
       ...options,
       name,
       handler
@@ -9047,10 +9083,10 @@ var Command = class _Command {
     return this.complete(name, complete, { ...options, global: true });
   }
   complete(name, complete, options) {
-    if (this.cmd.completions.has(name) && !options?.override) {
+    if (this.cmd.builder.completions.has(name) && !options?.override) {
       throw new DuplicateCompletionError(name);
     }
-    this.cmd.completions.set(name, {
+    this.cmd.builder.completions.set(name, {
       name,
       complete,
       ...options
@@ -9090,7 +9126,7 @@ var Command = class _Command {
    * @see ValidationError
    */
   throwErrors() {
-    this.cmd.throwOnError = true;
+    this.cmd.settings.throwOnError = true;
     return this;
   }
   /**
@@ -9099,19 +9135,19 @@ var Command = class _Command {
    * @param handler Error handler callback function.
    */
   error(handler) {
-    this.cmd.errorHandler = handler;
+    this.cmd.settings.errorHandler = handler;
     return this;
   }
   /** Get error handler callback function. */
   getErrorHandler() {
-    return this.errorHandler ?? this._parent?.errorHandler;
+    return this.settings.errorHandler ?? (this.parent && this.parent.settings.errorHandler);
   }
   /**
    * Same as `.throwErrors()` but also prevents calling `exit()` after
    * printing help or version with the --help and --version option.
    */
   noExit() {
-    this.cmd._shouldExit = false;
+    this.cmd.settings.shouldExit = false;
     this.throwErrors();
     return this;
   }
@@ -9120,16 +9156,16 @@ var Command = class _Command {
    * parent commands.
    */
   noGlobals() {
-    this.cmd._noGlobals = true;
+    this.cmd.settings.noGlobals = true;
     return this;
   }
   /** Check whether the command should throw errors or exit. */
   shouldThrowErrors() {
-    return this.throwOnError || !!this._parent?.shouldThrowErrors();
+    return this.settings.throwOnError || !!this.parent?.shouldThrowErrors();
   }
   /** Check whether the command should exit after printing help or version. */
   shouldExit() {
-    return this._shouldExit ?? this._parent?.shouldExit() ?? true;
+    return this.settings.shouldExit ?? this.parent?.shouldExit() ?? true;
   }
   /**
    * Enable grouping of options and set the name of the group.
@@ -9140,7 +9176,7 @@ var Command = class _Command {
    * @param name The name of the option group.
    */
   group(name) {
-    this.cmd._groupName = name;
+    this.cmd.builder.groupName = name;
     return this;
   }
   /**
@@ -9170,7 +9206,7 @@ var Command = class _Command {
       flags: result.flags,
       equalsSign: result.equalsSign,
       typeDefinition: result.typeDefinition,
-      groupName: this._groupName ?? void 0
+      groupName: this.builder.groupName ?? void 0
     };
     if (option.separator) {
       for (const arg of args) {
@@ -9199,9 +9235,9 @@ var Command = class _Command {
       }
     }
     if (option.prepend) {
-      this.cmd.options.unshift(option);
+      this.cmd.builder.options.unshift(option);
     } else {
-      this.cmd.options.push(option);
+      this.cmd.builder.options.push(option);
     }
     return this;
   }
@@ -9215,7 +9251,7 @@ var Command = class _Command {
     if (this.cmd.hasExample(name)) {
       throw new DuplicateExampleError(name);
     }
-    this.cmd.examples.push({ name, description });
+    this.cmd.settings.examples.push({ name, description });
     return this;
   }
   /**
@@ -9249,7 +9285,7 @@ var Command = class _Command {
     } else if (details.length && details[0].variadic) {
       throw new UnexpectedVariadicEnvVarValueError(name);
     }
-    this.cmd.envVars.push({
+    this.cmd.builder.envVars.push({
       name: result.flags[0],
       names: result.flags,
       description,
@@ -9268,6 +9304,7 @@ var Command = class _Command {
    * @param args Command line args to parse. Ex: `cmd.parse( Deno.args )`
    */
   parse(args = getArgs()) {
+    this.props.isRoot = true;
     const ctx = {
       unknown: args.slice(),
       flags: {},
@@ -9284,9 +9321,9 @@ var Command = class _Command {
     try {
       this.reset();
       this.registerDefaults();
-      this.rawArgs = ctx.unknown.slice();
-      if (this._useRawArgs) {
-        await this.parseEnvVars(ctx, this.envVars);
+      this.props.rawArgs = ctx.unknown.slice();
+      if (this.settings.useRawArgs) {
+        await this.parseEnvVars(ctx, this.builder.envVars);
         return await this.execute(ctx.env, ctx.unknown);
       }
       let preParseGlobals = false;
@@ -9305,14 +9342,14 @@ var Command = class _Command {
       if (subCommand || ctx.unknown.length > 0) {
         subCommand ??= this.getSubCommand(ctx);
         if (subCommand) {
-          subCommand._globalParent = this;
+          subCommand.props.globalParent = this;
           return subCommand.parseCommand(ctx);
         }
       }
       await this.parseOptionsAndEnvVars(ctx, preParseGlobals);
       const options = { ...ctx.env, ...ctx.flags };
-      const args = this.parseArguments(ctx, options);
-      this.literalArgs = ctx.literal;
+      const args = await this.parseArguments(ctx, options);
+      this.props.literalArgs = ctx.literal;
       if (ctx.actions.length) {
         await Promise.all(ctx.actions.map((action) => action.call(this, options, ...args)));
         if (ctx.standalone) {
@@ -9320,7 +9357,7 @@ var Command = class _Command {
             options,
             args,
             cmd: this,
-            literal: this.literalArgs
+            literal: this.props.literalArgs
           };
         }
       }
@@ -9339,12 +9376,12 @@ var Command = class _Command {
   async parseGlobalOptionsAndEnvVars(ctx) {
     const isHelpOption = this.getHelpOption()?.flags.includes(ctx.unknown[0]);
     const envVars = [
-      ...this.envVars.filter((envVar) => envVar.global),
+      ...this.builder.envVars.filter((envVar) => envVar.global),
       ...this.getGlobalEnvVars(true)
     ];
     await this.parseEnvVars(ctx, envVars, !isHelpOption);
     const options = [
-      ...this.options.filter((option) => option.global),
+      ...this.builder.options.filter((option) => option.global),
       ...this.getGlobalOptions(true)
     ];
     this.parseOptions(ctx, options, {
@@ -9355,34 +9392,41 @@ var Command = class _Command {
   }
   async parseOptionsAndEnvVars(ctx, preParseGlobals) {
     const helpOption = this.getHelpOption();
-    const isVersionOption = this._versionOption?.flags.includes(ctx.unknown[0]);
+    const isVersionOption = this.props.versionOption?.flags.includes(ctx.unknown[0]);
     const isHelpOption = helpOption && ctx.flags?.[helpOption.name] === true;
-    const envVars = preParseGlobals ? this.envVars.filter((envVar) => !envVar.global) : this.getEnvVars(true);
+    const envVars = preParseGlobals ? this.builder.envVars.filter((envVar) => !envVar.global) : this.getEnvVars(true);
     await this.parseEnvVars(ctx, envVars, !isHelpOption && !isVersionOption);
     const options = this.getOptions(true);
     this.parseOptions(ctx, options);
   }
   /** Register default options like `--version` and `--help`. */
   registerDefaults() {
-    if (this.hasDefaults || this.getParent()) {
+    if (this.props.hasDefaults) {
       return this;
     }
-    this.hasDefaults = true;
+    if (this.parent) {
+      if (this.props.isRoot) {
+        this.getMainCommand().registerDefaults();
+      }
+      return this;
+    }
+    this.props.hasDefaults = true;
     this.reset();
-    !this.types.has("string") && this.type("string", new StringType(), { global: true });
-    !this.types.has("number") && this.type("number", new NumberType(), { global: true });
-    !this.types.has("integer") && this.type("integer", new IntegerType(), { global: true });
-    !this.types.has("boolean") && this.type("boolean", new BooleanType(), { global: true });
-    !this.types.has("file") && this.type("file", new FileType(), { global: true });
-    if (!this._help) {
+    !this.builder.types.has("string") && this.type("string", new StringType(), { global: true });
+    !this.builder.types.has("number") && this.type("number", new NumberType(), { global: true });
+    !this.builder.types.has("integer") && this.type("integer", new IntegerType(), { global: true });
+    !this.builder.types.has("boolean") && this.type("boolean", new BooleanType(), { global: true });
+    !this.builder.types.has("file") && this.type("file", new FileType(), { global: true });
+    !this.builder.types.has("secret") && this.type("secret", new SecretType(), { global: true });
+    if (!this.settings.help) {
       this.help({});
     }
-    if (this._versionOptions !== false && (this._versionOptions || this.ver)) {
-      this.option(this._versionOptions?.flags || "-V, --version", this._versionOptions?.desc || "Show the version number for this program.", {
+    if (this.settings.versionOptions !== false && (this.settings.versionOptions || this.settings.version)) {
+      this.option(this.settings.versionOptions?.flags || "-V, --version", this.settings.versionOptions?.desc || "Show the version number for this program.", {
         standalone: true,
         prepend: true,
         action: async function() {
-          const long = this.getRawArgs().includes(`--${this._versionOption?.name}`);
+          const long = this.getRawArgs().includes(`--${this.props.versionOption?.name}`);
           if (long) {
             await checkVersion(this);
             this.showLongVersion();
@@ -9391,12 +9435,12 @@ var Command = class _Command {
           }
           this.exit();
         },
-        ...this._versionOptions?.opts ?? {}
+        ...this.settings.versionOptions?.opts ?? {}
       });
-      this._versionOption = this.options[0];
+      this.props.versionOption = this.builder.options[0];
     }
-    if (this._helpOptions !== false) {
-      this.option(this._helpOptions?.flags || "-h, --help", this._helpOptions?.desc || "Show this help.", {
+    if (this.settings.helpOptions !== false) {
+      this.option(this.settings.helpOptions?.flags || "-h, --help", this.settings.helpOptions?.desc || "Show this help.", {
         standalone: true,
         global: true,
         prepend: true,
@@ -9406,9 +9450,9 @@ var Command = class _Command {
           this.showHelp({ long });
           this.exit();
         },
-        ...this._helpOptions?.opts ?? {}
+        ...this.settings.helpOptions?.opts ?? {}
       });
-      this._helpOption = this.options[0];
+      this.props.helpOption = this.builder.options[0];
     }
     return this;
   }
@@ -9418,38 +9462,38 @@ var Command = class _Command {
    * @param args Command arguments.
    */
   async execute(options, args) {
-    if (this.defaultCommand) {
-      const cmd = this.getCommand(this.defaultCommand, true);
+    if (this.settings.defaultCommand && !args.length && !Object.keys(options).length) {
+      const cmd = this.getCommand(this.settings.defaultCommand, true);
       if (!cmd) {
-        throw new DefaultCommandNotFoundError(this.defaultCommand, this.getCommands());
+        throw new DefaultCommandNotFoundError(this.settings.defaultCommand, this.getCommands());
       }
-      cmd._globalParent = this;
+      cmd.props.globalParent = this;
       return cmd.execute(options, args);
     }
     await this.executeGlobalAction(options, args);
-    if (this.actionHandler) {
-      await this.actionHandler(options, ...args);
+    if (this.settings.actionHandler) {
+      await this.settings.actionHandler.call(this, options, ...args);
     }
     return {
       options,
       args,
       cmd: this,
-      literal: this.literalArgs
+      literal: this.props.literalArgs
     };
   }
   async executeGlobalAction(options, args) {
-    if (!this._noGlobals) {
-      await this._parent?.executeGlobalAction(options, args);
+    if (!this.settings.noGlobals) {
+      await this.parent?.executeGlobalAction(options, args);
     }
-    await this.globalActionHandler?.(options, ...args);
+    await this.settings.globalActionHandler?.call(this, options, ...args);
   }
   /** Parse raw command line arguments. */
-  parseOptions(ctx, options, { stopEarly = this._stopEarly, stopOnUnknown = false, dotted = true } = {}) {
+  parseOptions(ctx, options, { stopEarly = this.settings.stopEarly, stopOnUnknown = false, dotted = true } = {}) {
     parseFlags(ctx, {
       stopEarly,
       stopOnUnknown,
       dotted,
-      allowEmpty: this._allowEmpty,
+      allowEmpty: this.settings.allowEmpty,
       flags: options,
       ignoreDefaults: ctx.env,
       parse: (type) => this.parseType(type),
@@ -9520,7 +9564,7 @@ var Command = class _Command {
    * @param ctx     Parse context.
    * @param options Parsed command line options.
    */
-  parseArguments(ctx, options) {
+  async parseArguments(ctx, options) {
     const params = [];
     const args = ctx.unknown.slice();
     if (!this.hasArguments()) {
@@ -9536,7 +9580,8 @@ var Command = class _Command {
         }
       }
     } else {
-      if (!args.length) {
+      const hasDefaults = this.settings.arguments?.some((arg) => arg.default);
+      if (!args.length && !hasDefaults) {
         const required = this.getArguments().filter((expectedArg) => !expectedArg.optional).map((expectedArg) => expectedArg.name);
         if (required.length) {
           const optionNames = Object.keys(options);
@@ -9546,10 +9591,26 @@ var Command = class _Command {
           }
         }
       } else {
-        for (const expectedArg of this.getArguments()) {
+        for (const [index, expectedArg] of this.getArguments().entries()) {
+          const mapArgValue = (parsed) => {
+            return this.settings.arguments?.[index].value ? this.settings.arguments[index].value(parsed) : parsed;
+          };
           if (!args.length) {
+            if (this.settings.arguments?.[index].default !== void 0) {
+              const defaultValue = typeof this.settings.arguments[index].default === "function" ? this.settings.arguments[index].default.call(this) : this.settings.arguments[index].default;
+              const mappedValue = mapArgValue(defaultValue);
+              if (expectedArg.variadic && Array.isArray(mappedValue)) {
+                params.push(...mappedValue);
+                continue;
+              }
+              params.push(mappedValue);
+              continue;
+            }
             if (expectedArg.optional) {
-              break;
+              if (hasDefaults) {
+                params.push(void 0);
+              }
+              continue;
             }
             throw new MissingArgumentError(expectedArg.name);
           }
@@ -9570,6 +9631,7 @@ var Command = class _Command {
           } else {
             arg = parseArgValue(args.shift());
           }
+          arg = mapArgValue(arg);
           if (expectedArg.variadic && Array.isArray(arg)) {
             params.push(...arg);
           } else if (typeof arg !== "undefined") {
@@ -9581,7 +9643,11 @@ var Command = class _Command {
         }
       }
     }
-    return params;
+    const values = await Promise.all(params);
+    while (values.length && values.at(-1) === void 0) {
+      values.pop();
+    }
+    return values;
   }
   handleError(error) {
     this.throw(error instanceof ValidationError ? new ValidationError2(error.message) : error instanceof Error ? error : new Error(`[non-error-thrown] ${error}`));
@@ -9611,11 +9677,11 @@ var Command = class _Command {
    *****************************************************************************/
   /** Get command name. */
   getName() {
-    return this._name;
+    return this.settings.name;
   }
   /** Get parent command. */
   getParent() {
-    return this._parent;
+    return this.parent;
   }
   /**
    * Get parent command from global executed command.
@@ -9623,15 +9689,15 @@ var Command = class _Command {
    * this method returns always undefined.
    */
   getGlobalParent() {
-    return this._globalParent;
+    return this.props.globalParent;
   }
   /** Get main command. */
   getMainCommand() {
-    return this._parent?.getMainCommand() ?? this;
+    return this.parent?.getMainCommand() ?? this;
   }
   /** Get command name aliases. */
   getAliases() {
-    return this.aliases;
+    return this.settings.aliases;
   }
   /**
    * Get full command path.
@@ -9639,11 +9705,11 @@ var Command = class _Command {
    * @param name Override the main command name.
    */
   getPath(name) {
-    return this._parent ? this._parent.getPath(name) + " " + this._name : name || this._name;
+    return this.parent && !this.props.isRoot ? this.parent.getPath(name) + " " + this.settings.name : name || this.settings.name;
   }
   /** Get arguments definition. E.g: <input-file:string> <output-file:string> */
   getArgsDefinition() {
-    return this.argsDefinition;
+    return this.settings.arguments?.map(({ arg }) => arg).join(" ");
   }
   /**
    * Get argument by name.
@@ -9655,14 +9721,14 @@ var Command = class _Command {
   }
   /** Get arguments. */
   getArguments() {
-    if (!this.args.length && this.argsDefinition) {
-      this.args = parseArgumentsDefinition(this.argsDefinition);
+    if (!this.props.args.length && this.settings.arguments) {
+      this.props.args = parseArgumentsDefinition(this.settings.arguments);
     }
-    return this.args;
+    return this.props.args;
   }
   /** Check if command has arguments. */
   hasArguments() {
-    return !!this.argsDefinition;
+    return !!this.settings.arguments?.length;
   }
   /** Get command version. */
   getVersion() {
@@ -9670,15 +9736,15 @@ var Command = class _Command {
   }
   /** Get help handler method. */
   getVersionHandler() {
-    return this.ver ?? this._parent?.getVersionHandler();
+    return this.settings.version ?? this.parent?.getVersionHandler();
   }
   /** Get command description. */
   getDescription() {
-    return typeof this.desc === "function" ? this.desc = this.desc() : this.desc;
+    return typeof this.settings.description === "function" ? this.settings.description = this.settings.description.call(this) : this.settings.description;
   }
   /** Get auto generated command usage. */
   getUsage() {
-    return this._usage ?? [this.getArgsDefinition(), this.getRequiredOptionsDefinition()].join(" ").trim();
+    return this.settings.usage ?? [this.getArgsDefinition(), this.getRequiredOptionsDefinition()].join(" ").trim();
   }
   getRequiredOptionsDefinition() {
     return this.getOptions().filter((option) => option.required).map((option) => [findFlag(option.flags), option.typeDefinition].filter((v) => v).join(" ").trim()).join(" ");
@@ -9689,11 +9755,11 @@ var Command = class _Command {
   }
   /** Get original command-line arguments. */
   getRawArgs() {
-    return this.rawArgs;
+    return this.props.rawArgs;
   }
   /** Get all arguments defined after the double dash. */
   getLiteralArgs() {
-    return this.literalArgs;
+    return this.props.literalArgs;
   }
   /** Output generated help without exiting. */
   showVersion() {
@@ -9719,7 +9785,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /** Get help handler method. */
   getHelpHandler() {
-    return this._help ?? this._parent?.getHelpHandler();
+    return this.settings.help ?? this.parent?.getHelpHandler();
   }
   exit(code2 = 0) {
     if (this.shouldExit()) {
@@ -9751,10 +9817,10 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    * @param hidden Include hidden options.
    */
   getBaseOptions(hidden2) {
-    if (!this.options.length) {
+    if (!this.builder.options.length) {
       return [];
     }
-    return hidden2 ? this.options.slice(0) : this.options.filter((opt) => !opt.hidden);
+    return hidden2 ? this.builder.options.slice(0) : this.builder.options.filter((opt) => !opt.hidden);
   }
   /**
    * Get global options.
@@ -9764,9 +9830,9 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   getGlobalOptions(hidden2) {
     const helpOption = this.getHelpOption();
     const getGlobals = (cmd, noGlobals, options = [], names = []) => {
-      if (cmd.options.length) {
-        for (const option of cmd.options) {
-          if (option.global && !this.options.find((opt) => opt.name === option.name) && names.indexOf(option.name) === -1 && (hidden2 || !option.hidden)) {
+      if (cmd.builder.options.length) {
+        for (const option of cmd.builder.options) {
+          if (option.global && !this.builder.options.find((opt) => opt.name === option.name) && names.indexOf(option.name) === -1 && (hidden2 || !option.hidden)) {
             if (noGlobals && option !== helpOption) {
               continue;
             }
@@ -9775,9 +9841,9 @@ ${bold(k)} ${brightBlue(v)}`).join("");
           }
         }
       }
-      return cmd._parent ? getGlobals(cmd._parent, noGlobals || cmd._noGlobals, options, names) : options;
+      return cmd.parent ? getGlobals(cmd.parent, noGlobals || cmd.settings.noGlobals, options, names) : options;
     };
-    return this._parent ? getGlobals(this._parent, this._noGlobals) : [];
+    return this.parent ? getGlobals(this.parent, this.settings.noGlobals) : [];
   }
   /**
    * Checks whether the command has an option with given name or not.
@@ -9804,7 +9870,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    * @param hidden Include hidden options.
    */
   getBaseOption(name, hidden2) {
-    const option = this.options.find((option2) => option2.name === name || option2.aliases?.includes(name));
+    const option = this.builder.options.find((option2) => option2.name === name || option2.aliases?.includes(name));
     return option && (hidden2 || !option.hidden) ? option : void 0;
   }
   /**
@@ -9818,14 +9884,14 @@ ${bold(k)} ${brightBlue(v)}`).join("");
     const getGlobalOption = (parent, noGlobals) => {
       const option = parent.getBaseOption(name, hidden2);
       if (!option?.global) {
-        return parent._parent && getGlobalOption(parent._parent, noGlobals || parent._noGlobals);
+        return parent.parent && getGlobalOption(parent.parent, noGlobals || parent.settings.noGlobals);
       }
       if (noGlobals && option !== helpOption) {
         return;
       }
       return option;
     };
-    return this._parent && getGlobalOption(this._parent, this._noGlobals);
+    return this.parent && getGlobalOption(this.parent, this.settings.noGlobals);
   }
   /**
    * Remove option by name.
@@ -9833,11 +9899,11 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    * @param name Name of the option. Must be in param-case.
    */
   removeOption(name) {
-    const index = this.options.findIndex((option) => option.name === name);
+    const index = this.builder.options.findIndex((option) => option.name === name);
     if (index === -1) {
       return;
     }
-    return this.options.splice(index, 1)[0];
+    return this.builder.options.splice(index, 1)[0];
   }
   /**
    * Checks whether the command has sub-commands or not.
@@ -9861,8 +9927,8 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    * @param hidden Include hidden commands.
    */
   getBaseCommands(hidden2) {
-    const commands = Array.from(this.commands.values());
-    return hidden2 ? commands : commands.filter((cmd) => !cmd.isHidden);
+    const commands = Array.from(this.settings.commands.values());
+    return hidden2 ? commands : commands.filter((cmd) => !cmd.settings.isHidden);
   }
   /**
    * Get global commands.
@@ -9871,20 +9937,20 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    */
   getGlobalCommands(hidden2) {
     const getCommands = (command, noGlobals, commands = [], names = []) => {
-      if (command.commands.size) {
-        for (const [_, cmd] of command.commands) {
-          if (cmd.isGlobal && this !== cmd && !this.commands.has(cmd._name) && names.indexOf(cmd._name) === -1 && (hidden2 || !cmd.isHidden)) {
+      if (command.settings.commands.size) {
+        for (const [_, cmd] of command.settings.commands) {
+          if (cmd.settings.isGlobal && this !== cmd && !this.settings.commands.has(cmd.settings.name) && names.indexOf(cmd.settings.name) === -1 && (hidden2 || !cmd.settings.isHidden)) {
             if (noGlobals && cmd?.getName() !== "help") {
               continue;
             }
-            names.push(cmd._name);
+            names.push(cmd.settings.name);
             commands.push(cmd);
           }
         }
       }
-      return command._parent ? getCommands(command._parent, noGlobals || command._noGlobals, commands, names) : commands;
+      return command.parent ? getCommands(command.parent, noGlobals || command.settings.noGlobals, commands, names) : commands;
     };
-    return this._parent ? getCommands(this._parent, this._noGlobals) : [];
+    return this.parent ? getCommands(this.parent, this.settings.noGlobals) : [];
   }
   /**
    * Checks whether a child command exists by given name or alias.
@@ -9911,9 +9977,9 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    * @param hidden Include hidden commands.
    */
   getBaseCommand(name, hidden2) {
-    for (const cmd of this.commands.values()) {
-      if (cmd._name === name || cmd.aliases.includes(name)) {
-        return cmd && (hidden2 || !cmd.isHidden) ? cmd : void 0;
+    for (const cmd of this.settings.commands.values()) {
+      if (cmd.settings.name === name || cmd.settings.aliases.includes(name)) {
+        return cmd && (hidden2 || !cmd.settings.isHidden) ? cmd : void 0;
       }
     }
   }
@@ -9926,15 +9992,15 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   getGlobalCommand(name, hidden2) {
     const getGlobalCommand = (parent, noGlobals) => {
       const cmd = parent.getBaseCommand(name, hidden2);
-      if (!cmd?.isGlobal) {
-        return parent._parent && getGlobalCommand(parent._parent, noGlobals || parent._noGlobals);
+      if (!cmd || !cmd.settings.isGlobal) {
+        return parent.parent && getGlobalCommand(parent.parent, noGlobals || parent.settings.noGlobals);
       }
       if (noGlobals && cmd.getName() !== "help") {
         return;
       }
       return cmd;
     };
-    return this._parent && getGlobalCommand(this._parent, this._noGlobals);
+    return this.parent && getGlobalCommand(this.parent, this.settings.noGlobals);
   }
   /**
    * Remove sub-command by name or alias.
@@ -9944,7 +10010,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   removeCommand(name) {
     const command = this.getBaseCommand(name, true);
     if (command) {
-      this.commands.delete(command._name);
+      this.settings.commands.delete(command.settings.name);
     }
     return command;
   }
@@ -9954,25 +10020,25 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /** Get base types. */
   getBaseTypes() {
-    return Array.from(this.types.values());
+    return Array.from(this.builder.types.values());
   }
   /** Get global types. */
   getGlobalTypes() {
     const getTypes = (cmd, types = [], names = []) => {
       if (cmd) {
-        if (cmd.types.size) {
-          cmd.types.forEach((type) => {
-            if (type.global && !this.types.has(type.name) && names.indexOf(type.name) === -1) {
+        if (cmd.builder.types.size) {
+          cmd.builder.types.forEach((type) => {
+            if (type.global && !this.builder.types.has(type.name) && names.indexOf(type.name) === -1) {
               names.push(type.name);
               types.push(type);
             }
           });
         }
-        return getTypes(cmd._parent, types, names);
+        return getTypes(cmd.parent, types, names);
       }
       return types;
     };
-    return getTypes(this._parent);
+    return getTypes(this.parent);
   }
   /**
    * Get type by name.
@@ -9988,7 +10054,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    * @param name Name of the type.
    */
   getBaseType(name) {
-    return this.types.get(name);
+    return this.builder.types.get(name);
   }
   /**
    * Get global type by name.
@@ -9996,12 +10062,12 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    * @param name Name of the type.
    */
   getGlobalType(name) {
-    if (!this._parent) {
+    if (!this.parent) {
       return;
     }
-    const cmd = this._parent.getBaseType(name);
+    const cmd = this.parent.getBaseType(name);
     if (!cmd?.global) {
-      return this._parent.getGlobalType(name);
+      return this.parent.getGlobalType(name);
     }
     return cmd;
   }
@@ -10011,25 +10077,25 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /** Get base completions. */
   getBaseCompletions() {
-    return Array.from(this.completions.values());
+    return Array.from(this.builder.completions.values());
   }
   /** Get global completions. */
   getGlobalCompletions() {
     const getCompletions = (cmd, completions = [], names = []) => {
       if (cmd) {
-        if (cmd.completions.size) {
-          cmd.completions.forEach((completion) => {
-            if (completion.global && !this.completions.has(completion.name) && names.indexOf(completion.name) === -1) {
+        if (cmd.builder.completions.size) {
+          cmd.builder.completions.forEach((completion) => {
+            if (completion.global && !this.builder.completions.has(completion.name) && names.indexOf(completion.name) === -1) {
               names.push(completion.name);
               completions.push(completion);
             }
           });
         }
-        return getCompletions(cmd._parent, completions, names);
+        return getCompletions(cmd.parent, completions, names);
       }
       return completions;
     };
-    return getCompletions(this._parent);
+    return getCompletions(this.parent);
   }
   /**
    * Get completion by name.
@@ -10045,7 +10111,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    * @param name Name of the completion.
    */
   getBaseCompletion(name) {
-    return this.completions.get(name);
+    return this.builder.completions.get(name);
   }
   /**
    * Get global completions by name.
@@ -10053,12 +10119,12 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    * @param name Name of the completion.
    */
   getGlobalCompletion(name) {
-    if (!this._parent) {
+    if (!this.parent) {
       return;
     }
-    const completion = this._parent.getBaseCompletion(name);
+    const completion = this.parent.getBaseCompletion(name);
     if (!completion?.global) {
-      return this._parent.getGlobalCompletion(name);
+      return this.parent.getGlobalCompletion(name);
     }
     return completion;
   }
@@ -10084,10 +10150,10 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    * @param hidden Include hidden environment variable.
    */
   getBaseEnvVars(hidden2) {
-    if (!this.envVars.length) {
+    if (!this.builder.envVars.length) {
       return [];
     }
-    return hidden2 ? this.envVars.slice(0) : this.envVars.filter((env) => !env.hidden);
+    return hidden2 ? this.builder.envVars.slice(0) : this.builder.envVars.filter((env) => !env.hidden);
   }
   /**
    * Get global environment variables.
@@ -10095,24 +10161,24 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    * @param hidden Include hidden environment variable.
    */
   getGlobalEnvVars(hidden2) {
-    if (this._noGlobals) {
+    if (this.settings.noGlobals) {
       return [];
     }
     const getEnvVars = (cmd, envVars = [], names = []) => {
       if (cmd) {
-        if (cmd.envVars.length) {
-          cmd.envVars.forEach((envVar) => {
-            if (envVar.global && !this.envVars.find((env) => env.names[0] === envVar.names[0]) && names.indexOf(envVar.names[0]) === -1 && (hidden2 || !envVar.hidden)) {
+        if (cmd.builder.envVars.length) {
+          cmd.builder.envVars.forEach((envVar) => {
+            if (envVar.global && !this.builder.envVars.find((env) => env.names[0] === envVar.names[0]) && names.indexOf(envVar.names[0]) === -1 && (hidden2 || !envVar.hidden)) {
               names.push(envVar.names[0]);
               envVars.push(envVar);
             }
           });
         }
-        return getEnvVars(cmd._parent, envVars, names);
+        return getEnvVars(cmd.parent, envVars, names);
       }
       return envVars;
     };
-    return getEnvVars(this._parent);
+    return getEnvVars(this.parent);
   }
   /**
    * Checks whether the command has an environment variable with given name or not.
@@ -10139,7 +10205,7 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    * @param hidden Include hidden environment variable.
    */
   getBaseEnvVar(name, hidden2) {
-    const envVar = this.envVars.find((env) => env.names.indexOf(name) !== -1);
+    const envVar = this.builder.envVars.find((env) => env.names.indexOf(name) !== -1);
     return envVar && (hidden2 || !envVar.hidden) ? envVar : void 0;
   }
   /**
@@ -10149,22 +10215,22 @@ ${bold(k)} ${brightBlue(v)}`).join("");
    * @param hidden Include hidden environment variable.
    */
   getGlobalEnvVar(name, hidden2) {
-    if (!this._parent || this._noGlobals) {
+    if (!this.parent || this.settings.noGlobals) {
       return;
     }
-    const envVar = this._parent.getBaseEnvVar(name, hidden2);
+    const envVar = this.parent.getBaseEnvVar(name, hidden2);
     if (!envVar?.global) {
-      return this._parent.getGlobalEnvVar(name, hidden2);
+      return this.parent.getGlobalEnvVar(name, hidden2);
     }
     return envVar;
   }
   /** Checks whether the command has examples or not. */
   hasExamples() {
-    return this.examples.length > 0;
+    return this.settings.examples.length > 0;
   }
   /** Get all examples. */
   getExamples() {
-    return this.examples;
+    return this.settings.examples;
   }
   /** Checks whether the command has an example with given name or not. */
   hasExample(name) {
@@ -10172,10 +10238,10 @@ ${bold(k)} ${brightBlue(v)}`).join("");
   }
   /** Get example with given name. */
   getExample(name) {
-    return this.examples.find((example) => example.name === name);
+    return this.settings.examples.find((example) => example.name === name);
   }
   getHelpOption() {
-    return this._helpOption ?? this._parent?.getHelpOption();
+    return this.props.helpOption ?? this.parent?.getHelpOption();
   }
 };
 function findFlag(flags) {
@@ -10187,11 +10253,11 @@ function findFlag(flags) {
   return flags[0];
 }
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.8/types/child_command.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/types/child_command.js
 var _ChildCommandType_cmd;
 _ChildCommandType_cmd = /* @__PURE__ */ new WeakMap();
 
-// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0-rc.8/types/enum.js
+// dist/dnt/esm/deps/jsr.io/@cliffy/command/1.0.0/types/enum.js
 var EnumType = class extends Type {
   constructor(values) {
     super();

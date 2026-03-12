@@ -16,8 +16,8 @@ await esbuild({
     "globalThis.version": `"${describe}"`,
   },
   external: [
-    "jsr:@cliffy/ansi@1.0.0-rc.8/colors",
-    "jsr:@cliffy/command@1.0.0-rc.8",
+    "jsr:@cliffy/ansi@1.0.0/colors",
+    "jsr:@cliffy/command@1.0.0",
     "jsr:@std/path@1.1.2",
   ],
 });
