@@ -558,8 +558,8 @@ var require_FsFile = __commonJS({
     var readSync_js_1 = require_readSync();
     var write_js_1 = require_write();
     var writeSync_js_1 = require_writeSync();
-    (_a = (_c = Symbol).dispose) !== null && _a !== void 0 ? _a : _c.dispose = Symbol("Symbol.dispose");
-    (_b = (_d = Symbol).asyncDispose) !== null && _b !== void 0 ? _b : _d.asyncDispose = Symbol("Symbol.asyncDispose");
+    (_a = (_c = Symbol).dispose) !== null && _a !== void 0 ? _a : _c.dispose = /* @__PURE__ */ Symbol("Symbol.dispose");
+    (_b = (_d = Symbol).asyncDispose) !== null && _b !== void 0 ? _b : _d.asyncDispose = /* @__PURE__ */ Symbol("Symbol.asyncDispose");
     var FsFile = class {
       constructor(rid) {
         this.rid = rid;
@@ -806,7 +806,7 @@ var require_customInspect = __commonJS({
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.customInspect = void 0;
-    exports2.customInspect = Symbol.for("nodejs.util.inspect.custom");
+    exports2.customInspect = /* @__PURE__ */ Symbol.for("nodejs.util.inspect.custom");
   }
 });
 
