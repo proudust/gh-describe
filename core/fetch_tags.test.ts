@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert@1.0.15";
+import { assertEquals } from "jsr:@std/assert@1.0.19";
 import { fetchTags, ListTagsOption } from "./fetch_tags.ts";
 
 Deno.test("async function fetchTags(args)", async (ctx) => {
