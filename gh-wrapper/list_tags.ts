@@ -4,7 +4,7 @@ import type { GitHubCliOptions } from "./types.d.ts";
 /**
  * @see https://docs.github.com/en/rest/reference/repos#list-repository-tags--parameters
  */
-interface ListTagsOption {
+export interface ListTagsOption extends GitHubCliOptions {
   /**
    * The account owner of the repository. The name is not case sensitive.
    */
@@ -49,7 +49,7 @@ export async function listTags(
     host,
     jq,
     ...options
-  }: ListTagsOption & GitHubCliOptions,
+  }: ListTagsOption,
 ): Promise<string> {
   const args = ["api", createUrl(options)];
   if (host) args.push("--hostname", host);
