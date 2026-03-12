@@ -24523,7 +24523,7 @@ function checkWindows() {
 // dist/dnt/esm/deps/jsr.io/@std/internal/1.0.12/os.js
 var isWindows = checkWindows();
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/_common/glob_to_reg_exp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.4/_common/glob_to_reg_exp.js
 var REG_EXP_ESCAPE_CHARS = [
   "!",
   "$",
@@ -24562,7 +24562,7 @@ function _globToRegExp(c, glob, {
     let inEscape = false;
     let endsWithSep = false;
     let i = j;
-    for (; i < glob.length && !c.seps.includes(glob[i]); i++) {
+    for (; i < glob.length && !(c.seps.includes(glob[i]) && groupStack.length === 0); i++) {
       if (inEscape) {
         inEscape = false;
         const escapeChars = inRange ? RANGE_ESCAPE_CHARS : REG_EXP_ESCAPE_CHARS;
@@ -24735,7 +24735,7 @@ function _globToRegExp(c, glob, {
   return new RegExp(regExpString, caseInsensitive ? "i" : "");
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/posix/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.4/posix/glob_to_regexp.js
 var constants3 = {
   sep: "/+",
   sepMaybe: "/*",
@@ -24748,7 +24748,7 @@ function globToRegExp(glob, options = {}) {
   return _globToRegExp(constants3, glob, options);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/windows/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.4/windows/glob_to_regexp.js
 var constants4 = {
   sep: "(?:\\\\|/)+",
   sepMaybe: "(?:\\\\|/)*",
@@ -24761,7 +24761,7 @@ function globToRegExp2(glob, options = {}) {
   return _globToRegExp(constants4, glob, options);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.1.2/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.4/glob_to_regexp.js
 function globToRegExp3(glob, options = {}) {
   return isWindows ? globToRegExp2(glob, options) : globToRegExp(glob, options);
 }

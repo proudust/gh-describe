@@ -4,7 +4,7 @@
  * @module
  */
 
-import { dirname } from "jsr:@std/path@1.1.2";
+import { dirname } from "jsr:@std/path@1.1.4";
 import * as git from "../git-wrapper/mod.ts";
 import { ghDescribeCli } from "./cli.ts";
 

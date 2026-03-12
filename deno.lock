@@ -27,13 +27,12 @@
       "jsr:@std/fs@^0.223": "jsr:@std/fs@0.223.0",
       "jsr:@std/fs@^0.229.3": "jsr:@std/fs@0.229.3",
       "jsr:@std/fs@^1": "jsr:@std/fs@1.0.23",
-      "jsr:@std/internal@^1.0.10": "jsr:@std/internal@1.0.12",
       "jsr:@std/internal@^1.0.12": "jsr:@std/internal@1.0.12",
       "jsr:@std/io@^0.223": "jsr:@std/io@0.223.0",
       "jsr:@std/io@^0.225": "jsr:@std/io@0.225.3",
-      "jsr:@std/path@1": "jsr:@std/path@1.1.2",
+      "jsr:@std/path@1": "jsr:@std/path@1.1.4",
       "jsr:@std/path@1.0.0-rc.1": "jsr:@std/path@1.0.0-rc.1",
-      "jsr:@std/path@1.1.2": "jsr:@std/path@1.1.2",
+      "jsr:@std/path@1.1.4": "jsr:@std/path@1.1.4",
       "jsr:@std/path@^0.223": "jsr:@std/path@0.223.0",
       "jsr:@std/path@^0.225.2": "jsr:@std/path@0.225.2",
       "jsr:@std/path@^1": "jsr:@std/path@1.1.4",
@@ -198,12 +197,6 @@
       },
       "@std/path@1.0.0-rc.1": {
         "integrity": "b8c00ae2f19106a6bb7cbf1ab9be52aa70de1605daeb2dbdc4f87a7cbaf10ff6"
-      },
-      "@std/path@1.1.2": {
-        "integrity": "c0b13b97dfe06546d5e16bf3966b1cadf92e1cc83e56ba5476ad8b498d9e3038",
-        "dependencies": [
-          "jsr:@std/internal@^1.0.10"
-        ]
       },
       "@std/path@1.1.4": {
         "integrity": "1d2d43f39efb1b42f0b1882a25486647cb851481862dc7313390b2bb044314b5",
