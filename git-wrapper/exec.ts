@@ -1,19 +1,24 @@
 export async function exec(args: string[]): Promise<string> {
-  // deno-lint-ignore no-deprecated-deno-api
-  const process = Deno.run({
-    cmd: ["git", ...args],
-    stdout: "piped",
-    stderr: "piped",
-  });
-  const [{ code }, stdout, stderr] = await Promise.all([
-    process.status(),
-    process.output(),
-    process.stderrOutput(),
-  ]);
-  if (code === 0) {
-    return (new TextDecoder().decode(stdout)).trim();
-  } else {
-    throw new GitError(args, code, (new TextDecoder().decode(stderr)).trim());
+  let process: Deno.Process | null = null;
+  try {
+    // deno-lint-ignore no-deprecated-deno-api
+    process = Deno.run({
+      cmd: ["git", ...args],
+      stdout: "piped",
+      stderr: "piped",
+    });
+    const [{ code }, stdout, stderr] = await Promise.all([
+      process.status(),
+      process.output(),
+      process.stderrOutput(),
+    ]);
+    if (code === 0) {
+      return (new TextDecoder().decode(stdout)).trim();
+    } else {
+      throw new GitError(args, code, (new TextDecoder().decode(stderr)).trim());
+    }
+  } finally {
+    process?.close();
   }
 }
 
