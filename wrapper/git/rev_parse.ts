@@ -1,4 +1,4 @@
-import { exec } from "./exec.ts";
+import { exec } from "../exec.ts";
 import type { GitOptions } from "./types.ts";
 
 interface RevParse {
@@ -17,5 +17,5 @@ function createArgs({ arg, cwd }: RevParse & GitOptions): string[] {
  */
 export async function revParse(options: RevParse & GitOptions): Promise<string> {
   const args = createArgs(options);
-  return await exec(args);
+  return await exec("git", args);
 }

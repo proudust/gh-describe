@@ -1,4 +1,4 @@
-import { exec } from "./exec.ts";
+import { exec } from "../exec.ts";
 import { GitOptions } from "./types.ts";
 
 function createArgs({ cwd }: GitOptions): string[] {
@@ -53,6 +53,6 @@ function parseRemotes(stdout: string): Remote[] {
  */
 export async function listRemotes(options: GitOptions = {}): Promise<Remote[]> {
   const args = createArgs(options);
-  const stdout = await exec(args);
+  const stdout = await exec("git", args);
   return parseRemotes(stdout);
 }

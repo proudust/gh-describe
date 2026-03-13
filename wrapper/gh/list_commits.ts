@@ -1,4 +1,4 @@
-import { exec } from "./exec.ts";
+import { execWithRetry } from "../exec.ts";
 import type { GitHubCliOptions } from "./types.ts";
 
 /**
@@ -63,5 +63,5 @@ export async function listCommits(
   if (host) args.push("--hostname", host);
   if (jq) args.push("-q", jq);
 
-  return await exec(args);
+  return await execWithRetry("gh", args);
 }

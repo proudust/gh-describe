@@ -24369,12 +24369,12 @@ function info(message) {
   process.stdout.write(message + os4.EOL);
 }
 
-// dist/dnt/esm/wrapper/gh/exec.js
-async function exec(args) {
+// dist/dnt/esm/wrapper/exec.js
+async function exec(cmd, args) {
   let process2 = null;
   try {
     process2 = import_shim_deno2.Deno.run({
-      cmd: ["gh", ...args],
+      cmd: [cmd, ...args],
       stdout: "piped",
       stderr: "piped"
     });
@@ -24386,20 +24386,35 @@ async function exec(args) {
     if (code === 0) {
       return new TextDecoder().decode(stdout).trim();
     } else {
-      const jqIndex = args.indexOf("-q");
-      if (0 < jqIndex) {
-        await exec([...args.slice(0, jqIndex), ...args.slice(jqIndex + 2, args.length)]);
-      }
-      throw new GitHubCliError(args, code, new TextDecoder().decode(stderr).trim());
+      throw new CliError(cmd, args, code, new TextDecoder().decode(stderr).trim());
     }
   } finally {
     process2?.close();
   }
 }
-var GitHubCliError = class extends Error {
-  constructor(args, code, stderr) {
-    super(`\`gh ${args.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code}
+async function execWithRetry(cmd, args) {
+  try {
+    return await exec(cmd, args);
+  } catch (e) {
+    if (e instanceof CliError && e.cmd === "gh") {
+      const jqIndex = e.args.indexOf("-q");
+      if (jqIndex > 0) {
+        await exec(cmd, [...e.args.slice(0, jqIndex), ...e.args.slice(jqIndex + 2)]);
+      }
+    }
+    throw e;
+  }
+}
+var CliError = class extends Error {
+  constructor(cmd, args, code, stderr) {
+    super(`\`${cmd} ${args.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code}
 ${stderr}`);
+    Object.defineProperty(this, "cmd", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: cmd
+    });
     Object.defineProperty(this, "args", {
       enumerable: true,
       configurable: true,
@@ -24430,7 +24445,7 @@ function graphql({ host, jq } = {}) {
       args.push("--hostname", host);
     if (jq)
       args.push("-q", jq);
-    return await exec(args);
+    return await execWithRetry("gh", args);
   };
 }
 
@@ -24451,7 +24466,7 @@ async function listCommits({ host, jq, ...options }) {
     args.push("--hostname", host);
   if (jq)
     args.push("-q", jq);
-  return await exec(args);
+  return await execWithRetry("gh", args);
 }
 
 // dist/dnt/esm/wrapper/gh/list_tags.js
@@ -24469,7 +24484,7 @@ async function listTags({ host, jq, ...options }) {
     args.push("--hostname", host);
   if (jq)
     args.push("-q", jq);
-  return await exec(args);
+  return await execWithRetry("gh", args);
 }
 
 // dist/dnt/esm/core/gh_describe_error.js
@@ -24493,61 +24508,13 @@ async function* fetchHistory({ owner, repo, host, sha }) {
       }
     } while (count === perPage);
   } catch (e) {
-    if (e instanceof GitHubCliError && e.stderr === "gh: Not Found (HTTP 404)") {
+    if (e instanceof CliError && e.cmd === "gh" && e.stderr === "gh: Not Found (HTTP 404)") {
       const msg = `ambiguous argument '${sha}': unknown revision or path not in the ${repo} tree.`;
       throw new GhDescribeError(msg);
     }
     throw e;
   }
 }
-
-// dist/dnt/esm/wrapper/git/exec.js
-async function exec2(args) {
-  let process2 = null;
-  try {
-    process2 = import_shim_deno2.Deno.run({
-      cmd: ["git", ...args],
-      stdout: "piped",
-      stderr: "piped"
-    });
-    const [{ code }, stdout, stderr] = await Promise.all([
-      process2.status(),
-      process2.output(),
-      process2.stderrOutput()
-    ]);
-    if (code === 0) {
-      return new TextDecoder().decode(stdout).trim();
-    } else {
-      throw new GitError(args, code, new TextDecoder().decode(stderr).trim());
-    }
-  } finally {
-    process2?.close();
-  }
-}
-var GitError = class extends Error {
-  constructor(args, code, stderr) {
-    super(`\`git ${args.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code}
-${stderr}`);
-    Object.defineProperty(this, "args", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: args
-    });
-    Object.defineProperty(this, "code", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: code
-    });
-    Object.defineProperty(this, "stderr", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: stderr
-    });
-  }
-};
 
 // dist/dnt/esm/wrapper/git/list_remotes.js
 function createArgs({ cwd }) {
@@ -24587,7 +24554,7 @@ function parseRemotes(stdout) {
 }
 async function listRemotes(options = {}) {
   const args = createArgs(options);
-  const stdout = await exec2(args);
+  const stdout = await exec("git", args);
   return parseRemotes(stdout);
 }
 
@@ -24601,7 +24568,7 @@ function createArgs2({ arg, cwd }) {
 }
 async function revParse(options) {
   const args = createArgs2(options);
-  return await exec2(args);
+  return await exec("git", args);
 }
 
 // dist/dnt/esm/core/fetch_sha.js
@@ -25007,7 +24974,7 @@ async function resolveRepo(repo) {
   try {
     return await getOrigin();
   } catch (e) {
-    if (e instanceof GitError && e.stderr === "fatal: not a git repository (or any of the parent directories): .git") {
+    if (e instanceof CliError && e.cmd === "git" && e.stderr === "fatal: not a git repository (or any of the parent directories): .git") {
       throw new GhDescribeError(e.stderr, e);
     }
     throw e;
