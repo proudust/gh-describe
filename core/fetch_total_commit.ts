@@ -1,4 +1,4 @@
-import * as gh from "../gh-wrapper/mod.ts";
+import * as gh from "../wrapper/gh/mod.ts";
 
 interface FetchTotalCommitArgs {
   owner: string;

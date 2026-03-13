@@ -1,4 +1,4 @@
-import * as gh from "../gh-wrapper/mod.ts";
+import * as gh from "../wrapper/gh/mod.ts";
 import { toReqExpArray } from "./to_regexp_array.ts";
 
 type TagTuple = [sha: string, tag: string];

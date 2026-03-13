@@ -1,5 +1,5 @@
 import { exec } from "./exec.ts";
-import type { GitOptions } from "./types.d.ts";
+import type { GitOptions } from "./types.ts";
 
 interface RevParse {
   arg: string;

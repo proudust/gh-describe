@@ -24369,7 +24369,7 @@ function info(message) {
   process.stdout.write(message + os4.EOL);
 }
 
-// dist/dnt/esm/gh-wrapper/exec.js
+// dist/dnt/esm/wrapper/gh/exec.js
 async function exec(args) {
   let process2 = null;
   try {
@@ -24421,7 +24421,7 @@ ${stderr}`);
   }
 };
 
-// dist/dnt/esm/gh-wrapper/graphql.js
+// dist/dnt/esm/wrapper/gh/graphql.js
 function graphql({ host, jq } = {}) {
   return async function graphqlTag(...[template, ...substitutions]) {
     const query = String.raw(template, ...substitutions);
@@ -24434,7 +24434,7 @@ function graphql({ host, jq } = {}) {
   };
 }
 
-// dist/dnt/esm/gh-wrapper/list_commits.js
+// dist/dnt/esm/wrapper/gh/list_commits.js
 function createUrl({ owner, repo, sha, perPage, page }) {
   const param = new URLSearchParams();
   if (sha)
@@ -24454,7 +24454,7 @@ async function listCommits({ host, jq, ...options }) {
   return await exec(args);
 }
 
-// dist/dnt/esm/gh-wrapper/list_tags.js
+// dist/dnt/esm/wrapper/gh/list_tags.js
 function createUrl2({ owner, repo, perPage, page }) {
   const param = new URLSearchParams();
   if (perPage)
@@ -24501,7 +24501,7 @@ async function* fetchHistory({ owner, repo, host, sha }) {
   }
 }
 
-// dist/dnt/esm/git-wrapper/exec.js
+// dist/dnt/esm/wrapper/git/exec.js
 async function exec2(args) {
   let process2 = null;
   try {
@@ -24549,7 +24549,7 @@ ${stderr}`);
   }
 };
 
-// dist/dnt/esm/git-wrapper/list_remotes.js
+// dist/dnt/esm/wrapper/git/list_remotes.js
 function createArgs({ cwd }) {
   const args = [];
   if (cwd)
@@ -24591,7 +24591,7 @@ async function listRemotes(options = {}) {
   return parseRemotes(stdout);
 }
 
-// dist/dnt/esm/git-wrapper/rev_parse.js
+// dist/dnt/esm/wrapper/git/rev_parse.js
 function createArgs2({ arg, cwd }) {
   const args = [];
   if (cwd)

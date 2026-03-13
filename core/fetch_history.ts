@@ -1,4 +1,4 @@
-import * as gh from "../gh-wrapper/mod.ts";
+import * as gh from "../wrapper/gh/mod.ts";
 import { GhDescribeError } from "./gh_describe_error.ts";
 
 interface FetchHistoryArgs {

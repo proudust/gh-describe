@@ -1,4 +1,4 @@
-import * as git from "../git-wrapper/mod.ts";
+import * as git from "../wrapper/git/mod.ts";
 import { GitHubRepository, parseFromUrl } from "./ghrepo.ts";
 
 export async function getOrigin(): Promise<GitHubRepository> {

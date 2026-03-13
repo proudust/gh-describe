@@ -1,7 +1,7 @@
 import { build as dnt } from "jsr:@deno/dnt@0.41.3";
 import { build as esbuild } from "https://deno.land/x/esbuild@v0.27.3/mod.js";
 import { ghDescribe } from "./core/mod.ts";
-import * as git from "./git-wrapper/mod.ts";
+import * as git from "./wrapper/git/mod.ts";
 
 console.log("$ gh describe");
 const describe = await ghDescribe()
