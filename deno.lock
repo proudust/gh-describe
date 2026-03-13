@@ -239,7 +239,7 @@
         "integrity": "sha512-QuwPsgVMsD6qaPD57GLZi9sqzAZCtiJT8kVBCDpLtxhL5MydQ4gS+DrejtZZPdIYyB1e95uCK9Luyds7ybHI3g==",
         "dependencies": {
           "tunnel": "tunnel@0.0.6",
-          "undici": "undici@6.23.0"
+          "undici": "undici@6.24.0"
         }
       },
       "@actions/io@3.0.2": {
@@ -250,8 +250,8 @@
         "integrity": "sha512-1h/Lnq9yajKY2PEbBadPXj3VxsDDu844OnaAo52UVmIzIvwwtBPIuNvkjuzBlTWpfJyUbG3ez0KSBibQkj4ojg==",
         "dependencies": {}
       },
-      "undici@6.23.0": {
-        "integrity": "sha512-VfQPToRA5FZs/qJxLIinmU59u0r7LXqoJkCzinq3ckNJp3vKEh7jTWN589YQ5+aoAC/TGRLyJLCPKcLQbM8r9g==",
+      "undici@6.24.0": {
+        "integrity": "sha512-lVLNosgqo5EkGqh5XUDhGfsMSoO8K0BAN0TyJLvwNRSl4xWGZlCVYsAIpa/OpA3TvmnM01GWcoKmc3ZWo5wKKA==",
         "dependencies": {}
       }
     }

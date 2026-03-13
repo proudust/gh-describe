@@ -5579,20 +5579,25 @@ function globToRegExp3(glob, options = {}) {
 
 // dist/dnt/esm/git-wrapper/exec.js
 async function exec(args) {
-  const process2 = import_shim_deno2.Deno.run({
-    cmd: ["git", ...args],
-    stdout: "piped",
-    stderr: "piped"
-  });
-  const [{ code: code2 }, stdout, stderr] = await Promise.all([
-    process2.status(),
-    process2.output(),
-    process2.stderrOutput()
-  ]);
-  if (code2 === 0) {
-    return new TextDecoder().decode(stdout).trim();
-  } else {
-    throw new GitError(args, code2, new TextDecoder().decode(stderr).trim());
+  let process2 = null;
+  try {
+    process2 = import_shim_deno2.Deno.run({
+      cmd: ["git", ...args],
+      stdout: "piped",
+      stderr: "piped"
+    });
+    const [{ code: code2 }, stdout, stderr] = await Promise.all([
+      process2.status(),
+      process2.output(),
+      process2.stderrOutput()
+    ]);
+    if (code2 === 0) {
+      return new TextDecoder().decode(stdout).trim();
+    } else {
+      throw new GitError(args, code2, new TextDecoder().decode(stderr).trim());
+    }
+  } finally {
+    process2?.close();
   }
 }
 var GitError = class extends Error {
