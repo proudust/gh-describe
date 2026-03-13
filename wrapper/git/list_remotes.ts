@@ -1,5 +1,5 @@
 import { exec } from "./exec.ts";
-import { GitOptions } from "./types.d.ts";
+import { GitOptions } from "./types.ts";
 
 function createArgs({ cwd }: GitOptions): string[] {
   const args = [];

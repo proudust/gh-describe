@@ -1,5 +1,5 @@
 import { exec } from "./exec.ts";
-import type { GitHubCliOptions } from "./types.d.ts";
+import type { GitHubCliOptions } from "./types.ts";
 
 type TaggedTemplateString = Parameters<typeof String.raw>;
 

@@ -1,5 +1,5 @@
 import { exec } from "./exec.ts";
-import type { GitHubCliOptions } from "./types.d.ts";
+import type { GitHubCliOptions } from "./types.ts";
 
 /**
  * @see https://docs.github.com/en/rest/reference/repos#list-repository-tags--parameters

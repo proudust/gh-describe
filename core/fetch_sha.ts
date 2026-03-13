@@ -1,5 +1,5 @@
-import * as gh from "../gh-wrapper/mod.ts";
-import * as git from "../git-wrapper/mod.ts";
+import * as gh from "../wrapper/gh/mod.ts";
+import * as git from "../wrapper/git/mod.ts";
 import { GhDescribeError } from "./gh_describe_error.ts";
 
 interface FetchShaArgs {

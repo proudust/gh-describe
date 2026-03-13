@@ -1,4 +1,4 @@
-import * as git from "../git-wrapper/mod.ts";
+import * as git from "../wrapper/git/mod.ts";
 import { GitHubRepository, parse } from "./ghrepo.ts";
 import { GhDescribeError } from "./gh_describe_error.ts";
 import { getOrigin } from "./get_origin.ts";
