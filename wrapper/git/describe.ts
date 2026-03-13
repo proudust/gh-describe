@@ -1,4 +1,4 @@
-import { exec } from "./exec.ts";
+import { exec } from "../exec.ts";
 import type { GitOptions } from "./types.ts";
 
 function createArgs({ cwd }: GitOptions): string[] {
@@ -13,5 +13,5 @@ function createArgs({ cwd }: GitOptions): string[] {
  */
 export async function describe(options: GitOptions = {}) {
   const args = createArgs(options);
-  return await exec(args);
+  return await exec("git", args);
 }

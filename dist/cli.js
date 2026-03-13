@@ -5577,12 +5577,12 @@ function globToRegExp3(glob, options = {}) {
   return isWindows ? globToRegExp2(glob, options) : globToRegExp(glob, options);
 }
 
-// dist/dnt/esm/wrapper/git/exec.js
-async function exec(args) {
+// dist/dnt/esm/wrapper/exec.js
+async function exec(cmd, args) {
   let process2 = null;
   try {
     process2 = import_shim_deno2.Deno.run({
-      cmd: ["git", ...args],
+      cmd: [cmd, ...args],
       stdout: "piped",
       stderr: "piped"
     });
@@ -5594,16 +5594,35 @@ async function exec(args) {
     if (code2 === 0) {
       return new TextDecoder().decode(stdout).trim();
     } else {
-      throw new GitError(args, code2, new TextDecoder().decode(stderr).trim());
+      throw new CliError(cmd, args, code2, new TextDecoder().decode(stderr).trim());
     }
   } finally {
     process2?.close();
   }
 }
-var GitError = class extends Error {
-  constructor(args, code2, stderr) {
-    super(`\`git ${args.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code2}
+async function execWithRetry(cmd, args) {
+  try {
+    return await exec(cmd, args);
+  } catch (e) {
+    if (e instanceof CliError && e.cmd === "gh") {
+      const jqIndex = e.args.indexOf("-q");
+      if (jqIndex > 0) {
+        await exec(cmd, [...e.args.slice(0, jqIndex), ...e.args.slice(jqIndex + 2)]);
+      }
+    }
+    throw e;
+  }
+}
+var CliError = class extends Error {
+  constructor(cmd, args, code2, stderr) {
+    super(`\`${cmd} ${args.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code2}
 ${stderr}`);
+    Object.defineProperty(this, "cmd", {
+      enumerable: true,
+      configurable: true,
+      writable: true,
+      value: cmd
+    });
     Object.defineProperty(this, "args", {
       enumerable: true,
       configurable: true,
@@ -5635,7 +5654,7 @@ function createArgs({ cwd }) {
 }
 async function describe(options = {}) {
   const args = createArgs(options);
-  return await exec(args);
+  return await exec("git", args);
 }
 
 // dist/dnt/esm/wrapper/git/list_remotes.js
@@ -5676,7 +5695,7 @@ function parseRemotes(stdout) {
 }
 async function listRemotes(options = {}) {
   const args = createArgs2(options);
-  const stdout = await exec(args);
+  const stdout = await exec("git", args);
   return parseRemotes(stdout);
 }
 
@@ -5690,7 +5709,7 @@ function createArgs3({ arg, cwd }) {
 }
 async function revParse(options) {
   const args = createArgs3(options);
-  return await exec(args);
+  return await exec("git", args);
 }
 
 // dist/dnt/esm/deps/jsr.io/@std/fmt/1.0.9/colors.js
@@ -10290,58 +10309,6 @@ var EnumType = class extends Type {
   }
 };
 
-// dist/dnt/esm/wrapper/gh/exec.js
-async function exec2(args) {
-  let process2 = null;
-  try {
-    process2 = import_shim_deno2.Deno.run({
-      cmd: ["gh", ...args],
-      stdout: "piped",
-      stderr: "piped"
-    });
-    const [{ code: code2 }, stdout, stderr] = await Promise.all([
-      process2.status(),
-      process2.output(),
-      process2.stderrOutput()
-    ]);
-    if (code2 === 0) {
-      return new TextDecoder().decode(stdout).trim();
-    } else {
-      const jqIndex = args.indexOf("-q");
-      if (0 < jqIndex) {
-        await exec2([...args.slice(0, jqIndex), ...args.slice(jqIndex + 2, args.length)]);
-      }
-      throw new GitHubCliError(args, code2, new TextDecoder().decode(stderr).trim());
-    }
-  } finally {
-    process2?.close();
-  }
-}
-var GitHubCliError = class extends Error {
-  constructor(args, code2, stderr) {
-    super(`\`gh ${args.map((x) => x.includes(" ") ? `"${x}"` : x).join(" ")}\` exit code is not zero, ExitCode: ${code2}
-${stderr}`);
-    Object.defineProperty(this, "args", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: args
-    });
-    Object.defineProperty(this, "code", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: code2
-    });
-    Object.defineProperty(this, "stderr", {
-      enumerable: true,
-      configurable: true,
-      writable: true,
-      value: stderr
-    });
-  }
-};
-
 // dist/dnt/esm/wrapper/gh/graphql.js
 function graphql({ host, jq } = {}) {
   return async function graphqlTag(...[template, ...substitutions]) {
@@ -10351,7 +10318,7 @@ function graphql({ host, jq } = {}) {
       args.push("--hostname", host);
     if (jq)
       args.push("-q", jq);
-    return await exec2(args);
+    return await execWithRetry("gh", args);
   };
 }
 
@@ -10372,7 +10339,7 @@ async function listCommits({ host, jq, ...options }) {
     args.push("--hostname", host);
   if (jq)
     args.push("-q", jq);
-  return await exec2(args);
+  return await execWithRetry("gh", args);
 }
 
 // dist/dnt/esm/wrapper/gh/list_tags.js
@@ -10390,7 +10357,7 @@ async function listTags({ host, jq, ...options }) {
     args.push("--hostname", host);
   if (jq)
     args.push("-q", jq);
-  return await exec2(args);
+  return await execWithRetry("gh", args);
 }
 
 // dist/dnt/esm/core/gh_describe_error.js
@@ -10414,7 +10381,7 @@ async function* fetchHistory({ owner, repo, host, sha }) {
       }
     } while (count === perPage);
   } catch (e) {
-    if (e instanceof GitHubCliError && e.stderr === "gh: Not Found (HTTP 404)") {
+    if (e instanceof CliError && e.cmd === "gh" && e.stderr === "gh: Not Found (HTTP 404)") {
       const msg = `ambiguous argument '${sha}': unknown revision or path not in the ${repo} tree.`;
       throw new GhDescribeError(msg);
     }
@@ -10572,7 +10539,7 @@ async function resolveRepo(repo) {
   try {
     return await getOrigin();
   } catch (e) {
-    if (e instanceof GitError && e.stderr === "fatal: not a git repository (or any of the parent directories): .git") {
+    if (e instanceof CliError && e.cmd === "git" && e.stderr === "fatal: not a git repository (or any of the parent directories): .git") {
       throw new GhDescribeError(e.stderr, e);
     }
     throw e;

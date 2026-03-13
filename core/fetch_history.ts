@@ -1,4 +1,5 @@
 import * as gh from "../wrapper/gh/mod.ts";
+import { CliError } from "../wrapper/mod.ts";
 import { GhDescribeError } from "./gh_describe_error.ts";
 
 interface FetchHistoryArgs {
@@ -33,7 +34,7 @@ export async function* fetchHistory(
       }
     } while (count === perPage);
   } catch (e: unknown) {
-    if (e instanceof gh.GitHubCliError && e.stderr === "gh: Not Found (HTTP 404)") {
+    if (e instanceof CliError && e.cmd === "gh" && e.stderr === "gh: Not Found (HTTP 404)") {
       const msg = `ambiguous argument '${sha}': unknown revision or path not in the ${repo} tree.`;
       throw new GhDescribeError(msg);
     }

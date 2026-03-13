@@ -1,4 +1,4 @@
-import { exec } from "./exec.ts";
+import { execWithRetry } from "../exec.ts";
 import type { GitHubCliOptions } from "./types.ts";
 
 type TaggedTemplateString = Parameters<typeof String.raw>;
@@ -13,6 +13,6 @@ export function graphql({ host, jq }: GitHubCliOptions = {}) {
     if (host) args.push("--hostname", host);
     if (jq) args.push("-q", jq);
 
-    return await exec(args);
+    return await execWithRetry("gh", args);
   };
 }

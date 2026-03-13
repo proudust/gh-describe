@@ -1,4 +1,4 @@
-import * as git from "../wrapper/git/mod.ts";
+import { CliError } from "../wrapper/mod.ts";
 import { GitHubRepository, parse } from "./ghrepo.ts";
 import { GhDescribeError } from "./gh_describe_error.ts";
 import { getOrigin } from "./get_origin.ts";
@@ -18,7 +18,8 @@ export async function resolveRepo(repo?: string | Repo): Promise<GitHubRepositor
     return await getOrigin();
   } catch (e: unknown) {
     if (
-      e instanceof git.GitError &&
+      e instanceof CliError &&
+      e.cmd === "git" &&
       e.stderr === "fatal: not a git repository (or any of the parent directories): .git"
     ) {
       throw new GhDescribeError(e.stderr, e);
