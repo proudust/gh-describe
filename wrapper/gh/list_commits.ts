@@ -45,23 +45,31 @@ function createUrl(
   if (sha) param.set("sha", sha);
   if (perPage) param.set("per_page", String(perPage));
   if (page) param.set("page", String(page));
-
   return `repos/${owner}/${repo}/commits?${param}`;
+}
+
+interface ListCommitsOptionsWithCliOptions extends ListCommitsOptions, GitHubCliOptions {
+}
+
+function createArgs(
+  {
+    host,
+    jq,
+    ...options
+  }: ListCommitsOptionsWithCliOptions,
+): string[] {
+  const args = ["api", createUrl(options)];
+  if (host) args.push("--hostname", host);
+  if (jq) args.push("-q", jq);
+  return args;
 }
 
 /**
  * @see https://docs.github.com/en/rest/reference/commits#list-commits
  */
 export async function listCommits(
-  {
-    host,
-    jq,
-    ...options
-  }: ListCommitsOptions & GitHubCliOptions,
+  options: ListCommitsOptionsWithCliOptions,
 ): Promise<string> {
-  const args = ["api", createUrl(options)];
-  if (host) args.push("--hostname", host);
-  if (jq) args.push("-q", jq);
-
+  const args = createArgs(options);
   return await execWithRetry("gh", args);
 }
