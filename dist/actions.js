@@ -24437,14 +24437,18 @@ ${stderr}`);
 };
 
 // dist/dnt/esm/wrapper/gh/graphql.js
+function createArgs([template, ...substitutions], { host, jq }) {
+  const query = String.raw(template, ...substitutions);
+  const args = ["api", "graphql", "-f", `query=${query}`];
+  if (host)
+    args.push("--hostname", host);
+  if (jq)
+    args.push("-q", jq);
+  return args;
+}
 function graphql({ host, jq } = {}) {
-  return async function graphqlTag(...[template, ...substitutions]) {
-    const query = String.raw(template, ...substitutions);
-    const args = ["api", "graphql", "-f", `query=${query}`];
-    if (host)
-      args.push("--hostname", host);
-    if (jq)
-      args.push("-q", jq);
+  return async function graphqlTag(...templateString) {
+    const args = createArgs(templateString, { host, jq });
     return await execWithRetry("gh", args);
   };
 }
@@ -24460,12 +24464,16 @@ function createUrl({ owner, repo, sha, perPage, page }) {
     param.set("page", String(page));
   return `repos/${owner}/${repo}/commits?${param}`;
 }
-async function listCommits({ host, jq, ...options }) {
+function createArgs2({ host, jq, ...options }) {
   const args = ["api", createUrl(options)];
   if (host)
     args.push("--hostname", host);
   if (jq)
     args.push("-q", jq);
+  return args;
+}
+async function listCommits(options) {
+  const args = createArgs2(options);
   return await execWithRetry("gh", args);
 }
 
@@ -24478,12 +24486,16 @@ function createUrl2({ owner, repo, perPage, page }) {
     param.set("page", String(page));
   return `repos/${owner}/${repo}/tags?${param}`;
 }
-async function listTags({ host, jq, ...options }) {
+function createArgs3({ host, jq, ...options }) {
   const args = ["api", createUrl2(options)];
   if (host)
     args.push("--hostname", host);
   if (jq)
     args.push("-q", jq);
+  return args;
+}
+async function listTags(options) {
+  const args = createArgs3(options);
   return await execWithRetry("gh", args);
 }
 
@@ -24517,7 +24529,7 @@ async function* fetchHistory({ owner, repo, host, sha }) {
 }
 
 // dist/dnt/esm/wrapper/git/list_remotes.js
-function createArgs({ cwd }) {
+function createArgs4({ cwd }) {
   const args = [];
   if (cwd)
     args.push("-C", cwd);
@@ -24553,13 +24565,13 @@ function parseRemotes(stdout) {
   return remotes;
 }
 async function listRemotes(options = {}) {
-  const args = createArgs(options);
+  const args = createArgs4(options);
   const stdout = await exec("git", args);
   return parseRemotes(stdout);
 }
 
 // dist/dnt/esm/wrapper/git/rev_parse.js
-function createArgs2({ arg, cwd }) {
+function createArgs5({ arg, cwd }) {
   const args = [];
   if (cwd)
     args.push("-C", cwd);
@@ -24567,7 +24579,7 @@ function createArgs2({ arg, cwd }) {
   return args;
 }
 async function revParse(options) {
-  const args = createArgs2(options);
+  const args = createArgs5(options);
   return await exec("git", args);
 }
 

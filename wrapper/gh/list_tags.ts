@@ -37,23 +37,28 @@ function createUrl(
   const param = new URLSearchParams();
   if (perPage) param.set("per_page", String(perPage));
   if (page) param.set("page", String(page));
-
   return `repos/${owner}/${repo}/tags?${param}`;
+}
+
+function createArgs(
+  {
+    host,
+    jq,
+    ...options
+  }: ListTagsOption,
+): string[] {
+  const args = ["api", createUrl(options)];
+  if (host) args.push("--hostname", host);
+  if (jq) args.push("-q", jq);
+  return args;
 }
 
 /**
  * @see https://docs.github.com/en/rest/reference/repos#list-repository-tags
  */
 export async function listTags(
-  {
-    host,
-    jq,
-    ...options
-  }: ListTagsOption,
+  options: ListTagsOption,
 ): Promise<string> {
-  const args = ["api", createUrl(options)];
-  if (host) args.push("--hostname", host);
-  if (jq) args.push("-q", jq);
-
+  const args = createArgs(options);
   return await execWithRetry("gh", args);
 }

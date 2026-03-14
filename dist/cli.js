@@ -10310,14 +10310,18 @@ var EnumType = class extends Type {
 };
 
 // dist/dnt/esm/wrapper/gh/graphql.js
+function createArgs4([template, ...substitutions], { host, jq }) {
+  const query = String.raw(template, ...substitutions);
+  const args = ["api", "graphql", "-f", `query=${query}`];
+  if (host)
+    args.push("--hostname", host);
+  if (jq)
+    args.push("-q", jq);
+  return args;
+}
 function graphql({ host, jq } = {}) {
-  return async function graphqlTag(...[template, ...substitutions]) {
-    const query = String.raw(template, ...substitutions);
-    const args = ["api", "graphql", "-f", `query=${query}`];
-    if (host)
-      args.push("--hostname", host);
-    if (jq)
-      args.push("-q", jq);
+  return async function graphqlTag(...templateString) {
+    const args = createArgs4(templateString, { host, jq });
     return await execWithRetry("gh", args);
   };
 }
@@ -10333,12 +10337,16 @@ function createUrl({ owner, repo, sha, perPage, page }) {
     param.set("page", String(page));
   return `repos/${owner}/${repo}/commits?${param}`;
 }
-async function listCommits({ host, jq, ...options }) {
+function createArgs5({ host, jq, ...options }) {
   const args = ["api", createUrl(options)];
   if (host)
     args.push("--hostname", host);
   if (jq)
     args.push("-q", jq);
+  return args;
+}
+async function listCommits(options) {
+  const args = createArgs5(options);
   return await execWithRetry("gh", args);
 }
 
@@ -10351,12 +10359,16 @@ function createUrl2({ owner, repo, perPage, page }) {
     param.set("page", String(page));
   return `repos/${owner}/${repo}/tags?${param}`;
 }
-async function listTags({ host, jq, ...options }) {
+function createArgs6({ host, jq, ...options }) {
   const args = ["api", createUrl2(options)];
   if (host)
     args.push("--hostname", host);
   if (jq)
     args.push("-q", jq);
+  return args;
+}
+async function listTags(options) {
+  const args = createArgs6(options);
   return await execWithRetry("gh", args);
 }
 
