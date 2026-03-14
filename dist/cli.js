@@ -10446,7 +10446,13 @@ function toReqExpArray(glob) {
 
 // dist/dnt/esm/core/fetch_tags.js
 function parseTags(stdout, { match, exclude }) {
-  return stdout.split("\n").filter((x) => x).map((x) => JSON.parse(x)).filter(([, tag]) => (!match.length || match.some((y) => y.test(tag))) && (!exclude.length || !exclude.some((y) => y.test(tag))));
+  return stdout.split("\n").filter((x) => x).map((x) => {
+    try {
+      return JSON.parse(x);
+    } catch (error) {
+      throw new GhDescribeError(`Failed to fetch tags. Response is invalid JSON Lines: ${stdout}`, { cause: error });
+    }
+  }).filter(([, tag]) => (!match.length || match.some((y) => y.test(tag))) && (!exclude.length || !exclude.some((y) => y.test(tag))));
 }
 async function fetchTags({ owner, repo, host, match, exclude, listTagsFn = listTags }) {
   const context = {
@@ -10481,8 +10487,12 @@ async function fetchTotalCommit({ owner, repo, host, sha }) {
       }
     }
   }`;
-  const repository = JSON.parse(stdout);
-  return repository.data.repository.object.history.totalCount;
+  try {
+    const repository = JSON.parse(stdout);
+    return repository.data.repository.object.history.totalCount;
+  } catch (error) {
+    throw new GhDescribeError(`Failed to fetch total commit count. Response is invalid JSON: ${stdout}`, { cause: error });
+  }
 }
 
 // dist/dnt/esm/core/ghrepo.js

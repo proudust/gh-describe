@@ -1,5 +1,6 @@
 import * as gh from "../gh-wrapper/mod.ts";
 import { toReqExpArray } from "./to_regexp_array.ts";
+import { GhDescribeError } from "./gh_describe_error.ts";
 
 type TagTuple = [sha: string, tag: string];
 
@@ -11,7 +12,16 @@ interface FetchTagsContext {
 function parseTags(stdout: string, { match, exclude }: FetchTagsContext): TagTuple[] {
   return stdout.split("\n")
     .filter((x) => x)
-    .map<TagTuple>((x) => JSON.parse(x))
+    .map<TagTuple>((x) => {
+      try {
+        return JSON.parse(x);
+      } catch (error: unknown) {
+        throw new GhDescribeError(
+          `Failed to fetch tags. Response is invalid JSON Lines: ${stdout}`,
+          { cause: error },
+        );
+      }
+    })
     .filter(([, tag]) =>
       (!match.length || match.some((y) => y.test(tag))) &&
       (!exclude.length || !exclude.some((y) => y.test(tag)))
