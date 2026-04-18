@@ -24891,7 +24891,7 @@ async function fetchTags({ owner, repo, host, match, exclude, listTagsFn = listT
     match: toReqExpArray(match),
     exclude: toReqExpArray(exclude)
   };
-  const tags = [];
+  const tags = /* @__PURE__ */ new Map();
   const perPage = 100;
   const jq = ".[] | [.commit.sha, .name]";
   let page = 0;
@@ -24900,9 +24900,13 @@ async function fetchTags({ owner, repo, host, match, exclude, listTagsFn = listT
     page++;
     const stdout = await listTagsFn({ owner, repo, perPage, page, host, jq });
     tuples = parseTags(stdout, context);
-    tags.push(...tuples);
+    for (const [sha, name] of tuples) {
+      if (!tags.has(sha)) {
+        tags.set(sha, name);
+      }
+    }
   } while (tuples.length === perPage);
-  return new Map(tags);
+  return tags;
 }
 
 // dist/dnt/esm/core/fetch_total_commit.js

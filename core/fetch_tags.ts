@@ -46,7 +46,9 @@ export async function fetchTags(
     exclude: toReqExpArray(exclude),
   };
 
-  const tags: [sha: string, name: string][] = [];
+  // GitHub API returns tags in newest-first order.
+  // When multiple tags point to the same commit, keep the first (newest) one.
+  const tags = new Map<string, string>();
   const perPage = 100;
   const jq = ".[] | [.commit.sha, .name]";
   let page = 0;
@@ -55,7 +57,11 @@ export async function fetchTags(
     page++;
     const stdout = await listTagsFn({ owner, repo, perPage, page, host, jq });
     tuples = parseTags(stdout, context);
-    tags.push(...tuples);
+    for (const [sha, name] of tuples) {
+      if (!tags.has(sha)) {
+        tags.set(sha, name);
+      }
+    }
   } while (tuples.length === perPage);
-  return new Map(tags);
+  return tags;
 }
