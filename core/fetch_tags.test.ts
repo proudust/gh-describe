@@ -41,4 +41,34 @@ Deno.test("async function fetchTags(args)", async (ctx) => {
       assertEquals(callCount, 2);
     },
   );
+
+  await ctx.step(
+    "#115: Multiple tags on same commit should keep newest tag",
+    async () => {
+      const mockListTags = (options: ListTagsOption) => {
+        if (options.page === 1) {
+          // GitHub API returns tags newest-first
+          const tags = [
+            { commit: { sha: "aaa" }, name: "v0.0.7" },
+            { commit: { sha: "aaa" }, name: "v0.0.6" },
+            { commit: { sha: "bbb" }, name: "v0.0.5" },
+          ];
+          return tags.map((tag) => JSON.stringify([tag.commit.sha, tag.name]))
+            .join("\n");
+        }
+        return "";
+      };
+
+      const result = await fetchTags({
+        owner: "test",
+        repo: "repo",
+        listTagsFn: mockListTags,
+      });
+
+      // Same SHA "aaa" has two tags; newest (v0.0.7) should be kept
+      assertEquals(result.get("aaa"), "v0.0.7");
+      assertEquals(result.get("bbb"), "v0.0.5");
+      assertEquals(result.size, 2);
+    },
+  );
 });
