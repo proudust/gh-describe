@@ -8,10 +8,10 @@
       "jsr:@cliffy/internal@1.0.0": "jsr:@cliffy/internal@1.0.0",
       "jsr:@cliffy/table@1.0.0": "jsr:@cliffy/table@1.0.0",
       "jsr:@david/code-block-writer@^13.0.2": "jsr:@david/code-block-writer@13.0.3",
-      "jsr:@david/console-static-text@^0.3.0": "jsr:@david/console-static-text@0.3.0",
+      "jsr:@david/console-static-text@^0.3.0": "jsr:@david/console-static-text@0.3.4",
       "jsr:@david/dax@0.45.0": "jsr:@david/dax@0.45.0",
       "jsr:@david/path@0.2": "jsr:@david/path@0.2.0",
-      "jsr:@david/which@~0.4.1": "jsr:@david/which@0.4.1",
+      "jsr:@david/which@~0.4.1": "jsr:@david/which@0.4.2",
       "jsr:@deno/cache-dir@^0.10.3": "jsr:@deno/cache-dir@0.10.3",
       "jsr:@deno/dnt@0.41.3": "jsr:@deno/dnt@0.41.3",
       "jsr:@deno/graph@^0.73.1": "jsr:@deno/graph@0.73.1",
@@ -20,14 +20,14 @@
       "jsr:@std/assert@^0.226.0": "jsr:@std/assert@0.226.0",
       "jsr:@std/bytes@^0.223.0": "jsr:@std/bytes@0.223.0",
       "jsr:@std/bytes@^1.0.6": "jsr:@std/bytes@1.0.6",
-      "jsr:@std/fmt@1": "jsr:@std/fmt@1.0.9",
+      "jsr:@std/fmt@1": "jsr:@std/fmt@1.0.10",
       "jsr:@std/fmt@^0.223": "jsr:@std/fmt@0.223.0",
-      "jsr:@std/fmt@^1.0.9": "jsr:@std/fmt@1.0.9",
+      "jsr:@std/fmt@^1.0.9": "jsr:@std/fmt@1.0.10",
       "jsr:@std/fs@1": "jsr:@std/fs@1.0.23",
       "jsr:@std/fs@^0.223": "jsr:@std/fs@0.223.0",
       "jsr:@std/fs@^0.229.3": "jsr:@std/fs@0.229.3",
       "jsr:@std/fs@^1": "jsr:@std/fs@1.0.23",
-      "jsr:@std/internal@^1.0.12": "jsr:@std/internal@1.0.12",
+      "jsr:@std/internal@^1.0.12": "jsr:@std/internal@1.0.13",
       "jsr:@std/io@^0.223": "jsr:@std/io@0.223.0",
       "jsr:@std/io@^0.225": "jsr:@std/io@0.225.3",
       "jsr:@std/path@1": "jsr:@std/path@1.1.4",
@@ -37,7 +37,7 @@
       "jsr:@std/path@^0.225.2": "jsr:@std/path@0.225.2",
       "jsr:@std/path@^1": "jsr:@std/path@1.1.4",
       "jsr:@std/path@^1.1.4": "jsr:@std/path@1.1.4",
-      "jsr:@std/text@^1.0.17": "jsr:@std/text@1.0.17",
+      "jsr:@std/text@^1.0.17": "jsr:@std/text@1.0.18",
       "jsr:@ts-morph/bootstrap@^0.24.0": "jsr:@ts-morph/bootstrap@0.24.0",
       "jsr:@ts-morph/common@^0.24.0": "jsr:@ts-morph/common@0.24.0",
       "npm:@actions/core@3.0.0": "npm:@actions/core@3.0.0"
@@ -78,8 +78,8 @@
       "@david/code-block-writer@13.0.3": {
         "integrity": "f98c77d320f5957899a61bfb7a9bead7c6d83ad1515daee92dbacc861e13bb7f"
       },
-      "@david/console-static-text@0.3.0": {
-        "integrity": "2dfb46ecee525755f7989f94ece30bba85bd8ffe3e8666abc1bf926e1ee0698d"
+      "@david/console-static-text@0.3.4": {
+        "integrity": "1c596f500b075ff3c8bab1d328ca7148a88067fd9a506b16a73eeaf230c229fd"
       },
       "@david/dax@0.45.0": {
         "integrity": "ac7565dc5c3e5be953a18b505e5dd0d8a30ed53656b65fd34a53bd8d2d5d6b1e",
@@ -100,8 +100,8 @@
           "jsr:@std/path@^1"
         ]
       },
-      "@david/which@0.4.1": {
-        "integrity": "896a682b111f92ab866cc70c5b4afab2f5899d2f9bde31ed00203b9c250f225e"
+      "@david/which@0.4.2": {
+        "integrity": "440ee262bc0673b57a39ad4d0dc5673e515ddd41c049a55b2588a0881e5d4a8c"
       },
       "@deno/cache-dir@0.10.3": {
         "integrity": "eb022f84ecc49c91d9d98131c6e6b118ff63a29e343624d058646b9d50404776",
@@ -148,8 +148,8 @@
       "@std/fmt@0.223.0": {
         "integrity": "6deb37794127dfc7d7bded2586b9fc6f5d50e62a8134846608baf71ffc1a5208"
       },
-      "@std/fmt@1.0.9": {
-        "integrity": "2487343e8899fb2be5d0e3d35013e54477ada198854e52dd05ed0422eddcabe0"
+      "@std/fmt@1.0.10": {
+        "integrity": "90dfba288802ac6de82fb31d0917eb9e4450b9925b954d5e51fc29ac07419db5"
       },
       "@std/fs@0.223.0": {
         "integrity": "3b4b0550b2c524cbaaa5a9170c90e96cbb7354e837ad1bdaf15fc9df1ae9c31c"
@@ -167,8 +167,8 @@
           "jsr:@std/path@^1.1.4"
         ]
       },
-      "@std/internal@1.0.12": {
-        "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
+      "@std/internal@1.0.13": {
+        "integrity": "2f9546691d4ac2d32859c82dff284aaeac980ddeca38430d07941e7e288725c0"
       },
       "@std/io@0.223.0": {
         "integrity": "2d8c3c2ab3a515619b90da2c6ff5ea7b75a94383259ef4d02116b228393f84f1",
@@ -204,8 +204,8 @@
           "jsr:@std/internal@^1.0.12"
         ]
       },
-      "@std/text@1.0.17": {
-        "integrity": "4b2c4ef67ae5b6c1dfd447c81c83a43718f52e3c7e748d8b33f694aba9895f95"
+      "@std/text@1.0.18": {
+        "integrity": "d199e516f80599813c64fd4aee5b8f26f6f7d1e1434c88fd153aeea6fea6a9b9"
       },
       "@ts-morph/bootstrap@0.24.0": {
         "integrity": "a826a2ef7fa8a7c3f1042df2c034d20744d94da2ee32bf29275bcd4dffd3c060",
@@ -226,7 +226,7 @@
         "integrity": "sha512-zYt6cz+ivnTmiT/ksRVriMBOiuoUpDCJJlZ5KPl2/FRdvwU3f7MPh9qftvbkXJThragzUZieit2nyHUyw53Seg==",
         "dependencies": {
           "@actions/exec": "@actions/exec@3.0.0",
-          "@actions/http-client": "@actions/http-client@4.0.0"
+          "@actions/http-client": "@actions/http-client@4.0.1"
         }
       },
       "@actions/exec@3.0.0": {
@@ -235,8 +235,8 @@
           "@actions/io": "@actions/io@3.0.2"
         }
       },
-      "@actions/http-client@4.0.0": {
-        "integrity": "sha512-QuwPsgVMsD6qaPD57GLZi9sqzAZCtiJT8kVBCDpLtxhL5MydQ4gS+DrejtZZPdIYyB1e95uCK9Luyds7ybHI3g==",
+      "@actions/http-client@4.0.1": {
+        "integrity": "sha512-+Nvd1ImaOZBSoPbsUtEhv+1z99H12xzncCkz0a3RuehINE81FZSe2QTj3uvAPTcJX/SCzUQHQ0D1GrPMbrPitg==",
         "dependencies": {
           "tunnel": "tunnel@0.0.6",
           "undici": "undici@6.25.0"

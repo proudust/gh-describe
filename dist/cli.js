@@ -5141,14 +5141,14 @@ function createMergeProxy(baseObj, extObj) {
   });
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.12/_os.js
+// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.13/_os.js
 function checkWindows() {
   const global = dntGlobalThis;
   const os = global.Deno?.build?.os;
   return typeof os === "string" ? os === "windows" : global.navigator?.platform?.startsWith("Win") ?? global.process?.platform?.startsWith("win") ?? false;
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.12/os.js
+// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.13/os.js
 var isWindows = checkWindows();
 
 // dist/dnt/esm/deps/jsr.io/@std/path/1.1.4/_common/assert_path.js
@@ -5712,7 +5712,7 @@ async function revParse(options) {
   return await exec("git", args);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/fmt/1.0.9/colors.js
+// dist/dnt/esm/deps/jsr.io/@std/fmt/1.0.10/colors.js
 var colors_exports = {};
 __export(colors_exports, {
   bgBlack: () => bgBlack,
@@ -5942,12 +5942,12 @@ function bgRgb24(str, color) {
     clampAndTruncate(color.b)
   ], 49));
 }
-var ANSI_PATTERN = new RegExp([
+var ANSI_REGEXP = new RegExp([
   "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)",
   "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TXZcf-nq-uy=><~]))"
 ].join("|"), "g");
 function stripAnsiCode(string2) {
-  return string2.replace(ANSI_PATTERN, "");
+  return string2.replace(ANSI_REGEXP, "");
 }
 
 // dist/dnt/esm/deps/jsr.io/@cliffy/ansi/1.0.0/colors.js
@@ -5986,7 +5986,7 @@ function getArgs() {
   return Deno4?.args ?? Bun?.argv.slice(2) ?? process2?.argv.slice(2) ?? [];
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/text/1.0.17/levenshtein_distance.js
+// dist/dnt/esm/deps/jsr.io/@std/text/1.0.18/levenshtein_distance.js
 var { ceil } = Math;
 var peq = new Uint32Array(1114112);
 function myers32(t, p) {
@@ -6086,7 +6086,7 @@ function levenshteinDistance(str1, str2) {
   return p.length <= 32 ? myers32(t, p) : myersX(t, p);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/text/1.0.17/closest_string.js
+// dist/dnt/esm/deps/jsr.io/@std/text/1.0.18/closest_string.js
 function closestString(givenWord, possibleWords, options) {
   if (possibleWords.length === 0) {
     throw new TypeError("When using closestString(), the possibleWords array must contain at least one word");
