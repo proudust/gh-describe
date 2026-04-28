@@ -24884,11 +24884,11 @@ function toReqExpArray(glob) {
 
 // dist/dnt/esm/core/fetch_tags.js
 function parseTags(stdout, { match, exclude }) {
-  return stdout.split("\n").filter((x) => x).map((x) => {
+  return stdout.split("\n").filter((x) => x).map((line, index) => {
     try {
-      return JSON.parse(x);
+      return JSON.parse(line);
     } catch (error2) {
-      throw new GhDescribeError(`Failed to fetch tags. Response is invalid JSON Lines: ${stdout}`, { cause: error2 });
+      throw new GhDescribeError(`Failed to parse tag at line ${index + 1}: ${line}`, { cause: error2 });
     }
   }).filter(([, tag]) => (!match.length || match.some((y) => y.test(tag))) && (!exclude.length || !exclude.some((y) => y.test(tag))));
 }
@@ -24916,8 +24916,8 @@ async function fetchTags({ owner, repo, host, match, exclude, listTagsFn = listT
 }
 
 // dist/dnt/esm/core/fetch_total_commit.js
-async function fetchTotalCommit({ owner, repo, host, sha }) {
-  const stdout = await graphql({ host })`
+async function fetchTotalCommit({ owner, repo, host, sha, graphqlFn = graphql }) {
+  const stdout = await graphqlFn({ host })`
   query {
     repository(owner: "${owner}", name: "${repo}") {
       object(expression: "${sha}") {
@@ -24933,7 +24933,8 @@ async function fetchTotalCommit({ owner, repo, host, sha }) {
     const repository = JSON.parse(stdout);
     return repository.data.repository.object.history.totalCount;
   } catch (error2) {
-    throw new GhDescribeError(`Failed to fetch total commit count. Response is invalid JSON: ${stdout}`, { cause: error2 });
+    const truncated = stdout.length > 200 ? stdout.substring(0, 200) + "..." : stdout;
+    throw new GhDescribeError(`Failed to fetch total commit count for ${owner}/${repo}@${sha}. Response is invalid JSON: ${truncated}`, { cause: error2 });
   }
 }
 

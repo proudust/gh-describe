@@ -12,12 +12,12 @@ interface FetchTagsContext {
 function parseTags(stdout: string, { match, exclude }: FetchTagsContext): TagTuple[] {
   return stdout.split("\n")
     .filter((x) => x)
-    .map<TagTuple>((x) => {
+    .map<TagTuple>((line, index) => {
       try {
-        return JSON.parse(x);
+        return JSON.parse(line);
       } catch (error: unknown) {
         throw new GhDescribeError(
-          `Failed to fetch tags. Response is invalid JSON Lines: ${stdout}`,
+          `Failed to parse tag at line ${index + 1}: ${line}`,
           { cause: error },
         );
       }
