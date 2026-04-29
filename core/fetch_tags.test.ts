@@ -1,5 +1,6 @@
-import { assertEquals } from "jsr:@std/assert@1.0.19";
+import { assertEquals, assertInstanceOf, assertStringIncludes } from "jsr:@std/assert@1.0.19";
 import { fetchTags, ListTagsOption } from "./fetch_tags.ts";
+import { GhDescribeError } from "./gh_describe_error.ts";
 
 Deno.test("async function fetchTags(args)", async (ctx) => {
   await ctx.step(
@@ -69,6 +70,44 @@ Deno.test("async function fetchTags(args)", async (ctx) => {
       assertEquals(result.get("aaa"), "v0.0.7");
       assertEquals(result.get("bbb"), "v0.0.5");
       assertEquals(result.size, 2);
+    },
+  );
+
+  await ctx.step(
+    "Invalid JSON in JSONL response throws GhDescribeError with cause",
+    async () => {
+      const mockListTags = (): string => {
+        return `["sha1","tag1"]\n{"invalid json}\n["sha3","tag3"]`;
+      };
+
+      let thrownError: GhDescribeError | null = null;
+      try {
+        await fetchTags({
+          owner: "test",
+          repo: "repo",
+          listTagsFn: mockListTags,
+        });
+      } catch (error) {
+        thrownError = error as GhDescribeError;
+      }
+
+      // Should throw GhDescribeError
+      assertInstanceOf(thrownError, GhDescribeError);
+
+      // Error message should include the line index
+      assertStringIncludes(
+        thrownError!.message,
+        "Failed to parse tag at line 2",
+      );
+
+      // Error message should include the invalid line content
+      assertStringIncludes(
+        thrownError!.message,
+        '{"invalid json}',
+      );
+
+      // cause should be a SyntaxError
+      assertInstanceOf(thrownError!.cause, SyntaxError);
     },
   );
 });

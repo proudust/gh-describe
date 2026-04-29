@@ -24618,14 +24618,14 @@ async function fetchSha(args) {
   }
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.12/_os.js
+// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.13/_os.js
 function checkWindows() {
   const global2 = dntGlobalThis;
   const os5 = global2.Deno?.build?.os;
   return typeof os5 === "string" ? os5 === "windows" : global2.navigator?.platform?.startsWith("Win") ?? global2.process?.platform?.startsWith("win") ?? false;
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.12/os.js
+// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.13/os.js
 var isWindows = checkWindows();
 
 // dist/dnt/esm/deps/jsr.io/@std/path/1.1.4/_common/glob_to_reg_exp.js
@@ -24884,7 +24884,13 @@ function toReqExpArray(glob) {
 
 // dist/dnt/esm/core/fetch_tags.js
 function parseTags(stdout, { match, exclude }) {
-  return stdout.split("\n").filter((x) => x).map((x) => JSON.parse(x)).filter(([, tag]) => (!match.length || match.some((y) => y.test(tag))) && (!exclude.length || !exclude.some((y) => y.test(tag))));
+  return stdout.split("\n").map((line, index) => [line, index + 1]).filter(([line]) => line).map(([line, lineNumber]) => {
+    try {
+      return JSON.parse(line);
+    } catch (error2) {
+      throw new GhDescribeError(`Failed to parse tag at line ${lineNumber}: ${line}`, { cause: error2 });
+    }
+  }).filter(([, tag]) => (!match.length || match.some((y) => y.test(tag))) && (!exclude.length || !exclude.some((y) => y.test(tag))));
 }
 async function fetchTags({ owner, repo, host, match, exclude, listTagsFn = listTags }) {
   const context = {
@@ -24910,8 +24916,8 @@ async function fetchTags({ owner, repo, host, match, exclude, listTagsFn = listT
 }
 
 // dist/dnt/esm/core/fetch_total_commit.js
-async function fetchTotalCommit({ owner, repo, host, sha }) {
-  const stdout = await graphql({ host })`
+async function fetchTotalCommit({ owner, repo, host, sha, graphqlFn = graphql }) {
+  const stdout = await graphqlFn({ host })`
   query {
     repository(owner: "${owner}", name: "${repo}") {
       object(expression: "${sha}") {
@@ -24923,8 +24929,12 @@ async function fetchTotalCommit({ owner, repo, host, sha }) {
       }
     }
   }`;
-  const repository = JSON.parse(stdout);
-  return repository.data.repository.object.history.totalCount;
+  try {
+    const repository = JSON.parse(stdout);
+    return repository.data.repository.object.history.totalCount;
+  } catch (error2) {
+    throw new GhDescribeError(`Failed to fetch total commit count for ${owner}/${repo}@${sha}. Response is invalid JSON: ${stdout}`, { cause: error2 });
+  }
 }
 
 // dist/dnt/esm/core/ghrepo.js
