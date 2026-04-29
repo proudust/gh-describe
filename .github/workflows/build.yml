@@ -81,6 +81,7 @@ jobs:
   test:
     strategy:
       matrix:
+        deno-version: [v1.x, v2.x]
         os: [ubuntu-latest, windows-latest]
 
     runs-on: ${{ matrix.os }}
@@ -102,7 +103,7 @@ jobs:
       - name: Use Deno
         uses: denoland/setup-deno@v2
         with:
-          deno-version: v1.x
+          deno-version: ${{ matrix.deno-version }}
 
       - name: Install on GitHub CLI Extensions
         run: gh extensions install .
