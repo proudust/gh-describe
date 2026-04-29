@@ -11,13 +11,14 @@ interface FetchTagsContext {
 
 function parseTags(stdout: string, { match, exclude }: FetchTagsContext): TagTuple[] {
   return stdout.split("\n")
-    .filter((x) => x)
-    .map<TagTuple>((line, index) => {
+    .map((line, index) => [line, index + 1] as [string, number])
+    .filter(([line]) => line)
+    .map<TagTuple>(([line, lineNumber]) => {
       try {
         return JSON.parse(line);
       } catch (error: unknown) {
         throw new GhDescribeError(
-          `Failed to parse tag at line ${index + 1}: ${line}`,
+          `Failed to parse tag at line ${lineNumber}: ${line}`,
           { cause: error },
         );
       }

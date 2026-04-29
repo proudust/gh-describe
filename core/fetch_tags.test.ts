@@ -100,7 +100,7 @@ Deno.test("async function fetchTags(args)", async (ctx) => {
         "Failed to parse tag at line 2",
       );
 
-      // Error message should include the invalid line content (truncated)
+      // Error message should include the invalid line content
       assertStringIncludes(
         thrownError!.message,
         '{"invalid json}',

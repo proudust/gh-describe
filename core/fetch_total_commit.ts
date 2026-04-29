@@ -5,7 +5,7 @@ interface FetchTotalCommitArgs {
   owner: string;
   repo: string;
   host?: string;
-  sha?: string;
+  sha: string;
   graphqlFn?: (args: gh.GraphQLOptions) => gh.GraphQLTag;
 }
 
@@ -32,9 +32,8 @@ export async function fetchTotalCommit({
     const repository = JSON.parse(stdout);
     return repository.data.repository.object.history.totalCount;
   } catch (error: unknown) {
-    const truncated = stdout.length > 200 ? stdout.substring(0, 200) + "..." : stdout;
     throw new GhDescribeError(
-      `Failed to fetch total commit count for ${owner}/${repo}@${sha}. Response is invalid JSON: ${truncated}`,
+      `Failed to fetch total commit count for ${owner}/${repo}@${sha}. Response is invalid JSON: ${stdout}`,
       { cause: error },
     );
   }
