@@ -30,7 +30,7 @@ Deno.test("async function fetchTotalCommit(args)", async (ctx) => {
         "Failed to fetch total commit count for test-owner/test-repo@abc123",
       );
 
-      // Error message should include the invalid response (truncated)
+      // Error message should include the invalid response
       assertStringIncludes(
         thrownError!.message,
         "{ invalid json }",
