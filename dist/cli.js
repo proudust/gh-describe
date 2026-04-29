@@ -5578,26 +5578,23 @@ function globToRegExp3(glob, options = {}) {
 }
 
 // dist/dnt/esm/wrapper/exec.js
+var import_node_child_process = require("node:child_process");
+var import_node_util = require("node:util");
+var execFileAsync = (0, import_node_util.promisify)(import_node_child_process.execFile);
 async function exec(cmd, args) {
-  let process2 = null;
   try {
-    process2 = import_shim_deno2.Deno.run({
-      cmd: [cmd, ...args],
-      stdout: "piped",
-      stderr: "piped"
+    const { stdout } = await execFileAsync(cmd, args, {
+      encoding: "utf8",
+      maxBuffer: Infinity
     });
-    const [{ code: code2 }, stdout, stderr] = await Promise.all([
-      process2.status(),
-      process2.output(),
-      process2.stderrOutput()
-    ]);
-    if (code2 === 0) {
-      return new TextDecoder().decode(stdout).trim();
-    } else {
-      throw new CliError(cmd, args, code2, new TextDecoder().decode(stderr).trim());
+    return stdout.trim();
+  } catch (e) {
+    if (e && typeof e === "object" && "code" in e) {
+      const code2 = e.code;
+      const stderr = e.stderr;
+      throw new CliError(cmd, args, code2, String(stderr).trim());
     }
-  } finally {
-    process2?.close();
+    throw e;
   }
 }
 async function execWithRetry(cmd, args) {

@@ -40,7 +40,8 @@
       "jsr:@std/text@^1.0.17": "jsr:@std/text@1.0.18",
       "jsr:@ts-morph/bootstrap@^0.24.0": "jsr:@ts-morph/bootstrap@0.24.0",
       "jsr:@ts-morph/common@^0.24.0": "jsr:@ts-morph/common@0.24.0",
-      "npm:@actions/core@3.0.0": "npm:@actions/core@3.0.0"
+      "npm:@actions/core@3.0.0": "npm:@actions/core@3.0.0",
+      "npm:@types/node": "npm:@types/node@18.16.19"
     },
     "jsr": {
       "@cliffy/ansi@1.0.0": {
@@ -244,6 +245,10 @@
       },
       "@actions/io@3.0.2": {
         "integrity": "sha512-nRBchcMM+QK1pdjO7/idu86rbJI5YHUKCvKs0KxnSYbVe3F51UfGxuZX4Qy/fWlp6l7gWFwIkrOzN+oUK03kfw==",
+        "dependencies": {}
+      },
+      "@types/node@18.16.19": {
+        "integrity": "sha512-IXl7o+R9iti9eBW4Wg2hx1xQDig183jj7YLn8F7udNceyfkbn1ZxmzZXuak20gR40D7pIkIY1kYGx5VIGbaHKA==",
         "dependencies": {}
       },
       "tunnel@0.0.6": {
