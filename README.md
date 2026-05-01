@@ -15,6 +15,8 @@ repositories.
 - name: Git describe
   id: ghd
   uses: proudust/gh-describe@v2
+  with:
+    exclude: 'nightly'
 ```
 
 ### Action inputs
