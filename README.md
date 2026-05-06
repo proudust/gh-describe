@@ -30,6 +30,23 @@ All inputs are optional, and sensible defaults will be used if they are not set.
 | exclude    | Do not consider tags matching the given glob pattern. |                                                           |
 | default    | If the name is not found, use this value.             | If the name is not found, the action fails.               |
 
+> [!NOTE]
+> Multiple patterns can be specified for `match` and `exclude` using commas (e.g.
+> `"*-experimental-*,utility-plugin@*"`).
+
+```yml
+- name: Git describe
+  id: ghd
+  uses: proudust/gh-describe@v2
+  with:
+    token: ${{ secrets.ALT_GITHUB_TOKEN }} # Use a custom PAT instead of the default GITHUB_TOKEN
+    repo: proudust/gh-describe-sample # Describe the other repository
+    commit-ish: master # Needed for the other repository
+    match: "v*.*.*" # Only tags with patch versions
+    exclude: "*-beta,*-nightly" # Ignore tags that match any of these glob patterns (comma-separated)
+    default: "v0.0.0" # Use this value if no tag is found, instead of failing
+```
+
 ### Action outputs
 
 The following outputs can be used by subsequent workflow steps.
