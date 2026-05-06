@@ -11,7 +11,7 @@
     "compile": "deno run --allow-env --allow-net --allow-read --allow-run --allow-write _compile.ts",
     "lock": "(rm deno.lock || true) && deno cache -r *.ts **/*.ts",
     "run": "deno task run:deno",
-    "run:deno": "deno run --allow-run cli/main.ts",
+    "run:deno": "deno run --allow-run=gh,git cli/main.ts",
     "run:node": "deno task build && node dist/cli.js",
     "test": "deno fmt --check & deno lint & deno task unit",
     "udd": "(rm -r dist/dnt || true) && udd *.ts **/*.ts --dry-run",

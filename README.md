@@ -76,15 +76,25 @@ Require [GitHub CLI](https://github.com/cli/cli#installation) and
 [Deno](https://deno.land/#installation).
 
 ```sh
-deno run --allow-run https://deno.land/x/gh_describe@v2.1.2/main.ts
+deno run --allow-run=gh,git https://deno.land/x/gh_describe@v2.1.2/main.ts
 ```
 
 or
 
 ```sh
-deno install -n gh-describe --allow-run https://deno.land/x/gh_describe@v2.1.2/main.ts
+deno install -n gh-describe --allow-run=gh,git https://deno.land/x/gh_describe@v2.1.2/main.ts
 gh-describe
 ```
+
+<details>
+<summary>Required permissions:</summary>
+
+| Permission        | Reason                                                                           |
+| ----------------- | -------------------------------------------------------------------------------- |
+| `--allow-run=gh`  | Required to access the GitHub API via the `gh` CLI.                              |
+| `--allow-run=git` | Required to get the remote URL and current commit SHA from the local repository. |
+
+</details>
 
 ### Self-contained executable
 
