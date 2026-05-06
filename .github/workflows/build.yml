@@ -144,6 +144,36 @@ jobs:
           echo "sha       : ${{ steps.ghd.outputs.sha }}"
           echo "short-sha : ${{ steps.ghd.outputs.short-sha }}"
 
+      # Tests for Action inputs using proudust/gh-describe-sample
+      # Repo structure:
+      #   Commit 4: master, v1.0.2-nightly
+      #   Commit 3: v1.0.1-beta
+      #   Commit 2:
+      #   Commit 1: v1, v1.0.0
+
+      # Test corresponding to the README inputs example (all 6 inputs)
+      - name: Test with all inputs (README example)
+        id: ghd_with_all_inputs
+        uses: ./
+        with:
+          token: ${{ github.token }}
+          repo: proudust/gh-describe-sample
+          commit-ish: master
+          match: "v*.*.*"
+          exclude: "*-beta,*-nightly"
+          default: "v0.0.0"
+
+      - name: Check all-inputs outputs
+        shell: bash
+        run: |
+          echo "describe  : ${{ steps.ghd_with_all_inputs.outputs.describe }}"
+          echo "tag       : ${{ steps.ghd_with_all_inputs.outputs.tag }}"
+          echo "distance  : ${{ steps.ghd_with_all_inputs.outputs.distance }}"
+          echo "sha       : ${{ steps.ghd_with_all_inputs.outputs.sha }}"
+          echo "short-sha : ${{ steps.ghd_with_all_inputs.outputs.short-sha }}"
+          [[ "${{ steps.ghd_with_all_inputs.outputs.tag }}" == "v1.0.0" ]] || { echo "::error::Expected tag=v1.0.0, got ${{ steps.ghd_with_all_inputs.outputs.tag }}"; exit 1; }
+          [[ "${{ steps.ghd_with_all_inputs.outputs.distance }}" == "3" ]] || { echo "::error::Expected distance=3, got ${{ steps.ghd_with_all_inputs.outputs.distance }}"; exit 1; }
+
   release:
     runs-on: ubuntu-latest
     if: >
