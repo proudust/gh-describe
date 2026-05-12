@@ -99,7 +99,7 @@ deno run --allow-run=gh,git https://deno.land/x/gh_describe@v2.1.2/main.ts
 or
 
 ```sh
-deno install -n gh-describe --allow-run=gh,git https://deno.land/x/gh_describe@v2.1.2/main.ts
+deno install --global --name gh-describe --allow-run=gh,git https://deno.land/x/gh_describe@v2.1.2/main.ts
 gh-describe
 ```
 
