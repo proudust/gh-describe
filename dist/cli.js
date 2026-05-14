@@ -5080,6 +5080,21 @@ var require_dist2 = __commonJS({
   }
 });
 
+// dist/dnt/esm/_dnt.polyfills.js
+if (!Object.hasOwn) {
+  Object.defineProperty(Object, "hasOwn", {
+    value: function(object, property) {
+      if (object == null) {
+        throw new TypeError("Cannot convert undefined or null to object");
+      }
+      return Object.prototype.hasOwnProperty.call(Object(object), property);
+    },
+    configurable: true,
+    enumerable: false,
+    writable: true
+  });
+}
+
 // dist/dnt/esm/_dnt.shims.js
 var import_shim_deno = __toESM(require_dist2(), 1);
 var import_shim_deno2 = __toESM(require_dist2(), 1);
@@ -10738,6 +10753,26 @@ var EnumType = class extends Type {
   }
 };
 
+// dist/dnt/esm/deps/jsr.io/@std/collections/1.1.7/take_last_while.js
+function takeLastWhile(iterable, predicate) {
+  if (Array.isArray(iterable)) {
+    let offset = iterable.length;
+    while (0 < offset && predicate(iterable[offset - 1])) {
+      offset--;
+    }
+    return iterable.slice(offset);
+  }
+  const result = [];
+  for (const el of iterable) {
+    if (predicate(el)) {
+      result.push(el);
+    } else {
+      result.length = 0;
+    }
+  }
+  return result;
+}
+
 // dist/dnt/esm/wrapper/gh/graphql.js
 function createArgs4([template, ...substitutions], { host, jq }) {
   const query = String.raw(template, ...substitutions);
@@ -11065,16 +11100,26 @@ async function ghDescribe(options) {
 }
 
 // dist/dnt/esm/cli/cli.js
+function resolveCollectOption(array) {
+  if (!array)
+    return void 0;
+  const filtered = takeLastWhile(array, Boolean);
+  return filtered.length > 0 ? filtered : void 0;
+}
 async function ghDescribeCli({ version: version2 }) {
   return await new Command().name("gh-describe").version(version2).description("Emulate `git describe --tags` for shallow clone repositories.").group("Options like `git describe`").option("--match <pattern:string>", "Only consider tags matching the given glob pattern.", {
     collect: true
-  }).option("--no-match", "Clear and reset the list of match patterns.").option("--exclude <pattern:string>", "Do not consider tags matching the given glob pattern.", { collect: true }).option("--no-exclude", "Clear and reset the list of exclude patterns.").group("Options for `gh`").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").group("Other options").option("--default <tag:string>", "If the name is not found, use this value.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async ({ repo, default: defaultTag, match, exclude }, commitish) => {
+  }).option("--no-match", "Clear and reset the list of match patterns.", {
+    collect: true
+  }).option("--exclude <pattern:string>", "Do not consider tags matching the given glob pattern.", { collect: true }).option("--no-exclude", "Clear and reset the list of exclude patterns.", {
+    collect: true
+  }).group("Options for `gh`").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").group("Other options").option("--default <tag:string>", "If the name is not found, use this value.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async ({ repo, default: defaultTag, match, exclude }, commitish) => {
     try {
       const { describe: describe2 } = await ghDescribe({
         repo,
         commitish,
-        match: match || void 0,
-        exclude: exclude || void 0,
+        match: resolveCollectOption(match),
+        exclude: resolveCollectOption(exclude),
         defaultTag
       });
       console.log(describe2);

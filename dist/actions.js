@@ -23832,6 +23832,21 @@ var require_undici = __commonJS({
   }
 });
 
+// dist/dnt/esm/_dnt.polyfills.js
+if (!Object.hasOwn) {
+  Object.defineProperty(Object, "hasOwn", {
+    value: function(object, property) {
+      if (object == null) {
+        throw new TypeError("Cannot convert undefined or null to object");
+      }
+      return Object.prototype.hasOwnProperty.call(Object(object), property);
+    },
+    configurable: true,
+    enumerable: false,
+    writable: true
+  });
+}
+
 // dist/dnt/esm/_dnt.shims.js
 var import_shim_deno = __toESM(require_dist2(), 1);
 var import_shim_deno2 = __toESM(require_dist2(), 1);
