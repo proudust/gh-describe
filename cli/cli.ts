@@ -12,11 +12,14 @@ export async function ghDescribeCli({ version }: GhDescribeCliArgs) {
     .version(version)
     .description("Emulate `git describe --tags` for shallow clone repositories.")
     .group("Options like `git describe`")
-    .option("--match <pattern...:string>", "Only consider tags matching the given glob pattern.")
+    .option("--match <pattern:string>", "Only consider tags matching the given glob pattern.", {
+      collect: true,
+    })
     .option("--no-match", "Clear and reset the list of match patterns.")
     .option(
-      "--exclude <pattern...:string>",
+      "--exclude <pattern:string>",
       "Do not consider tags matching the given glob pattern.",
+      { collect: true },
     )
     .option("--no-exclude", "Clear and reset the list of exclude patterns.")
     .group("Options for `gh`")
