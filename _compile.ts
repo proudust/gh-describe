@@ -18,6 +18,7 @@ await esbuild({
   external: [
     "jsr:@cliffy/ansi@1.1.0/colors",
     "jsr:@cliffy/command@1.1.0",
+    "jsr:@std/collections@1.1.7",
     "jsr:@std/path@1.1.4",
   ],
 });
