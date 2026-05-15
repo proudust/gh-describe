@@ -1,4 +1,4 @@
-import { debug, getInput, info, setFailed, setOutput } from "npm:@actions/core@3.0.0";
+import { debug, getInput, info, setFailed, setOutput } from "@actions/core";
 import { ghDescribe, GhDescribeError } from "../core/mod.ts";
 
 async function run() {

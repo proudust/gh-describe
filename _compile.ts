@@ -1,5 +1,5 @@
-import $ from "jsr:@david/dax@0.45.0";
-import { build as esbuild } from "https://deno.land/x/esbuild@v0.28.0/mod.js";
+import $ from "@david/dax";
+import { build as esbuild } from "esbuild";
 import { ghDescribe } from "./core/mod.ts";
 
 console.log("$ gh describe");
@@ -16,9 +16,9 @@ await esbuild({
     "globalThis.version": `"${describe}"`,
   },
   external: [
-    "jsr:@cliffy/ansi@1.1.0/colors",
-    "jsr:@cliffy/command@1.1.0",
-    "jsr:@std/path@1.1.4",
+    "@cliffy/ansi",
+    "@cliffy/command",
+    "@std/path",
   ],
 });
 
@@ -32,7 +32,8 @@ for (
 ) {
   console.log(`$ deno compile --target ${target}`);
   const output = `dist/gh-describe-${target}`;
-  const cmd = $`deno compile -q --allow-run -o ${output} --target ${target} ./dist/cli_deno.js`;
+  const cmd =
+    $`deno compile -q --no-check --allow-run -o ${output} --target ${target} ./cli/main.compile.ts`;
   const { code } = await cmd;
   if (code !== 0) {
     throw new Error(`\`deno compile\` exit code is not zero, ExitCode: ${code}`);

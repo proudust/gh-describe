@@ -1,4 +1,4 @@
-import { assertRejects } from "jsr:@std/assert@1.0.19";
+import { assertRejects } from "@std/assert";
 import { fetchSha } from "./fetch_sha.ts";
 import { GhDescribeError } from "./mod.ts";
 

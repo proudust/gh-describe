@@ -1,4 +1,4 @@
-import { globToRegExp } from "jsr:@std/path@1.1.4";
+import { globToRegExp } from "@std/path";
 
 export function toReqExpArray(glob?: string | RegExp | (string | RegExp)[]): RegExp[] {
   if (!glob) {

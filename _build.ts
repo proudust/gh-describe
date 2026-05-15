@@ -1,5 +1,5 @@
-import { build as dnt } from "jsr:@deno/dnt@0.41.3";
-import { build as esbuild } from "https://deno.land/x/esbuild@v0.28.0/mod.js";
+import { build as dnt } from "@deno/dnt";
+import { build as esbuild } from "esbuild";
 import { ghDescribe } from "./core/mod.ts";
 import * as git from "./wrapper/git/mod.ts";
 
@@ -27,6 +27,7 @@ await dnt({
   declaration: false,
   scriptModule: false,
   skipSourceOutput: true,
+  importMap: "deno.jsonc",
   package: {
     name: "gh-describe",
     version: describe,

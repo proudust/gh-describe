@@ -1,4 +1,4 @@
-import { assertEquals, assertInstanceOf, assertStringIncludes } from "jsr:@std/assert@1.0.19";
+import { assertEquals, assertInstanceOf, assertStringIncludes } from "@std/assert";
 import { fetchTags, ListTagsOption } from "./fetch_tags.ts";
 import { GhDescribeError } from "./gh_describe_error.ts";
 
