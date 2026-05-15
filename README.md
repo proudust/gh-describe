@@ -93,21 +93,26 @@ Require [GitHub CLI](https://github.com/cli/cli#installation) and
 [Deno](https://deno.land/#installation).
 
 ```sh
-deno run --allow-run=gh,git https://deno.land/x/gh_describe@v2.2.0/main.ts
+deno run --allow-env --allow-read --allow-run=gh,git https://deno.land/x/gh_describe@v2.2.0/main.ts
 ```
 
 or
 
 ```sh
-deno install --global --name gh-describe --allow-run=gh,git https://deno.land/x/gh_describe@v2.2.0/main.ts
+deno install --global --name gh-describe --allow-env --allow-read --allow-run=gh,git https://deno.land/x/gh_describe@v2.2.0/main.ts
 gh-describe
 ```
+
+> [!NOTE]
+> The `--allow-env` and `--allow-read` flags may become redundant in future versions of Deno.
 
 <details>
 <summary>Required permissions:</summary>
 
 | Permission        | Reason                                                                           |
 | ----------------- | -------------------------------------------------------------------------------- |
+| `--allow-env`     | Required to Deno's `node:child_process` polyfill.                                |
+| `--allow-read`    | Required to Deno's `node:child_process` polyfill.                                |
 | `--allow-run=gh`  | Required to access the GitHub API via the `gh` CLI.                              |
 | `--allow-run=git` | Required to get the remote URL and current commit SHA from the local repository. |
 

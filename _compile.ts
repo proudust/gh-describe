@@ -32,7 +32,8 @@ for (
 ) {
   console.log(`$ deno compile --target ${target}`);
   const output = `dist/gh-describe-${target}`;
-  const cmd = $`deno compile -q --allow-run -o ${output} --target ${target} ./dist/cli_deno.js`;
+  const cmd =
+    $`deno compile -q --allow-env --allow-read --allow-run=gh,git -o ${output} --target ${target} ./dist/cli_deno.js`;
   const { code } = await cmd;
   if (code !== 0) {
     throw new Error(`\`deno compile\` exit code is not zero, ExitCode: ${code}`);
