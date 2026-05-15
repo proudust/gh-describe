@@ -1,24 +1,23 @@
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
+
+const execFileAsync = promisify(execFile);
+
 export async function exec(cmd: "gh" | "git", args: string[]): Promise<string> {
-  let process: Deno.Process | null = null;
   try {
-    // deno-lint-ignore no-deprecated-deno-api
-    process = Deno.run({
-      cmd: [cmd, ...args],
-      stdout: "piped",
-      stderr: "piped",
+    const { stdout } = await execFileAsync(cmd, args, {
+      encoding: "utf8",
+      maxBuffer: Infinity,
     });
-    const [{ code }, stdout, stderr] = await Promise.all([
-      process.status(),
-      process.output(),
-      process.stderrOutput(),
-    ]);
-    if (code === 0) {
-      return (new TextDecoder().decode(stdout)).trim();
-    } else {
-      throw new CliError(cmd, args, code, (new TextDecoder().decode(stderr)).trim());
+    return stdout.trim();
+  } catch (e: unknown) {
+    // execFile error: either exit code (number) or spawn error (string code)
+    if (e && typeof e === "object" && "code" in e) {
+      const code = (e as Record<string, unknown>).code;
+      const stderr = (e as Record<string, unknown>).stderr;
+      throw new CliError(cmd, args, code as number | string, String(stderr).trim());
     }
-  } finally {
-    process?.close();
+    throw e;
   }
 }
 
@@ -40,7 +39,7 @@ export class CliError extends Error {
   constructor(
     public readonly cmd: "gh" | "git",
     public readonly args: readonly string[],
-    public readonly code: number,
+    public readonly code: number | string,
     public readonly stderr: string,
   ) {
     super(

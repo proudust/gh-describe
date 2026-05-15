@@ -15950,7 +15950,7 @@ var require_mock_interceptor = __commonJS({
 var require_mock_client = __commonJS({
   "dist/dnt/node_modules/undici/lib/mock/mock-client.js"(exports2, module2) {
     "use strict";
-    var { promisify } = require("node:util");
+    var { promisify: promisify2 } = require("node:util");
     var Client = require_client();
     var { buildMockDispatch } = require_mock_utils();
     var {
@@ -15990,7 +15990,7 @@ var require_mock_client = __commonJS({
         return new MockInterceptor(opts, this[kDispatches]);
       }
       async [kClose]() {
-        await promisify(this[kOriginalClose])();
+        await promisify2(this[kOriginalClose])();
         this[kConnected] = 0;
         this[kMockAgent][Symbols.kClients].delete(this[kOrigin]);
       }
@@ -16003,7 +16003,7 @@ var require_mock_client = __commonJS({
 var require_mock_pool = __commonJS({
   "dist/dnt/node_modules/undici/lib/mock/mock-pool.js"(exports2, module2) {
     "use strict";
-    var { promisify } = require("node:util");
+    var { promisify: promisify2 } = require("node:util");
     var Pool = require_pool();
     var { buildMockDispatch } = require_mock_utils();
     var {
@@ -16043,7 +16043,7 @@ var require_mock_pool = __commonJS({
         return new MockInterceptor(opts, this[kDispatches]);
       }
       async [kClose]() {
-        await promisify(this[kOriginalClose])();
+        await promisify2(this[kOriginalClose])();
         this[kConnected] = 0;
         this[kMockAgent][Symbols.kClients].delete(this[kOrigin]);
       }
@@ -24389,26 +24389,23 @@ function info(message) {
 }
 
 // dist/dnt/esm/wrapper/exec.js
+var import_node_child_process = require("node:child_process");
+var import_node_util = require("node:util");
+var execFileAsync = (0, import_node_util.promisify)(import_node_child_process.execFile);
 async function exec(cmd, args) {
-  let process2 = null;
   try {
-    process2 = import_shim_deno2.Deno.run({
-      cmd: [cmd, ...args],
-      stdout: "piped",
-      stderr: "piped"
+    const { stdout } = await execFileAsync(cmd, args, {
+      encoding: "utf8",
+      maxBuffer: Infinity
     });
-    const [{ code }, stdout, stderr] = await Promise.all([
-      process2.status(),
-      process2.output(),
-      process2.stderrOutput()
-    ]);
-    if (code === 0) {
-      return new TextDecoder().decode(stdout).trim();
-    } else {
-      throw new CliError(cmd, args, code, new TextDecoder().decode(stderr).trim());
+    return stdout.trim();
+  } catch (e) {
+    if (e && typeof e === "object" && "code" in e) {
+      const code = e.code;
+      const stderr = e.stderr;
+      throw new CliError(cmd, args, code, String(stderr).trim());
     }
-  } finally {
-    process2?.close();
+    throw e;
   }
 }
 async function execWithRetry(cmd, args) {
