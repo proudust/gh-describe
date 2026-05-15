@@ -20,6 +20,7 @@
       "jsr:@std/assert@^0.226.0": "jsr:@std/assert@0.226.0",
       "jsr:@std/bytes@^0.223.0": "jsr:@std/bytes@0.223.0",
       "jsr:@std/bytes@^1.0.6": "jsr:@std/bytes@1.0.6",
+      "jsr:@std/collections@1.1.7": "jsr:@std/collections@1.1.7",
       "jsr:@std/fmt@1": "jsr:@std/fmt@1.0.10",
       "jsr:@std/fmt@^0.223": "jsr:@std/fmt@0.223.0",
       "jsr:@std/fmt@^1.0.9": "jsr:@std/fmt@1.0.10",
@@ -144,6 +145,9 @@
       },
       "@std/bytes@1.0.6": {
         "integrity": "f6ac6adbd8ccd99314045f5703e23af0a68d7f7e58364b47d2c7f408aeb5820a"
+      },
+      "@std/collections@1.1.7": {
+        "integrity": "56f659d011218a69740b12829cf5ea2c9b70bbed0af02597e27dc1eb5e69e208"
       },
       "@std/fmt@0.223.0": {
         "integrity": "6deb37794127dfc7d7bded2586b9fc6f5d50e62a8134846608baf71ffc1a5208"
