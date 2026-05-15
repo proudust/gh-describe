@@ -10,6 +10,7 @@ await esbuild({
   bundle: true,
   entryPoints: ["./cli/main.compile.ts"],
   outfile: "./dist/cli_deno.js",
+  platform: "node",
   format: "esm",
   target: "es2021",
   define: {
