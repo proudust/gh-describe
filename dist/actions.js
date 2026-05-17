@@ -24522,7 +24522,7 @@ async function listTags(options) {
 var GhDescribeError = class extends Error {
 };
 
-// dist/dnt/esm/core/fetch_history.js
+// dist/dnt/esm/gh/fetch_history.js
 async function* fetchHistory({ owner, repo, host, sha }) {
   try {
     const perPage = 100;
@@ -24602,7 +24602,7 @@ async function revParse(options) {
   return await exec("git", args);
 }
 
-// dist/dnt/esm/core/fetch_sha.js
+// dist/dnt/esm/gh/fetch_sha.js
 async function fetchSha(args) {
   const { sha } = args;
   if (sha) {
@@ -24882,7 +24882,7 @@ function toReqExpArray(glob) {
   return glob.map((x) => x instanceof RegExp ? x : globToRegExp3(x));
 }
 
-// dist/dnt/esm/core/fetch_tags.js
+// dist/dnt/esm/gh/fetch_tags.js
 function parseTags(stdout, { match, exclude }) {
   return stdout.split("\n").map((line, index) => [line, index + 1]).filter(([line]) => line).map(([line, lineNumber]) => {
     try {
@@ -24915,7 +24915,7 @@ async function fetchTags({ owner, repo, host, match, exclude, listTagsFn = listT
   return tags;
 }
 
-// dist/dnt/esm/core/fetch_total_commit.js
+// dist/dnt/esm/gh/fetch_total_commit.js
 async function fetchTotalCommit({ owner, repo, host, sha, graphqlFn = graphql }) {
   const stdout = await graphqlFn({ host })`
   query {

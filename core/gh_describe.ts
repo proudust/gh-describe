@@ -1,7 +1,7 @@
-import { fetchHistory } from "./fetch_history.ts";
-import { fetchSha } from "./fetch_sha.ts";
-import { fetchTags } from "./fetch_tags.ts";
-import { fetchTotalCommit } from "./fetch_total_commit.ts";
+import { fetchHistory } from "../gh/fetch_history.ts";
+import { fetchSha } from "../gh/fetch_sha.ts";
+import { fetchTags } from "../gh/fetch_tags.ts";
+import { fetchTotalCommit } from "../gh/fetch_total_commit.ts";
 import { GhDescribeError } from "./gh_describe_error.ts";
 import { resolveRepo } from "./resolve_repo.ts";
 import { searchTag } from "./search_tags.ts";

@@ -1,6 +1,6 @@
 import { assertRejects } from "jsr:@std/assert@1.0.19";
 import { fetchSha } from "./fetch_sha.ts";
-import { GhDescribeError } from "./mod.ts";
+import { GhDescribeError } from "../core/gh_describe_error.ts";
 
 Deno.test("async function fetchSha(args)", async (ctx) => {
   await ctx.step(

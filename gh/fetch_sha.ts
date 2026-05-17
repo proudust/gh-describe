@@ -1,6 +1,6 @@
 import * as gh from "../wrapper/gh/mod.ts";
 import * as git from "../wrapper/git/mod.ts";
-import { GhDescribeError } from "./gh_describe_error.ts";
+import { GhDescribeError } from "../core/gh_describe_error.ts";
 
 interface FetchShaArgs {
   owner: string;

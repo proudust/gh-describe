@@ -1,5 +1,5 @@
 import * as gh from "../wrapper/gh/mod.ts";
-import { GhDescribeError } from "./gh_describe_error.ts";
+import { GhDescribeError } from "../core/gh_describe_error.ts";
 
 interface FetchTotalCommitArgs {
   owner: string;
