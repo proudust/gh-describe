@@ -1,6 +1,6 @@
 import $ from "jsr:@david/dax@0.45.0";
 import { build as esbuild } from "https://deno.land/x/esbuild@v0.28.0/mod.js";
-import { ghDescribe } from "./core/mod.ts";
+import { ghDescribe } from "./gh/gh_describe.ts";
 
 console.log("$ gh describe");
 const { describe } = await ghDescribe();

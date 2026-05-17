@@ -1,6 +1,7 @@
 import { colors } from "jsr:@cliffy/ansi@1.1.0/colors";
 import { Command, EnumType } from "jsr:@cliffy/command@1.1.0";
-import { ghDescribe, GhDescribeError } from "../core/mod.ts";
+import { GhDescribeError } from "../core/mod.ts";
+import { ghDescribe } from "../gh/mod.ts";
 
 interface GhDescribeCliArgs {
   version: string | (() => string);

@@ -1,5 +1,6 @@
 import { debug, getInput, info, setFailed, setOutput } from "npm:@actions/core@3.0.0";
-import { ghDescribe, GhDescribeError } from "../core/mod.ts";
+import { GhDescribeError } from "../core/mod.ts";
+import { ghDescribe } from "../gh/gh_describe.ts";
 
 async function run() {
   const token = getInput("token", { required: true });

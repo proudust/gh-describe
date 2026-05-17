@@ -10738,6 +10738,64 @@ var EnumType = class extends Type {
   }
 };
 
+// dist/dnt/esm/core/gh_describe_error.js
+var GhDescribeError = class extends Error {
+};
+
+// dist/dnt/esm/core/search_tags.js
+async function searchTag(tags, histories) {
+  if (0 < tags.size) {
+    let distance = 0;
+    for await (const commit of histories) {
+      const tag = tags.get(commit);
+      if (tag) {
+        return { tag, distance };
+      } else {
+        distance++;
+      }
+    }
+  }
+  return null;
+}
+
+// dist/dnt/esm/core/gh_describe.js
+function msb(x) {
+  let r = 0;
+  while (x > 1) {
+    x >>= 1;
+    r++;
+  }
+  return r;
+}
+function createDescribe(tag, distance, shortSha) {
+  if (distance === 0) {
+    return tag;
+  } else {
+    return `${tag}-${distance}-g${shortSha}`;
+  }
+}
+async function ghDescribe(options) {
+  const { defaultTag, histories, objectCount, sha, tags } = options;
+  const len = msb(objectCount) + 1;
+  const shortShaChars = Math.max(7, Math.round((len + 1) / 2));
+  const shortSha = sha.substring(0, shortShaChars);
+  const { distance, tag } = await searchTag(tags, histories) || {
+    distance: 0,
+    tag: defaultTag
+  };
+  if (!tag) {
+    throw new GhDescribeError("No names found, cannot describe anything.");
+  }
+  const describe2 = createDescribe(tag, distance, shortSha);
+  return {
+    describe: describe2,
+    tag,
+    distance,
+    sha,
+    shortSha
+  };
+}
+
 // dist/dnt/esm/wrapper/gh/graphql.js
 function createArgs4([template, ...substitutions], { host, jq }) {
   const query = String.raw(template, ...substitutions);
@@ -10800,10 +10858,6 @@ async function listTags(options) {
   const args = createArgs6(options);
   return await execWithRetry("gh", args);
 }
-
-// dist/dnt/esm/core/gh_describe_error.js
-var GhDescribeError = class extends Error {
-};
 
 // dist/dnt/esm/gh/fetch_history.js
 async function* fetchHistory({ owner, repo, host, sha }) {
@@ -11001,74 +11055,33 @@ async function resolveRepo(repo) {
   }
 }
 
-// dist/dnt/esm/core/search_tags.js
-async function searchTag(tags, histories) {
-  if (0 < tags.size) {
-    let distance = 0;
-    for await (const commit of histories) {
-      const tag = tags.get(commit);
-      if (tag) {
-        return { tag, distance };
-      } else {
-        distance++;
-      }
-    }
-  }
-  return null;
-}
-
-// dist/dnt/esm/core/gh_describe.js
-function MSB(x) {
-  let r = 0;
-  while (x > 1) {
-    x >>= 1;
-    r++;
-  }
-  return r;
-}
-function createDescribe(tag, distance, sha, shortShaChars) {
-  if (distance === 0) {
-    return tag;
-  } else {
-    return `${tag}-${distance}-g${sha.substring(0, shortShaChars)}`;
-  }
-}
-async function ghDescribe(options) {
+// dist/dnt/esm/gh/gh_describe.js
+async function ghDescribe2(options) {
   const { commitish, defaultTag, match, exclude } = options ?? {};
   const { owner, repo, host } = await resolveRepo(options?.repo);
-  const [tags, { sha, histories, shortShaChars }] = await Promise.all([
+  const [tags, { sha, histories, commitCount }] = await Promise.all([
     fetchTags({ owner, repo, host, match, exclude }),
     (async () => {
       const sha2 = await fetchSha({ owner, repo, host, sha: commitish });
       const histories2 = fetchHistory({ owner, repo, host, sha: sha2 });
-      const commitCount = await fetchTotalCommit({ owner, repo, host, sha: sha2 });
-      const distance2 = MSB(commitCount) + 1;
-      const shortShaChars2 = Math.max(7, Math.round((distance2 + 1) / 2));
-      return { sha: sha2, histories: histories2, shortShaChars: shortShaChars2 };
+      const commitCount2 = await fetchTotalCommit({ owner, repo, host, sha: sha2 });
+      return { sha: sha2, histories: histories2, commitCount: commitCount2 };
     })()
   ]);
-  const { distance, tag } = await searchTag(tags, histories) || {
-    distance: 0,
-    tag: defaultTag
-  };
-  if (!tag) {
-    throw new GhDescribeError("No names found, cannot describe anything.");
-  }
-  const describe2 = createDescribe(tag, distance, sha, shortShaChars);
-  return {
-    describe: describe2,
-    tag,
-    distance,
+  return await ghDescribe({
+    defaultTag,
+    histories,
+    objectCount: commitCount,
     sha,
-    shortSha: sha.substring(0, shortShaChars)
-  };
+    tags
+  });
 }
 
 // dist/dnt/esm/cli/cli.js
 async function ghDescribeCli({ version: version2 }) {
   return await new Command().name("gh-describe").version(version2).description("Emulate `git describe --tags` for shallow clone repositories.").group("Options like `git describe`").option("--match <pattern...:string>", "Only consider tags matching the given glob pattern.").option("--no-match", "Clear and reset the list of match patterns.").option("--exclude <pattern...:string>", "Do not consider tags matching the given glob pattern.").option("--no-exclude", "Clear and reset the list of exclude patterns.").group("Options for `gh`").option("-R, --repo <repo>", "Target repository. Format: OWNER/REPO").group("Other options").option("--default <tag:string>", "If the name is not found, use this value.").type("runtime", new EnumType(["deno", "node"])).option("--runtime <runtime:runtime>", "If installed by `gh extension install`, can specify the execution runtime.").arguments("[commit-ish]").action(async ({ repo, default: defaultTag, match, exclude }, commitish) => {
     try {
-      const { describe: describe2 } = await ghDescribe({
+      const { describe: describe2 } = await ghDescribe2({
         repo,
         commitish,
         match: match || void 0,
