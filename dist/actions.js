@@ -25403,20 +25403,18 @@ function toReqExpArray(glob) {
 }
 
 // dist/dnt/esm/core/fetch_tags.js
-function parseTags(stdout, { match, exclude }) {
+function parseTags(stdout) {
   return stdout.split("\n").map((line, index) => [line, index + 1]).filter(([line]) => line).map(([line, lineNumber]) => {
     try {
       return JSON.parse(line);
     } catch (error2) {
       throw new GhDescribeError(`Failed to parse tag at line ${lineNumber}: ${line}`, { cause: error2 });
     }
-  }).filter(([, tag]) => (!match.length || match.some((y) => y.test(tag))) && (!exclude.length || !exclude.some((y) => y.test(tag))));
+  });
 }
 async function fetchTags({ owner, repo, host, match, exclude, listTagsFn = listTags }) {
-  const context = {
-    match: toReqExpArray(match),
-    exclude: toReqExpArray(exclude)
-  };
+  const matchArray = toReqExpArray(match);
+  const excludeArray = toReqExpArray(exclude);
   const tags = /* @__PURE__ */ new Map();
   const perPage = 100;
   const jq = ".[] | [.commit.sha, .name]";
@@ -25425,9 +25423,9 @@ async function fetchTags({ owner, repo, host, match, exclude, listTagsFn = listT
   do {
     page++;
     const stdout = await listTagsFn({ owner, repo, perPage, page, host, jq });
-    tuples = parseTags(stdout, context);
+    tuples = parseTags(stdout);
     for (const [sha, name] of tuples) {
-      if (!tags.has(sha)) {
+      if ((!matchArray.length || matchArray.some((y) => y.test(name))) && (!excludeArray.length || !excludeArray.some((y) => y.test(name))) && !tags.has(sha)) {
         tags.set(sha, name);
       }
     }

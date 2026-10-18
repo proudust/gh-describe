@@ -74,6 +74,48 @@ Deno.test("async function fetchTags(args)", async (ctx) => {
   );
 
   await ctx.step(
+    "#123: Tag pagination stops early if match/exclude filters any tag",
+    async () => {
+      let callCount = 0;
+
+      const mockListTags = (options: ListTagsOption) => {
+        callCount++;
+
+        if (options.page === 1) {
+          // Repository has >100 tags.
+          // match/exclude filters out ≥1 tag on page 1.
+          const tags = Array.from({ length: 100 }, (_, i) => ({
+            commit: { sha: `sha_p1_${i}` },
+            name: i === 0 ? "release-0" : `v1.${i}`,
+          }));
+          return tags.map((tag) => JSON.stringify([tag.commit.sha, tag.name]))
+            .join("\n");
+        }
+
+        if (options.page === 2) {
+          const tags = [{ commit: { sha: "sha_p2_0" }, name: "v1.100" }];
+          return tags.map((tag) => JSON.stringify([tag.commit.sha, tag.name]))
+            .join("\n");
+        }
+
+        return "";
+      };
+
+      const result = await fetchTags({
+        owner: "test",
+        repo: "repo",
+        match: "v1.*",
+        listTagsFn: mockListTags,
+      });
+
+      // Page 2 returns <100, so pagination stops after page 2 (no page 3 needed).
+      assertEquals(callCount, 2);
+      // 99 matching from page 1 + 1 from page 2 = 100.
+      assertEquals(result.size, 100);
+    },
+  );
+
+  await ctx.step(
     "Invalid JSON in JSONL response throws GhDescribeError with cause",
     async () => {
       const mockListTags = (): string => {

@@ -9,7 +9,7 @@ interface FetchTagsContext {
   exclude: RegExp[];
 }
 
-function parseTags(stdout: string, { match, exclude }: FetchTagsContext): TagTuple[] {
+function parseTags(stdout: string): TagTuple[] {
   return stdout.split("\n")
     .map((line, index) => [line, index + 1] as [string, number])
     .filter(([line]) => line)
@@ -22,11 +22,7 @@ function parseTags(stdout: string, { match, exclude }: FetchTagsContext): TagTup
           { cause: error },
         );
       }
-    })
-    .filter(([, tag]) =>
-      (!match.length || match.some((y) => y.test(tag))) &&
-      (!exclude.length || !exclude.some((y) => y.test(tag)))
-    );
+    });
 }
 
 export type ListTagsOption = gh.ListTagsOption;
@@ -52,10 +48,8 @@ export async function fetchTags(
     listTagsFn = gh.listTags,
   }: FetchTagsArgs,
 ): Promise<Tags> {
-  const context = {
-    match: toReqExpArray(match),
-    exclude: toReqExpArray(exclude),
-  };
+  const matchArray = toReqExpArray(match);
+  const excludeArray = toReqExpArray(exclude);
 
   // GitHub API returns tags in newest-first order.
   // When multiple tags point to the same commit, keep the first (newest) one.
@@ -67,9 +61,13 @@ export async function fetchTags(
   do {
     page++;
     const stdout = await listTagsFn({ owner, repo, perPage, page, host, jq });
-    tuples = parseTags(stdout, context);
+    tuples = parseTags(stdout);
     for (const [sha, name] of tuples) {
-      if (!tags.has(sha)) {
+      if (
+        (!matchArray.length || matchArray.some((y) => y.test(name))) &&
+        (!excludeArray.length || !excludeArray.some((y) => y.test(name))) &&
+        !tags.has(sha)
+      ) {
         tags.set(sha, name);
       }
     }
