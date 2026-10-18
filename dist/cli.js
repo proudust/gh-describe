@@ -5141,14 +5141,19 @@ function createMergeProxy(baseObj, extObj) {
   });
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.13/_os.js
+// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.14/_os.js
 function checkWindows() {
   const global = dntGlobalThis;
+  const platform = global.process?.platform;
+  if (typeof platform === "string")
+    return platform.startsWith("win");
   const os = global.Deno?.build?.os;
-  return typeof os === "string" ? os === "windows" : global.navigator?.platform?.startsWith("Win") ?? global.process?.platform?.startsWith("win") ?? false;
+  if (typeof os === "string")
+    return os === "windows";
+  return global.navigator?.platform?.startsWith("Win") ?? false;
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.13/os.js
+// dist/dnt/esm/deps/jsr.io/@std/internal/1.0.14/os.js
 var isWindows = checkWindows();
 
 // dist/dnt/esm/deps/jsr.io/@std/path/1.1.4/_common/assert_path.js
@@ -5986,7 +5991,7 @@ function getArgs() {
   return Deno4?.args ?? Bun?.argv.slice(2) ?? process2?.argv.slice(2) ?? [];
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/text/1.0.18/levenshtein_distance.js
+// dist/dnt/esm/deps/jsr.io/@std/text/1.1.0/levenshtein_distance.js
 var { ceil } = Math;
 var peq = new Uint32Array(1114112);
 function myers32(t, p) {
@@ -6086,7 +6091,7 @@ function levenshteinDistance(str1, str2) {
   return p.length <= 32 ? myers32(t, p) : myersX(t, p);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/text/1.0.18/closest_string.js
+// dist/dnt/esm/deps/jsr.io/@std/text/1.1.0/closest_string.js
 function closestString(givenWord, possibleWords, options) {
   if (possibleWords.length === 0) {
     throw new TypeError("When using closestString(), the possibleWords array must contain at least one word");
