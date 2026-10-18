@@ -25067,10 +25067,10 @@ async function* fetchHistory({ owner, repo, host, sha }) {
 }
 
 // dist/dnt/esm/wrapper/git/list_remotes.js
-function createArgs4({ cwd }) {
+function createArgs4({ cwd: cwd2 }) {
   const args = [];
-  if (cwd)
-    args.push("-C", cwd);
+  if (cwd2)
+    args.push("-C", cwd2);
   args.push("remote", "-v");
   return args;
 }
@@ -25109,10 +25109,10 @@ async function listRemotes(options = {}) {
 }
 
 // dist/dnt/esm/wrapper/git/rev_parse.js
-function createArgs5({ arg, cwd }) {
+function createArgs5({ arg, cwd: cwd2 }) {
   const args = [];
-  if (cwd)
-    args.push("-C", cwd);
+  if (cwd2)
+    args.push("-C", cwd2);
   args.push("rev-parse", arg);
   return args;
 }
@@ -25152,7 +25152,7 @@ function checkWindows() {
 // dist/dnt/esm/deps/jsr.io/@std/internal/1.0.14/os.js
 var isWindows = checkWindows();
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.1.4/_common/glob_to_reg_exp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.6/_common/glob_to_reg_exp.js
 var REG_EXP_ESCAPE_CHARS = [
   "!",
   "$",
@@ -25364,7 +25364,7 @@ function _globToRegExp(c, glob, {
   return new RegExp(regExpString, caseInsensitive ? "i" : "");
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.1.4/posix/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.6/posix/glob_to_regexp.js
 var constants3 = {
   sep: "/+",
   sepMaybe: "/*",
@@ -25377,7 +25377,7 @@ function globToRegExp(glob, options = {}) {
   return _globToRegExp(constants3, glob, options);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.1.4/windows/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.6/windows/glob_to_regexp.js
 var constants4 = {
   sep: "(?:\\\\|/)+",
   sepMaybe: "(?:\\\\|/)*",
@@ -25390,7 +25390,7 @@ function globToRegExp2(glob, options = {}) {
   return _globToRegExp(constants4, glob, options);
 }
 
-// dist/dnt/esm/deps/jsr.io/@std/path/1.1.4/glob_to_regexp.js
+// dist/dnt/esm/deps/jsr.io/@std/path/1.1.6/glob_to_regexp.js
 function globToRegExp3(glob, options = {}) {
   return isWindows ? globToRegExp2(glob, options) : globToRegExp(glob, options);
 }
