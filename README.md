@@ -93,13 +93,13 @@ Require [GitHub CLI](https://github.com/cli/cli#installation) and
 [Deno](https://deno.land/#installation).
 
 ```sh
-deno run --allow-run=gh,git https://deno.land/x/gh_describe@v2.2.0/main.ts
+deno run --allow-run=gh,git https://deno.land/x/gh_describe@v2.2.1/main.ts
 ```
 
 or
 
 ```sh
-deno install --global --name gh-describe --allow-run=gh,git https://deno.land/x/gh_describe@v2.2.0/main.ts
+deno install --global --name gh-describe --allow-run=gh,git https://deno.land/x/gh_describe@v2.2.1/main.ts
 gh-describe
 ```
 
@@ -137,7 +137,7 @@ Mac or Linux:
 ```sh
 $ gh describe --help
   Usage:   gh-describe [commit-ish]
-  Version: v2.2.0
+  Version: v2.2.1
 
   Description:
 
