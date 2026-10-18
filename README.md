@@ -150,10 +150,10 @@ $ gh describe --help
 
   Options like `git describe`:
 
-    --match       <pattern...>  - Only consider tags matching the given glob pattern.
-    --no-match                  - Clear and reset the list of match patterns.
-    --exclude     <pattern...>  - Do not consider tags matching the given glob pattern.
-    --no-exclude                - Clear and reset the list of exclude patterns.
+    --match       <pattern>  - Only consider tags matching the given glob pattern.
+    --no-match               - Clear and reset the list of match patterns.
+    --exclude     <pattern>  - Do not consider tags matching the given glob pattern.
+    --no-exclude             - Clear and reset the list of exclude patterns.
 
   Options for `gh`:
 
