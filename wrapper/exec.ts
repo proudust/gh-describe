@@ -6,6 +6,9 @@ export async function exec(cmd: "gh" | "git", args: string[]): Promise<string> {
       cmd: [cmd, ...args],
       stdout: "piped",
       stderr: "piped",
+      env: {
+        CLICOLOR_FORCE: "0", // #92
+      },
     });
     const [{ code }, stdout, stderr] = await Promise.all([
       process.status(),

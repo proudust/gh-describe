@@ -5593,7 +5593,11 @@ async function exec(cmd, args) {
     process2 = import_shim_deno2.Deno.run({
       cmd: [cmd, ...args],
       stdout: "piped",
-      stderr: "piped"
+      stderr: "piped",
+      env: {
+        CLICOLOR_FORCE: "0"
+        // #92
+      }
     });
     const [{ code: code2 }, stdout, stderr] = await Promise.all([
       process2.status(),
